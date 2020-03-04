@@ -1,0 +1,358 @@
+@prefix : <http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5> .
+
+<http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5> rdf:type owl:Ontology .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#PussuiFicheiro
+:PussuiFicheiro rdf:type owl:ObjectProperty ;
+                owl:inverseOf :guardadoEm ;
+                rdfs:domain :Ano ,
+                            :Cadeira ,
+                            :Curso ,
+                            :Grupo ,
+                            :Mensagem ,
+                            :Publicacao ;
+                rdfs:range :Ficheiro .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#administra
+:administra rdf:type owl:ObjectProperty ;
+            owl:inverseOf :éAdministradoPor ;
+            rdfs:domain :Admin ;
+            rdfs:range :Ano ,
+                       :Cadeira ,
+                       :Curso ,
+                       :Grupo .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#comenta
+:comenta rdf:type owl:ObjectProperty ;
+         owl:inverseOf :éComentadoPor ;
+         rdfs:domain :Admin ,
+                     :Aluno ,
+                     :Responsavel ;
+         rdfs:range :Comentario .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#comentadoEm
+:comentadoEm rdf:type owl:ObjectProperty ;
+             owl:inverseOf :possuiComentario .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#envia
+:envia rdf:type owl:ObjectProperty ;
+       owl:inverseOf :éEnviada ;
+       rdfs:domain :Admin ,
+                   :Aluno ,
+                   :Responsavel ;
+       rdfs:range :Mensagem .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#fazParteCurso
+:fazParteCurso rdf:type owl:ObjectProperty ;
+               owl:inverseOf :pussuiAno .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#frequenta
+:frequenta rdf:type owl:ObjectProperty ;
+           owl:inverseOf :éFrequentadoPor ;
+           rdfs:domain :Admin ,
+                       :Aluno ,
+                       :Responsavel ;
+           rdfs:range :Ano ,
+                      :Cadeira ,
+                      :Curso ,
+                      :Grupo .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#gere
+:gere rdf:type owl:ObjectProperty ;
+      owl:inverseOf :éGeridoPor ;
+      rdfs:domain :Responsavel ;
+      rdfs:range :Ano .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#guardadoEm
+:guardadoEm rdf:type owl:ObjectProperty ;
+            rdfs:domain :Ficheiro ;
+            rdfs:range :Mensagem ,
+                       :Publicacao .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#leciona
+:leciona rdf:type owl:ObjectProperty ;
+         owl:inverseOf :éLecionadaEm ;
+         rdfs:domain :Ano ;
+         rdfs:range :Cadeira .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#participa
+:participa rdf:type owl:ObjectProperty ;
+           owl:inverseOf :pussuiParticipantes ;
+           rdfs:domain :Admin ,
+                       :Aluno ,
+                       :Responsavel ;
+           rdfs:range :Conversa .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#pertence
+:pertence rdf:type owl:ObjectProperty ;
+          owl:inverseOf :pussuiMensagem ;
+          rdfs:domain :Mensagem ;
+          rdfs:range :Conversa .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#possuiComentario
+:possuiComentario rdf:type owl:ObjectProperty ;
+                  rdfs:domain :Publicacao ;
+                  rdfs:range :Comentario .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#publica
+:publica rdf:type owl:ObjectProperty ;
+         owl:inverseOf :éPublicadoPor ;
+         rdfs:domain :Admin ,
+                     :Aluno ,
+                     :Responsavel ;
+         rdfs:range :Publicacao .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#pussuiAno
+:pussuiAno rdf:type owl:ObjectProperty ;
+           rdfs:domain :Curso ;
+           rdfs:range :Ano .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#pussuiMensagem
+:pussuiMensagem rdf:type owl:ObjectProperty .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#pussuiParticipantes
+:pussuiParticipantes rdf:type owl:ObjectProperty .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#pussuiPublicacao
+:pussuiPublicacao rdf:type owl:ObjectProperty ;
+                  owl:inverseOf :éPublicadaEm ;
+                  rdfs:domain :Ano ,
+                              :Cadeira ,
+                              :Curso ,
+                              :Grupo ;
+                  rdfs:range :Publicacao .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#éAdministradoPor
+:éAdministradoPor rdf:type owl:ObjectProperty .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#éComentadoPor
+:éComentadoPor rdf:type owl:ObjectProperty .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#éEnviada
+:éEnviada rdf:type owl:ObjectProperty .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#éFrequentadoPor
+:éFrequentadoPor rdf:type owl:ObjectProperty .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#éGeridoPor
+:éGeridoPor rdf:type owl:ObjectProperty .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#éLecionadaEm
+:éLecionadaEm rdf:type owl:ObjectProperty .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#éPublicadaEm
+:éPublicadaEm rdf:type owl:ObjectProperty .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#éPublicadoPor
+:éPublicadoPor rdf:type owl:ObjectProperty .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#conteudo
+:conteudo rdf:type owl:DatatypeProperty .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#curso
+:curso rdf:type owl:DatatypeProperty .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#data
+:data rdf:type owl:DatatypeProperty .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#dataNasc
+:dataNasc rdf:type owl:DatatypeProperty .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#email
+:email rdf:type owl:DatatypeProperty .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#nome
+:nome rdf:type owl:DatatypeProperty .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#numAluno
+:numAluno rdf:type owl:DatatypeProperty .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#numTelemovel
+:numTelemovel rdf:type owl:DatatypeProperty .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#pass
+:pass rdf:type owl:DatatypeProperty .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#path
+:path rdf:type owl:DatatypeProperty ;
+      rdfs:subPropertyOf owl:topDataProperty .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#sexo
+:sexo rdf:type owl:DatatypeProperty .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#tags
+:tags rdf:type owl:DatatypeProperty .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#Admin
+:Admin rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#Aluno
+:Aluno rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#Ano
+:Ano rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#Cadeira
+:Cadeira rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#Comentario
+:Comentario rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#Conversa
+:Conversa rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#Curso
+:Curso rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#Ficheiro
+:Ficheiro rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#Grupo
+:Grupo rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#Mensagem
+:Mensagem rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#Notificacao
+:Notificacao rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#Publicacao
+:Publicacao rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#Responsavel
+:Responsavel rdf:type owl:Class .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#Braga
+:Braga rdf:type owl:NamedIndividual ;
+       :nome "Braga" .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#Calculo
+:Calculo rdf:type owl:NamedIndividual ;
+         :nome "Calculo" .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#Conversa_Braga_Luis
+:Conversa_Braga_Luis rdf:type owl:NamedIndividual ;
+                     :nome "Conversa_Braga_Luis" .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#ENEI
+:ENEI rdf:type owl:NamedIndividual ;
+      :nome "ENEI" .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#Ficheiro01
+:Ficheiro01 rdf:type owl:NamedIndividual ;
+            :nome "relatorio.pdf" ;
+            :path "ofeo/fef/" .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#Luis
+:Luis rdf:type owl:NamedIndividual ;
+      :dataNasc "04/02/1993" ;
+      :email "luis@gmail.com" ;
+      :nome "Luis" ;
+      :numAluno "a83902" ;
+      :numTelemovel 12323233 ;
+      :pass "passexemplo" ;
+      :sexo "M" .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#MIEI
+:MIEI rdf:type owl:NamedIndividual ;
+      :nome "MIEI" .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#Mensagem01
+:Mensagem01 rdf:type owl:NamedIndividual ;
+            :conteudo "Bom dia!" .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#publicacao01
+:publicacao01 rdf:type owl:NamedIndividual ;
+              :conteudo """Bom dia!
+Alguém tem apontamentos?""" ;
+              :data "19/11/2019" ;
+              :tags "#estudar" .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#1_Ano_Miei
+<http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#1_Ano_Miei> rdf:type owl:NamedIndividual ;
+                                                                                    :nome "Primeiro Ano" .
+
+
+###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi

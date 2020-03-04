@@ -60,9 +60,10 @@ export default {
         { title: 'Universidade', icon: 'mdi-view-dashboard',href:"/universidade" },
         { title: 'Meu Curso', icon: 'mdi-image', href:"/curso" },
         { title: 'Meus Eventos', icon: 'mdi-image', href:"/eventos" },
-        { title: 'Meu Perfil', icon: 'mdi-image', href:"/perfil" },
+        { title: 'Meu Perfil', icon: 'mdi-image', href:"/userProfile" },
+        { title: 'Notificações', icon: 'mdi-image', href:"/notificacoes" },
         { title: 'Grupos-DevelopMode', icon: 'mdi-image', href:"/grupos" },
-        { title: 'Users-DevelopMode', icon: 'mdi-image', href:"/users" },
+        { title: 'Users-DevelopMode', icon: 'mdi-logout', href:"/users" },
       ],
       color: '#900000',
       colors: [

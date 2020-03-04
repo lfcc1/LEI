@@ -2,8 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Users from '../views/Users.vue'
 import User from '../views/User.vue'
-import Home from '../views/Home.vue'
 import Grupos from '../views/Grupos.vue'
+import UserProfile from '../views/UserProfile.vue'
 import Grupo from '../views/Grupo.vue'
 
 Vue.use(VueRouter)
@@ -12,7 +12,12 @@ const routes = [
   {
     path: '/',
     name: 'lista',
-    component: Home
+    component: Users
+  },
+  {
+    path: '/userProfile',
+    name: 'userProfile',
+    component: UserProfile
   },
   {
     path: '/users',
