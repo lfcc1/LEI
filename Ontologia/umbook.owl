@@ -187,52 +187,77 @@
 #################################################################
 
 ###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#conteudo
-:conteudo rdf:type owl:DatatypeProperty .
-
-
-###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#curso
-:curso rdf:type owl:DatatypeProperty .
+:conteudo rdf:type owl:DatatypeProperty ;
+          rdfs:domain :Comentario ,
+                      :Mensagem ,
+                      :Publicacao .
 
 
 ###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#data
-:data rdf:type owl:DatatypeProperty .
+:data rdf:type owl:DatatypeProperty ;
+      rdfs:domain :Comentario ,
+                  :Mensagem ,
+                  :Publicacao .
 
 
 ###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#dataNasc
-:dataNasc rdf:type owl:DatatypeProperty .
-
-
-###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#email
-:email rdf:type owl:DatatypeProperty .
+:dataNasc rdf:type owl:DatatypeProperty ;
+          rdfs:domain :Admin ,
+                      :Aluno ,
+                      :Responsavel .
 
 
 ###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#nome
-:nome rdf:type owl:DatatypeProperty .
+:nome rdf:type owl:DatatypeProperty ;
+      rdfs:domain :Ficheiro .
 
 
 ###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#numAluno
-:numAluno rdf:type owl:DatatypeProperty .
+:numAluno rdf:type owl:DatatypeProperty ;
+          rdfs:domain :Admin ,
+                      :Aluno ,
+                      :Responsavel .
 
 
 ###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#numTelemovel
-:numTelemovel rdf:type owl:DatatypeProperty .
+:numTelemovel rdf:type owl:DatatypeProperty ;
+              rdfs:domain :Admin ,
+                          :Aluno ,
+                          :Responsavel .
 
 
 ###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#pass
-:pass rdf:type owl:DatatypeProperty .
+:pass rdf:type owl:DatatypeProperty ;
+      rdfs:domain :Admin ,
+                  :Aluno ,
+                  :Responsavel .
 
 
 ###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#path
 :path rdf:type owl:DatatypeProperty ;
-      rdfs:subPropertyOf owl:topDataProperty .
+      rdfs:subPropertyOf owl:topDataProperty ;
+      rdfs:domain :Ficheiro .
 
 
 ###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#sexo
-:sexo rdf:type owl:DatatypeProperty .
+:sexo rdf:type owl:DatatypeProperty ;
+      rdfs:domain :Admin ,
+                  :Aluno ,
+                  :Responsavel .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#size
+:size rdf:type owl:DatatypeProperty ;
+      rdfs:domain :Ficheiro .
 
 
 ###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#tags
 :tags rdf:type owl:DatatypeProperty .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#type
+:type rdf:type owl:DatatypeProperty ;
+      rdfs:domain :Ficheiro .
 
 
 #################################################################
@@ -324,7 +349,6 @@
 ###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#Luis
 :Luis rdf:type owl:NamedIndividual ;
       :dataNasc "04/02/1993" ;
-      :email "luis@gmail.com" ;
       :nome "Luis" ;
       :numAluno "a83902" ;
       :numTelemovel 12323233 ;
