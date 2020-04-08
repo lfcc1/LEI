@@ -320,63 +320,194 @@
 #    Individuals
 #################################################################
 
-###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#Braga
-:Braga rdf:type owl:NamedIndividual ;
-       :nome "Braga" .
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#Algebra_Linear
+:Algebra_Linear rdf:type owl:NamedIndividual ,
+                         :Cadeira .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#Analise
+:Analise rdf:type owl:NamedIndividual ,
+                  :Cadeira .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#Arquitetura_Computadores
+:Arquitetura_Computadores rdf:type owl:NamedIndividual ,
+                                   :Cadeira .
 
 
 ###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#Calculo
-:Calculo rdf:type owl:NamedIndividual ;
-         :nome "Calculo" .
+:Calculo rdf:type owl:NamedIndividual ,
+                  :Cadeira .
 
 
-###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#Conversa_Braga_Luis
-:Conversa_Braga_Luis rdf:type owl:NamedIndividual ;
-                     :nome "Conversa_Braga_Luis" .
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#Calculo_Programas
+:Calculo_Programas rdf:type owl:NamedIndividual ,
+                            :Cadeira .
 
 
-###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#ENEI
-:ENEI rdf:type owl:NamedIndividual ;
-      :nome "ENEI" .
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#Comunicacao_Dados
+:Comunicacao_Dados rdf:type owl:NamedIndividual ,
+                            :Cadeira .
 
 
-###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#Ficheiro01
-:Ficheiro01 rdf:type owl:NamedIndividual ;
-            :nome "relatorio.pdf" ;
-            :path "ofeo/fef/" .
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#EES
+:EES rdf:type owl:NamedIndividual ,
+              :Cadeira .
 
 
-###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#Luis
-:Luis rdf:type owl:NamedIndividual ;
-      :dataNasc "04/02/1993" ;
-      :nome "Luis" ;
-      :numAluno "a83902" ;
-      :numTelemovel 12323233 ;
-      :pass "passexemplo" ;
-      :sexo "M" .
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#Eletromagnetismo
+:Eletromagnetismo rdf:type owl:NamedIndividual ,
+                           :Cadeira .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#Engenharia_Economica
+:Engenharia_Economica rdf:type owl:NamedIndividual ,
+                               :Cadeira .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#Estatistica_Aplicada
+:Estatistica_Aplicada rdf:type owl:NamedIndividual ,
+                               :Cadeira .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#ISD
+:ISD rdf:type owl:NamedIndividual ,
+              :Cadeira .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#LI1
+:LI1 rdf:type owl:NamedIndividual ,
+              :Cadeira .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#LI2
+:LI2 rdf:type owl:NamedIndividual ,
+              :Cadeira .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#LI3
+:LI3 rdf:type owl:NamedIndividual ,
+              :Cadeira .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#Logica
+:Logica rdf:type owl:NamedIndividual ,
+                 :Cadeira .
 
 
 ###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#MIEI
-:MIEI rdf:type owl:NamedIndividual ;
-      :nome "MIEI" .
+:MIEI rdf:type owl:NamedIndividual ,
+               :Curso ;
+      :pussuiAno :Primeiro_Ano ,
+                 :Segundo_Ano .
 
 
-###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#Mensagem01
-:Mensagem01 rdf:type owl:NamedIndividual ;
-            :conteudo "Bom dia!" .
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#POO
+:POO rdf:type owl:NamedIndividual ,
+              :Cadeira .
 
 
-###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#publicacao01
-:publicacao01 rdf:type owl:NamedIndividual ;
-              :conteudo """Bom dia!
-Alguém tem apontamentos?""" ;
-              :data "19/11/2019" ;
-              :tags "#estudar" .
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#Primeiro_Ano
+:Primeiro_Ano rdf:type owl:NamedIndividual ,
+                       :Ano ;
+              :leciona :Algebra_Linear ,
+                       :Analise ,
+                       :Calculo ,
+                       :EES ,
+                       :LI1 ,
+                       :LI2 ,
+                       :Logica ,
+                       :Programacao_Funcional ,
+                       :Programacao_Imperativa ,
+                       :Sistemas_Computacao ,
+                       :TFM ,
+                       :TMD .
 
 
-###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#1_Ano_Miei
-<http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#1_Ano_Miei> rdf:type owl:NamedIndividual ;
-                                                                                    :nome "Primeiro Ano" .
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#Programacao_Funcional
+:Programacao_Funcional rdf:type owl:NamedIndividual ,
+                                :Cadeira .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#Programacao_Imperativa
+:Programacao_Imperativa rdf:type owl:NamedIndividual ,
+                                 :Cadeira .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#Segundo_Ano
+:Segundo_Ano rdf:type owl:NamedIndividual ,
+                      :Ano ;
+             :leciona :Arquitetura_Computadores ,
+                      :Calculo_Programas ,
+                      :Comunicacao_Dados ,
+                      :Eletromagnetismo ,
+                      :Engenharia_Economica ,
+                      :Estatistica_Aplicada ,
+                      :ISD ,
+                      :LI3 ,
+                      :POO ,
+                      :Sistemas_Operativos ,
+                      <http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#Algortimos&Complexidade> .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#Sistemas_Computacao
+:Sistemas_Computacao rdf:type owl:NamedIndividual ,
+                              :Cadeira .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#Sistemas_Operativos
+:Sistemas_Operativos rdf:type owl:NamedIndividual ,
+                              :Cadeira .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#TFM
+:TFM rdf:type owl:NamedIndividual ,
+              :Cadeira .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#TMD
+:TMD rdf:type owl:NamedIndividual ,
+              :Cadeira .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#admin01
+:admin01 rdf:type owl:NamedIndividual ,
+                  :Admin ;
+         :dataNasc ""^^xsd:string ;
+         :nome "Admin"^^xsd:string ;
+         :numAluno "Desconhecido"^^xsd:string ;
+         :numTelemovel "933333333"^^xsd:string ;
+         :pass "Admin"^^xsd:string ;
+         :sexo "Desconhecido"^^xsd:string .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#Algortimos&Complexidade
+<http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#Algortimos&Complexidade> rdf:type owl:NamedIndividual ,
+                                                                                                          :Cadeira .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#a82088@alunos.uminho.pt
+<http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#a82088@alunos.uminho.pt> rdf:type owl:NamedIndividual ,
+                                                                                                          :Aluno ;
+                                                                                                 :frequenta :Primeiro_Ano ;
+                                                                                                 :dataNasc "14-02-1998"^^xsd:string ;
+                                                                                                 :nome "Luís Braga"^^xsd:string ;
+                                                                                                 :numAluno "a82088"^^xsd:string ;
+                                                                                                 :numTelemovel "930405069"^^xsd:string ;
+                                                                                                 :pass "BragaMen"^^xsd:string ;
+                                                                                                 :sexo "Masculino"^^xsd:string .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#lguilhermem@hotmail.com
+<http://www.semanticweb.org/filip/ontologies/2020/1/untitled-ontology-5#lguilhermem@hotmail.com> rdf:type owl:NamedIndividual ,
+                                                                                                          :Aluno ;
+                                                                                                 :frequenta :Primeiro_Ano ;
+                                                                                                 :dataNasc "15-10-1998"^^xsd:string ;
+                                                                                                 :nome "Luís Martins"^^xsd:string ;
+                                                                                                 :numAluno "a82298"^^xsd:string ;
+                                                                                                 :numTelemovel "930492785"^^xsd:string ;
+                                                                                                 :pass "12345678"^^xsd:string ;
+                                                                                                 :sexo "Masculino"^^xsd:string .
 
 
 ###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
