@@ -9,7 +9,7 @@ Publicacao.getPublicacao = async function (idPublicacao){
     var comentarios = await Publicacao.getComentariosFromPublicacao(idPublicacao)
     
     var publicacao = {
-        info = info,
+        info : info,
         ficheiros : ficheiros,
         comentarios : comentarios
     }

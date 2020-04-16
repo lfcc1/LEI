@@ -6,6 +6,7 @@ var Ano = require('../controllers/ano')
 var Cadeira = require('../controllers/cadeira')
 
 var Utilizador = require('../controllers/utilizador')
+var Ficheiro = require('../controllers/ficheiro')
 // -------------------------------------------------------------- GET ---------------------------------------------------------------------
 
 // ------------------------------------------------------------ Cursos -------------------------------------------------------------------
@@ -105,10 +106,40 @@ router.get('/cadeiras/:idCadeira/responsaveis', function(req, res, next){
 // ---------------------------------------- Utilizador ------------------------
 
 router.get('/utilizador/:id', function(req, res, next){
-  Utilizador
+  Utilizador.getUtilizadorAtomica(req.params.id)
+    .then(dados => res.jsonp(dados))
+    .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
 })
 
+// ---------------------------------------- Ficheiro ------------------------
 
+router.get('/ficheiros', function(req, res, next){
+  Ficheiro.getFicheiros()
+    .then(dados => res.jsonp(dados))
+    .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
+})
 
+router.get('/ficheiros/:idFicheiro', function(req, res, next){
+  Ficheiro.getFicheiroAtomica(req.params.idFicheiro)
+     .then(dados => res.jsonp(dados))
+     .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
+})
+
+router.get('/ficheiros/:idFicheiro/download', function(req, res, next){
+  Ficheiro.getFicheiroPath(req.params.idFicheiro)
+    .then(dados => {
+      res.download(dados[0].localizacao)
+    })
+    .catch(erro => res.status(500).jsonp(erro))
+})
+
+router.post('/ficheiros', function(req, res){
+  //console.log(req.files)
+  console.log(req)
+  Ficheiro.insereFicheiro(req.body)
+  .then(dados => res.jsonp(dados))
+  .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
+
+})
 
 module.exports = router;

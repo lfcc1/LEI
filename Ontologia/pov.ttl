@@ -534,6 +534,37 @@
          :sexo "Desconhecido"^^xsd:string .
 
 
+###  http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#ficheiro001
+:ficheiro001 rdf:type owl:NamedIndividual ,
+                      :Ficheiro ;
+             :guardadoEm :publicacao001 ;
+             :nome "oslusiadas.pdf" ;
+             :path "ficheiros/oslusiadas.pdf" ;
+             :size 100 ;
+             :type "pdf" .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#ficheiro002
+:ficheiro002 rdf:type owl:NamedIndividual ,
+                      :Ficheiro ;
+             :guardadoEm :publicacao001 ;
+             :nome "1teste.PNG" ;
+             :path "ficheiros/1teste.PNG" ;
+             :size 100 ;
+             :type "PNG" .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#publicacao001
+:publicacao001 rdf:type owl:NamedIndividual ,
+                        :Publicacao ;
+               :PussuiFicheiro :ficheiro001 ;
+               :éPublicadaEm :ISD ;
+               :éPublicadoPor :admin01 ;
+               :conteudo "ficheiro" ;
+               :data "2020-04-13" ;
+               :gostos 20 .
+
+
 ###  http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#Algortimos&Complexidade
 <http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#Algortimos&Complexidade> rdf:type owl:NamedIndividual ,
                                                                                              :Cadeira ;
