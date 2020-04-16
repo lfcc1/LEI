@@ -9,7 +9,7 @@ Ano.getAno = async function(idAno){
         var responsaveis = await Ano.getResponsaveisFromAno(idAno)
         var estudantes = await Ano.getEstudantesFromAno(idAno)
         var cadeiras = await Ano.getCadeirasFromAno(idAno)
-        //var publicacoes = getPublicacoesFromAno
+        var publicacoes = getPublicacoesFromAno
 
         var ano = {
             info : info,

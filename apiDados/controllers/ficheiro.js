@@ -54,6 +54,6 @@ Ficheiro.insereFicheiro = async function(body){
 
     // funciona no sparql :) mas aqui nao :(
 
-    console.log(query)
-    //return Connection.insereDados(query)
+    //console.log(query)
+    return Connection.makePost(query)
 }

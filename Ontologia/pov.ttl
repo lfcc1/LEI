@@ -534,6 +534,43 @@
          :sexo "Desconhecido"^^xsd:string .
 
 
+###  http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#comentario001
+:comentario001 rdf:type owl:NamedIndividual ,
+                        :Comentario ;
+               :comentadoEm :publicacao002 ;
+               :éComentadoPor <http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#lguilhermem@hotmail.com> ;
+               :conteudo "Esqueci-me da minha palavra-passe, como a posso recuperar?" ;
+               :data "2020-04-16" ;
+               :gostos 0 .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#conversa001
+:conversa001 rdf:type owl:NamedIndividual ,
+                      :Conversa ;
+             :pussuiMensagem :mensagem001 ,
+                             :mensagem002 ;
+             :pussuiParticipantes <http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#a82088@alunos.uminho.pt> ,
+                                  <http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#lguilhermem@hotmail.com> .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#conversa002
+:conversa002 rdf:type owl:NamedIndividual ,
+                      :Conversa ;
+             :pussuiMensagem :mensagem003 ,
+                             :mensagem004 ;
+             :pussuiParticipantes <http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#a82088@alunos.uminho.pt> ,
+                                  <http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#joniboy@hotmail.com> .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#conversa003
+:conversa003 rdf:type owl:NamedIndividual ,
+                      :Conversa ;
+             :pussuiMensagem :mensagem005 ,
+                             :mensagem006 ;
+             :pussuiParticipantes <http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#flipcunha@gmail.com> ,
+                                  <http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#lguilhermem@hotmail.com> .
+
+
 ###  http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#ficheiro001
 :ficheiro001 rdf:type owl:NamedIndividual ,
                       :Ficheiro ;
@@ -554,6 +591,48 @@
              :type "PNG" .
 
 
+###  http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#mensagem001
+:mensagem001 rdf:type owl:NamedIndividual ,
+                      :Mensagem ;
+             :conteudo "Olá, Joe! Tudo bem?" ;
+             :data "2020-04-16" .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#mensagem002
+:mensagem002 rdf:type owl:NamedIndividual ,
+                      :Mensagem ;
+             :conteudo "Olá, mano! Tudo e contigo?" ;
+             :data "2020-04-16" .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#mensagem003
+:mensagem003 rdf:type owl:NamedIndividual ,
+                      :Mensagem ;
+             :conteudo "já viste aquela música do Sombraa?" ;
+             :data "2020-04-16" .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#mensagem004
+:mensagem004 rdf:type owl:NamedIndividual ,
+                      :Mensagem ;
+             :conteudo "Já, mano! Fella" ;
+             :data "2020-04-16" .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#mensagem005
+:mensagem005 rdf:type owl:NamedIndividual ,
+                      :Mensagem ;
+             :conteudo "e já está a chegar o comboio" ;
+             :data "2020-04-16" .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#mensagem006
+:mensagem006 rdf:type owl:NamedIndividual ,
+                      :Mensagem ;
+             :conteudo "já vou descer mano" ;
+             :data "2020-04-16" .
+
+
 ###  http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#publicacao001
 :publicacao001 rdf:type owl:NamedIndividual ,
                         :Publicacao ;
@@ -565,6 +644,16 @@
                :gostos 20 .
 
 
+###  http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#publicacao002
+:publicacao002 rdf:type owl:NamedIndividual ,
+                        :Publicacao ;
+               :éPublicadaEm :Segundo_Ano ;
+               :éPublicadoPor <http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#joniboy@hotmail.com> ;
+               :conteudo "Estejam atentos ao swap para os horários." ;
+               :data "2020-04-16" ;
+               :gostos 2 .
+
+
 ###  http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#Algortimos&Complexidade
 <http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#Algortimos&Complexidade> rdf:type owl:NamedIndividual ,
                                                                                              :Cadeira ;
@@ -574,6 +663,8 @@
 ###  http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#a82088@alunos.uminho.pt
 <http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#a82088@alunos.uminho.pt> rdf:type owl:NamedIndividual ,
                                                                                              :Aluno ;
+                                                                                    :envia :mensagem002 ,
+                                                                                           :mensagem004 ;
                                                                                     :frequenta :MIEI ,
                                                                                                :Primeiro_Ano ;
                                                                                     :dataNasc "14-02-1998"^^xsd:string ;
@@ -587,6 +678,7 @@
 ###  http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#flipcunha@gmail.com
 <http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#flipcunha@gmail.com> rdf:type owl:NamedIndividual ,
                                                                                          :Responsavel ;
+                                                                                :envia :mensagem005 ;
                                                                                 :frequenta :MIEI ;
                                                                                 :gere :Primeiro_Ano ;
                                                                                 :dataNasc "06-02-1997" ;
@@ -600,6 +692,7 @@
 
 ###  http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#joniboy@hotmail.com
 <http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#joniboy@hotmail.com> rdf:type owl:NamedIndividual ;
+                                                                                :envia :mensagem003 ;
                                                                                 :frequenta :MIEI ;
                                                                                 :gere :Segundo_Ano ;
                                                                                 :dataNasc "12-11-1998" ;
@@ -613,6 +706,8 @@
 ###  http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#lguilhermem@hotmail.com
 <http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#lguilhermem@hotmail.com> rdf:type owl:NamedIndividual ,
                                                                                              :Aluno ;
+                                                                                    :envia :mensagem001 ,
+                                                                                           :mensagem006 ;
                                                                                     :frequenta :MIEI ,
                                                                                                :Primeiro_Ano ;
                                                                                     :dataNasc "15-10-1998"^^xsd:string ;

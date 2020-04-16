@@ -44,3 +44,15 @@ Connection.makeQuery = async function(query){
         throw(e)
     } 
 }
+
+Connection.makePost = async function(query){
+    var encoded = encodeURIComponent(prefixes + query)
+
+    try{
+        var response = await axios.get(postLink + encoded)
+        return response.data
+    }
+    catch(e){
+        throw(e)
+    }
+}
