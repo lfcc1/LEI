@@ -4,6 +4,8 @@ var router = express.Router();
 
 var Ficheiro = require('../controllers/ficheiro')
 
+// ---------- ROTA   : /api/ficheiros ....
+
 // -------------------------------------------------------------- GET ---------------------------------------------------------------------
 
 router.get('/', function(req, res, next){
@@ -29,12 +31,10 @@ router.get('/', function(req, res, next){
 // -------------------------------------------------------------- POST ---------------------------------------------------------------------
 
     router.post('/', function(req, res){
-        //console.log(req.files)
-        console.log(req)
         Ficheiro.insereFicheiro(req.body)
-        .then(dados => res.jsonp(dados))
+        .then(dados => res.jsonp(dados)   )
         .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
-    
+      
     })
 
 

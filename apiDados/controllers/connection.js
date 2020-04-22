@@ -8,11 +8,11 @@ var ontologyname = 'UMbook#'
 Connection.ontologyname = ontologyname
 
 var prefixes = `
-    PREFIX rdf: <w3.org/1999/02/22-rdf-syntax-ns#>
-    PREFIX owl: <w3.org/2002/07/owl#>
-    PREFIX rdfs: <w3.org/2000/01/rdf-schema#>
-    PREFIX noInferences: <ontotext.com/explicit>
-    PREFIX skos: <w3.org/2004/02/skos/core#>
+    PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+    PREFIX owl: <http://www.w3.org/2002/07/owl#>
+    PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+    PREFIX noInferences: <http://www.ontotext.com/explicit>
+    PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
     PREFIX c: <http://www.semanticweb.org/filip/ontologies/2020/1/${ontologyname}>
 `
 Connection.prefixes = prefixes
@@ -49,7 +49,19 @@ Connection.makePost = async function(query){
     var encoded = encodeURIComponent(prefixes + query)
 
     try{
-        var response = await axios.get(postLink + encoded)
+        response = await axios.post(postLink, `update=${encoded}`)
+        return response.data
+    }
+    catch(e){
+        throw(e)
+    }
+}
+
+Connection.makeDelete = async function(query){
+    var encoded = encodeURIComponent(prefixes + query)
+
+    try{
+        response = await axios.delete(postLink, `update=${encoded}`)
         return response.data
     }
     catch(e){

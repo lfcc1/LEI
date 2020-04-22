@@ -4,6 +4,8 @@ var router = express.Router();
 
 var Conversa = require('../controllers/conversa')
 
+// ---------- ROTA   : /api/conversas ....
+
 // ------------------------------------------------------ GET --------------------------------------------
 
 router.get('/:idConversa', function(req, res, next){
@@ -21,7 +23,27 @@ router.get('/participante/:idParticipante', function(req, res){
             
 })
 
+// ------------------------------------------------------ POST --------------------------------------------
 
+router.post('/', function(req, res){
+    Conversa.insertConversa(req.body)
+            .then(dados =>{ res.jsonp(dados) })
+            .catch(erro => res.status(500).jsonp(erro) )
+            
+})
 
+router.post('/:idConversa/mensagem', function(req, res){
+    Conversa.insertMensagem(req.params.idConversa, req.body)
+            .then(dados =>{ res.jsonp(dados) })
+            .catch(erro => res.status(500).jsonp(erro) )
+            
+})
+
+router.post('/:idConversa/mensagem', function(req, res){
+    Conversa.insertMensagem(req.params.idConversa, req.body)
+            .then(dados =>{ res.jsonp(dados) })
+            .catch(erro => res.status(500).jsonp(erro) )
+            
+})
 
 module.exports = router;

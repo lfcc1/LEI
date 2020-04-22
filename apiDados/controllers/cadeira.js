@@ -8,12 +8,13 @@ Cadeira.getCadeira = async function(idCadeira){
         var info = await Cadeira.getCadeiraAtomica(idCadeira)
         var responsaveis = await Cadeira.getResponsaveisFromCadeira(idCadeira)
         var estudantes = await Cadeira.getEstudantesFromCadeira(idCadeira)
-        //var publicacoes = getPublicacoesFromAno
+        var publicacoes = await Cadeira.getPublicacoesFromCadeira(idCadeira) 
 
         var cadeira = {
             info : info[0],
             responsaveis : responsaveis,
             estudantes : estudantes,
+            publicacoes : publicacoes
         }
 
         return cadeira
@@ -58,13 +59,24 @@ Cadeira.getPublicacoesFromCadeira = async function(idCadeira){
     
     var query = `
     select (STRAFTER(STR(?pub), 'UMbook#') as ?idPub) where{
-        pub? éPublicadaEm c:${idCadeira} .
+        ?pub c:éPublicadaEm c:${idCadeira} .
     }
     `
 
-    var resultado = await Connection.makeQuery(query).map(obra => { return Publicacao.getPublicacao()  }) ;
+    var idsPublicacoes = await Connection.makeQuery(query)
+    
+    var publicacoes = []
 
-    return resultado
+    for(let i = 0; i < idsPublicacoes.length ; i++ ){
+        pub = await Publicacao.getPublicacao(idsPublicacoes[i].idPub)
+        var publicacao = {
+            idPublicacao : idsPublicacoes[i].idPub,
+            dados : pub
+        }
+        publicacoes.push(publicacao)
+    }
+
+    return publicacoes
 
 }
 
@@ -84,4 +96,21 @@ Cadeira.getResponsaveisFromCadeira = async function(idCadeira){
     `
 
     return Connection.makeQuery(query)
+}
+
+
+Cadeira.insertCadeira = async function(cadeira){
+    var id = cadeira.idAno + "_" + cadeira.nome
+    var query = `
+    insert data {
+        c:${id} a owl:NamedIndividual ,
+                        c:Cadeira .
+        c:${id} c:nome "${cadeira.nome}" . 
+        c:${id} c:éLecionadaEm c:${cadeira.idAno} .
+    }
+    `
+
+    await Connection.makePost(query)
+    return {id : id}
+
 }

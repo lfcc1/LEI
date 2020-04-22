@@ -1,6 +1,6 @@
 var Ano = module.exports
 var Connection = require('./connection')
-
+var Publicacao = require('./publicacao')
 var axios = require('axios')
 
 Ano.getAno = async function(idAno){
@@ -9,13 +9,14 @@ Ano.getAno = async function(idAno){
         var responsaveis = await Ano.getResponsaveisFromAno(idAno)
         var estudantes = await Ano.getEstudantesFromAno(idAno)
         var cadeiras = await Ano.getCadeirasFromAno(idAno)
-        var publicacoes = getPublicacoesFromAno
+        var publicacoes = await Ano.getPublicacoesFromAno(idAno)
 
         var ano = {
             info : info,
             responsaveis : responsaveis,
             estudantes : estudantes,
-            cadeiras : cadeiras
+            cadeiras : cadeiras,
+            publicacoes : publicacoes
         }
 
         return ano
@@ -71,13 +72,24 @@ Ano.getPublicacoesFromAno = async function(idAno){
     
     var query = `
     select (STRAFTER(STR(?pub), 'UMbook#') as ?idPub) where{
-        pub? éPublicadaEm c:${idAno} .
+        ?pub c:éPublicadaEm c:${idAno} .
     }
     `
 
-    var resultado = await Connection.makeQuery(query).map(obra => { return Publicacao.getPublicacao()  }) ;
+    var idsPublicacoes = await Connection.makeQuery(query)
+    
+    var publicacoes = []
 
-    return resultado
+    for(let i = 0; i < idsPublicacoes.length ; i++ ){
+        pub = await Publicacao.getPublicacao(idsPublicacoes[i].idPub)
+        var publicacao = {
+            idPublicacao : idsPublicacoes[i].idPub,
+            dados : pub
+        }
+        publicacoes.push(publicacao)
+    }
+
+    return publicacoes
 
 }
 
@@ -86,7 +98,6 @@ Ano.getResponsaveisFromAno = async function(idAno){
     var query = `
     select (STRAFTER(STR(?resp), 'UMbook#') as ?idResp) ?dataNascimento ?nome ?numeroAluno ?numeroTelemovel ?sexo
         where{
-            c:${idAno} a c:Ano .
             ?resp c:gere c:${idAno} .
             ?resp c:dataNasc ?dataNascimento . 
             ?resp c:nome ?nome .
@@ -97,4 +108,80 @@ Ano.getResponsaveisFromAno = async function(idAno){
     `
 
     return Connection.makeQuery(query)
+}
+
+Ano.addResponsavelToAno = async function(idAno, idResponsavel){
+
+    var query = `
+    insert data {
+            c:${idResponsavel} c:gere c:${idAno} .
+    }
+    `
+
+    return Connection.makePost(query)
+}
+
+
+Ano.addEstudanteToAno = async function(idAno, idEstudante){
+
+    var query = `
+    insert data {
+            c:${idEstudante} c:frequenta c:${idAno} .
+    }
+    `
+
+    return Connection.makePost(query)
+}
+
+
+Ano.addCadeira = async function(idAno, idCadeira){
+    var query = `
+    insert data {
+        c:${idAno} c:leciona c:${idCadeira} .
+    }
+    `
+
+    return Connection.makePost(query)
+}
+
+
+Ano.insertAno = async function(ano){
+    var nome = ano.nome 
+    var anoLetivo = ano.anoLetivo
+    var idCurso = ano.idCurso
+    var id = idCurso + "_" + nome.replace(/ /g,"_")+ "_" + anoLetivo.replace("-","_");;
+    var query = `
+    insert data {
+        c:${id} a owl:NamedIndividual ,
+                        c:Ano .
+        c:${id} c:nome "${ano.nome}" . 
+        c:${id} c:anoLetivo "${ano.anoLetivo}" .
+        c:${id} c:fazParteCurso c:${ano.idCurso} .
+    }
+    `
+
+    await Connection.makePost(query)
+    return {"id" : id}
+
+}
+
+// ver melhor
+Ano.deleteAno = async function(idAno, ano){
+    var query = `
+    delete where{
+        c:${idAno} c:nome "${ano.nome}" . 
+        c:${idAno} c:anoLetivo "${ano.anoLetivo}" .
+        c:${idAno} c:fazParteCurso c:${ano.idCurso} .
+    }
+    `
+
+    return Connection.makeDelete(query)
+}
+
+// acabar o delete
+Ano.updateAno = async function(ano){
+    await Ano.deleteAno(ano.id)
+    await Ano.insertAno(ano)
+
+    return response
 }

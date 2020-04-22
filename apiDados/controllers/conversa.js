@@ -1,6 +1,8 @@
 var Conversa = module.exports
 var Connection = require('./connection')
 
+var nanoid = require('nanoid')
+
 Conversa.getConversa = async function(idConversa){
 
     var participantes = await Conversa.getParticipantesFromConversa(idConversa)
@@ -61,8 +63,7 @@ Conversa.getMensagem = async function(idMensagem){
 }
 
 Conversa.getConversasFromParticipante = async function(idParticipante){
-    var user = idParticipante
-    var iduser = user.replace(/@/,"\\@");
+    var iduser = idParticipante.replace(/@/,"\\@");
 
     var query = `
     select (STRAFTER(STR(?conversa), 'UMbook#') as ?idConversa) {
@@ -71,4 +72,47 @@ Conversa.getConversasFromParticipante = async function(idParticipante){
     `
 
     return Connection.makeQuery(query)
+}
+
+
+Conversa.insertConversa = async function(conversa){
+    var id = nanoid.nanoid()
+    var participantes = conversa.participantes
+    let queryParticipantes = ""
+
+    for(i = 0; i < participantes.length; i++){
+        var iduser = participantes[i].replace(/@/,"\\@");
+        queryParticipantes = queryParticipantes + `
+        c:${id} c:pussuiParticipantes c:${iduser} .
+        `
+    }
+
+    var query =  `
+    insert data {
+        c:${id} a owl:NamedIndividual ,
+                        c:Conversa . 
+    ` + queryParticipantes + '}'
+
+    await Connection.makePost(query)
+
+    return {"id" : id}
+}
+
+Conversa.insertMensagem = async function(idConversa, mensagem){
+    var idMensagem = "m"+ nanoid.nanoid()
+    var iduser = mensagem.idUtilizador.replace(/@/,"\\@");
+    var data = new Date()
+
+    var query =  `
+    insert data {
+        c:${idMensagem} a owl:NamedIndividual ,
+                        c:Mensagem . 
+        c:${idMensagem} c:éEnviada c:${iduser} .
+        c:${idMensagem} c:conteudo "${mensagem.conteudo}" .
+        c:${idMensagem} c:data "${data}" .
+        c:${idConversa} c:pussuiMensagem c:${idMensagem} .
+    }`
+
+    await Connection.makePost(query)
+    return {"id" : idMensagem}
 }

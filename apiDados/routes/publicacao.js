@@ -4,6 +4,8 @@ var router = express.Router();
 
 var Publicacao = require('../controllers/publicacao')
 
+// ---------- ROTA   : /api/publicacoes ....
+
 // ------------------------------------------------------ GET --------------------------------------------
 
 router.get('/:idPublicacao', function(req, res){
@@ -12,6 +14,18 @@ router.get('/:idPublicacao', function(req, res){
     .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
 })
 
+// ------------------------------------------------------ POST --------------------------------------------
 
+router.post('/', function(req, res){
+    Publicacao.insertPublicacao(req.body)
+    .then(dados => res.jsonp(dados))
+    .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
+})
+
+router.post('/:idPublicacao/comentario', function(req, res){
+    Publicacao.insertComentario(req.params.idPublicacao, req.body)
+    .then(dados => res.jsonp(dados))
+    .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
+})
 
 module.exports = router;

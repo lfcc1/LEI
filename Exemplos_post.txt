@@ -1,0 +1,88 @@
+EXEMPLOS DO QUE DEVE VIR NO BODY DOS POSTS DA INTERFACE PARA A API
+ 
+PS - Duvida inicial, ids são gerados na api de dados ou no servidor da interface?
+
+				CONVERSA (http://localhost:3050/api/conversas/)
+
+{
+	"id" : "conversa_teste01" //id da conversa, 
+	"participantes" : ["lguilhermem@hotmail.com", "a82300@uminho.pt"]
+}
+
+			 	MENSAGEM ( http://localhost:3050/api/conversas/:idConversa/mensagem )
+
+{
+        "idMensagem" : "mensagem0034",
+        "idUtilizador" : "lguilhermem@hotmail.com"
+        "conteudo" : "bla bla bla",
+        "data" : "2020-04-21"
+}
+
+				CURSO (http://localhost:3050/api/cursos/)
+
+{
+        "id" : "MIEB",
+        "nome" : "Mestrado Integrado em Engenharia Biomédica" 
+}
+
+
+
+				ANO (http://localhost:3050/api/anos/)
+{
+        "id" : "Primeiro_Ano_MIEB",
+        "nome" : "Primeiro Ano", 
+	"anoLetivo" : "2019-2020",
+	"idCurso" : "MIEB"
+}
+
+
+
+				CADEIRA (http://localhost:3050/api/cadeira/)
+{
+        "id" : "Calculo_MIEB_2019", 
+        "nome" : "calculo",
+	"idAno" : "Primeiro_Ano_MIEB"
+}
+
+
+				PUBLICACAO (http://localhost:3050/api/publicacao/)
+{
+	"idUtilizador" : "lguilhermem@hotmail.com",
+	"conteudo" : "Yaapppppps",
+	"idGrupo" : "MIEI"
+}
+
+
+				COMENTARIO (http://localhost:3050/api/publicacao/:idPublicacao/comentario)
+{
+	"conteudo" : "whiskas saquetas",
+	"idUtilizador" : "a82088@uminho.pt"
+}
+
+
+			 	FICHEIRO (http://localhost:3050/api/ficheiro/)
+{
+	    "idFicheiro : "ficheiro0340",
+	    "idPublicacao" : "publicacao001",
+	    "nome" : "relatorio.pdf",
+	    "path" : "path",
+	    "size" : "50304",
+	    "type" : "pdf"
+}
+
+				UTILIZADOR (http://localhost:3050/api/utilizador/)
+
+
+{
+	"id" : "foeof@gmail.com",
+	"numeroAluno" : "a90485",
+	"numeroTelemovel" : "968747844",
+	"nome" : "Quim Roscas",
+	"sexo" : "Masculino",
+	"dataNascimento" : "15-12-1969",
+	"idCurso" : "MIEB",
+	"idAno" : "Primeiro_Ano_MIEB"
+}
+
+
+

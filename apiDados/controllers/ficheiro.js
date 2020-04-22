@@ -1,7 +1,9 @@
 var Ficheiro = module.exports
+
 var Connection = require('./connection')
 var Publicacao = require('./publicacao')
 var Ano = require('./ano')
+var nanoid = require('nanoid')
 
 Ficheiro.getFicheiros = async function(){
     var query = `
@@ -40,20 +42,19 @@ Ficheiro.getFicheiroPath = async function(idFicheiro){
 
 
 Ficheiro.insereFicheiro = async function(body){
+    var id = nanoid.nanoid()
     var query = `
     insert data {
-        c:${body.idFicheiro} rdf:type owl:NamedIndividual ,
-                        c:Ficheiro ;
-                c:guardadoEm c:${body.guardadoEm} ;
-                c:nome "${body.nome}" ;
-                c:path "${body.path}" ;
-                c:size ${body.size} ;
-                c:type "${body.type}" .
+        c:${id} a owl:NamedIndividual ,
+                        c:Ficheiro .
+            c:${id} c:guardadoEm c:${body.guardadoEm} .
+            c:${id} c:nome "${body.nome}" .
+            c:${id} c:path "${body.path}" .
+            c:${id} c:size "${body.size}" .
+            c:${id} c:type "${body.type}" .
     }
     `
 
-    // funciona no sparql :) mas aqui nao :(
-
-    //console.log(query)
-    return Connection.makePost(query)
+    await Connection.makePost(query)
+    return {id : id}
 }

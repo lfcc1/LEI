@@ -1,7 +1,7 @@
 var Publicacao = module.exports
 var Connection = require('./connection')
 
-var axios = require('axios')
+var nanoid = require('nanoid')
 
 Publicacao.getPublicacao = async function (idPublicacao){
     var info = await Publicacao.getPublicacaoAtomica(idPublicacao)
@@ -9,7 +9,7 @@ Publicacao.getPublicacao = async function (idPublicacao){
     var comentarios = await Publicacao.getComentariosFromPublicacao(idPublicacao)
     
     var publicacao = {
-        info : info,
+        info : info[0],
         ficheiros : ficheiros,
         comentarios : comentarios
     }
@@ -55,4 +55,47 @@ Publicacao.getComentariosFromPublicacao = async function (idPublicacao){
     `
     
     return Connection.makeQuery(query);
+}
+
+
+Publicacao.insertPublicacao = async function(publicacao){
+    var idPublicacao = "pub" + nanoid.nanoid()
+    var data = new Date()
+    var idUtilizador = publicacao.idUtilizador.replace(/@/,"\\@");
+    
+    var query = `
+    Insert Data {
+        c:${idPublicacao} a owl:NamedIndividual ,
+                        c:Publicacao .
+        c:${idPublicacao} c:gostos "0" .
+        c:${idPublicacao} c:conteudo "${publicacao.conteudo}" .
+        c:${idPublicacao} c:data "${data}" .
+        c:${idPublicacao} c:éPublicadoPor c:${idUtilizador} .
+        c:${idPublicacao} c:éPublicadaEm c:${publicacao.idGrupo} .
+    }
+    `
+
+    await Connection.makePost(query)
+    return { "id" : idPublicacao}
+}
+
+Publicacao.insertComentario = async function(idPublicacao, comentario){
+    var idComentario = "com" + nanoid.nanoid()
+    var data = new Date()
+    var idUtilizador = comentario.idUtilizador.replace(/@/,"\\@");
+
+    var query = `
+    Insert Data {
+        c:${idComentario} a owl:NamedIndividual ,
+                        c:Comentario .
+        c:${idComentario} c:conteudo "${comentario.conteudo}" .
+        c:${idComentario} c:gostos "0" .
+        c:${idComentario} c:data "${data}" .
+        c:${idComentario} c:comentadoEm c:${idPublicacao} .
+        c:${idComentario} c:éComentadoPor c:${idUtilizador} .
+    }
+    `
+
+    await Connection.makePost(query)
+    return { "id" : idComentario}
 }

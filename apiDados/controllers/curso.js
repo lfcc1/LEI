@@ -11,14 +11,14 @@ Curso.getCurso = async function(idCurso){
         var anos = await Curso.getAnosFromCurso(idCurso)
         var estudantes = await Curso.getEstudantesFromCurso(idCurso)
         var responsaveis = await Curso.getResponsaveisFromCurso(idCurso)
-        //var publicacoes = await Curso.getPublicacoesFromCurso(idCurso)
+        var publicacoes = await Curso.getPublicacoesFromCurso(idCurso)
 
         var curso = {
             info : info[0], 
             anos : anos,
             estudantes : estudantes,
             responsaveis : responsaveis,
-            //publicacoes : publicacoes
+            publicacoes : publicacoes
         }
 
         return curso
@@ -54,8 +54,7 @@ Curso.getCursos = async function(){
 Curso.getAnosFromCurso = async function(idCurso){
     var query = `
     select (STRAFTER(STR(?years), 'UMbook#') as ?ano) where{
-        c:${idCurso} a c:Curso .
-        ?curs c:pussuiAno ?years .
+        c:${idCurso} c:pussuiAno ?years .
     }
     `
 
@@ -104,12 +103,38 @@ Curso.getResponsaveisFromCurso = async function(idCurso){
 
 Curso.getPublicacoesFromCurso = async function(idCurso){
     var query = `
-    select (STRAFTER(STR(?pub), 'UMbook#') as ?idPub)
-        pub? éPublicadaEm c:${idCurso} .
+    select (STRAFTER(STR(?pub), 'UMbook#') as ?idPub) where{
+        ?pub c:éPublicadaEm c:${idCurso} .
+    }
     `
 
-    var resultado = await Connection.makeQuery(query).map(obra => { return Publicacao.getPublicacao()  }) ;
+    var idsPublicacoes = await Connection.makeQuery(query)
+    
+    var publicacoes = []
 
-    return resultado
+    for(let i = 0; i < idsPublicacoes.length ; i++ ){
+        pub = await Publicacao.getPublicacao(idsPublicacoes[i].idPub)
+        var publicacao = {
+            idPublicacao : idsPublicacoes[i].idPub,
+            dados : pub
+        }
+        publicacoes.push(publicacao)
+    }
+
+    return publicacoes
+
+}
+
+Curso.insertCurso = async function(curso){
+    var id = curso.id
+    var query = `
+    insert data {
+        c:${id} a owl:NamedIndividual ,
+                        c:Curso .
+        c:${id} c:nome "${curso.nome}" . 
+    }
+    `
+
+    return Connection.makePost(query)
 
 }

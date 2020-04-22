@@ -65,3 +65,23 @@ Utilizador.getAnosInscrito = async function(idUtilizador){
     return Connection.makeQuery(query)
 
 }
+
+Utilizador.insertUtilizador = async function(utilizador){
+    var iduser = utilizador.id.replace(/@/,"\\@");
+    var query = `
+    Insert Data {
+        c:${iduser} a owl:NamedIndividual ,
+                        c:Utilizador .
+        c:${iduser} c:numAluno "${utilizador.numeroAluno}" .
+        c:${iduser} c:numTelemovel "${utilizador.numeroTelemovel}" .
+        c:${iduser} c:nome "${utilizador.nome}" .
+        c:${iduser} c:sexo "${utilizador.sexo}" .
+        c:${iduser} c:dataNasc "${utilizador.dataNascimento}" .
+        c:${iduser} c:frequenta c:${utilizador.idCurso} .
+        c:${iduser} c:frequenta c:${utilizador.idAno} . 
+    }
+    `
+
+    await Connection.makePost(query)
+    return { "id" : iduser}
+}

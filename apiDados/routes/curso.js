@@ -4,6 +4,8 @@ var router = express.Router();
 
 var Curso = require('../controllers/curso')
 
+// ---------- ROTA   : /api/cursos ....
+
 // -------------------------------------------------------------- GET ---------------------------------------------------------------------
 
 // Todos os cursos disponiveis
@@ -34,10 +36,27 @@ router.get('/', function(req, res, next) {
          .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
   });
   
+  // Todos os responsaveis de um determinado curso
   router.get('/:idCurso/responsaveis', function(req, res, next){
     Curso.getResponsaveisFromCurso(req.params.idCurso)
         .then(dados => res.jsonp(dados))
         .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
   })
+
+  // Todas as publicações de um determinado curso
+  router.get('/:idCurso/publicacoes', function(req, res, next){
+    Curso.getPublicacoesFromCurso(req.params.idCurso)
+        .then(dados => res.jsonp(dados))
+        .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
+  })
+
+// -------------------------------------------------------------- POST ---------------------------------------------------------------------
+
+  router.post('/', function(req, res, next){
+    Curso.insertCurso(req.body)
+    .then(dados => res.jsonp(dados))
+    .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
+  })
+
 
   module.exports = router;
