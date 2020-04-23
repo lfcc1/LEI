@@ -12,9 +12,9 @@
         md8
       >
         <material-card
-          :color="colorRed"
-          title="Meu Perfil"
-          text="Dados do Meu Perfil"
+          color="#900000"
+          title="Editar Perfil"
+          text="Completar Perfil"
         >
           <v-form>
             <v-container py-0>
@@ -25,7 +25,6 @@
                 >
                   <v-text-field
                     label="Curso"
-                    :color="colorRed"
                     disabled/>
                 </v-flex>
                 <v-flex
@@ -33,9 +32,8 @@
                   md4
                 >
                   <v-text-field
-                     :color="colorRed"
+                    class="purple-input"
                     label="Identificador"
-                    disabled=""
                   />
                 </v-flex>
                 <v-flex
@@ -44,9 +42,7 @@
                 >
                   <v-text-field
                     label="Email"
-                    class="purple-input"
-                    disabled/>
-                    
+                    class="purple-input"/>
                 </v-flex>
                 <v-flex
                   xs12
@@ -54,8 +50,7 @@
                 >
                   <v-text-field
                     label="Primeiro Nome"
-                    class="purple-input"
-                    disabled/>
+                    class="purple-input"/>
                 </v-flex>
                 <v-flex
                   xs12
@@ -63,8 +58,7 @@
                 >
                   <v-text-field
                     label="Último Nome"
-                    class="purple-input"
-                    disabled/>
+                    class="purple-input"/>
                 </v-flex>
                 <v-flex
                   xs12
@@ -72,16 +66,14 @@
                 >
                   <v-text-field
                     label="Sexo"
-                    class="purple-input"
-                    disabled/>
+                    class="purple-input"/>
                 </v-flex>
                 <v-flex
                   xs12
                   md4>
                   <v-text-field
                     label="Data Nascimento"
-                    class="purple-input"
-                    disabled/>
+                    class="purple-input"/>
                 </v-flex>
                 <v-flex
                   xs12
@@ -125,7 +117,7 @@
         xs12
         md4
       >
-        <material-card >
+        <material-card class="v-card-profile">
           <v-avatar
             slot="offset"
             class="mx-auto d-block"
@@ -153,10 +145,7 @@
 
 <script>
 export default {
-    data: () => ({
-    colorRed: "#900000",
-    ready: false
-  })
+  //
 }
 </script>
 

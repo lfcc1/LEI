@@ -3,6 +3,13 @@
     <v-card-title class="red darken-4 white--text" dark>
       Lista de Grupos
     </v-card-title>
+            <material-card
+          color="green"
+          title="Edit Profile"
+          text="Complete your profile"
+        >
+          
+        </material-card>
 
     <v-card-text>
       <v-data-table

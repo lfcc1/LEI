@@ -5,14 +5,14 @@
   <v-navigation-drawer 
           v-model="drawer"
           :color="color"
-          :expand-on-hover="expandOnHover"
-          :mini-variant="miniVariant"
-          :right="right"
-          :src="bg"
-          absolute
+          app
+          :mini-variant.sync="mini"
+          permanent
           dark
-          width= 15%
-        >
+          floating
+          mobile-break-point="991"
+          width="260"
+          >
           <v-list
             dense
             nav
@@ -27,14 +27,22 @@
                 <v-list-item-title>Filipe Cunha</v-list-item-title>
                 <v-list-item-subtitle>Logged in</v-list-item-subtitle>
               </v-list-item-content>
+
+              <v-btn
+          icon
+          @click.stop="mini = !mini"
+        >
+          <v-icon>mdi-chevron-left</v-icon>
+        </v-btn>
             </v-list-item>
+            
   
             <v-divider></v-divider>
   
             <v-list-item
               v-for="item in items"
               :key="item.title"
-              :href="item.href"
+              :to="item.href"
             >
               <v-list-item-icon>
                 <v-icon>{{ item.icon }}</v-icon>
@@ -56,6 +64,7 @@ export default {
   data () {
     return {
       drawer: true,
+      mini: true,
       items: [
         { title: 'Universidade', icon: 'mdi-view-dashboard',href:"/universidade" },
         { title: 'Meu Curso', icon: 'mdi-image', href:"/curso" },
@@ -86,3 +95,17 @@ export default {
   },
 }
 </script>
+
+
+<style lang="scss">
+  #app-drawer {
+    .v-list__tile {
+      border-radius: 4px;
+
+      &--buy {
+        margin-top: auto;
+        margin-bottom: 17px;
+      }
+    }
+  }
+</style>

@@ -1,5 +1,12 @@
 <template>
   <div>
+          <material-card
+          color="green"
+          title="Edit Profile"
+          text="Complete your profile"
+        >
+          
+        </material-card>
         <p v-if="!ready">A carregar Grupos...</p>
         <Lista v-else :lista="grupos" />
         

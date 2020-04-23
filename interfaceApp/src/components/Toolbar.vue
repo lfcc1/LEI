@@ -1,15 +1,16 @@
 <template>
-  <v-toolbar
+  <v-app-bar
     id="core-toolbar"
     app
     flat
     prominent
-    style="background: #eee;"
-    height="60%"
+    style="background: #900000;"
+    height="40%"
+      clipped-right
   >
     <div class="v-toolbar-title">
       <v-toolbar-title
-        class="tertiary--text font-weight-light"
+        class="white--text font-weight-light"
       >
         <v-btn
           v-if="responsive"
@@ -36,7 +37,7 @@
           class="toolbar-items"
           to="/universidade"
         >
-          <v-icon color="tertiary">mdi-view-dashboard</v-icon>
+          <v-icon color="white">mdi-view-dashboard</v-icon>
         </router-link>
         <v-menu
           bottom
@@ -57,7 +58,7 @@
               <template slot="badge">
                 {{ notifications.length }}
               </template>
-              <v-icon color="tertiary">mdi-bell</v-icon>
+              <v-icon color="white">mdi-bell</v-icon>
             </v-badge>
           </router-link>
           <v-card>
@@ -79,18 +80,18 @@
           class="toolbar-items"
           to="/userProfile"
         >
-          <v-icon color="tertiary">mdi-account</v-icon>
+          <v-icon color="white">mdi-account</v-icon>
         </router-link>
                 <router-link
           v-ripple
           class="toolbar-items"
           to="/logout"
         >
-          <v-icon color="tertiary">mdi-logout</v-icon>
+          <v-icon color="white">mdi-logout</v-icon>
         </router-link>
       </v-flex>
     </v-toolbar-items>
-  </v-toolbar>
+  </v-app-bar>
 </template>
 
 <script>
