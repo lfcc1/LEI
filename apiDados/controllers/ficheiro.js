@@ -17,7 +17,7 @@ Ficheiro.getFicheiros = async function(){
 
 Ficheiro.getFicheiroAtomica = async function(idFicheiro){
     var query = `
-    select ?nome ?type ?size ?localizacao ?inseridoEm where{
+    select ?nome ?type ?size ?localizacao (STRAFTER(STR(?inseridoEm), 'UMbook#') as ?idPublicacao) where{
         c:${idFicheiro} a c:Ficheiro .
         c:${idFicheiro} c:nome ?nome .
         c:${idFicheiro} c:type ?type .
