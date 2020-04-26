@@ -95,6 +95,7 @@ router.put('/:idAno/cadeira/:idCadeira', function(req, res){
 })
 
 // -------------------------------------------------------------- DELETE ---------------------------------------------------------------------
+// Ainda não estão a dar 
 
 router.delete('/:idAno', function(req, res){
   Ano.deleteAno(req.params.idAno)

@@ -53,8 +53,9 @@ Curso.getCursos = async function(){
 
 Curso.getAnosFromCurso = async function(idCurso){
     var query = `
-    select (STRAFTER(STR(?years), 'UMbook#') as ?ano) where{
+    select (STRAFTER(STR(?years), 'UMbook#') as ?id) ?designacao where{
         c:${idCurso} c:pussuiAno ?years .
+        ?years c:nome ?designacao .
     }
     `
 

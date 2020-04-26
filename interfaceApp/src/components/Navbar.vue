@@ -67,7 +67,7 @@ export default {
       mini: true,
       items: [
         { title: 'Universidade', icon: 'mdi-view-dashboard',href:"/universidade" },
-        { title: 'Meu Curso', icon: 'mdi-image', href:"/curso" },
+        { title: 'Meu Curso', icon: 'mdi-school', href:"/curso" },
         { title: 'Meus Eventos', icon: 'mdi-image', href:"/eventos" },
         { title: 'Meu Perfil', icon: 'mdi-image', href:"/userProfile" },
         { title: 'Notificações', icon: 'mdi-image', href:"/notificacoes" },

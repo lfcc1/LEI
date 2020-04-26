@@ -59,9 +59,10 @@ Ano.getEstudantesFromAno = async function(idAno){
 
 Ano.getCadeirasFromAno = async function(idAno){
     var query = `
-    select (STRAFTER(STR(?cadeira), 'UMbook#') as ?id) where{
+    select (STRAFTER(STR(?cadeira), 'UMbook#') as ?id) ?designacao where{
         c:${idAno} a c:Ano .
         c:${idAno} c:leciona ?cadeira .
+        ?cadeira c:nome ?designacao .
     }
     `
 

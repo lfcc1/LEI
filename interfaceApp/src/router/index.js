@@ -5,6 +5,8 @@ import User from '../views/User.vue'
 import Grupos from '../views/Grupos.vue'
 import UserProfile from '../views/UserProfile.vue'
 import Grupo from '../views/Grupo.vue'
+import Curso from '../views/Curso.vue'
+import Ano from '../views/Curso.vue'
 import Universidade from '../views/Universidade.vue'
 import EditUserProfile from '../views/EditUserProfile.vue'
 
@@ -42,9 +44,26 @@ const routes = [
     component: Grupos
   },
   {
-    path: '/grupos/:id',
-    name: 'consulta',
-    component: Grupo
+    path: '/curso',
+    name: 'Curso',
+    component: Curso,
+    beforeRouteLeave (to, from, next) {
+      // do stuff
+      // call next() when done
+      next()
+    }
+  },
+  {
+    path: '/ano/:id',
+    name: 'ano',
+    component: Ano,
+    props: true/*,
+    beforeRouteUpdate(to, from, next) { next() },
+    beforeEnter: (to, from, next) => {
+      next({
+        //replace: true
+      });
+    }*/
   },
   {
     path: '/universidade',
@@ -66,7 +85,15 @@ const router = new VueRouter({
       return { selector: to.hash }
     }
     return { x: 0, y: 0 }
-  }
+  },
+  /*
+  beforeRouteUpdate(to, from, next) {
+    /*
+    something...
+    
+  
+    next(to) // DO IT!
+  }*/
 })
 
 export default router
