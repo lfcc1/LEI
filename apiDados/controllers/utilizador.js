@@ -6,11 +6,17 @@ var axios = require ('axios')
 
 Utilizador.getUtilizador = async function(idUtilizador){
     try{
-        var info = await Utilizador.getUtilizadorAtomica(idUtilizador)
+        var informacao = await Utilizador.getUtilizadorAtomica(idUtilizador)
         var publicacoes = await Utilizador.getPublicacoesFromUtilizador(idUtilizador)
         var anos = await Utilizador.getAnosInscrito(idUtilizador)
 
-        return ano
+        var utilizador = {
+            info: informacao,
+            pubs: publicacoes,
+            anosInscrito: anos
+        }
+
+        return utilizador
     }
     catch(e){
         throw e
@@ -20,9 +26,9 @@ Utilizador.getUtilizador = async function(idUtilizador){
 
 Utilizador.getUtilizadorAtomica = async function(idUtilizador){
 
-    var user = idUtilizador
-    var iduser = user.replace(/@/,"\\@");
-    
+    var iduser = idUtilizador.replace(/@/,"\\@");
+
+
     var query = `
     select ?numAluno ?numTelemovel ?nome ?sexo ?dataNasc where{
         c:${iduser} a c:Aluno .
@@ -40,11 +46,10 @@ Utilizador.getUtilizadorAtomica = async function(idUtilizador){
 
 Utilizador.getPublicacoesFromUtilizador = async function(idUtilizador){
 
-    var user = idUtilizador
-    var iduser = user.replace(/@/,"\\@");
+    var iduser = idUtilizador.replace(/@/,"\\@");
 
     var query = `
-    select ?publicou where{
+    select (STRAFTER(STR(?publicou), 'UMbook#') as ?idPublicacoes) where{
         c:${iduser} a c:Aluno .
         c:${iduser} c:publica ?publicou .
     }
@@ -54,11 +59,14 @@ Utilizador.getPublicacoesFromUtilizador = async function(idUtilizador){
 }
 
 Utilizador.getAnosInscrito = async function(idUtilizador){
+
+    var iduser = idUtilizador.replace(/@/,"\\@");
+
     var query = `
-    select ?anos where{
-        c:a82088\@alunos.uminho.pt a c:Aluno .
+    select (STRAFTER(STR(?anos), 'UMbook#') as ?idAnos) where{
+        c:${iduser} a c:Aluno .
     	?anos a c:Ano .
-        c:a82088\@alunos.uminho.pt c:frequenta ?anos .
+        c:${iduser} c:frequenta ?anos .
     }
     `
 
