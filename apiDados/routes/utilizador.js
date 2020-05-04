@@ -8,6 +8,7 @@ var Utilizador = require('../controllers/utilizador')
 
 // -------------------------------------------------------------- GET ---------------------------------------------------------------------
 
+// Toda a informação relativa a um utilizador
 router.get('/:id', function(req, res, next){
     Utilizador.getUtilizador(req.params.id)
       .then(dados => res.jsonp(dados))
@@ -18,6 +19,7 @@ router.get('/:id', function(req, res, next){
 
 // -------------------------------------------------------------- POST ---------------------------------------------------------------------
 
+// Insere um novo utilizador
 router.post('/', function(req, res, next){
   Utilizador.insertUtilizador(req.body)
     .then(dados => res.jsonp(dados))

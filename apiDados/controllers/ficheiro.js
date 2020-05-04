@@ -41,20 +41,22 @@ Ficheiro.getFicheiroPath = async function(idFicheiro){
 }
 
 
-Ficheiro.insereFicheiro = async function(body){
+Ficheiro.insereFicheiro = async function(guardadoEm, nome, path, size, type){
     var id = nanoid.nanoid()
+    var newpath = path.replace(/\\/g,"/");
+
     var query = `
     insert data {
         c:${id} a owl:NamedIndividual ,
                         c:Ficheiro .
-            c:${id} c:guardadoEm c:${body.guardadoEm} .
-            c:${id} c:nome "${body.nome}" .
-            c:${id} c:path "${body.path}" .
-            c:${id} c:size "${body.size}" .
-            c:${id} c:type "${body.type}" .
+            c:${id} c:guardadoEm c:${guardadoEm} .
+            c:${id} c:nome "${nome}" .
+            c:${id} c:path "${newpath}" .
+            c:${id} c:size "${size}"  .
+            c:${id} c:type "${type}" .
     }
     `
 
-    await Connection.makePost(query)
-    return {id : id}
+    response = await Connection.makePost(query)
+    return id
 }
