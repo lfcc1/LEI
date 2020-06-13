@@ -106,7 +106,8 @@ Curso.getPublicacoesFromCurso = async function(idCurso){
     var query = `
     select (STRAFTER(STR(?pub), 'UMbook#') as ?idPub) where{
         ?pub c:éPublicadaEm c:${idCurso} .
-    }
+        ?pub c:data ?dataPub .
+    } Order by ?dataPub 
     `
 
     var idsPublicacoes = await Connection.makeQuery(query)

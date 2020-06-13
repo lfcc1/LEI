@@ -44,7 +44,7 @@ Ficheiro.getFicheiroPath = async function(idFicheiro){
 Ficheiro.insereFicheiro = async function(guardadoEm, nome, path, size, type){
     var id = nanoid.nanoid()
     var newpath = path.replace(/\\/g,"/");
-
+    console.log(guardadoEm)
     var query = `
     insert data {
         c:${id} a owl:NamedIndividual ,

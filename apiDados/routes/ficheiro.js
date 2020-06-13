@@ -49,7 +49,6 @@ router.get('/', function(req, res, next){
 
     function addFiles(files, body) {
       return new Promise((resolve, reject) => {
-        
       
         var ids = [];
         var length = files.length - 1
@@ -79,16 +78,16 @@ router.get('/', function(req, res, next){
                   if(err) throw err
                 })
           
-                
+                console.log(name)
                 Ficheiro.insereFicheiro(guardadoEm, name, newPath, size, type)
                   .then(id => {
-                       
+                    console.log(id)
                     ids.push(id); 
                     
                     if(j++ == length) resolve(ids);
                       
                   })
-                  .catch(erro => reject(erro))
+                  .catch(erro => { reject(erro)})
               })
               .catch(erro => reject(erro))
       

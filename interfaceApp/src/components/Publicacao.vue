@@ -12,7 +12,7 @@
 
             <div class = "flex" style ="width:90%; padding-left:10%;">
     
-                <v-file-input show-size v-model="files" v-on:change="processFile()" ref="files" placeholder="Anexar ficheiros" 
+                <v-file-input show-size v-model="files" placeholder="Anexar ficheiros" 
                  prepend-icon="mdi-myFileIcon" multiple="multiple" style="width:20%; color:#900000;"/> 
 
                 <button style="margin-left:58%;" type='submit' @click="inserePublicacao"> Publicar </button>
@@ -67,6 +67,9 @@
           <span class="subheading mr-2">{{item.dados.info.likes}}</span>
           <v-icon class="mr-1">mdi-comment</v-icon>
           <span class="subheading mr-2">{{item.dados.comentarios.length}}</span>
+          <v-icon class="mr-1">mdi-myFileIcon</v-icon>
+          <span class="subheading mr-2">{{item.dados.ficheiros.length}}</span>
+
         </v-row>
         
       </v-list-item>
@@ -107,16 +110,19 @@ const h = require("@/config/hosts").hostAPI
           //ir buscar à sessão
           publicacao.idUtilizador = "lguilhermem@hotmail.com"
           publicacao.idGrupo = this.idGrupo
-          var post = await axios.post(h + "publicacoes/", publicacao)
+          axios.post(h + "publicacoes/", publicacao)
+               .then(id => {
+                  this.postFiles(id.data.id)
+               })
+               .catch(error => console.log(error))
           var response = await axios.get(h + this.tipoGrupo + "/" + this.idGrupo + "/publicacoes")
-          postFiles()
           this.publicacoes = response.data
           this.updatePubs()
         }
       },
-      postFiles: function(){
+      postFiles: function(id){
         let formData = new FormData();
-
+        console.log(id)
         /*
           Iteate over any file sent over appending the files
           to the form data.
@@ -124,14 +130,15 @@ const h = require("@/config/hosts").hostAPI
         for( var i = 0; i < this.files.length; i++ ){
           let file = this.files[i];
 
-          formData.append('files[' + i + ']', file);
-          formData.append("idPublicacao", idContainer)
+          formData.append("ficheiro", file);
+          
         }
 
+        formData.append("guardadoEm", id)
         /*
           Make the request to the POST /multiple-files URL
         */
-       /*
+        console.log(formData)
         axios.post(h + 'ficheiros/',
           formData,
           {
@@ -139,7 +146,7 @@ const h = require("@/config/hosts").hostAPI
                 'Content-Type': 'multipart/form-data'
             }
           }
-        )*/
+        )
       }
       ,
       makeLike: async function(){

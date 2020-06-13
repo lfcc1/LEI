@@ -2,6 +2,7 @@ var Publicacao = module.exports
 var Connection = require('./connection')
 
 var nanoid = require('nanoid')
+var dateFormat = require('dateformat')
 
 Publicacao.getPublicacao = async function (idPublicacao){
     var info = await Publicacao.getPublicacaoAtomica(idPublicacao)
@@ -61,9 +62,11 @@ Publicacao.getComentariosFromPublicacao = async function (idPublicacao){
 
 Publicacao.insertPublicacao = async function(publicacao){
     var idPublicacao = "pub" + nanoid.nanoid()
-    var data = new Date()
+    var data = dateFormat(new Date(), "yyyy-mm-dd H:MM:ss");
+
     var idUtilizador = publicacao.idUtilizador.replace(/@/,"\\@");
-    
+    console.log(data)
+
     var query = `
     Insert Data {
         c:${idPublicacao} a owl:NamedIndividual ,
@@ -82,7 +85,8 @@ Publicacao.insertPublicacao = async function(publicacao){
 
 Publicacao.insertComentario = async function(idPublicacao, comentario){
     var idComentario = "com" + nanoid.nanoid()
-    var data = new Date()
+    var data = dateFormat(new Date(), "yyyy-mm-dd H:MM:ss");
+    console.log(data)
     var idUtilizador = comentario.idUtilizador.replace(/@/,"\\@");
 
     var query = `
