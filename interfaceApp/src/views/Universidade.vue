@@ -1,29 +1,42 @@
 <template>
   <div>
         <p v-if="!ready">A ir buscar o Grupo à BD...</p>
-        <Consulta v-else :item="item"/>
+        <div v-else> 
+            <v-card class="ma-8">
+              <material-card
+               color="#900000"
+               :title="this.item.info.designacao"
+              /> 
+              <v-container style="width:76%">
+                <Publicacao :publicacoes="this.item.publicacoes" :idGrupo="this.idUniversidade" :tipoGrupo="this.tipoGrupo" />
+              </v-container>
+            </v-card>
+        </div>
     </div>
 </template>
 
 <script>
-import Consulta from '@/components/ConsultarGrupo.vue'
 import axios from "axios"
 const h = require("@/config/hosts").hostAPI
 
 export default {
   name: 'consulta',
   components: {
-    Consulta
+    
   },
 
   data: () => ({
     item: {},
+    idUniversidade: "",
+    tipoGrupo: "",
     ready: false
   }),
 
   created: async function() {
     try {
-      let response = await axios.get(h + "/grupos/" + this.$route.params.id )//
+      this.idUniversidade = "UM"
+      this.tipoGrupo = "cursos"
+      let response = await axios.get(h + "cursos/" + this.idUniversidade )//
       console.log(response.data)
       this.item = response.data
       this.ready = true

@@ -2,14 +2,15 @@
   <v-container
     fill-height
     fluid
-    grid-list-xl>
+    grid-list-xl
+    >
     <v-layout
       justify-center
       wrap
     >
       <v-flex
         xs12
-        md8
+        md9
       >
         <material-card
           :color="colorRed"
@@ -21,11 +22,12 @@
               <v-layout wrap>
                 <v-flex
                   xs12
-                  md4
+                  md7
                 >
                   <v-text-field
                     label="Curso"
                     :color="colorRed"
+                    v-model="this.user.info.curso"
                     disabled/>
                 </v-flex>
                 <v-flex
@@ -34,45 +36,30 @@
                 >
                   <v-text-field
                      :color="colorRed"
-                    label="Identificador"
-                    disabled=""
+                    label="Número de aluno"
+                    v-model="this.user.info.numAluno"
+                    disabled
                   />
+                </v-flex>
+                <v-flex
+                  xs12
+                  md7
+                >
+                  <v-text-field
+                    label="Email"
+                    class="purple-input"
+                    v-model="this.user._id"
+                    disabled/>
+                    
                 </v-flex>
                 <v-flex
                   xs12
                   md4
                 >
                   <v-text-field
-                    label="Email"
-                    class="purple-input"
-                    disabled/>
-                    
-                </v-flex>
-                <v-flex
-                  xs12
-                  md6
-                >
-                  <v-text-field
-                    label="Primeiro Nome"
-                    class="purple-input"
-                    disabled/>
-                </v-flex>
-                <v-flex
-                  xs12
-                  md6
-                >
-                  <v-text-field
-                    label="Último Nome"
-                    class="purple-input"
-                    disabled/>
-                </v-flex>
-                <v-flex
-                  xs12
-                  md12
-                >
-                  <v-text-field
                     label="Sexo"
                     class="purple-input"
+                    v-model="this.user.info.sexo"
                     disabled/>
                 </v-flex>
                 <v-flex
@@ -81,14 +68,17 @@
                   <v-text-field
                     label="Data Nascimento"
                     class="purple-input"
+                    v-model="this.user.info.dataNasc"
                     disabled/>
                 </v-flex>
                 <v-flex
                   xs12
                   md4>
                   <v-text-field
-                    label="Exemplo1"
-                    class="purple-input"/>
+                    label="Número de Telemóvel"
+                    class="purple-input"
+                    v-model="this.user.info.numTelemovel"
+                    disabled/>
                 </v-flex>
                 <v-flex
                   xs12
@@ -98,18 +88,11 @@
                     label="Exemplo3"
                     type="number"/>
                 </v-flex>
-                <v-flex xs12>
-                  <v-textarea
-                    class="purple-input"
-                    label="Exemplo2"
-                    value="texto"
-                  />
-                </v-flex>
                 <v-flex
                   xs12
                   text-xs-right
                 >
-                  <v-btn
+                  <v-btn v-if="this._id == this.idUtilizador"
                     class="mx-0 font-weight-light"
                     color="#900000"
                   >
@@ -123,9 +106,9 @@
       </v-flex>
       <v-flex
         xs12
-        md4
+        md3
       >
-        <material-card >
+        <material-card style="width: 75%" >
           <v-avatar
             slot="offset"
             class="mx-auto d-block"
@@ -137,9 +120,9 @@
           </v-avatar>
           <v-card-text class="text-xs-center">
             <h6 class="category text-gray font-weight-thin mb-3">Estudante MIEI</h6>
-            <h4 class="card-title font-weight-light">Filipe Cunha</h4>
-            <p class="card-description font-weight-light">Exemplo1</p>
-            <v-btn
+            <h4 class="card-title font-weight-light">{{this.user.info.nome}}</h4>
+            <p class="card-description font-weight-light">{{this.user.pubs.length}} publicações</p>
+            <v-btn v-if="this._id != this.idUtilizador"
               color="#900000"
               round
               class="font-weight-light"
@@ -152,11 +135,37 @@
 </template>
 
 <script>
+
+import axios from "axios"
+const h = require("@/config/hosts").hostAPI
+
 export default {
+    name: 'UserProfile',
+    props:["utilizador"],
     data: () => ({
     colorRed: "#900000",
-    ready: false
-  })
+    ready: false,
+    user: {}
+  }),
+   data: () => ({
+    idUtilizador: "utilizador",
+    user: {},
+    userReady: false
+  }),
+   created: async function() {
+    try {
+      this.idUtilizador = this.$route.params.id
+      // ir buscar à sessão
+      var _id = 'lguilhermem@hotmail.com'
+      let response = await axios.get(h + "utilizadores/" + this.idUtilizador )//
+      console.log(response.data)
+      this.user = response.data
+      this.user._id = _id
+      this.userReady = true
+    } catch (e) {
+      return e
+    }
+  },
 }
 </script>
 

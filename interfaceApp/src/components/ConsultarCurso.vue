@@ -1,84 +1,129 @@
 <template>
   <v-card class="ma-8">
+      <!--
     <v-card-title class="justify-center white--text" style="background: #900000;" dark>
         {{item.idCurso}} ({{item.info.designacao}}) 
     </v-card-title>
-    <v-spacer></v-spacer>
+    !-->
+    
+    <material-card
+          color="#900000"
+          :title="this.designacao"
+        >
+    </material-card>
+    <v-spacer>
+    </v-spacer>
     <div style = "display:flex;">
         <div style="width: 20%;">
-            <v-data-table
-                :headers="header_anos"
-                :items="item.anos"
-                :hide-default-footer="true"
-                @click:row="apresentaAno"
-                class="elevation-1"       
-            >
-            </v-data-table>
-        </div>
-        <hr>
-        <div style = " width:80% ; display:flex;">
-            <div style="width:50%;">
-                <v-card-text>
-                    <v-card-title class="justify-center" style="background: #d6d6c2; color: #900000;" dark>
-                        Estudantes do Curso 
-                    </v-card-title>
-                    <v-text-field
-                    v-model="filtrar"
-                    label="Filtrar"
-                    single-line
-                    hide-details
-                    dark
-                    ></v-text-field>
-                    <v-data-table
-                        :headers="header_estudantes"
-                        :items="item.estudantes"
-                        :footer-props="footer_props"
-                        :search="filtrar"
-                        
-                    >
-                    </v-data-table>
-                </v-card-text>
-            </div>
-            <v-spacer></v-spacer>
-            <hr>
-            <v-spacer></v-spacer>
-            <div style="width:50%; ">
-                <v-card-text>
-                    <v-card-title class="justify-center" style="background: #d6d6c2; color: #900000;" dark>
-                        Responsáveis do Curso 
-                    </v-card-title>
-                    <v-text-field
+
+            <center v-if="back != false">
+                <button @click="backTo"> Voltar </button>
+            </center>
+
+            <v-list>
+                <v-list-item
+                    v-for="ano in anos"
+                    :key="ano.id"
+                    @click="apresentaAno(ano.id)" 
+                >
+                    <v-list-item-content style="width: 50%;"> 
+                        <v-list-item-title v-text="ano.designacao"></v-list-item-title>
+                    </v-list-item-content>
+
+                </v-list-item>
+            </v-list>
+
+            <v-list>
+                <v-list-item
+                    v-for="tipo in tipos"
+                    :key="tipo"
+                    @click="apresentaEstudantes(tipo)" 
+                >
+                    <v-list-item-content style="width: 50%;"> 
+                        <v-list-item-title v-text="tipo"></v-list-item-title>
+                    </v-list-item-content>
+
+                </v-list-item>
+            </v-list>
+                        <v-dialog
+                        v-model="dialogEstudantes"
+                        width="500"
+                        >
+                        <v-card>
+                        <v-card-text>
+                        <v-card-title class="justify-center" style="background: #d6d6c2; color: #900000;" dark>
+                            Estudantes 
+                        </v-card-title>
+                        <v-text-field
                         v-model="filtrar"
                         label="Filtrar"
                         single-line
                         hide-details
                         dark
-                    ></v-text-field>
-                    <v-data-table
+                        ></v-text-field>
+                        <v-data-table
+                            :headers="header_estudantes"
+                            :items="this.estudantes"
+                            :footer-props="footer_props"
+                            :search="filtrar"
+                            @click:row="apresentaUser"
+                            
+                        >
+                        </v-data-table>
+                        </v-card-text>
+                        </v-card>
+                        </v-dialog>
+                <v-dialog
+                    v-model="dialogResponsaveis"
+                    width="500"
+                    v-bind:style="{color:white}"
+                >
+                        <v-card>
+                        <v-card-title class="justify-center" style="background: #d6d6c2; color: #900000;" dark>
+                            Responsáveis 
+                        </v-card-title>
+                        <v-card-text>
+                        <v-text-field
+                        v-model="filtrar"
+                        label="Filtrar"
+                        single-line
+                        hide-details
+                        dark
+                         ></v-text-field>
+                        <v-data-table
                         :headers="header_responsaveis"
-                        :items="responsaveis"
+                        :items="this.responsaveis"
                         :footer-props="footer_props"
                         :search="filtrar"
-                    >
-                    </v-data-table>
-                </v-card-text>
-            </div>
+                        @click:row="apresentaUser"
+                        >
+                        </v-data-table>
+                    </v-card-text>
+                        </v-card>
+                    </v-dialog>
+                    </div>
+                    <hr>
+
+        <hr>
+        <div style = " width:80% ; ">
+            <Publicacao :publicacoes="publicacoes" :idGrupo="this.id" :tipoGrupo="this.atual"/>
         </div>
     </div>
-    <hr>
-    <div>
-    </div>
   </v-card>
+  
 </template>
 
 <script>
-import TopBar from './TopBarCurso.vue'
 import axios from "axios"
 const h = require("@/config/hosts").hostAPI
 export default {
     name: 'Consulta',
     props: ["item"],
-    data: () => ({
+    data() {
+        return {
+    publicacoes: [],
+    showModal: false,
+    showModalResponsaveis: false,
     header_estudantes: [
       {text: "Identificador de Aluno", sortable: true, value: 'numeroAluno', class: 'subtitle-1'},
       {text: "Nome", value: 'nome', class: 'subtitle-1'}
@@ -97,9 +142,24 @@ export default {
       "items-per-page-all-text": "Todos"
     }, 
     filtrar: "",
-  }),
+    id: "",
+    designacao: "",
+    anos : [],
+    estudantes: [],
+    responsaveis:[],
+    tipos : ["Estudantes", "Responsáveis"],
+    pai : "",
+    dialogResponsaveis: false,
+    dialogEstudantes: false
+    }
+    }    
+    ,
     created: function(){
+        this.anos = this.item.anos
+        this.publicacoes = this.item.publicacoes
         this.responsaveis = []
+        this.id = this.item.idCurso
+        this.designacao = this.item.info.designacao
         this.item.responsaveis.forEach(item => {
             var ano = item.ano
             item.responsaveis.forEach(responsavel => {
@@ -112,14 +172,102 @@ export default {
                 this.responsaveis.push(r)
             })
         })
+        this.estudantes = this.item.estudantes
+        this.responsaveis = this.item.responsaveis
+        this.rota = 'anos/'
+        this.atual = 'cursos/'
+        this.back = false
   },
     methods: {
-        apresentaAno: function(item){
-            //alert('Cliquei no ano: ' + JSON.stringify(item))
-            this.item = {}
-            this.$router.push({name : 'ano', params:{id : item.id} }, () => {}) 
+        apresentaAno: function(id){
+            console.log(this.pai)
+            //this.$router.push({name : 'Ano', params:{id : item.id} })
+            //alert(JSON.stringify(item))
+            this.id = id
+            if(this.rota == "cursos/"){
+                axios.get(h + this.rota + id)
+                     .then(dados => {
+                         this.designacao = dados.data.info.nome
+                         this.back = false
+                         this.pai = ""
+                         this.anos = dados.data.anos
+                         this.estudantes = dados.data.estudantes
+                         this.responsaveis = dados.data.responsaveis
+                         this.header_responsaveis = [
+                            {text: "Ano", sortable: true, value: 'ano', class: 'subtitle-1'},
+                            {text: "Identificador de Aluno", sortable: true, value: 'numeroAluno', class: 'subtitle-1'},
+                            {text: "Nome", value: 'nome', class: 'subtitle-1'}
+                        ];
+                        /*
+                        this.header_anos = [
+                            {text: "Ano", sortable: true, value: 'designacao', class: 'subtitle-1'}
+                        ]*/
+                        this.rota = "anos/"
+                        this.atual = "cursos"
+                     })
+            }
+            else{
+            axios.get(h + this.rota + id )
+                 .then(dados => {
+                     if(dados.data.cadeiras != null){
+                         this.designacao = dados.data.info.nome
+                         this.pai = dados.data.info.idCurso
+                         this.anos = dados.data.cadeiras
+                         this.estudantes = dados.data.estudantes
+                         this.responsaveis = dados.data.responsaveis
+                         console.log(dados.data)
+                         this.header_responsaveis = [
+                            {text: "Identificador de Aluno", sortable: true, value: 'numeroAluno', class: 'subtitle-1'},
+                            {text: "Nome", value: 'nome', class: 'subtitle-1'}
+                        ];
+                        /*
+                        this.header_anos = [
+                            {text: "Cadeiras Lecionadas", sortable: true, value: 'designacao', class: 'subtitle-1'}
+                        ]*/
+                        this.rota = "cadeiras/"
+                        this.atual = "anos"
+                     }
+                     else {
+                         this.designacao = dados.data.info.designacao
+                         this.pai = dados.data.info.idAno
+                         this.atual = "cadeiras"
+                     }
+                    this.back = true
+                    this.publicacoes = dados.data.publicacoes
+                    })
+                .catch(error => {
+                    alert(error)
+                })
+            }
+        },
+        passagem: function(item){
+
+        },
+        apresentaEstudantes: function(item){
+            if(item == "Estudantes") this.dialogEstudantes = this.dialogEstudantes = true
+            else this.dialogResponsaveis = true
+        },
+        backTo: function(){
+            if(this.atual == "cadeiras") {
+                this.rota = "anos/"
+                alert(this.rota + this.pai)
+                this.apresentaAno(this.pai)
+            }
+            else{
+                this.rota = "cursos/"
+                alert(this.rota + this.pai)
+                this.apresentaAno(this.pai)
+            }
+        },
+        apresentaUser: function(item){
+            alert(item)
+            this.$router.push({ name: 'UserProfile', params: {id: item.id }})
         }
     }
 }
 
 </script>
+
+<style>
+
+</style>

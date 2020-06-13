@@ -12,13 +12,13 @@ Ano.getAno = async function(idAno){
         var publicacoes = await Ano.getPublicacoesFromAno(idAno)
 
         var ano = {
-            info : info,
+            info : info[0],
             responsaveis : responsaveis,
             estudantes : estudantes,
             cadeiras : cadeiras,
             publicacoes : publicacoes
         }
-
+        
         return ano
     }
     catch(e){
@@ -30,11 +30,10 @@ Ano.getAno = async function(idAno){
 
 Ano.getAnoAtomica = async function(idAno){
     var query = `
-    select ?nome ?curso ?anoLetivo where{
+    select ?nome ?curso ?anoLetivo (STRAFTER(STR(?curso), 'UMbook#') as ?idCurso) where{
         c:${idAno} c:nome ?nome . 
         c:${idAno} c:anoLetivo ?anoLetivo .
-        c:${idAno} c:fazParteCurso ?idCurso .
-        ?idCurso c:nome ?curso .
+        c:${idAno} c:fazParteCurso ?curso .
     }
     `
 

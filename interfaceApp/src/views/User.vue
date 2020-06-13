@@ -8,7 +8,7 @@
 <script>
 import Consulta from '@/components/ConsultaUser.vue'
 import axios from "axios"
-const h = require("@/config/hosts").host
+const h = require("@/config/hosts").hostAPI
 
 export default {
   name: 'consultaUser',
@@ -23,9 +23,10 @@ export default {
 
   created: async function() {
     try {
-      let response = await axios.get(h + "/users/" + this.$route.params.id )//
+      let response = await axios.get(h + "utilizadores/" + this.$route.params.id )//
       console.log(response.data)
       this.user = response.data
+      this.user._id = this.$route.params.id
       this.userReady = true
     } catch (e) {
       return e

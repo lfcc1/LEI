@@ -24,8 +24,10 @@ export default {
 
   created: async function() {
     try {
-      let response = await axios.get(h + "ano/" + props.id )
+      console.log('Soorigjrieij')
+      let response = await axios.get(h + "anos/" + this.$route.params.id )
       this.item = response.data
+      console.log(response.data)
       this.ready = true
     } catch (e) {
       return e
@@ -33,10 +35,10 @@ export default {
   },  
   beforeRouteUpdate(to, from, next) {
     console.log(`Updating slug from ${from} to ${to}`)
-    next('/') //make sure you always call next()
+    next() //make sure you always call next()
   },
   beforeRouteLeave (to, from, next) {
-    next('/')
+    next()
   }
 }
 </script>

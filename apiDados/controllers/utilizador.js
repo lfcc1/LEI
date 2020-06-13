@@ -11,7 +11,7 @@ Utilizador.getUtilizador = async function(idUtilizador){
         var anos = await Utilizador.getAnosInscrito(idUtilizador)
 
         var utilizador = {
-            info: informacao,
+            info: informacao[0],
             pubs: publicacoes,
             anosInscrito: anos
         }
@@ -30,13 +30,16 @@ Utilizador.getUtilizadorAtomica = async function(idUtilizador){
 
 
     var query = `
-    select ?numAluno ?numTelemovel ?nome ?sexo ?dataNasc where{
+    select ?numAluno ?numTelemovel ?nome ?sexo ?dataNasc ?curso where{
         c:${iduser} a c:Aluno .
         c:${iduser} c:numAluno ?numAluno .
         c:${iduser} c:numTelemovel ?numTelemovel .
         c:${iduser} c:nome ?nome .
         c:${iduser} c:sexo ?sexo .
         c:${iduser} c:dataNasc ?dataNasc .
+        c:${iduser} c:frequenta ?idcurso .
+        ?idcurso a c:Curso .
+    	?idcurso c:nome ?curso .
     }
     `
 

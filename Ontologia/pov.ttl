@@ -523,6 +523,12 @@
      :nome "Tópicos de Matemática Discreta" .
 
 
+###  http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#UM
+:UM rdf:type owl:NamedIndividual ,
+             :Curso ;
+    :nome "Universidade do Minho" .
+
+
 ###  http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#admin01
 :admin01 rdf:type owl:NamedIndividual ,
                   :Admin ;
@@ -677,6 +683,7 @@
 
 ###  http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#flipcunha@gmail.com
 <http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#flipcunha@gmail.com> rdf:type owl:NamedIndividual ,
+                                                                                         :Aluno ,
                                                                                          :Responsavel ;
                                                                                 :envia :mensagem005 ;
                                                                                 :frequenta :MIEI ;
@@ -691,7 +698,8 @@
 
 
 ###  http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#joniboy@hotmail.com
-<http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#joniboy@hotmail.com> rdf:type owl:NamedIndividual ;
+<http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#joniboy@hotmail.com> rdf:type owl:NamedIndividual ,
+                                                                                         :Aluno ;
                                                                                 :envia :mensagem003 ;
                                                                                 :frequenta :MIEI ;
                                                                                 :gere :Segundo_Ano ;

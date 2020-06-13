@@ -8,7 +8,7 @@
 <script>
 import Consulta from '@/components/ConsultarGrupo.vue'
 import axios from "axios"
-const h = require("@/config/hosts").host
+const h = require("@/config/hosts").hostAPI
 
 export default {
   name: 'consulta',

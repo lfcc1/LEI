@@ -68,10 +68,10 @@ export default {
       items: [
         { title: 'Universidade', icon: 'mdi-view-dashboard',href:"/universidade" },
         { title: 'Meu Curso', icon: 'mdi-school', href:"/curso" },
-        { title: 'Meus Eventos', icon: 'mdi-image', href:"/eventos" },
-        { title: 'Meu Perfil', icon: 'mdi-image', href:"/userProfile" },
-        { title: 'Notificações', icon: 'mdi-image', href:"/notificacoes" },
-        { title: 'Grupos-DevelopMode', icon: 'mdi-image', href:"/grupos" },
+        { title: 'Meus Eventos', icon: 'mdi-calendar-clock', href:"/eventos" },
+        // Ir buscar á sessão
+        { title: 'Meu Perfil', icon: 'mdi-account-circle', href:"/userProfile/lguilhermem@hotmail.com" },
+        { title: 'Notificações', icon: 'mdi-bell-ring', href:"/notificacoes" },
         { title: 'Users-DevelopMode', icon: 'mdi-logout', href:"/users" },
       ],
       color: '#900000',

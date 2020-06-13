@@ -20,8 +20,9 @@ Publicacao.getPublicacao = async function (idPublicacao){
 
 Publicacao.getPublicacaoAtomica = async function (idPublicacao){
     var query = `
-    select (STRAFTER(STR(?utilizador), 'UMbook#') as ?idUtilizador) ?likes ?conteudo ?dataPublicacao where {
+    select (STRAFTER(STR(?utilizador), 'UMbook#') as ?idUtilizador) ?nomeUtilizador ?likes ?conteudo ?dataPublicacao where {
         c:${idPublicacao} c:éPublicadoPor ?utilizador .
+        ?utilizador c:nome ?nomeUtilizador .
         c:${idPublicacao} c:gostos ?likes .
         c:${idPublicacao} c:conteudo ?conteudo .
         c:${idPublicacao} c:data ?dataPublicacao .
@@ -67,7 +68,7 @@ Publicacao.insertPublicacao = async function(publicacao){
     Insert Data {
         c:${idPublicacao} a owl:NamedIndividual ,
                         c:Publicacao .
-        c:${idPublicacao} c:gostos "0" .
+        c:${idPublicacao} c:gostos 0 .
         c:${idPublicacao} c:conteudo "${publicacao.conteudo}" .
         c:${idPublicacao} c:data "${data}" .
         c:${idPublicacao} c:éPublicadoPor c:${idUtilizador} .

@@ -1,7 +1,8 @@
 <template>
   <div>
-        <p v-if="!ready">A ir buscar o Curso à BD...</p>
-        <Consulta v-else :item="item"/>
+      
+      <p v-if="!ready">A ir buscar o Curso à BD...</p>
+      <Consulta v-else :item="item"/>
     </div>
 </template>
 

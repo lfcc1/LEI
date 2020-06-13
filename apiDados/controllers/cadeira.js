@@ -26,12 +26,10 @@ Cadeira.getCadeira = async function(idCadeira){
 
 Cadeira.getCadeiraAtomica = async function(idCadeira){
     var query = `
-    select ?designacao ?curso ?ano where{
+    select ?designacao (STRAFTER(STR(?ano), 'UMbook#') as ?idAno) where{
         c:${idCadeira} c:nome ?designacao .
-        c:${idCadeira} c:éLecionadaEm ?idAno .
-        ?idAno c:fazParteCurso/c:nome ?curso .
-        ?idAno c:nome ?ano .
-
+        c:${idCadeira} c:éLecionadaEm ?ano .
+        ?ano c:fazParteCurso ?idCurso .
     }
     `
 
