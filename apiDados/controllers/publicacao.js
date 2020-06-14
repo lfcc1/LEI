@@ -48,9 +48,10 @@ Publicacao.getFicheirosFromPublicacao = async function (idPublicacao){
 
 Publicacao.getComentariosFromPublicacao = async function (idPublicacao){
     var query = `
-    select (STRAFTER(STR(?comentario), 'UMbook#') as ?idComentario) (STRAFTER(STR(?utilizador), 'UMbook#') as ?idUtilizador) ?conteudo ?likes ?data where{
+    select (STRAFTER(STR(?comentario), 'UMbook#') as ?idComentario) (STRAFTER(STR(?utilizador), 'UMbook#') as ?idUtilizador) ?nomeUtilizador ?conteudo ?likes ?data where{
         ?comentario c:comentadoEm c:${idPublicacao} .
         ?comentario c:éComentadoPor ?utilizador .
+        ?utilizador c:nome ?nomeUtilizador .
         ?comentario c:conteudo ?conteudo .
         ?comentario c:gostos ?likes .
         ?comentario c:data ?data .

@@ -15,6 +15,7 @@ router.get('/', function(req, res){
 })
 
 
+
 router.get('/:idEvento', function(req, res){
     Evento.getEvento(req.params.idEvento)
     .then(dados => res.jsonp(dados))
@@ -27,6 +28,11 @@ router.get('/parceria/:idParceria', function(req, res){
     .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
 })
 
+router.get('/participante/:idParticipante', function(req, res){
+    Evento.getEventosFromParticipante(req.params.idParticipante)
+    .then(dados => res.jsonp(dados))
+    .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
+})
 
 // ------------------------------------------------------ POST --------------------------------------------
 

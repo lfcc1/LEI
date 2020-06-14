@@ -60,15 +60,46 @@ Evento.getEventosFromParceria = async function(idParceria){
     }
 }
 
+Evento.getEventosFromParticipante = async function(idParticipante){
+    try{
+        var iduser = idParticipante.replace(/@/,"\\@");
+
+        var query = `
+        select (STRAFTER(STR(?evento), 'UMbook#') as ?idEvento) where{
+            ?evento a c:Evento . 
+            ?evento c:dataInicio ?dataInicio . 
+            ?evento c:temPresenca c:${iduser} .
+        } ORDER BY ASC(?dataInicio)
+        `
+
+        var ids = await Connection.makeQuery(query)
+        var eventos = []
+
+        for(let i = 0; i < ids.length ; i++ ){
+            var event = await Evento.getEvento(ids[i].idEvento)
+            var evento = {
+                idEvento : ids[i].idEvento,
+                dados : event
+            }
+            eventos.push(evento)
+        }
+
+        return eventos
+    }
+    catch(e){
+        throw e
+    }
+}
+
 Evento.getEvento = async function(idEvento){
     try{
         var info = await Evento.getEventoAtomica(idEvento)
-        var particpantes = await Evento.getParticipantesFromEvento(idEvento)
+        var participantes = await Evento.getParticipantesFromEvento(idEvento)
         var parcerias = await Evento.getParceriasFromEvento(idEvento)
 
         var evento = {
             info : info[0], 
-            particpantes : particpantes,
+            participantes : participantes,
             parcerias : parcerias
         }
 
@@ -96,6 +127,7 @@ Evento.getEventoAtomica = async function(idEvento){
 }
 
 Evento.getParticipantesFromEvento = async function(idEvento){
+    
     var query = `
     select (STRAFTER(STR(?utilizador), 'UMbook#') as ?idUtilizador) ?nome where{
         ?utilizador c:vai c:${idEvento} .

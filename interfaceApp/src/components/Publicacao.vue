@@ -72,6 +72,7 @@
           <span class="subheading mr-2">{{item.dados.ficheiros.length}}</span>
 
         </v-row>
+            <v-spacer/>
                   <v-dialog
                     v-if="item.dados.ficheiros.length != 0"
                     v-model="item.showFiles"
@@ -90,22 +91,24 @@
                     </v-list-item-content>
 
                     </v-list-item>
+                    
                     </v-list>
                     </v-card>
                     </v-dialog>
         
       </v-list-item>
     </v-card-actions>
-  </v-card>
-          <v-container
-                    v-if="item.showComments"
-                    width="500"
-                    v-bind:style="{color:white}"
-                >
+            <v-container
+              v-if="item.showComments"
+              width="70%"
+              background-color="#fff"
+            >
                         <!--<v-list v-if="item,dados.comentarios.length != 0" >-->
-                  <Comentario :comentarios="item.dados.comentarios" :idPublicacao="item.idPublicacao"/>
-                </v-container>
+                <Comentario :comentarios="item.dados.comentarios" :idPublicacao="item.idPublicacao"/>
             </v-container>
+  </v-card>
+  </v-container>
+
             </v-list-item>
             <!--</v-list-item-group> -->
         </v-list>
