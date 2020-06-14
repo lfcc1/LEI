@@ -12,6 +12,10 @@ import Login from '../views/Login.vue'
 import Registar from '../views/Registar.vue'
 import Universidade from '../views/Universidade.vue'
 import EditUserProfile from '../views/EditUserProfile.vue'
+import Evento from '../views/Evento.vue'
+import EventoCurso from '../views/EventoCurso.vue'
+import MeusEventos from '../views/MeusEventos.vue'
+
 
 Vue.use(VueRouter)
 
@@ -103,6 +107,30 @@ const routes = [
     component: Universidade,
     meta: { 
       //requiresAuth: true
+    }
+  },
+  {
+    path: '/eventos',
+    name: 'Evento',
+    component: Evento,
+    meta: {
+
+    }
+  },
+  {
+    path: '/eventoscurso',
+    name: 'EventoCurso',
+    component: EventoCurso,
+    meta: {
+
+    }
+  },
+  {
+    path: '/meuseventos',
+    name: 'MeusEventos',
+    component: MeusEventos,
+    meta: {
+
     }
   }
 

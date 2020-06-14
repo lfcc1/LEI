@@ -11,6 +11,7 @@ var conversaRouter = require('./routes/conversa');
 var ficheiroRouter = require('./routes/ficheiro');
 var publicacaoRouter = require('./routes/publicacao');
 var utilizadorRouter = require('./routes/utilizador');
+var eventoRouter = require('./routes/evento')
 
 var app = express();
 
@@ -40,9 +41,7 @@ app.use('/api/conversas', conversaRouter);
 app.use('/api/utilizadores', utilizadorRouter);
 app.use('/api/ficheiros', ficheiroRouter);
 app.use('/api/publicacoes', publicacaoRouter);
-
-
-
+app.use('/api/eventos', eventoRouter);
 
 
 // catch 404 and forward to error handler

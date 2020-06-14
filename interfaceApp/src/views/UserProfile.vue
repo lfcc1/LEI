@@ -48,7 +48,7 @@
                   <v-text-field
                     label="Email"
                     class="purple-input"
-                    v-model="this.user._id"
+                    v-model="this.idUtilizador"
                     disabled/>
                     
                 </v-flex>
@@ -160,7 +160,6 @@ export default {
       let response = await axios.get(h + "utilizadores/" + this.idUtilizador )//
       console.log(response.data)
       this.user = response.data
-      this.user._id = _id
       this.userReady = true
     } catch (e) {
       return e

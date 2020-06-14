@@ -37,8 +37,9 @@ Publicacao.getPublicacaoAtomica = async function (idPublicacao){
 
 Publicacao.getFicheirosFromPublicacao = async function (idPublicacao){
     var query = `
-    select (STRAFTER(STR(?ficheiro), 'UMbook#') as ?idFicheiro) where {
+    select (STRAFTER(STR(?ficheiro), 'UMbook#') as ?idFicheiro) ?nome where {
         c:${idPublicacao} c:PussuiFicheiro ?ficheiro .
+        ?ficheiro c:nome ?nome .
     }
     `
 
@@ -47,9 +48,10 @@ Publicacao.getFicheirosFromPublicacao = async function (idPublicacao){
 
 Publicacao.getComentariosFromPublicacao = async function (idPublicacao){
     var query = `
-    select (STRAFTER(STR(?comentario), 'UMbook#') as ?idComentario) (STRAFTER(STR(?utilizador), 'UMbook#') as ?idUtilizador) ?conteudo ?likes ?data where{
+    select (STRAFTER(STR(?comentario), 'UMbook#') as ?idComentario) (STRAFTER(STR(?utilizador), 'UMbook#') as ?idUtilizador) ?nomeUtilizador ?conteudo ?likes ?data where{
         ?comentario c:comentadoEm c:${idPublicacao} .
         ?comentario c:éComentadoPor ?utilizador .
+        ?utilizador c:nome ?nomeUtilizador .
         ?comentario c:conteudo ?conteudo .
         ?comentario c:gostos ?likes .
         ?comentario c:data ?data .
@@ -62,7 +64,7 @@ Publicacao.getComentariosFromPublicacao = async function (idPublicacao){
 
 Publicacao.insertPublicacao = async function(publicacao){
     var idPublicacao = "pub" + nanoid.nanoid()
-    var data = dateFormat(new Date(), "yyyy-mm-dd H:MM:ss");
+    var data = dateFormat(new Date(), "yyyy-mm-dd HH:MM:ss");
 
     var idUtilizador = publicacao.idUtilizador.replace(/@/,"\\@");
     console.log(data)
@@ -85,7 +87,7 @@ Publicacao.insertPublicacao = async function(publicacao){
 
 Publicacao.insertComentario = async function(idPublicacao, comentario){
     var idComentario = "com" + nanoid.nanoid()
-    var data = dateFormat(new Date(), "yyyy-mm-dd H:MM:ss");
+    var data = dateFormat(new Date(), "yyyy-mm-dd HH:MM:ss");
     console.log(data)
     var idUtilizador = comentario.idUtilizador.replace(/@/,"\\@");
 
