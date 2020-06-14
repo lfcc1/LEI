@@ -37,8 +37,9 @@ Publicacao.getPublicacaoAtomica = async function (idPublicacao){
 
 Publicacao.getFicheirosFromPublicacao = async function (idPublicacao){
     var query = `
-    select (STRAFTER(STR(?ficheiro), 'UMbook#') as ?idFicheiro) where {
+    select (STRAFTER(STR(?ficheiro), 'UMbook#') as ?idFicheiro) ?nome where {
         c:${idPublicacao} c:PussuiFicheiro ?ficheiro .
+        ?ficheiro c:nome ?nome .
     }
     `
 
@@ -62,7 +63,7 @@ Publicacao.getComentariosFromPublicacao = async function (idPublicacao){
 
 Publicacao.insertPublicacao = async function(publicacao){
     var idPublicacao = "pub" + nanoid.nanoid()
-    var data = dateFormat(new Date(), "yyyy-mm-dd H:MM:ss");
+    var data = dateFormat(new Date(), "yyyy-mm-dd HH:MM:ss");
 
     var idUtilizador = publicacao.idUtilizador.replace(/@/,"\\@");
     console.log(data)
@@ -85,7 +86,7 @@ Publicacao.insertPublicacao = async function(publicacao){
 
 Publicacao.insertComentario = async function(idPublicacao, comentario){
     var idComentario = "com" + nanoid.nanoid()
-    var data = dateFormat(new Date(), "yyyy-mm-dd H:MM:ss");
+    var data = dateFormat(new Date(), "yyyy-mm-dd HH:MM:ss");
     console.log(data)
     var idUtilizador = comentario.idUtilizador.replace(/@/,"\\@");
 

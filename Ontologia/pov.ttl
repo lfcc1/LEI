@@ -95,6 +95,17 @@
          rdfs:range :Cadeira .
 
 
+###  http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#organiza
+:organiza rdf:type owl:ObjectProperty ;
+          owl:inverseOf :parceriaCom .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#parceriaCom
+:parceriaCom rdf:type owl:ObjectProperty ;
+             rdfs:domain :Evento ;
+             rdfs:range :Curso .
+
+
 ###  http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#participa
 :participa rdf:type owl:ObjectProperty ;
            owl:inverseOf :pussuiParticipantes ;
@@ -148,6 +159,19 @@
                               :Curso ,
                               :Grupo ;
                   rdfs:range :Publicacao .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#temPresenca
+:temPresenca rdf:type owl:ObjectProperty ;
+             owl:inverseOf :vai .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#vai
+:vai rdf:type owl:ObjectProperty ;
+     rdfs:domain :Admin ,
+                 :Aluno ,
+                 :Responsavel ;
+     rdfs:range :Evento .
 
 
 ###  http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#éAdministradoPor
@@ -204,6 +228,7 @@
 ###  http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#conteudo
 :conteudo rdf:type owl:DatatypeProperty ;
           rdfs:domain :Comentario ,
+                      :Evento ,
                       :Mensagem ,
                       :Publicacao .
 
@@ -213,6 +238,16 @@
       rdfs:domain :Comentario ,
                   :Mensagem ,
                   :Publicacao .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#dataFim
+:dataFim rdf:type owl:DatatypeProperty ;
+         rdfs:domain :Evento .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#dataInicio
+:dataInicio rdf:type owl:DatatypeProperty ;
+            rdfs:domain :Evento .
 
 
 ###  http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#dataNasc
@@ -234,6 +269,7 @@
                   :Aluno ,
                   :Ano ,
                   :Cadeira ,
+                  :Evento ,
                   :Ficheiro ,
                   :Responsavel .
 
@@ -316,6 +352,10 @@
 
 ###  http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#Curso
 :Curso rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#Evento
+:Evento rdf:type owl:Class .
 
 
 ###  http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#Ficheiro
@@ -575,6 +615,29 @@
                              :mensagem006 ;
              :pussuiParticipantes <http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#flipcunha@gmail.com> ,
                                   <http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#lguilhermem@hotmail.com> .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#evento001
+:evento001 rdf:type owl:NamedIndividual ,
+                    :Evento ;
+           :parceriaCom :UM ;
+           :temPresenca <http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#a82088@alunos.uminho.pt> ,
+                        <http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#flipcunha@gmail.com> ;
+           :conteudo "A fase final do campeonato de futsal da Unversidade do Minho está de volta, se não está a participar, venha pelo menos assistir e divirta-se com os seus amigos." ;
+           :dataFim "2020-06-20" ;
+           :dataInicio "2020-06-15" ;
+           :nome "Campeonato de Futsal UMinho" .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#evento002
+:evento002 rdf:type owl:NamedIndividual ,
+                    :Evento ;
+           :parceriaCom :MIEI ;
+           :temPresenca <http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#joniboy@hotmail.com> ;
+           :conteudo "Este torneio de FIFA na PS4 será elaborado pelo CESIUM." ;
+           :dataFim "2020-06-20 19:00:00" ;
+           :dataInicio "2020-06-20 09:00:00" ;
+           :nome "Torneio FIFA CESIUM" .
 
 
 ###  http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#ficheiro001
