@@ -18,8 +18,9 @@ Conversa.getConversa = async function(idConversa){
 
 Conversa.getParticipantesFromConversa = async function(idConversa){
     var query = `
-    select (STRAFTER(STR(?p), 'UMbook#') as ?participante) where{
+    select (STRAFTER(STR(?p), 'UMbook#') as ?participante)  ?nome where{
         c:${idConversa} c:pussuiParticipantes ?p .
+        ?p c:nome ?nome .
     }
     `
 
@@ -29,25 +30,18 @@ Conversa.getParticipantesFromConversa = async function(idConversa){
 
 Conversa.getMensagensFromConversa = async function(idConversa){
     var query = `
-    select (STRAFTER(STR(?mensagem), 'UMbook#') as ?idMensagem) where{
+    select (STRAFTER(STR(?mensagem), 'UMbook#') as ?idMensagem ) (STRAFTER(STR(?enviou), 'UMbook#') as ?remetente) ?texto ?dataEnvio where{
         c:${idConversa} c:pussuiMensagem ?mensagem .
+        ?mensagem c:éEnviada ?enviou .
+        ?mensagem c:conteudo ?texto .
+        ?mensagem c:data ?dataEnvio .
     }
     `
 
-    var idsMensagens = await Connection.makeQuery(query)
+    var conversa = await Connection.makeQuery(query)
 
-    var mensagens = []
 
-    for(let i = 0; i < idsMensagens.length ; i++ ){
-        mensagem = await Conversa.getMensagem(idsMensagens[i].idMensagem)
-        var mensagem = {
-            idMensagem : idsMensagens[i].idMensagem,
-            dados : mensagem
-        }
-        mensagens.push(mensagem)
-    }
-
-    return mensagens
+    return conversa
 }
 
 Conversa.getMensagem = async function(idMensagem){
@@ -70,8 +64,18 @@ Conversa.getConversasFromParticipante = async function(idParticipante){
         c:${iduser} c:participa ?conversa .
     }
     `
-
-    return Connection.makeQuery(query)
+    var ids = await Connection.makeQuery(query);
+    var conversas = [];
+    for (e in ids){
+        var c = await Conversa.getMensagensFromConversa(ids[e].idConversa)
+     //   console.log(c)
+        var participantes = await Conversa.getParticipantesFromConversa(ids[e].idConversa)
+      //  console.log(participantes)
+        var aux = {idConversa: ids[e].idConversa, participantes:participantes ,mensagens:c}
+        conversas.push(aux)
+    }
+    console.log("OWOW")
+    return conversas
 }
 
 

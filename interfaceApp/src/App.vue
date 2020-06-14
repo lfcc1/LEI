@@ -14,9 +14,9 @@
         
         <Chat v-bind:key ="item" style="width: 300px; height:350px; margin-right:20px"
 
-        :participants="participants"
+        :participants="item.participants"
         :myself="myself"
-        :messages="messages"
+        :messages="item.messages"
         :chat-title="chatTitle"
         :placeholder="placeholder"
         :colors="colors"
@@ -34,8 +34,8 @@
         :timestamp-config="timestampConfig"
         @onImageClicked="onImageClicked"
         @onImageSelected="onImageSelected"
-        @onMessageSubmit="onMessageSubmit"
-        @onType="onType"
+        @onMessageSubmit="(message) => {onMessageSubmit(message,item,index)}"
+        @onType="onType(item)"
         @onClose="onCloses(index)"/>
 
         </template>
@@ -55,20 +55,21 @@
       <v-subheader>Recent chat</v-subheader>
 
       <v-list-item
-        v-for="item in items"
-        :key="item.title"
+        v-for="item in conversas"
+        :key="item.idConversa"
         @click="abrirChat(item)"
       >
         <v-list-item-avatar>
-          <v-img :src="item.avatar"></v-img>
+          <v-img src='https://cdn.vuetifyjs.com/images/lists/1.jpg'></v-img>
         </v-list-item-avatar>
 
         <v-list-item-content>
-          <v-list-item-title v-text="item.title"></v-list-item-title>
+          <v-list-item-title v-text="item.participantes[1].nome"></v-list-item-title>
         </v-list-item-content>
 
         <v-list-item-icon>
-          <v-icon :color="item.active ? '#900000' : 'grey'">mdi-message</v-icon>
+        <!--  <v-icon :color="item.active ? '#900000' : 'grey'">mdi-message</v-icon> -->
+        <v-icon color='#900000'>mdi-message</v-icon> 
         </v-list-item-icon>
       </v-list-item>
     </v-list>
@@ -86,6 +87,9 @@ import Toolbar from '@/components/Toolbar.vue'
 import Views from '@/components/View.vue'
 import { Chat } from 'vue-quick-chat'
 import 'vue-quick-chat/dist/vue-quick-chat.css';
+import axios from "axios"
+import io from "socket.io-client";
+var socket = io.connect("http://localhost:3050",{query:"idUtilizador=lguilhermem@hotmail.com"});
 export default {
     components: {
     NavBar,
@@ -95,10 +99,9 @@ export default {
   },
      data() {
         return {
-
-
-
-          chats:[{}],
+          userID :"lguilhermem@hotmail.com",
+          chats:[],
+          conversas: [],
 
            items: [
         { active: true, title: 'Jason Oner', avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg' },
@@ -137,8 +140,8 @@ export default {
                 }
             ],
             myself: {
-                name: 'Matheus S.',
-                id: 3,
+                name: this.userID,
+                id: this.userID,
                 profilePicture: 'https://lh3.googleusercontent.com/-G1d4-a7d_TY/AAAAAAAAAAI/AAAAAAAAAAA/AAKWJJPez_wX5UCJztzEUeCxOd7HBK7-jA.CMID/s83-c/photo.jpg'
             },
             messages: [
@@ -237,10 +240,34 @@ export default {
             }
         }
     },
+
+    created: async function(){
+    try {
+    this.myself.name = "Luís Martins"
+    this.myself.id = this.userID
+      let response = await axios.get("http://localhost:3050/api/conversas/participante/"+ this.userID )
+      this.conversas = response.data
+    } catch (e) {
+
+    }
+
+
+  socket.on("mensagem", msg => {
+    console.log("MENSAGEM RECEBIDA")
+    console.log(msg)
+      var newM = {}
+      newM.content = msg.texto
+      newM.type = 'text'
+      newM.participantId = msg.from
+      newM.timestamp = "" 
+      this.chats[1].messages.push(newM)  
+  })
+
+  },
     methods: {
-        onType: function (teste,tesft,fsdfs) {
+        onType: function (conversa) {
             //here you can set any behavior
-            console.log("FFFF")
+            //console.log(conversa)
         },
         loadMoreMessages(resolve) {
             setTimeout(() => {
@@ -250,13 +277,22 @@ export default {
                 this.toLoad = [];
             }, 1000);
         },
-        onMessageSubmit: function (message) {
+        onMessageSubmit: function (message,chat,index) {
+          console.log(chat)
+          console.log(message)
             /*
             * example simulating an upload callback. 
             * It's important to notice that even when your message wasn't send 
             * yet to the server you have to add the message into the array
             */
-            this.messages.push(message);
+            this.chats[index].messages.push(message);
+                       var data = {}
+            data.to = chat.participants[0]; /// MUDAR COM SESSOES
+            data.idConversa = chat.idConversa;
+            data.texto = message.content
+            data.from = this.userID;
+            socket.emit('mensagem', data)
+            
  
             /*
             * you can update message state after the server response
@@ -290,8 +326,49 @@ export default {
              */
             console.log('Image clicked', message.src)
         },
+        parseParticipantes(participantes){
+            var newParticipantes = []
+            participantes.forEach(e =>{
+              if(e.participante != this.userID){
+              var newP = {}
+              newP.name = e.nome
+              newP.id = e.participante
+              newParticipantes.push(newP)
+              }
+            })
+            return newParticipantes;
+        },
+        parseMessage(messages){
+          var newMessages = []
+            messages.forEach(m => {
+              var newM = {}
+              newM.content = m.texto
+              newM.type = 'text'
+              newM.participantId = m.remetente
+              newM.timestamp = m.dataEnvio 
+              if(m.remetente == this.userID)
+                newM.myself = true
+              else 
+                newM.myself = false
+              newMessages.push(newM)
+            });
+            return newMessages
+        },
+        chatExiste(idConversa){
+          var result = false;
+          this.chats.forEach(e => {
+            if(e.idConversa == idConversa)
+              result = true
+          })
+          return result
+        },
         abrirChat(item){
-            var chat = {}
+          if(this.chatExiste(item.idConversa))
+            return;
+          var chat = {}
+          chat.idConversa = item.idConversa
+          chat.messages = this.parseMessage(item.mensagens) 
+          chat.participants = this.parseParticipantes(item.participantes) 
           if(this.chats.length >= 3)
             this.chats.splice(2,1)
           this.chats.push(chat)
