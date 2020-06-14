@@ -10,9 +10,9 @@
     <div class="splitscreen">
 
 
-<template v-for="(item) in chats">
+<template v-for="(item,index) in chats">
         
-        <Chat v-if="item.visible" v-bind:key ="item" style="width: 300px; height:350px; margin-right:20px"
+        <Chat v-bind:key ="item" style="width: 300px; height:350px; margin-right:20px"
 
         :participants="participants"
         :myself="myself"
@@ -35,8 +35,8 @@
         @onImageClicked="onImageClicked"
         @onImageSelected="onImageSelected"
         @onMessageSubmit="onMessageSubmit"
-        :onType="onType"
-        :onClose="onClose"/>
+        @onType="onType"
+        @onClose="onCloses(index)"/>
 
         </template>
         
@@ -98,7 +98,7 @@ export default {
 
 
 
-          chats:[{visible:true}],
+          chats:[{}],
 
            items: [
         { active: true, title: 'Jason Oner', avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg' },
@@ -266,9 +266,8 @@ export default {
                 message.uploaded = true
             }, 2000)
         },
-        onClose() {
-          this.chats[0].visible = false
-          console.log("ONCLOSE")
+        onCloses(index) {
+          this.chats.splice(index,1)
             
         },
         onImageSelected(files, message){
@@ -296,7 +295,6 @@ export default {
           if(this.chats.length >= 3)
             this.chats.splice(2,1)
           this.chats.push(chat)
-          console.log(this.chats)
         }
     }
   }
