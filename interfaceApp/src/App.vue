@@ -7,29 +7,13 @@
     
       
   <div class="item doctor" style="padding-right:20%">
-<div class="splitscreen">
+    <div class="splitscreen">
 
-    <div class="left">
-<!--
-      <Chat style="width: 300px; height:350px"
-       :participants="participants"
-       :myself="myself"
-       :messages="messages"
-       :onType="onType"
-       :onMessageSubmit="onMessageSubmit"
-       :chatTitle="chatTitle"
-       :placeholder="placeholder"
-       :colors="colors"
-       :borderStyle="borderStyle"
-       :hideCloseButton="hideCloseButton"
-       :closeButtonIconSize="closeButtonIconSize"
-       :submitIconSize="submitIconSize"
-       :onClose="onClose"/>-->
-       </div>
 
-       <div style="width:20px"></div>
-    <!--
-        <Chat style="width: 300px; height:350px" v-if="visible"
+<template v-for="(item) in chats">
+        
+        <Chat v-if="item.visible" v-bind:key ="item" style="width: 300px; height:350px; margin-right:20px"
+
         :participants="participants"
         :myself="myself"
         :messages="messages"
@@ -48,12 +32,14 @@
         :send-images="true"
         :profile-picture-config="profilePictureConfig"
         :timestamp-config="timestampConfig"
-        :onImageClicked="onImageClicked"
-        :onImageSelected="onImageSelected"
-        :onMessageSubmit="onMessageSubmit"
+        @onImageClicked="onImageClicked"
+        @onImageSelected="onImageSelected"
+        @onMessageSubmit="onMessageSubmit"
         :onType="onType"
         :onClose="onClose"/>
-        -->
+
+        </template>
+        
         </div>
          </div>
         
@@ -71,7 +57,7 @@
       <v-list-item
         v-for="item in items"
         :key="item.title"
-        @click=""
+        @click="abrirChat(item)"
       >
         <v-list-item-avatar>
           <v-img :src="item.avatar"></v-img>
@@ -88,13 +74,6 @@
     </v-list>
 
     </v-navigation-drawer>
-
-
-
-
-
-
-
 
 
     
@@ -116,6 +95,10 @@ export default {
   },
      data() {
         return {
+
+
+
+          chats:[{visible:true}],
 
            items: [
         { active: true, title: 'Jason Oner', avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg' },
@@ -181,8 +164,8 @@ export default {
                     type: 'text'
                 }
             ],
-            chatTitle: 'My chat title',
-            placeholder: 'send your message',
+            chatTitle: '',
+            placeholder: 'Mensagem...',
             colors: {
                 header: {
                     bg: '#d30303',
@@ -255,8 +238,9 @@ export default {
         }
     },
     methods: {
-        onType: function (event) {
+        onType: function (teste,tesft,fsdfs) {
             //here you can set any behavior
+            console.log("FFFF")
         },
         loadMoreMessages(resolve) {
             setTimeout(() => {
@@ -283,7 +267,9 @@ export default {
             }, 2000)
         },
         onClose() {
-            this.visible = false;
+          this.chats[0].visible = false
+          console.log("ONCLOSE")
+            
         },
         onImageSelected(files, message){
             let src = 'https://149364066.v2.pressablecdn.com/wp-content/uploads/2017/03/vue.jpg'
@@ -304,6 +290,13 @@ export default {
              * You can add your code here to do whatever you need with the image clicked. A common situation is to display the image clicked in full screen.
              */
             console.log('Image clicked', message.src)
+        },
+        abrirChat(item){
+            var chat = {}
+          if(this.chats.length >= 3)
+            this.chats.splice(2,1)
+          this.chats.push(chat)
+          console.log(this.chats)
         }
     }
   }
@@ -345,6 +338,10 @@ $material-light: (
 }
 .splitscreen .right {
     flex: 1;
+}
+
+.message-content{
+    width:100%;
 }
 </style>
 
