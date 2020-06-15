@@ -51,7 +51,7 @@
         <v-list-item-avatar color="grey darken-3">
           <v-img
             class="elevation-6"
-            src="https://avataaars.io/?avatarStyle=Transparent&topType=ShortHairShortCurly&accessoriesType=Prescription02&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=White&eyeType=Default&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Light"
+            :src="item.srcImage"
           ></v-img>
         </v-list-item-avatar>
 
@@ -202,6 +202,7 @@ const h = require("@/config/hosts").hostAPI
           console.log(element)
           element.showFiles = false;
           element.showComments = false;
+          element.srcImage = 'http://localhost:3050/images/'+element.dados.info.idUtilizador
         })
       },
       download: function(id, nome){

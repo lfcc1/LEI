@@ -142,7 +142,7 @@ export default {
             myself: {
                 name: this.userID,
                 id: this.userID,
-                profilePicture: 'https://lh3.googleusercontent.com/-G1d4-a7d_TY/AAAAAAAAAAI/AAAAAAAAAAA/AAKWJJPez_wX5UCJztzEUeCxOd7HBK7-jA.CMID/s83-c/photo.jpg'
+                profilePicture: ''
             },
             messages: [
                 {
@@ -245,6 +245,7 @@ export default {
     try {
     this.myself.name = "Luís Martins"
     this.myself.id = this.userID
+    this.myself.profilePicture = 'http://localhost:3050/images/'+this.userID
       let response = await axios.get("http://localhost:3050/api/conversas/participante/"+ this.userID )
       this.conversas = response.data
       for(let i = 0; i<this.conversas.length; i++){
@@ -337,6 +338,7 @@ export default {
               var newP = {}
               newP.name = e.nome
               newP.id = e.participante
+              newP.profilePicture = 'http://localhost:3050/images/'+ e.participante
               newParticipantes.push(newP)
               }
             })
