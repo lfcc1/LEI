@@ -42,8 +42,8 @@
             <span class="title font-weight-light"></span>
             </v-card-title>
 
-    <v-card-text class="headline font-weight-bold" v-text="item.dados.info.conteudo">
-      
+    <v-text-field v-if="utilizadorOwner(item.dados.info.idUtilizador)" class="headline font-weight-bold" v-model="item.dados.info.conteudo" multi-line autofocus/>
+    <v-card-text v-else class="headline font-weight-bold" v-text="item.dados.info.conteudo">
     </v-card-text>
 
     <v-card-actions>
@@ -60,7 +60,6 @@
         </v-list-item-content>
 
         <v-row
-          align="center"
           justify="end"
         >
           <v-icon class="mr-1">mdi-heart</v-icon>
@@ -68,9 +67,11 @@
           <v-icon class="mr-1" @click="item.showComments = true">mdi-comment</v-icon>
           <span class="subheading mr-2">{{item.dados.comentarios.length}}</span>
           <v-icon class="mr-1" @click="showFiles(item)">mdi-myFileIcon</v-icon>
-          <!--<v-btn class="mr-1" @click="showFiles = true" icon="mdi-myFileIcon"></v-btn>-->
+          <!--<v-btn class="mr-1" @click="showFiles = true" icon="mdi-myFileIcon"></v-btn> v-if="this.idUtilizador == item.dados.info.idUtilizador"  -->
           <span class="subheading mr-2">{{item.dados.ficheiros.length}}</span>
-
+          <v-icon v-if="utilizadorOwner(item.dados.info.idUtilizador)" class="mr-1" @click="updatePub(item.idPublicacao, item.dados.info)">mdi-square-edit-outline</v-icon>
+          <v-icon v-if="utilizadorOwner(item.dados.info.idUtilizador)" class="mr-1" @click="deletePub(item.idPublicacao)">mdi-close-thick</v-icon>
+        
         </v-row>
             <v-spacer/>
                   <v-dialog
@@ -131,8 +132,12 @@ const h = require("@/config/hosts").hostAPI
         publicacoesAtuais: [],
         conteudo: "",
         files : [],
+        idUtilizador:"",
+        editConteudo:""
     }},
     created: function(){
+      //ir buscar à sessão 
+      this.idUtilizador = "lguilhermem@hotmail.com"
       this.publicacoesAtuais = this.publicacoes
       this.updatePubs()
     },
@@ -142,7 +147,7 @@ const h = require("@/config/hosts").hostAPI
         if(this.conteudo != ""){
           publicacao.conteudo = this.conteudo
           //ir buscar à sessão
-          publicacao.idUtilizador = "lguilhermem@hotmail.com"
+          publicacao.idUtilizador = this.idUtilizador
           publicacao.idGrupo = this.idGrupo
           axios.post(h + "publicacoes/", publicacao)
                .then(async id => {
@@ -216,6 +221,30 @@ const h = require("@/config/hosts").hostAPI
 
                      fileLink.click();
                 })
+      },
+      deletePub: function(id){
+        if(confirm("Tem a certeza que pretende eliminar esta publicação?")){
+          axios.delete(h+"publicacoes/"+id)
+              .then(async r => {
+                  var response = await axios.get(h + this.tipoGrupo + "/" + this.idGrupo + "/publicacoes")
+                  this.publicacoesAtuais = response.data
+              })
+              .catch(e => console.log(e))
+        }
+      },
+      updatePub: function(id, publicacao){
+        var publicacaoNova = {}
+        publicacaoNova.gostos = publicacao.gostos;
+        publicacaoNova.conteudo = "Foi editada!"
+        axios.put(h+"publicacoes/"+id, {publicacaoNova:publicacaoNova})
+             .then(async r => {
+                var response = await axios.get(h + this.tipoGrupo + "/" + this.idGrupo + "/publicacoes")
+                this.publicacoesAtuais = response.data
+             })
+             .catch(erro => console.log(erro))
+      },
+      utilizadorOwner: function(idUtilizador){
+        return this.idUtilizador == idUtilizador
       }
     }
 }

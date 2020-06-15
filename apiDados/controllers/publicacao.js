@@ -85,6 +85,39 @@ Publicacao.insertPublicacao = async function(publicacao){
     return { "id" : idPublicacao}
 }
 
+Publicacao.deletePublicacao = async function(idPublicacao){
+    var query = `
+    delete {
+        c:${idPublicacao} ?b ?a .
+     } where{
+        c:${idPublicacao} ?b ?a .
+     } 
+    `
+
+    return Connection.makePost(query)
+}
+
+Publicacao.updatePublicacao = async function(idPublicacao, publicacaoNova){
+    var data = dateFormat(new Date(), "yyyy-mm-dd HH:MM:ss");
+    var query = `
+    delete{
+        c:${idPublicacao} c:conteudo ?conteudo .
+        c:${idPublicacao} c:data ?data .
+    }
+    Insert{
+        c:${idPublicacao} c:conteudo "${publicacaoNova.conteudo}" .
+        c:${idPublicacao} c:data "${data}" .
+    }
+    where{
+        c:${idPublicacao} c:conteudo ?conteudo .
+        c:${idPublicacao} c:data ?data .
+    }
+    `
+    
+    return Connection.makePost(query)
+}
+
+
 Publicacao.insertComentario = async function(idPublicacao, comentario){
     var idComentario = "com" + nanoid.nanoid()
     var data = dateFormat(new Date(), "yyyy-mm-dd HH:MM:ss");
@@ -105,4 +138,17 @@ Publicacao.insertComentario = async function(idPublicacao, comentario){
 
     await Connection.makePost(query)
     return { "id" : idComentario}
+}
+
+
+Publicacao.deleteComentario = async function(idComentario){
+    var query = `
+    delete {
+        c:${idComentario} ?b ?a .
+     } where{
+        c:${idComentario} ?b ?a .
+     } 
+    `
+
+    return Connection.makePost(query)
 }

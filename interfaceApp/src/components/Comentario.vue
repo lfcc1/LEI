@@ -13,6 +13,12 @@
         <span class="subheading mr-2" @click="seeUser(comentario.idUtilizador)" >{{comentario.nomeUtilizador}}</span>
         <span class="subheading mr-2">{{comentario.conteudo}}</span>
         </v-row>
+        <v-row
+            justify="end"
+        >
+        <v-icon v-if="this.idUtilizador == comentario.idUtilizador" class="mr-1" @click="deleteComentario(comentario.idComentario)">mdi-close-thick</v-icon>
+        </v-row>
+
         </v-list-item>
         <input type="text" id="comentario" v-model="conteudo" style="width:80%; heigth:190%;" placeholder="Comente algo sobre a publicação.." />
         <v-btn @click="postComentario()">Comentar</v-btn>
@@ -29,9 +35,13 @@ export default {
     data (){ return{
         publicacoesAtuais: [],
         comentariosAtuais: [],
-        conteudo:""
+        conteudo:"",
+        idUtilizador:""
     }},
     created: function(){
+      // ir buscar à sessão
+      this.idUtilizador = "lguilhermem@hotmail.com"
+      
       this.comentariosAtuais = this.comentarios
       console.log(this.comentariosAtuais)
     },
@@ -39,13 +49,22 @@ export default {
         postComentario: async function(){
             var comentario = {}
             // vai buscar à sessão
-            comentario.idUtilizador = "lguilhermem@hotmail.com"
+            comentario.idUtilizador = this.idUtilizador
             comentario.conteudo = this.conteudo
             await axios.post(h + 'publicacoes/' + this.idPublicacao + '/comentario', comentario)
-            this.comentariosAtuais = await axios.get(h+'publicacoes/' + this.idPublicacao + '/comentarios')
+            var response = await axios.get(h+'publicacoes/' + this.idPublicacao + '/comentarios')
+            this.comentariosAtuais = response.data
         },
         seeUser: async function(idUser){
             this.$router.push({ name: 'UserProfile', params: {id: idUser }})
+        },
+        deleteComentario: async function(id){
+            axios.delete(h+"publicacoes/comentario/" + id)
+                 .then(async e =>{
+                    var response = await axios.get(h+'publicacoes/' + this.idPublicacao + '/comentarios')
+                    this.comentariosAtuais = response.data
+                 })
+                 .catch(error => console.log(error))
         }
     }
 }
