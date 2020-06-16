@@ -24,7 +24,7 @@
               </v-list-item-avatar>
   
               <v-list-item-content>
-                <v-list-item-title>Filipe Cunha</v-list-item-title>
+                <v-list-item-title >Filipe Cunha</v-list-item-title>
                 <v-list-item-subtitle>Logged in</v-list-item-subtitle>
               </v-list-item-content>
 

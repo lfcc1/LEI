@@ -260,7 +260,7 @@ export default {
       newM.type = 'text'
       newM.participantId = msg.from
       newM.timestamp = "" 
-      this.chats[1].messages.push(newM)  
+      this.chats[0].messages.push(newM)  
   })
 
   },
