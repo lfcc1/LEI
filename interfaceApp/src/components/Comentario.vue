@@ -1,4 +1,5 @@
 <template>
+<v-container>
   <v-list>
         <h5> Comentários </h5>
         <v-list-item
@@ -7,22 +8,28 @@
         >
         <v-row
           
-          justify="begin"
+          justify="start"
         >
-        <v-icon class="mr-1">mdi-account-circle</v-icon>
+        <v-list-item-avatar color="grey darken-3">
+          <v-img
+            class="elevation-6"
+            :src="comentario.fotoPerfil"
+          ></v-img>
+        </v-list-item-avatar>
         <span class="subheading mr-2" @click="seeUser(comentario.idUtilizador)" >{{comentario.nomeUtilizador}}</span>
         <span class="subheading mr-2">{{comentario.conteudo}}</span>
         </v-row>
         <v-row
             justify="end"
         >
-        <v-icon v-if="this.idUtilizador == comentario.idUtilizador" class="mr-1" @click="deleteComentario(comentario.idComentario)">mdi-close-thick</v-icon>
+        <v-icon v-if="utilizadorOwner(comentario)" class="mr-1" @click="deleteComentario(comentario.idComentario)">mdi-close-thick</v-icon>
         </v-row>
 
         </v-list-item>
-        <input type="text" id="comentario" v-model="conteudo" style="width:80%; heigth:190%;" placeholder="Comente algo sobre a publicação.." />
+        <input type="text" v-model="conteudo" style="width:80%; heigth:190%;" placeholder="Comente algo sobre a publicação.." />
         <v-btn @click="postComentario()">Comentar</v-btn>
     </v-list>
+</v-container>
 </template>
 
 <script>
@@ -65,6 +72,16 @@ export default {
                     this.comentariosAtuais = response.data
                  })
                  .catch(error => console.log(error))
+        },
+        updateComentarios: async function(){
+            for(let i = 0; i < this.comentariosAtuais.length < 0; i++){
+                this.comentariosAtuais[i].fotoPerfil = 'http://localhost:3050/images/'+this.comentariosAtuais[i].idUtilizador
+            }
+        },
+        utilizadorOwner: async function(comentario){
+            console.log(comentario.idUtilizador)
+            console.log(this.idUtilizador)
+            return this.idUtilizador == comentario.idUtilizador
         }
     }
 }

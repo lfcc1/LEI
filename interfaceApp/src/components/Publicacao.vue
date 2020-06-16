@@ -42,7 +42,7 @@
             <span class="title font-weight-light"></span>
             </v-card-title>
 
-    <v-text-field v-if="utilizadorOwner(item.dados.info.idUtilizador)" class="headline font-weight-bold" v-model="item.dados.info.conteudo" multi-line autofocus/>
+    <v-text-field v-if="item.editar" class="headline font-weight-bold" v-model="item.dados.info.conteudo" multi-line autofocus/>
     <v-card-text v-else class="headline font-weight-bold" v-text="item.dados.info.conteudo">
     </v-card-text>
 
@@ -69,21 +69,37 @@
           <v-icon class="mr-1" @click="showFiles(item)">mdi-myFileIcon</v-icon>
           <!--<v-btn class="mr-1" @click="showFiles = true" icon="mdi-myFileIcon"></v-btn> v-if="this.idUtilizador == item.dados.info.idUtilizador"  -->
           <span class="subheading mr-2">{{item.dados.ficheiros.length}}</span>
-          <v-icon v-if="utilizadorOwner(item.dados.info.idUtilizador)" class="mr-1" @click="updatePub(item.idPublicacao, item.dados.info)">mdi-square-edit-outline</v-icon>
+          <v-icon v-if="utilizadorOwner(item.dados.info.idUtilizador)" class="mr-1" @click="item.editar = true">mdi-square-edit-outline</v-icon>
           <v-icon v-if="utilizadorOwner(item.dados.info.idUtilizador)" class="mr-1" @click="deletePub(item.idPublicacao)">mdi-close-thick</v-icon>
         
         </v-row>
             <v-spacer/>
-                  <v-dialog
-                    v-if="item.dados.ficheiros.length != 0"
-                    v-model="item.showFiles"
+      </v-list-item>
+    </v-card-actions>
+            <v-container
+              v-if="item.showComments"
+              width="70%"
+              background-color="#e0e0e0"
+            >
+                        <!--<v-list v-if="item,dados.comentarios.length != 0" >-->
+                <Comentario :comentarios="item.dados.comentarios" :idPublicacao="item.idPublicacao"/>
+            </v-container>
+  </v-card>
+  </v-container>
+
+            </v-list-item>
+            <!--</v-list-item-group> -->
+        </v-list>
+    </div>
+                      <v-dialog
+                    v-model="dialog"
                     width="500"
                     v-bind:style="{color:white}"
                 >
                         <v-card>
                         <v-list>
                     <v-list-item
-                    v-for="file in item.dados.ficheiros"
+                    v-for="file in publicacaoAtual.dados.ficheiros"
                     :key="file.idFicheiro"
                     @click="download(file.idFicheiro, file.nome)" 
                     >
@@ -96,24 +112,6 @@
                     </v-list>
                     </v-card>
                     </v-dialog>
-        
-      </v-list-item>
-    </v-card-actions>
-            <v-container
-              v-if="item.showComments"
-              width="70%"
-              background-color="#fff"
-            >
-                        <!--<v-list v-if="item,dados.comentarios.length != 0" >-->
-                <Comentario :comentarios="item.dados.comentarios" :idPublicacao="item.idPublicacao"/>
-            </v-container>
-  </v-card>
-  </v-container>
-
-            </v-list-item>
-            <!--</v-list-item-group> -->
-        </v-list>
-    </div>
   </v-container>
 </template>
 
@@ -133,12 +131,15 @@ const h = require("@/config/hosts").hostAPI
         conteudo: "",
         files : [],
         idUtilizador:"",
-        editConteudo:""
+        editConteudo:"",
+        publicacaoAtual: {},
+        dialog: false
     }},
     created: function(){
       //ir buscar à sessão 
       this.idUtilizador = "lguilhermem@hotmail.com"
       this.publicacoesAtuais = this.publicacoes
+      this.publicacaoAtual = this.publicacoes[0]
       this.updatePubs()
     },
     methods: {
@@ -192,7 +193,8 @@ const h = require("@/config/hosts").hostAPI
 
       },
       showFiles: async function(pub){
-        pub.showFiles = true;
+        this.publicacaoAtual = pub
+        this.dialog = true;
       },
       seeUser: async function(idUser){
         this.$router.push({ name: 'UserProfile', params: {id: idUser }})
@@ -200,9 +202,9 @@ const h = require("@/config/hosts").hostAPI
       updatePubs: function(){
         this.publicacoesAtuais.forEach(element=>{
           console.log(element)
-          element.showFiles = false;
           element.showComments = false;
           element.srcImage = 'http://localhost:3050/images/'+element.dados.info.idUtilizador
+          element.editar = false;
         })
       },
       download: function(id, nome){
@@ -233,7 +235,8 @@ const h = require("@/config/hosts").hostAPI
               .catch(e => console.log(e))
         }
       },
-      updatePub: function(id, publicacao){
+      modoEditar: function(publicacao){
+        /*
         var publicacaoNova = {}
         publicacaoNova.gostos = publicacao.gostos;
         publicacaoNova.conteudo = "Foi editada!"
@@ -243,6 +246,8 @@ const h = require("@/config/hosts").hostAPI
                 this.publicacoesAtuais = response.data
              })
              .catch(erro => console.log(erro))
+             */
+          
       },
       utilizadorOwner: function(idUtilizador){
         return this.idUtilizador == idUtilizador

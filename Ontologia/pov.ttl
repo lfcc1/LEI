@@ -161,6 +161,15 @@
                   rdfs:range :Publicacao .
 
 
+###  http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#temFoto
+:temFoto rdf:type owl:ObjectProperty ;
+         owl:inverseOf :éFotode ;
+         rdfs:domain :Admin ,
+                     :Aluno ,
+                     :Responsavel ;
+         rdfs:range :Ficheiro .
+
+
 ###  http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#temPresenca
 :temPresenca rdf:type owl:ObjectProperty ;
              owl:inverseOf :vai .
@@ -195,6 +204,10 @@
 
 ###  http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#éEnviada
 :éEnviada rdf:type owl:ObjectProperty .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#éFotode
+:éFotode rdf:type owl:ObjectProperty .
 
 
 ###  http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#éFrequentadoPor
