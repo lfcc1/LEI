@@ -7,7 +7,10 @@ var upload = multer({dest: 'uploads/'})
 const mkdirp = require('mkdirp-promise')
 var md5 = require('md5');
 
-var Ficheiro = require('../controllers/ficheiro')
+var idUtilizador = "lguilhermem@hotmail.com"
+
+var Ficheiro = require('../controllers/ficheiro');
+const { resolveSoa } = require('dns');
 
 // ---------- ROTA   : /api/ficheiros ....
 
@@ -38,6 +41,25 @@ router.get('/', function(req, res, next){
 
 
 // -------------------------------------------------------------- POST ---------------------------------------------------------------------
+// Inserir imagem de perfil
+router.post('/fotoPerfil', upload.single('ficheiro'), function(req, res){
+
+  let oldPath = __dirname + '/../'+req.file.path
+  let newPath = __dirname + '/../public/images/'
+  let name = req.file.originalname
+
+  //let type = name.split(".")[1] 
+
+  fs.readFile(oldPath, function(err, buf) {
+        if(err) throw err
+
+        newPath = newPath + idUtilizador;
+        fs.rename(oldPath, newPath, function(err){
+          if(err) throw err
+          res.jsonp(1)
+        })
+  })
+})
 
 // Inserir um novo ficheiro
     router.post('/', upload.array('ficheiro'), function(req, res){

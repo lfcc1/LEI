@@ -57,11 +57,11 @@ Connection.makePost = async function(query){
     }
 }
 
-Connection.makeDelete = async function(query){
+Connection.makePut = async function(query){
     var encoded = encodeURIComponent(prefixes + query)
 
     try{
-        response = await axios.delete(postLink, `update=${encoded}`)
+        response = await axios.put(postLink, `update=${encoded}`)
         return response.data
     }
     catch(e){

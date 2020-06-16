@@ -6,6 +6,7 @@
           title="Eventos do teu curso"
         >
         </material-card>
+          <v-container v-if="this.eventosParcerias.length != 0">
             <v-list>
             <v-list-item
             v-for="(evento, index) in this.eventosParcerias"
@@ -48,6 +49,10 @@
             </v-container>
             </v-list-item>
             </v-list>
+          </v-container>
+          <v-container v-else>
+           <center> <h3> Já marcou como participante em todos os eventos ou o seu curso não tem nenhum evento agendado! </h3> </center>
+          </v-container>
       </v-card>
     </div>
 </template>
@@ -64,16 +69,17 @@ export default {
   data: () => ({
     item: {},
     eventosParcerias: [],
-    dialog: []
+    dialog: [],
+    idUtilizador: "",
+    idCurso: "",
   }),
 
   created: async function() {
     try {
-        // ir á sessão
-      var idCurso = "MIEI"
-      var response = await axios.get(h + "eventos/parceria/" + idCurso)
-      this.eventosParcerias = response.data
-      console.log(this.eventosParcerias)
+      // ir á sessão
+      this.idUtilizador = "lguilhermem@hotmail.com"
+      this.idCurso = "MIEI"
+      await this.getEventos()
       this.ready = true
       await this.updateEventos()
     } catch (e) {
@@ -85,6 +91,28 @@ export default {
           console.log(this.eventosParcerias[index].dialog)
           this.dialog[index] = true
           console.log(this.eventosParcerias)
+      },
+      getEventos: async function(){
+        this.eventosParcerias = []
+        var response = await axios.get(h + "eventos/parceria/" + this.idCurso)
+        var neweventosParcerias = response.data
+        response = await axios.get(h+"utilizadores/" + this.idUtilizador +'/eventos')
+        var eventosParticipa = response.data
+        for(let i = 0; i<neweventosParcerias.length; i++){
+          var result = false;
+          var idEvento = neweventosParcerias[i].idEvento
+          for(let j = 0; !result && j<eventosParticipa.length; j++){
+            if(eventosParticipa[j].idEvento == idEvento) result = true 
+          }
+          if(!result) this.eventosParcerias.push(neweventosParcerias[i])
+        }
+        await this.updateEventos()
+
+        }
+      ,
+      addParticipante: async function(idEvento){
+         await axios.put(h + 'utilizadores/evento/', {idEvento: idEvento, idUtilizador: this.idUtilizador} )
+         await this.getEventos()
       },
        updateEventos: function(){
            for(let i = 0; i < this.eventosParcerias.length; i++){

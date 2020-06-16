@@ -20,7 +20,7 @@
           >
             <v-list-item two-line :class="miniVariant && 'px-0'">
               <v-list-item-avatar>
-                <img src="https://randomuser.me/api/portraits/men/81.jpg">
+                <img :src="srcImage">
               </v-list-item-avatar>
   
               <v-list-item-content>
@@ -74,7 +74,6 @@ export default {
         // Ir buscar á sessão
         { title: 'Meu Perfil', icon: 'mdi-account-circle', href:"/userProfile/lguilhermem@hotmail.com" },
         { title: 'Notificações', icon: 'mdi-bell-ring', href:"/notificacoes" },
-        { title: 'Users-DevelopMode', icon: 'mdi-logout', href:"/users" },
       ],
       color: '#900000',
       colors: [
@@ -88,7 +87,14 @@ export default {
       miniVariant: false,
       expandOnHover: false,
       background: false,
+      srcImage:"",
+      idUtilizador:""
     }
+  },
+  created: function(){
+    // ir buscar à sessão
+    this.idUtilizador = "lguilhermem@hotmail.com"
+    this.srcImage = 'http://localhost:3050/images/' + this.idUtilizador
   },
   computed: {
     bg () {

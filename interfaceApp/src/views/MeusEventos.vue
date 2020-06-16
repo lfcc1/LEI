@@ -69,7 +69,7 @@ export default {
   created: async function() {
     try {
         // ir á sessão
-      var idUser = "joniboy@hotmail.com"
+      var idUser = "lguilhermem@hotmail.com"
       var response = await axios.get(h + "eventos/participante/" + idUser)
       this.eventos = response.data
       console.log(this.eventos)

@@ -180,6 +180,7 @@
 
 ###  http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#éAmigoDe
 :éAmigoDe rdf:type owl:ObjectProperty ;
+          owl:inverseOf :éAmigoDe ;
           rdfs:domain :Admin ,
                       :Aluno ,
                       :Responsavel ;
