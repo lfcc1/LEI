@@ -1,33 +1,48 @@
 <template>
-<v-container>
-  <v-list>
-        <h5> Comentários </h5>
+<v-container class="white">
+   
+  <v-list class="white">
+        <center>
+        <h3 class=" font-weight-bold " style="color:#900000"> Comentários </h3>
+        </center>
         <v-list-item
-        v-for="comentario in comentariosAtuais"
+        v-for="(comentario,index) in comentariosAtuais"
         :key="comentario.idComentario" 
         >
+         <v-container style="padding: 0px">
         <v-row
           
           justify="start"
         >
-        <v-list-item-avatar color="grey darken-3">
+        <v-list-item-avatar>
           <v-img
             class="elevation-6"
             :src="comentario.fotoPerfil"
           ></v-img>
         </v-list-item-avatar>
-        <span class="subheading mr-2" @click="seeUser(comentario.idUtilizador)" >{{comentario.nomeUtilizador}}</span>
-        <span class="subheading mr-2">{{comentario.conteudo}}</span>
+        
+        <span class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px" @click="seeUser(comentario.idUtilizador)" >{{comentario.nomeUtilizador}}</span>
+         <span class="subheading mr-2 black--text" style="padding-top:11px" >{{comentario.data}}</span>
+        <v-icon v-if="utilizadorOwner(comentario)"  style="height:50%; margin-top:10px" class="mr-1" color="#900000"  @click="deleteComentario(comentario.idComentario)">mdi-close-thick</v-icon>
+       <!-- <span class="subheading mr-2 black--text" style="padding-top:11px" >{{comentario.conteudo}}</span>-->
+         <v-card-text class="subheading mr-2 black--text" v-text="comentario.conteudo">
+        </v-card-text>
+        
         </v-row>
         <v-row
             justify="end"
-        >
-        <v-icon v-if="utilizadorOwner(comentario)" class="mr-1" @click="deleteComentario(comentario.idComentario)">mdi-close-thick</v-icon>
-        </v-row>
+        > 
 
+        </v-row>
+        
+        <hr v-if="index < comentariosAtuais.length - 1" color="#900000" style="width:100%">
+        </v-container>
         </v-list-item>
-        <input type="text" v-model="conteudo" style="width:80%; heigth:190%;" placeholder="Comente algo sobre a publicação.." />
-        <v-btn @click="postComentario()">Comentar</v-btn>
+        <textarea  class="black--text" v-model="conteudo"  placeholder="Comente algo sobre a publicação.."   rows="3" style="width:100%; resize: none; border:1px solid #000000;">
+        
+        </textarea>
+        <v-btn @click="postComentario()" color= "#900000">Comentar</v-btn>
+        
     </v-list>
 </v-container>
 </template>
@@ -50,17 +65,21 @@ export default {
       this.idUtilizador = "lguilhermem@hotmail.com"
       
       this.comentariosAtuais = this.comentarios
+      this.updateComentarios()
       console.log(this.comentariosAtuais)
     },
     methods: {
         postComentario: async function(){
             var comentario = {}
             // vai buscar à sessão
+            
             comentario.idUtilizador = this.idUtilizador
             comentario.conteudo = this.conteudo
             await axios.post(h + 'publicacoes/' + this.idPublicacao + '/comentario', comentario)
             var response = await axios.get(h+'publicacoes/' + this.idPublicacao + '/comentarios')
             this.comentariosAtuais = response.data
+            this.updateComentarios()
+            this.conteudo = "" 
         },
         seeUser: async function(idUser){
             this.$router.push({ name: 'UserProfile', params: {id: idUser }})
@@ -70,12 +89,14 @@ export default {
                  .then(async e =>{
                     var response = await axios.get(h+'publicacoes/' + this.idPublicacao + '/comentarios')
                     this.comentariosAtuais = response.data
+                    this.updateComentarios()
                  })
                  .catch(error => console.log(error))
         },
         updateComentarios: async function(){
-            for(let i = 0; i < this.comentariosAtuais.length < 0; i++){
+            for(let i = 0; i < this.comentariosAtuais.length; i++){
                 this.comentariosAtuais[i].fotoPerfil = 'http://localhost:3050/images/'+this.comentariosAtuais[i].idUtilizador
+                console.log("http://localhost:3050/images/"+this.comentariosAtuais[i].idUtilizador)
             }
         },
         utilizadorOwner: async function(comentario){

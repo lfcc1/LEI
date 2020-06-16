@@ -1,11 +1,6 @@
 <template>
   <div>
-    <v-card>
-        <material-card
-          color="#900000"
-          title="Meus Eventos"
-        >
-        </material-card>
+    <v-card class="ma-8">
             <v-list>
             <v-list-item
             v-for="evento in this.eventos"

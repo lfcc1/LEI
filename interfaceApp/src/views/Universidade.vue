@@ -3,10 +3,6 @@
         <p v-if="!ready">A ir buscar o Grupo à BD...</p>
         <div v-else> 
             <v-card class="ma-8">
-              <material-card
-               color="#900000"
-               :title="this.item.info.designacao"
-              /> 
               <v-container style="width:76%">
                 <Publicacao :publicacoes="this.item.publicacoes" :idGrupo="this.idUniversidade" :tipoGrupo="this.tipoGrupo" />
               </v-container>

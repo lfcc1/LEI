@@ -80,7 +80,7 @@ const routes = [
   },
   {
     path: '/curso',
-    name: 'Curso',
+    name: 'O Meu Curso',
     component: Curso,
     meta: { 
       //requiresAuth: true
@@ -103,7 +103,7 @@ const routes = [
   },
   {
     path: '/universidade',
-    name: 'Universidade',
+    name: 'Universidade do Minho',
     component: Universidade,
     meta: { 
       //requiresAuth: true

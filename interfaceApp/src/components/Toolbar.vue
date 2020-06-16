@@ -8,10 +8,15 @@
     height="40%"
       clipped-right
   >
-    <div class="v-toolbar-title">
+                <center>
+              <v-img src="https://cdn.discordapp.com/attachments/717034365611409463/722528536577048586/unknown.png" height=50 width=100></v-img>
+              
+              </center>
+    <div class="v-toolbar-title" style="margin-top:10px; margin-left: 15px">
       <v-toolbar-title
         class="white--text font-weight-light"
       >
+      
         <v-btn
           v-if="responsive"
           class="default v-btn--simple"
@@ -20,12 +25,37 @@
           @click.stop="onClickBtn"
         >
           <v-icon>mdi-view-list</v-icon>
+          
         </v-btn>
         {{ title }}
       </v-toolbar-title>
     </div>
 
     <v-spacer />
+
+   <v-text-field
+      label="Procurar..."
+      color="white"
+      hide-details
+      style="max-width: 400px; margin-right: 32px; margin-top:10px;"
+      dark
+    >
+      <template
+        v-if="$vuetify.breakpoint.mdAndUp"
+        v-slot:append-outer
+      >
+        <v-btn
+          class="mt-n2 white"
+          elevation="1"
+          fab
+          small
+        >
+          <v-icon color="#900000">mdi-magnify</v-icon>
+        </v-btn>
+      </template>
+    </v-text-field>
+
+
     <v-toolbar-items>
       <v-flex
         align-center

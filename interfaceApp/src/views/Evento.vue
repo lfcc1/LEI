@@ -1,11 +1,7 @@
 <template>
   <div>
-    <v-card>
-        <material-card
-          color="#900000"
-          title="Eventos Gerais"
-        >
-        </material-card>
+<v-card class="ma-8">
+
         <v-container v-if="this.eventos.length != 0">
         <v-list>
             <v-list-item
@@ -58,7 +54,7 @@
         <v-container v-else>
             <center> <h3> Já se marcou como participante em todos os eventos ou ainda não existe nenhum evento agendado! </h3> </center>
         </v-container>
-      </v-card>
+              </v-card>
     </div>
 </template>
 

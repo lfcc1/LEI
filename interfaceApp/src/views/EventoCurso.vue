@@ -1,11 +1,6 @@
 <template>
   <div>
-    <v-card>
-        <material-card
-          color="#900000"
-          title="Eventos do teu curso"
-        >
-        </material-card>
+    <v-card class="ma-8">
           <v-container v-if="this.eventosParcerias.length != 0">
             <v-list>
             <v-list-item

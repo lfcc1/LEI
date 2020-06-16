@@ -4,11 +4,11 @@
 
   <v-navigation-drawer 
           v-model="drawer"
-          :color="color"
+          dark
           app
           :mini-variant.sync="mini"
           permanent
-          dark
+          src="https://cdn.discordapp.com/attachments/717034365611409463/722522710671884408/image.jpg"
           floating
           mobile-break-point="991"
           width="260"
@@ -22,7 +22,7 @@
               <v-list-item-avatar>
                 <img :src="srcImage">
               </v-list-item-avatar>
-  
+                
               <v-list-item-content>
                 <v-list-item-title >Filipe Cunha</v-list-item-title>
                 <v-list-item-subtitle>Logged in</v-list-item-subtitle>

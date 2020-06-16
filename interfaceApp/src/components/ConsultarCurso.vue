@@ -69,7 +69,21 @@
                             @click:row="apresentaUser"
                             
                         >
-                        </v-data-table>
+                            <template v-slot:item="row">
+                        <tr>
+                            <td> <v-avatar
+                                    slot="offset"
+                                    class="mx-auto d-block"
+                                >
+                                    <img
+                                    :src="row.item.imagem"
+                                    >
+                                </v-avatar></td>
+                            <td>{{row.item.numeroAluno}}</td>
+                            <td>{{row.item.nome}}</td>
+                        </tr>
+                    </template>
+                    </v-data-table>
                         </v-card-text>
                         </v-card>
                         </v-dialog>
@@ -92,7 +106,7 @@
                          ></v-text-field>
                         <v-data-table
                         :headers="header_responsaveis"
-                        :items="this.responsaveis"
+                        :items="responsaveis"
                         :footer-props="footer_props"
                         :search="filtrar"
                         @click:row="apresentaUser"
@@ -125,6 +139,7 @@ export default {
     showModal: false,
     showModalResponsaveis: false,
     header_estudantes: [
+      {text: "Avatar", value: 'imagem', class: 'subtitle-1'},
       {text: "Identificador de Aluno", sortable: true, value: 'numeroAluno', class: 'subtitle-1'},
       {text: "Nome", value: 'nome', class: 'subtitle-1'}
     ],
@@ -160,25 +175,36 @@ export default {
         this.responsaveis = []
         this.id = this.item.idCurso
         this.designacao = this.item.info.designacao
-        this.item.responsaveis.forEach(item => {
-            var ano = item.ano
-            item.responsaveis.forEach(responsavel => {
-                var r = {
-                    ano : ano ,
-                    nome : responsavel.nome,
-                    id : responsavel.id,
-                    numeroAluno : responsavel.numeroAluno
-                }
-                this.responsaveis.push(r)
-            })
-        })
+
         this.estudantes = this.item.estudantes
-        this.responsaveis = this.item.responsaveis
+        this.updateResponsaveis(this.item.responsaveis)
+        this.updateEstudantes();
+        console.log(this.responsaveis)
         this.rota = 'anos/'
         this.atual = 'cursos/'
         this.back = false
   },
     methods: {
+        updateEstudantes:function(){
+            this.estudantes.forEach(e =>{
+                e.imagem = "http://localhost:3050/images/"+ e.id
+            })
+        },
+        updateResponsaveis: function(novosResponsaveis){
+            this.responsaveis = []
+                    novosResponsaveis.forEach(item => {
+            var ano = item.ano
+            item.responsaveis.forEach(responsavel => {
+                var r = {
+                    ano : ano ,
+                    nome : responsavel.nome,
+                    id : responsavel.idResp,
+                    numeroAluno : responsavel.numeroAluno
+                }
+                this.responsaveis.push(r)
+            })
+        })
+        },
         apresentaAno: function(id){
             console.log(this.pai)
             //this.$router.push({name : 'Ano', params:{id : item.id} })
@@ -192,7 +218,8 @@ export default {
                          this.pai = ""
                          this.anos = dados.data.anos
                          this.estudantes = dados.data.estudantes
-                         this.responsaveis = dados.data.responsaveis
+                         this.updateResponsaveis(dados.data.responsaveis)
+                         this.updateEstudantes()
                          this.header_responsaveis = [
                             {text: "Ano", sortable: true, value: 'ano', class: 'subtitle-1'},
                             {text: "Identificador de Aluno", sortable: true, value: 'numeroAluno', class: 'subtitle-1'},
@@ -232,6 +259,8 @@ export default {
                          this.pai = dados.data.info.idAno
                          this.atual = "cadeiras"
                      }
+                     this.updateEstudantes()
+                    
                     this.back = true
                     this.publicacoes = dados.data.publicacoes
                     })

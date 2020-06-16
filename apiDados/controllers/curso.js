@@ -81,11 +81,10 @@ Curso.getEstudantesFromCurso = async function(idCurso){
 
 getResponsaveisAnos = async function(anos){
     responsaveisAnos = []
-
     for(let i = 0; i < anos.length ; i++ ){
-        responsaveis = await Ano.getResponsaveisFromAno(anos[i].ano)
+        responsaveis = await Ano.getResponsaveisFromAno(anos[i].id)
         var resp = {
-            ano : anos[i].ano,
+            ano : anos[i].designacao,
             responsaveis : responsaveis
         }
         responsaveisAnos.push(resp)

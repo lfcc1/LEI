@@ -15,7 +15,7 @@
                 <v-file-input show-size v-model="files" placeholder="Anexar ficheiros" 
                  prepend-icon="mdi-myFileIcon" multiple="multiple" style="width:20%; color:#900000;"/> 
 
-                <button style="margin-left:58%;" type='submit' @click="inserePublicacao"> Publicar </button>
+                <v-btn style="margin-left:58%;" color="#900000" type='submit' @click="inserePublicacao"> Publicar </v-btn>
 
             </div> 
         </div>
@@ -36,7 +36,7 @@
                 class="mx-auto"
                 color="#C0C0C0"
                 dark
-                width = "80%"
+                width = "100%"
             >
             <v-card-title v-text="item.dados.info.dataPublicacao">
             <span class="title font-weight-light"></span>
@@ -56,7 +56,7 @@
         </v-list-item-avatar>
 
         <v-list-item-content>
-          <v-list-item-title v-text="item.dados.info.nomeUtilizador" @click="seeUser(item.dados.info.idUtilizador)"></v-list-item-title>
+          <a  class="font-weight-bold white--text" v-text="item.dados.info.nomeUtilizador" @click="seeUser(item.dados.info.idUtilizador)"></a>
         </v-list-item-content>
 
         <v-row
@@ -64,9 +64,9 @@
         >
           <v-icon class="mr-1">mdi-heart</v-icon>
           <span class="subheading mr-2">{{item.dados.info.likes}}</span>
-          <v-icon class="mr-1" @click="item.showComments = true">mdi-comment</v-icon>
+          <v-icon class="mr-1" @click="item.showComments = !item.showComments">mdi-comment</v-icon>
           <span class="subheading mr-2">{{item.dados.comentarios.length}}</span>
-          <v-icon class="mr-1" @click="showFiles(item)">mdi-myFileIcon</v-icon>
+          <v-icon class="mr-1 " @click="showFiles(item)">mdi-file</v-icon>
           <!--<v-btn class="mr-1" @click="showFiles = true" icon="mdi-myFileIcon"></v-btn> v-if="this.idUtilizador == item.dados.info.idUtilizador"  -->
           <span class="subheading mr-2">{{item.dados.ficheiros.length}}</span>
           <v-icon v-if="utilizadorOwner(item.dados.info.idUtilizador)" class="mr-1" @click="item.editar = true">mdi-square-edit-outline</v-icon>
@@ -132,14 +132,13 @@ const h = require("@/config/hosts").hostAPI
         files : [],
         idUtilizador:"",
         editConteudo:"",
-        publicacaoAtual: {},
+        publicacaoAtual: {dados:{ficherios:[]}},
         dialog: false
     }},
     created: function(){
       //ir buscar à sessão 
       this.idUtilizador = "lguilhermem@hotmail.com"
       this.publicacoesAtuais = this.publicacoes
-      this.publicacaoAtual = this.publicacoes[0]
       this.updatePubs()
     },
     methods: {
@@ -193,8 +192,11 @@ const h = require("@/config/hosts").hostAPI
 
       },
       showFiles: async function(pub){
-        this.publicacaoAtual = pub
-        this.dialog = true;
+        if(pub.dados.ficheiros.length>0){
+          this.publicacaoAtual = pub
+          this.dialog = true;
+        }
+        
       },
       seeUser: async function(idUser){
         this.$router.push({ name: 'UserProfile', params: {id: idUser }})
