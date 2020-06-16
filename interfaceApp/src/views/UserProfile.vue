@@ -107,7 +107,7 @@
             size="130"
           >
             <img
-              src="localhost:3050/"
+              :src="srcImage"
             >
           </v-avatar>
           <v-card-text class="text-xs-center">
@@ -353,7 +353,6 @@ export default {
       return this._id == this.idUtilizador
     },
     updateUtilizador: async function(utilizador){
-      alert('Ola')
       if(confirm("Tem a certeza que pretende alterar o seu perfil?")){
         axios.put(h + "utilizadores/" + this.idUtilizador, utilizador)
             .then(async d =>{
@@ -366,10 +365,8 @@ export default {
     isnotAmigo: async function(){
       var result = true
       for(let i = 0; i < this.user.amigos.length; i++){
-        alert(this.user.amigos[i].idAmigo)
         if(this._id == this.user.amigos[i].idAmigo) result = false
       }
-      alert(result)
       return result
     },
     adicionarAmigo: async function(){
@@ -393,7 +390,6 @@ export default {
       }
     },
     uploadImage: async function(){
-      alert("OLA")
       let formData = new FormData();
       formData.append("ficheiro", this.files);
       await axios.post(h + "ficheiros/fotoPerfil",

@@ -8,7 +8,7 @@
         </material-card>
             <v-list>
             <v-list-item
-            v-for="(evento, index) in this.eventos"
+            v-for="evento in this.eventos"
             :key="evento.idEvento" 
             >
             <v-container>
@@ -17,13 +17,17 @@
                     <span class="headline font-weight-bold"></span>
                 </v-card-title>
                 <v-card-text class="title font-weight-light"   v-text="evento.dados.info.conteudo"/>
-                <center> <v-btn color="#C0C0C0" dark @click="showDialog(index)"> Participantes ({{evento.dados.participantes.length}}) </v-btn> </center>
+                <center> <v-btn color="#C0C0C0" dark @click="showDialog(evento)"> Participantes ({{evento.dados.participantes.length}}) </v-btn> </center>
                 <center>   Começa: {{ evento.dados.info.dataInicio }} </center> <p></p>
                 <center>   Acaba: {{  evento.dados.info.dataFim }}  </center> <p/>
                 <center>   Organizador: {{evento.dados.parcerias[0].nome}} </center>
             </v-card>
+            
+            </v-container>
+            </v-list-item>
+            </v-list>
             <v-dialog
-                    v-if="dialog[index]"
+                    v-model="dialog"
                     width="500"
                 >
                         <v-card>
@@ -32,10 +36,17 @@
                         </v-card-title>
                         <v-list>
                         <v-list-item
-                        v-for="participante in evento.dados.participantes"
+                        v-for="participante in eventoAtual.dados.participantes"
                         :key="participante.idUtilizador"
-                        @click="showUser(participante.idUtilizador)" 
+                        @click="seeUser(participante.idUtilizador)" 
                         >
+
+                        <v-list-item-avatar color="grey darken-3">
+                          <v-img
+                            class="elevation-6"
+                            :src="participante.srcImage"
+                          ></v-img>
+                        </v-list-item-avatar>
                         <v-list-item-content style="width: 50%;"> 
                             <v-list-item-title v-text="participante.nome"></v-list-item-title>
                         </v-list-item-content>
@@ -44,9 +55,6 @@
                         </v-list>
                         </v-card>
                     </v-dialog>
-            </v-container>
-            </v-list-item>
-            </v-list>
       </v-card>
     </div>
 </template>
@@ -63,7 +71,8 @@ export default {
   data: () => ({
     item: {},
     eventos: [],
-    dialog: []
+    dialog: false,
+    eventoAtual : {}
   }),
 
   created: async function() {
@@ -73,6 +82,7 @@ export default {
       var response = await axios.get(h + "eventos/participante/" + idUser)
       this.eventos = response.data
       console.log(this.eventos)
+      this.eventoAtual = this.eventos[0]
       this.ready = true
       await this.updateEventos()
     } catch (e) {
@@ -80,16 +90,23 @@ export default {
     }
   },
   methods:{
-      showDialog: function(index){ 
-          console.log(this.eventosParcerias[index].dialog)
-          this.dialog[index] = true
-          console.log(this.eventosParcerias)
+      showDialog: function(evento){ 
+        if(evento.dados.participantes.length > 0){
+          this.eventoAtual = evento
+          for(let i = 0; i < evento.dados.participantes.length; i++){
+            evento.dados.participantes[i].srcImage = 'http://localhost:3050/images/' + evento.dados.participantes[i].idUtilizador
+          }
+          this.dialog = true  
+        }
       },
        updateEventos: function(){
            for(let i = 0; i < this.eventosParcerias.length; i++){
                this.dialog.push(false)
            }
-       }
+       },
+      seeUser: async function(idUser){
+        this.$router.push({ name: 'UserProfile', params: {id: idUser }})
+      }
   }
 }
 </script>
