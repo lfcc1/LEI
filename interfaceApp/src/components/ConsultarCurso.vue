@@ -213,13 +213,14 @@ export default {
             if(this.rota == "cursos/"){
                 axios.get(h + this.rota + id)
                      .then(dados => {
-                         this.designacao = dados.data.info.nome
+                         this.designacao = dados.data.info.designacao
                          this.back = false
                          this.pai = ""
                          this.anos = dados.data.anos
                          this.estudantes = dados.data.estudantes
                          this.updateResponsaveis(dados.data.responsaveis)
                          this.updateEstudantes()
+                         this.publicacoes = dados.data.publicacoes
                          this.header_responsaveis = [
                             {text: "Ano", sortable: true, value: 'ano', class: 'subtitle-1'},
                             {text: "Identificador de Aluno", sortable: true, value: 'numeroAluno', class: 'subtitle-1'},

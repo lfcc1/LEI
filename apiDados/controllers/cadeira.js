@@ -1,5 +1,6 @@
 var Cadeira = module.exports
 var Connection = require('./connection')
+var Publicacao = require('./publicacao')
 
 var axios = require('axios')
 
@@ -64,13 +65,14 @@ Cadeira.getPublicacoesFromCadeira = async function(idCadeira){
     var idsPublicacoes = await Connection.makeQuery(query)
     
     var publicacoes = []
-
+        console.log(idsPublicacoes)
     for(let i = 0; i < idsPublicacoes.length ; i++ ){
         pub = await Publicacao.getPublicacao(idsPublicacoes[i].idPub)
         var publicacao = {
             idPublicacao : idsPublicacoes[i].idPub,
             dados : pub
         }
+        console.log(publicacao)
         publicacoes.push(publicacao)
     }
 

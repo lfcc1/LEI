@@ -331,6 +331,11 @@
 :tags rdf:type owl:DatatypeProperty .
 
 
+###  http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#titulo
+:titulo rdf:type owl:DatatypeProperty ;
+        rdfs:domain :Publicacao .
+
+
 ###  http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#type
 :type rdf:type owl:DatatypeProperty ;
       rdfs:domain :Ficheiro .
@@ -724,7 +729,8 @@
                :éPublicadoPor :admin01 ;
                :conteudo "ficheiro" ;
                :data "2020-04-13" ;
-               :gostos 20 .
+               :gostos 20 ;
+               :titulo "Titulo da Pub" .
 
 
 ###  http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#publicacao002
@@ -734,7 +740,8 @@
                :éPublicadoPor <http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#joniboy@hotmail.com> ;
                :conteudo "Estejam atentos ao swap para os horários." ;
                :data "2020-04-16" ;
-               :gostos 2 .
+               :gostos 2 ;
+               :titulo "Titulo da pub 2" .
 
 
 ###  http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#Algortimos&Complexidade

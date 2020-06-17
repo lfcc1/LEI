@@ -7,6 +7,9 @@
     </v-card-title>
     <!--<form method="post" id="publicacao" enctype="multipart/form-data"> !-->
         <div class="form-group files text-center" style="margin-top: 20px">
+          <center>
+          <v-text-field maxlength="75" color="#900000" class="" v-model="titulo" placeholder="Titulo da Publicação" style="width:80%" autofocus/>
+          </center>
             <v-spacer></v-spacer>
             <textarea v-model="conteudo" placeholder="Escreva alguma publicação..." rows="5" style="width:80%; resize: none; border:1px solid #900000; "></textarea>
 
@@ -40,9 +43,21 @@
                 color="white"
                 dark
                 width = "83%"
+            
             >
-            <v-card-text class="black--text" v-text="item.dados.info.dataPublicacao">
-            </v-card-text>
+
+            <v-card-actions>
+
+                      <span justify="Start"  class=" font-weight-bold black--text" v-text="item.dados.info.titulo"></span>
+        <v-row
+          justify="end"
+        >
+            <span justify="end"  class="black--text font-weight-bold ml-9" v-text="item.dados.info.dataPublicacao">
+            </span>
+        </v-row>
+          
+    </v-card-actions>
+
     <v-text-field v-if="item.editar" class=" ml-4 black--text" v-model="item.dados.info.conteudo" multi-line autofocus/>
 
     <v-card-text v-else class="  black--text" v-text="item.dados.info.conteudo">
@@ -131,6 +146,7 @@ const h = require("@/config/hosts").hostAPI
     data (){ return{
         publicacoesAtuais: [],
         conteudo: "",
+        titulo:"",
         files : [],
         idUtilizador:"",
         editConteudo:"",
@@ -144,6 +160,12 @@ const h = require("@/config/hosts").hostAPI
       this.publicacoesAtuais = this.publicacoes
       this.updatePubs()
     },
+    watch: {
+    publicacoes: function (val) {
+      this.publicacoesAtuais = val
+      this.updatePubs()
+    }
+  },
     methods: {
       inserePublicacao: async function(){
         var publicacao = {}
@@ -152,6 +174,7 @@ const h = require("@/config/hosts").hostAPI
           //ir buscar à sessão
           publicacao.idUtilizador = this.idUtilizador
           publicacao.idGrupo = this.idGrupo
+          publicacao.titulo = this.titulo
           axios.post(h + "publicacoes/", publicacao)
                .then(async id => {
                   await this.postFiles(id.data.id)

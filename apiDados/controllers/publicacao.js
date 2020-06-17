@@ -21,12 +21,13 @@ Publicacao.getPublicacao = async function (idPublicacao){
 
 Publicacao.getPublicacaoAtomica = async function (idPublicacao){
     var query = `
-    select (STRAFTER(STR(?utilizador), 'UMbook#') as ?idUtilizador) ?nomeUtilizador ?likes ?conteudo ?dataPublicacao where {
+    select (STRAFTER(STR(?utilizador), 'UMbook#') as ?idUtilizador) ?nomeUtilizador ?likes ?conteudo ?dataPublicacao ?titulo where {
         c:${idPublicacao} c:éPublicadoPor ?utilizador .
         ?utilizador c:nome ?nomeUtilizador .
         c:${idPublicacao} c:gostos ?likes .
         c:${idPublicacao} c:conteudo ?conteudo .
         c:${idPublicacao} c:data ?dataPublicacao .
+        c:${idPublicacao} c:titulo ?titulo .
     } 
     `
 
@@ -78,6 +79,7 @@ Publicacao.insertPublicacao = async function(publicacao){
         c:${idPublicacao} c:data "${data}" .
         c:${idPublicacao} c:éPublicadoPor c:${idUtilizador} .
         c:${idPublicacao} c:éPublicadaEm c:${publicacao.idGrupo} .
+        c:${idPublicacao} c:titulo c:${publicacao.titulo} .
     }
     `
 
@@ -103,14 +105,17 @@ Publicacao.updatePublicacao = async function(idPublicacao, publicacaoNova){
     delete{
         c:${idPublicacao} c:conteudo ?conteudo .
         c:${idPublicacao} c:data ?data .
+        c:${idPublicacao} c:titulo ?titulo .
     }
     Insert{
         c:${idPublicacao} c:conteudo "${publicacaoNova.conteudo}" .
         c:${idPublicacao} c:data "${data}" .
+        c:${idPublicacao} c:titulo ${publicacaoNova.titulo} .
     }
     where{
         c:${idPublicacao} c:conteudo ?conteudo .
         c:${idPublicacao} c:data ?data .
+        c:${idPublicacao} c:titulo ?titulo .
     }
     `
     
