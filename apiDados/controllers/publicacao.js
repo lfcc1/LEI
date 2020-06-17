@@ -119,7 +119,8 @@ Publicacao.updatePublicacao = async function(idPublicacao, publicacaoNova){
     }
     `
     
-    return Connection.makePost(query)
+    await Connection.makePost(query)
+    return idPublicacao
 }
 
 
