@@ -136,6 +136,6 @@ Curso.insertCurso = async function(curso){
     }
     `
 
-    return Connection.makePost(query)
-
+    await Connection.makePost(query)
+    return id
 }

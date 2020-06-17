@@ -39,11 +39,4 @@ router.post('/:idConversa/mensagem', function(req, res){
             
 })
 
-router.post('/:idConversa/mensagem', function(req, res){
-    Conversa.insertMensagem(req.params.idConversa, req.body)
-            .then(dados =>{ res.jsonp(dados) })
-            .catch(erro => res.status(500).jsonp(erro) )
-            
-})
-
 module.exports = router;

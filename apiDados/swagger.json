@@ -1,0 +1,1917 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "Api UMbook",
+        "description": "Aqui encontra-se a documentação de toda a api de dados da UMbook, incluindo todas as rotas e toda a informação à cerca do que é precisar passar como parâmetros, bem como os resultados que se podem esperar ao executar aquela rota."
+    },
+    "schemes": [
+        "http"
+    ],
+    "host": "localhost:3050",
+    "basePath": "/api",
+    "tags": [
+        {
+          "name": "cursos",
+          "description": "Todas as operações à cerca de cursos."
+        },
+        {
+          "name": "anos",
+          "description": "Todas as operações à cerca de anos."
+        },
+        {
+            "name": "cadeiras",
+            "description": "Todas as operações à cerca de cadeiras."
+        },
+        {
+          "name": "utilizadores",
+          "description": "Todas as operações à cerca de utilizadores."
+        },
+        {
+            "name": "eventos",
+            "description": "Todas as operações à cerca de eventos."
+        },
+        {
+            "name": "ficheiros",
+            "description": "Todas as operações à cerca de ficheiros."
+        },
+        {
+            "name": "publicacoes",
+            "description": "Todas as operações à cerca de publicações."
+        },
+        {
+            "name": "conversas",
+            "description": "Todas as operações à cerca de conversas."
+        }
+
+
+      ],
+    "paths": {
+        "/cursos": {
+            "get": {
+                "tags":[
+                    "cursos"
+                ],
+                "summary": "Todos os ids dos cursos registados.",
+                "description": "Retorna uma lista com todos os ids dos cursos presentes.",
+                "responses": {
+                    "200": {
+                        "description": "Lista de Curso",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "properties": {
+                                    "curso": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post":{
+                "tags":[
+                    "cursos"
+                ],
+                "summary": "Inserir um novo curso.",
+                "description": "Adiciona um novo curso à base de dados.",
+                "parameters": [
+                    {
+                      "name": "id",
+                      "in": "formData",
+                      "description": "ID do curso",
+                      "required": true,
+                      "type": "string"
+                    },
+                    {
+                      "name": "nome",
+                      "in": "formData",
+                      "description": "Nome do curso",
+                      "required": true,
+                      "type": "string"
+                    }
+                  ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna o id do Curso criado",
+                        "schema": {
+                            "type": "string",
+                            "items": {
+                                "properties": {
+                                    "curso": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/cursos/{cursoId}": {
+            "get": {
+              "tags": [
+                "cursos"
+              ],
+              "summary": "Dado um identificador de um curso, devolve toda a informação relativa a esse curso.",
+              "description": "Devolve toda a informação relativa a um curso.",
+              "operationId": "getCursoById",
+              "parameters": [
+                {
+                  "name": "cursoId",
+                  "in": "path",
+                  "description": "ID do curso a retornar.",
+                  "required": true,
+                  "type": "string"
+                }
+              ],
+              "responses": {
+                "200": {
+                    "description": "Retorna toda a informação relativa a um curso.",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "info": {
+                                "$ref": "#/definitions/Curso"
+                            },
+                            "anos":{
+                                "type":"array",
+                                "items": {
+                                    "type":"object",
+                                    "properties": {
+                                        "id":{
+                                            "type":"string"
+                                        },
+                                        "designacao":{
+                                            "type":"string"
+                                        }
+                                    }
+                                }
+                            },
+                            "estudantes":{
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/definitions/Utilizador"
+                                }
+                            },
+                            "responsaveis":{
+                                "type": "object",
+                                "properties": {
+                                    "ano":{
+                                        "type":"string"
+                                    },
+                                    "responsaveisAno":{
+                                        "type":"array",
+                                        "items":{
+                                            "$ref": "#/definitions/Utilizador"
+                                        }
+                                    }
+                                }
+                            },
+                            "publicacoes":{
+                                "type":"array",
+                                "items": {
+                                    "$ref": "#/definitions/Publicacao"
+                                }
+                            }
+                        }
+                    }
+                }
+              },
+              "security": [
+                {
+                  "api_key": []
+                }
+              ]
+            }
+        },
+        "/cursos/{cursoId}/anos": {
+            "get": {
+              "tags": [
+                "cursos"
+              ],
+              "summary": "Dado um identificador de um curso, devolve todos os anos pertencentes a esse curso.",
+              "description": "Devolve todos os anos de um curso.",
+              "operationId": "getAnosCursoById",
+              "parameters": [
+                {
+                  "name": "cursoId",
+                  "in": "path",
+                  "description": "ID do curso a retornar.",
+                  "required": true,
+                  "type": "string"
+                }
+              ],
+              "responses": {
+                "200": {
+                    "description": "Retorna todos os anos relativos a um curso.",
+                    "schema": {
+                        "type": "array",
+                        "items": {
+                            "type":"object",
+                            "properties": {
+                                "id":{
+                                    "type":"string"
+                                },
+                                "designacao":{
+                                    "type":"string"
+                                }
+                            }
+                        }
+                    }
+                }
+              },
+              "security": [
+                {
+                  "api_key": []
+                }
+              ]
+            }
+        },
+        "/cursos/{cursoId}/estudantes": {
+            "get": {
+              "tags": [
+                "cursos"
+              ],
+              "summary": "Dado um identificador de um curso, devolve todos os estudantes pertencentes a esse curso.",
+              "description": "Devolve todos os estudantes de um curso.",
+              "operationId": "getEstudantesAnoById",
+              "parameters": [
+                {
+                  "name": "cursoId",
+                  "in": "path",
+                  "description": "ID do curso a retornar.",
+                  "required": true,
+                  "type": "string"
+                }
+              ],
+              "responses": {
+                "200": {
+                    "description": "Retorna todos os estudantes relativos a um curso.",
+                    "schema": {
+                        "type":"array",
+                        "items": {
+                           "$ref": "#/definitions/Utilizador"
+                        }
+                    }
+                }
+              },
+              "security": [
+                {
+                  "api_key": []
+                }
+              ]
+            }
+        },
+        "/cursos/{cursoId}/publicacoes": {
+            "get": {
+              "tags": [
+                "cursos"
+              ],
+              "summary": "Dado um identificador de um curso, devolve todas as publicações pertencentes a esse curso.",
+              "description": "Devolve todos as publicações de um curso.",
+              "operationId": "getPublicacoesCursoById",
+              "parameters": [
+                {
+                  "name": "cursoId",
+                  "in": "path",
+                  "description": "ID do curso a retornar.",
+                  "required": true,
+                  "type": "string"
+                }
+              ],
+              "responses": {
+                "200": {
+                    "description": "Retorna todos as publicações relativos a um curso.",
+                    "schema": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/definitions/Publicacao"
+                        }
+                    }
+                }
+              },
+              "security": [
+                {
+                  "api_key": []
+                }
+              ]
+            }
+        },
+        "/cursos/{cursoId}/responsaveis": {
+            "get": {
+              "tags": [
+                "cursos"
+              ],
+              "summary": "Dado um identificador de um curso, devolve todas os responsáveis pertencentes a esse curso.",
+              "description": "Devolve todos os responsáveis de um curso.",
+              "operationId": "getResponsaveisCursoById",
+              "parameters": [
+                {
+                  "name": "cursoId",
+                  "in": "path",
+                  "description": "ID do curso a retornar.",
+                  "required": true,
+                  "type": "string"
+                }
+              ],
+              "responses": {
+                "200": {
+                    "description": "Retorna todos os responsáveis relativos a um curso.",
+                    "schema": {
+                        "type":"array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "ano":{
+                                    "type":"string"
+                                },
+                                "responsaveisAno":{
+                                    "type":"array",
+                                    "items":{
+                                        "$ref": "#/definitions/Utilizador"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+              },
+              "security": [
+                {
+                  "api_key": []
+                }
+              ]
+            }
+        },
+        "/anos": {
+            "post":{
+                "tags":[
+                    "anos"
+                ],
+                "summary": "Inserir um novo ano.",
+                "description": "Adiciona um novo curso à base de dados.",
+                "parameters": [
+                    {
+                      "name": "nome",
+                      "in": "formData",
+                      "description": "Nome do ano",
+                      "required": true,
+                      "type": "string"
+                    },
+                    {
+                        "name": "anoLetivo",
+                        "in": "formData",
+                        "description": "Ano letivo do ano",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "idCurso",
+                        "in": "formData",
+                        "description": "ID do curso que o ano pertence",
+                        "required": true,
+                        "type": "string"
+                      }
+                  ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna o id do ano criado",
+                        "schema": {
+                            "properties": {
+                                "id": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/anos/{anoId}": {
+            "get": {
+              "tags": [
+                "anos"
+              ],
+              "summary": "Dado um identificador de um ano, devolve toda a informação relativa a esse ano.",
+              "description": "Devolve toda a informação relativa a um ano.",
+              "operationId": "getAnoById",
+              "parameters": [
+                {
+                  "name": "anoId",
+                  "in": "path",
+                  "description": "ID do ano a retornar.",
+                  "required": true,
+                  "type": "string"
+                }
+              ],
+              "responses": {
+                "200": {
+                    "description": "Retorna toda a informação relativa a um ano.",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "info": {
+                                "$ref": "#/definitions/Ano"
+                            },
+                            "cadeiras":{
+                                "type":"array",
+                                "items": {
+                                    "type":"object",
+                                    "properties": {
+                                        "id":{
+                                            "type":"string"
+                                        },
+                                        "designacao":{
+                                            "type":"string"
+                                        }
+                                    }
+                                }
+                            },
+                            "estudantes":{
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/definitions/Utilizador"
+                                }
+                            },
+                            "responsaveis":{
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/definitions/Utilizador"
+                                }
+                            },
+                            "publicacoes":{
+                                "type":"array",
+                                "items": {
+                                    "$ref": "#/definitions/Publicacao"
+                                }
+                            }
+                        }
+                    }
+                }
+              },
+              "security": [
+                {
+                  "api_key": []
+                }
+              ]
+            }
+        },
+        "/anos/{anoId}/cadeiras": {
+            "get": {
+              "tags": [
+                "anos"
+              ],
+              "summary": "Dado um identificador de um ano, devolve todas as cadeiras pertencentes a esse ano.",
+              "description": "Devolve todas as cadeiras de um ano.",
+              "operationId": "getCadeirasAnoById",
+              "parameters": [
+                {
+                  "name": "anoId",
+                  "in": "path",
+                  "description": "ID do ano a retornar.",
+                  "required": true,
+                  "type": "string"
+                }
+              ],
+              "responses": {
+                "200": {
+                    "description": "Retorna todas as cadeiras relativas a um ano.",
+                    "schema": {
+                        "type": "array",
+                        "items": {
+                            "type":"object",
+                            "properties": {
+                                "id":{
+                                    "type":"string"
+                                },
+                                "designacao":{
+                                    "type":"string"
+                                }
+                            }
+                        }
+                    }
+                }
+              },
+              "security": [
+                {
+                  "api_key": []
+                }
+              ]
+            }
+        },
+        "/anos/{anoId}/publicacoes": {
+            "get": {
+              "tags": [
+                "anos"
+              ],
+              "summary": "Dado um identificador de um ano, devolve todas as publicações pertencentes a esse ano.",
+              "description": "Devolve todos as publicações de um ano.",
+              "operationId": "getPublicacoesAnoById",
+              "parameters": [
+                {
+                  "name": "anoId",
+                  "in": "path",
+                  "description": "ID do curso a retornar.",
+                  "required": true,
+                  "type": "string"
+                }
+              ],
+              "responses": {
+                "200": {
+                    "description": "Retorna todas as publicações relativos a um curso.",
+                    "schema": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/definitions/Publicacao"
+                        }
+                    }
+                }
+              },
+              "security": [
+                {
+                  "api_key": []
+                }
+              ]
+            }
+        },
+        "/anos/{anoId}/responsaveis": {
+            "get": {
+              "tags": [
+                "anos"
+              ],
+              "summary": "Dado um identificador de um ano, devolve todas os responsáveis pertencentes a esse ano.",
+              "description": "Devolve todos os responsáveis de um ano.",
+              "operationId": "getResponsaveisAnoById",
+              "parameters": [
+                {
+                  "name": "anoId",
+                  "in": "path",
+                  "description": "ID do ano a retornar.",
+                  "required": true,
+                  "type": "string"
+                }
+              ],
+              "responses": {
+                "200": {
+                    "description": "Retorna todos os responsáveis relativos a um ano.",
+                    "schema": {
+                        "type":"array",
+                        "items": {
+                           "$ref": "#/definitions/Utilizador"
+                        }
+                    }
+                }
+              },
+              "security": [
+                {
+                  "api_key": []
+                }
+              ]
+            }
+        },
+        "/anos/{anoId}/estudantes": {
+            "get": {
+              "tags": [
+                "anos"
+              ],
+              "summary": "Dado um identificador de um ano, devolve todas os estudantes pertencentes a esse ano.",
+              "description": "Devolve todos os estudantes de um ano.",
+              "operationId": "getEstudantesAnoById",
+              "parameters": [
+                {
+                  "name": "anoId",
+                  "in": "path",
+                  "description": "ID do ano a retornar.",
+                  "required": true,
+                  "type": "string"
+                }
+              ],
+              "responses": {
+                "200": {
+                    "description": "Retorna todos os estudantes relativos a um ano.",
+                    "schema": {
+                        "type":"array",
+                        "items": {
+                           "$ref": "#/definitions/Utilizador"
+                        }
+                    }
+                }
+              },
+              "security": [
+                {
+                  "api_key": []
+                }
+              ]
+            }
+        },
+        "/cadeiras": {
+            "post":{
+                "tags":[
+                    "cadeiras"
+                ],
+                "summary": "Inserir uma nova cadeira.",
+                "description": "Adiciona uma nova cadeira à base de dados.",
+                "parameters": [
+                    {
+                      "name": "nome",
+                      "in": "formData",
+                      "description": "Nome da cadeira",
+                      "required": true,
+                      "type": "string"
+                    },
+                    {
+                        "name": "idAno",
+                        "in": "formData",
+                        "description": "ID do ano que a cadeira pertence",
+                        "required": true,
+                        "type": "string"
+                      }
+                  ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna o id da cadeira criada",
+                        "schema": {
+                            "properties": {
+                                "id": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/cadeiras/{cadeiraId}": {
+            "get": {
+              "tags": [
+                "cadeiras"
+              ],
+              "summary": "Dado um identificador de uma cadeira, devolve toda a informação relativa a essa cadeira.",
+              "description": "Devolve toda a informação relativa a uma cadeira.",
+              "operationId": "getCadeiraById",
+              "parameters": [
+                {
+                  "name": "cadeiraId",
+                  "in": "path",
+                  "description": "ID da cadeira a retornar.",
+                  "required": true,
+                  "type": "string"
+                }
+              ],
+              "responses": {
+                "200": {
+                    "description": "Retorna toda a informação relativa a uma cadeira.",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "info": {
+                                "$ref": "#/definitions/Ano"
+                            },
+                            "estudantes":{
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/definitions/Utilizador"
+                                }
+                            },
+                            "responsaveis":{
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/definitions/Utilizador"
+                                }
+                            },
+                            "publicacoes":{
+                                "type":"array",
+                                "items": {
+                                    "$ref": "#/definitions/Publicacao"
+                                }
+                            }
+                        }
+                    }
+                }
+              },
+              "security": [
+                {
+                  "api_key": []
+                }
+              ]
+            }
+        },
+        "/cadeiras/{cadeiraId}/publicacoes": {
+            "get": {
+              "tags": [
+                "cadeiras"
+              ],
+              "summary": "Dado um identificador de uma cadeira, devolve todas as publicações pertencentes a essa cadeira.",
+              "description": "Devolve todos as publicações de uma cadeira.",
+              "operationId": "getPublicacoesCadeiraById",
+              "parameters": [
+                {
+                  "name": "cadeiraId",
+                  "in": "path",
+                  "description": "ID da cadeira a retornar.",
+                  "required": true,
+                  "type": "string"
+                }
+              ],
+              "responses": {
+                "200": {
+                    "description": "Retorna todas as publicações relativas a uma cadeira.",
+                    "schema": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/definitions/Publicacao"
+                        }
+                    }
+                }
+              },
+              "security": [
+                {
+                  "api_key": []
+                }
+              ]
+            }
+        },
+        "/cadeiras/{cadeiraId}/responsaveis": {
+            "get": {
+              "tags": [
+                "cadeiras"
+              ],
+              "summary": "Dado um identificador de uma cadeira, devolve todas os responsáveis pertencentes a essa cadeira.",
+              "description": "Devolve todos os responsáveis de uma cadeira.",
+              "operationId": "getResponsaveisCadeiraById",
+              "parameters": [
+                {
+                  "name": "cadeiraId",
+                  "in": "path",
+                  "description": "ID da cadeira a retornar.",
+                  "required": true,
+                  "type": "string"
+                }
+              ],
+              "responses": {
+                "200": {
+                    "description": "Retorna todos os responsáveis relativos a uma cadeira.",
+                    "schema": {
+                        "type":"array",
+                        "items": {
+                           "$ref": "#/definitions/Utilizador"
+                        }
+                    }
+                }
+              },
+              "security": [
+                {
+                  "api_key": []
+                }
+              ]
+            }
+        },
+        "/cadeiras/{cadeiraId}/estudantes": {
+            "get": {
+              "tags": [
+                "cadeiras"
+              ],
+              "summary": "Dado um identificador de uma cadeira, devolve todos os estudantes pertencentes a essa cadeira.",
+              "description": "Devolve todos os estudantes de uma cadeira.",
+              "operationId": "getEstudantesCadeiraById",
+              "parameters": [
+                {
+                  "name": "cadeiraId",
+                  "in": "path",
+                  "description": "ID da cadeira a retornar.",
+                  "required": true,
+                  "type": "string"
+                }
+              ],
+              "responses": {
+                "200": {
+                    "description": "Retorna todos os estudantes relativos a uma cadeira.",
+                    "schema": {
+                        "type":"array",
+                        "items": {
+                           "$ref": "#/definitions/Utilizador"
+                        }
+                    }
+                }
+              },
+              "security": [
+                {
+                  "api_key": []
+                }
+              ]
+            }
+        },
+        "/eventos": {
+            "get": {
+                "tags":[
+                    "eventos"
+                ],
+                "summary": "Retorna todos os eventos registados.",
+                "description": "Retorna uma lista com todos os eventos presentes.",
+                "responses": {
+                    "200": {
+                        "description": "Retorna toda a informação relativa aos eventos que possuem uma determinada parceria.",
+                        "schema": {
+                            "type": "array",
+                            "items":{
+                                "properties": {
+                                    "info": {
+                                        "$ref": "#/definitions/Evento"
+                                    },
+                                    "participantes":{
+                                        "type":"array",
+                                        "items": {
+                                            "type":"object",
+                                            "properties": {
+                                                "idUtilizador":{
+                                                    "type":"string"
+                                                },
+                                                "nome":{
+                                                    "type":"string"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "parcerias":{
+                                        "type": "array",
+                                        "items": {
+                                            "type":"object",
+                                            "properties": {
+                                                "idCurso":{
+                                                    "type":"string"
+                                                },
+                                                "nome":{
+                                                    "type":"string"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                  }
+            },
+            "post":{
+                "tags":[
+                    "eventos"
+                ],
+                "summary": "Inserir um novo evento.",
+                "description": "Adiciona um novo evento à base de dados.",
+                "parameters": [
+                    {
+                      "name": "nome",
+                      "in": "formData",
+                      "description": "Nome do evento",
+                      "required": true,
+                      "type": "string"
+                    },
+                    {
+                        "name": "conteudo",
+                        "in": "formData",
+                        "description": "Informação adicional do evento",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "dataInicio",
+                        "in": "formData",
+                        "description": "Data e hora a que o evento começa",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "dataFim",
+                        "in": "formData",
+                        "description": "Data e hora a que o evento acaba",
+                        "required": true,
+                        "type": "string"
+                    }
+                  ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna o id do evento criado",
+                        "schema": {
+                            "properties": {
+                                "id": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/eventos/{eventoId}": {
+            "get": {
+              "tags": [
+                "eventos"
+              ],
+              "summary": "Dado um identificador de um evento, devolve toda a informação relativa a esse evento.",
+              "description": "Devolve toda a informação relativa a um evento.",
+              "operationId": "getEventoById",
+              "parameters": [
+                {
+                  "name": "eventoId",
+                  "in": "path",
+                  "description": "ID do evento a retornar.",
+                  "required": true,
+                  "type": "string"
+                }
+              ],
+              "responses": {
+                "200": {
+                    "description": "Retorna toda a informação relativa a um evento.",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "info": {
+                                "$ref": "#/definitions/Evento"
+                            },
+                            "participantes":{
+                                "type":"array",
+                                "items": {
+                                    "type":"object",
+                                    "properties": {
+                                        "idUtilizador":{
+                                            "type":"string"
+                                        },
+                                        "nome":{
+                                            "type":"string"
+                                        }
+                                    }
+                                }
+                            },
+                            "parcerias":{
+                                "type": "array",
+                                "items": {
+                                    "type":"object",
+                                    "properties": {
+                                        "idCurso":{
+                                            "type":"string"
+                                        },
+                                        "nome":{
+                                            "type":"string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+              },
+              "security": [
+                {
+                  "api_key": []
+                }
+              ]
+            }
+        },
+        "/eventos/parceria/{parceriaId}": {
+            "get": {
+              "tags": [
+                "eventos"
+              ],
+              "summary": "Dado um identificador de uma parceria, devolve todos os eventos relativos a essa parceria.",
+              "description": "Devolve todos os eventos de uma parceria.",
+              "operationId": "getEventoByParceria",
+              "parameters": [
+                {
+                  "name": "parceriaId",
+                  "in": "path",
+                  "description": "ID da parceria a retornar.",
+                  "required": true,
+                  "type": "string"
+                }
+              ],
+              "responses": {
+                "200": {
+                    "description": "Retorna toda a informação relativa aos eventos que possuem uma determinada parceria.",
+                    "schema": {
+                        "type": "array",
+                        "items":{
+                            "properties": {
+                                "info": {
+                                    "$ref": "#/definitions/Evento"
+                                },
+                                "participantes":{
+                                    "type":"array",
+                                    "items": {
+                                        "type":"object",
+                                        "properties": {
+                                            "idUtilizador":{
+                                                "type":"string"
+                                            },
+                                            "nome":{
+                                                "type":"string"
+                                            }
+                                        }
+                                    }
+                                },
+                                "parcerias":{
+                                    "type": "array",
+                                    "items": {
+                                        "type":"object",
+                                        "properties": {
+                                            "idCurso":{
+                                                "type":"string"
+                                            },
+                                            "nome":{
+                                                "type":"string"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+              },
+              "security": [
+                {
+                  "api_key": []
+                }
+              ]
+            }
+        },
+        "/eventos/participante/{participanteId}": {
+            "get": {
+              "tags": [
+                "eventos"
+              ],
+              "summary": "Dado um identificador de um utilizador, devolve todos os eventos em que ele vai participar.",
+              "description": "Devolve todos os eventos de um utilizador.",
+              "operationId": "getEventoByUtilizador",
+              "parameters": [
+                {
+                  "name": "participanteId",
+                  "in": "path",
+                  "description": "ID do utilizador a retornar.",
+                  "required": true,
+                  "type": "string"
+                }
+              ],
+              "responses": {
+                "200": {
+                    "description": "Retorna toda a informação relativa aos eventos em que um utilizador vai participar.",
+                    "schema": {
+                        "type": "array",
+                        "items":{
+                            "properties": {
+                                "info": {
+                                    "$ref": "#/definitions/Evento"
+                                },
+                                "participantes":{
+                                    "type":"array",
+                                    "items": {
+                                        "type":"object",
+                                        "properties": {
+                                            "idUtilizador":{
+                                                "type":"string"
+                                            },
+                                            "nome":{
+                                                "type":"string"
+                                            }
+                                        }
+                                    }
+                                },
+                                "parcerias":{
+                                    "type": "array",
+                                    "items": {
+                                        "type":"object",
+                                        "properties": {
+                                            "idCurso":{
+                                                "type":"string"
+                                            },
+                                            "nome":{
+                                                "type":"string"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+              },
+              "security": [
+                {
+                  "api_key": []
+                }
+              ]
+            }
+        },
+        "/publicacoes/{publicacaoId}": {
+            "get": {
+              "tags": [
+                "publicacoes"
+              ],
+              "summary": "Dado um identificador de uma publicação, devolve toda a informação dessa publicação.",
+              "description": "Devolve todas as informações relativas a uma publicação.",
+              "operationId": "getPublicacaoById",
+              "parameters": [
+                {
+                  "name": "publicacaoId",
+                  "in": "path",
+                  "description": "ID da publicação a retornar.",
+                  "required": true,
+                  "type": "string"
+                }
+              ],
+              "responses": {
+                "200": {
+                    "description": "Retorna toda a informação relativa a uma publicação.",
+                    "schema": {
+                        "$ref": "#/definitions/Publicacao"
+                    } 
+                }
+              },
+              "security": [
+                {
+                  "api_key": []
+                }
+              ]
+            },
+            "put":{
+                "tags":[
+                    "publicacoes"
+                ],
+                "summary": "Edita uma publicação com um determinado identificador.",
+                "description": "Editar publicação.",
+                "parameters": [
+                    {
+                      "name": "publicacaoId",
+                      "in": "path",
+                      "description": "Identificador da publicação",
+                      "required": true,
+                      "type": "string"
+                    },
+                    {
+                        "name": "conteudo",
+                        "in": "formData",
+                        "description": "Novo conteúdo da publicação",
+                        "required": true,
+                        "type": "string"
+                    }
+                  ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna o id da publicação editada",
+                        "schema": {
+                            "properties": {
+                                "id": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete":{
+                "tags":[
+                    "publicacoes"
+                ],
+                "summary": "Apaga uma publicação com um determinado identificador.",
+                "description": "Apagar publicação.",
+                "parameters": [
+                    {
+                      "name": "publicacaoId",
+                      "in": "path",
+                      "description": "Identificador da publicação",
+                      "required": true,
+                      "type": "string"
+                    }
+                  ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna 200 se a publicação foi apagada"
+                    }
+                }
+            }
+        },
+        "/publicacoes/{publicacaoId}/comentarios": {
+            "get": {
+              "tags": [
+                "publicacoes"
+              ],
+              "summary": "Dado um identificador de uma publicação, devolve todos os comentários dessa publicação.",
+              "description": "Devolve todos os comentários relativos a uma publicação.",
+              "operationId": "getComentariosPublicacaoById",
+              "parameters": [
+                {
+                  "name": "publicacaoId",
+                  "in": "path",
+                  "description": "ID da publicação a retornar.",
+                  "required": true,
+                  "type": "string"
+                }
+              ],
+              "responses": {
+                "200": {
+                    "description": "Retorna todos os comentários de uma publicação.",
+                    "schema": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/definitions/Comentario"
+                        }
+                    } 
+                }
+              },
+              "security": [
+                {
+                  "api_key": []
+                }
+              ]
+            }
+        },
+        "/publicacoes":{
+            "post":{
+                "tags":[
+                    "publicacoes"
+                ],
+                "summary": "Inserir uma nova publicação.",
+                "description": "Adiciona uma nova publicação à base de dados.",
+                "parameters": [
+                    {
+                      "name": "idGrupo",
+                      "in": "formData",
+                      "description": "Id do grupo em que a publicação vai ser publicada",
+                      "required": true,
+                      "type": "string"
+                    },
+                    {
+                        "name": "conteudo",
+                        "in": "formData",
+                        "description": "Conteudo da publicação",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "idUtilizador",
+                        "in": "formData",
+                        "description": "Id do utilizador que a publicou",
+                        "required": true,
+                        "type": "string"
+                    }
+                  ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna o id da publicação criada",
+                        "schema": {
+                            "properties": {
+                                "id": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/publicacoes/{publicacaoId}/comentario":{
+            "post":{
+                "tags":[
+                    "publicacoes"
+                ],
+                "summary": "Inserir um novo comentário associado a uma publicação.",
+                "description": "Adiciona um novo comentário à base de dados.",
+                "parameters": [
+                    {
+                      "name": "publicacaoId",
+                      "in": "path",
+                      "description": "Id da publicação ao qual pertence o comentário",
+                      "required": true,
+                      "type": "string"
+                    },
+                    {
+                        "name": "conteudo",
+                        "in": "formData",
+                        "description": "Conteudo do comentário",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "idUtilizador",
+                        "in": "formData",
+                        "description": "Id do utilizador que comentou",
+                        "required": true,
+                        "type": "string"
+                    }
+                  ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna o id do comentário criado",
+                        "schema": {
+                            "properties": {
+                                "id": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/publicacoes/comentario/{comentarioId}":{
+            "delete":{
+                "tags":[
+                    "publicacoes"
+                ],
+                "summary": "Apaga um comentário com um determinado identificador.",
+                "description": "Apagar comentário.",
+                "parameters": [
+                    {
+                      "name": "comentarioId",
+                      "in": "path",
+                      "description": "Identificador do comentário",
+                      "required": true,
+                      "type": "string"
+                    }
+                  ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna 200 se o comentário foi apagada"
+                    }
+                }
+            }
+        },
+        "/utilizadores/{utilizadorId}":{
+            "get": {
+                "tags": [
+                  "utilizadores"
+                ],
+                "summary": "Dado um identificador de um utilizador, devolve toda a informação desse utilizador.",
+                "description": "Devolve todas as informações relativas a um utilizador.",
+                "operationId": "getUtilizadorById",
+                "parameters": [
+                  {
+                    "name": "utilizadorId",
+                    "in": "path",
+                    "description": "ID da utilizador a retornar.",
+                    "required": true,
+                    "type": "string"
+                  }
+                ],
+                "responses": {
+                  "200": {
+                      "description": "Retorna toda a informação relativa a uma publicação.",
+                      "schema": {
+                          "$ref": "#/definitions/Utilizador"
+                      } 
+                  }
+                },
+                "security": [
+                  {
+                    "api_key": []
+                  }
+                ]
+              },
+              "put":{
+                  "tags":[
+                      "utilizadores"
+                  ],
+                  "summary": "Edita um utilizador com um determinado identificador.",
+                  "description": "Editar utilizador.",
+                  "parameters": [
+                      {
+                        "name": "utilizadorId",
+                        "in": "path",
+                        "description": "Identificador do utilizador",
+                        "required": true,
+                        "type": "string"
+                      },
+                      {
+                          "name": "numAluno",
+                          "in": "formData",
+                          "description": "Número de aluno",
+                          "required": true,
+                          "type": "string"
+                      },
+                      {
+                        "name": "numTelemovel",
+                        "in": "formData",
+                        "description": "Número de telemovel",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "nome",
+                        "in": "formData",
+                        "description": "Nome do aluno",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "sexo",
+                        "in": "formData",
+                        "description": "Género do aluno",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "dataNasc",
+                        "in": "formData",
+                        "description": "Data de Nascimento do Aluno",
+                        "required": true,
+                        "type": "string"
+                    }
+                    ],
+                  "responses": {
+                      "200": {
+                          "description": "Retorna 200 se a edição correr bem."
+                      }
+                  }
+              }
+        },
+        "/utilizadores/evento":{
+            "put": {
+                "tags": [
+                  "utilizadores"
+                ],
+                "summary": "Adiciona um evento a um determinado utilizador.",
+                "description": "Adiciona um evento a um determinado utilizador.",
+                "operationId": "addEventoUtilizador",
+                "parameters": [
+                  {
+                    "name": "idUtilizador",
+                    "in": "formData",
+                    "description": "ID do utilizador que se quer adicionar um evento.",
+                    "required": true,
+                    "type": "string"
+                  },
+                  {
+                    "name": "idEvento",
+                    "in": "formData",
+                    "description": "ID do evento que se quer adicionar.",
+                    "required": true,
+                    "type": "string"
+                  }
+                ],
+                "responses": {
+                  "200": {
+                      "description": "Retorna 200 se o evento foi adicionado com sucesso."
+                  }
+                },
+                "security": [
+                  {
+                    "api_key": []
+                  }
+                ]
+              }
+        },
+        "/utilizadores/{utilizadorId}/eventos":{
+            "get": {
+                "tags": [
+                  "utilizadores"
+                ],
+                "summary": "Dado um identificador de um utilizador, devolve os ids dos eventos desse utilizador.",
+                "description": "Devolve os ids dos eventos de um utilizador.",
+                "operationId": "getEventosUtilizadorById",
+                "parameters": [
+                  {
+                    "name": "utilizadorId",
+                    "in": "path",
+                    "description": "ID da utilizador a retornar.",
+                    "required": true,
+                    "type": "string"
+                  }
+                ],
+                "responses": {
+                  "200": {
+                      "description": "Lista de ids dos Eventos do Utilizador.",
+                      "schema":{
+                        "type": "array",
+                        "items":{
+                            "properties":{
+                                "idEvento":{
+                                    "type": "string"
+                                }
+                            }
+                        }
+                      }
+                  }
+                },
+                "security": [
+                  {
+                    "api_key": []
+                  }
+                ]
+            }
+        },
+        "/utilizadores/{utilizadorId}/amigo":{
+            "put": {
+                "tags": [
+                  "utilizadores"
+                ],
+                "summary": "Dado um identificador de um utilizador, adiciona um amigo a esse utilizador.",
+                "description": "Adiciona dois utilizadores como amigos.",
+                "operationId": "addAmigo",
+                "parameters": [
+                  {
+                    "name": "utilizadorId",
+                    "in": "path",
+                    "description": "ID da utilizador.",
+                    "required": true,
+                    "type": "string"
+                  },
+                  {
+                    "name": "idAmigo",
+                    "in": "formData",
+                    "description": "ID do amigo a adicionar.",
+                    "required": true,
+                    "type": "string"
+                  }
+                ],
+                "responses": {
+                  "200": {
+                      "description": "Retorna 200 se o amigo for adicionado com sucesso."
+                  }
+                },
+                "security": [
+                  {
+                    "api_key": []
+                  }
+                ]
+            }
+        },
+        "/utilizadores/amigos/{idAmigo1}/{idAmigo2}":{
+            "delete": {
+                "tags": [
+                  "utilizadores"
+                ],
+                "summary": "Remove a amizade entre dois utilizadores.",
+                "description": "Remove a amizade entre dois utilizadores.",
+                "operationId": "addAmigo",
+                "parameters": [
+                  {
+                    "name": "idAmigo1",
+                    "in": "path",
+                    "description": "ID do utilizador 1.",
+                    "required": true,
+                    "type": "string"
+                  },
+                  {
+                    "name": "idAmigo2",
+                    "in": "path",
+                    "description": "ID do utilizador 2.",
+                    "required": true,
+                    "type": "string"
+                  }
+                ],
+                "responses": {
+                  "200": {
+                      "description": "Retorna 200 se os amigos forem removidos com sucesso."
+                  }
+                },
+                "security": [
+                  {
+                    "api_key": []
+                  }
+                ]
+            }
+        },
+        "/conversas/{idConversa}":{
+            "get": {
+                "tags": [
+                  "conversas"
+                ],
+                "summary": "Devolve toda a informação relativa a uma conversa.",
+                "description": "Dado um identificador de uma conversa, devolve toda a informação relativa a essa conversa.",
+                "operationId": "getConversaById",
+                "parameters": [
+                  {
+                    "name": "idConversa",
+                    "in": "path",
+                    "description": "ID da conversa.",
+                    "required": true,
+                    "type": "string"
+                  }
+                ],
+                "responses": {
+                  "200": {
+                      "description": "Informação da conversa.",
+                      "schema":{
+                          "type": "object",
+                          "properties": {
+                              "participantes":{
+                                "type":"array",
+                                "items": {
+                                    "type":"object",
+                                    "properties": {
+                                        "nome":{
+                                            "type":"string"
+                                        },
+                                        "participante":{
+                                            "type":"string"
+                                        }
+                                    }
+                                }
+                              },
+                              "mensagens":{
+                                "type":"array",
+                                "items": {
+                                    "$ref": "#/definitions/Mensagem"
+                                }
+                              }
+                          }
+                      }
+                  }
+                },
+                "security": [
+                  {
+                    "api_key": []
+                  }
+                ]
+            }
+        },
+        "/conversas/participante/{idParticipante}":{
+            "get": {
+                "tags": [
+                  "conversas"
+                ],
+                "summary": "Devolve todas as conversas de um determinado participante.",
+                "description": "Dado um identificador de um participante, devolve toda a informação relativa às suas conversas.",
+                "operationId": "getConversaByParticipante",
+                "parameters": [
+                  {
+                    "name": "idParticipante",
+                    "in": "path",
+                    "description": "ID do utilizador.",
+                    "required": true,
+                    "type": "string"
+                  }
+                ],
+                "responses": {
+                  "200": {
+                      "description": "Lista de Conversas.",
+                      "schema":{
+                          "type": "array",
+                          "items": {
+                            "properties": {
+                                "idConversa":{
+                                    "type":"string"
+                                },
+                                "participantes":{
+                                  "type":"array",
+                                  "items": {
+                                      "type":"object",
+                                      "properties": {
+                                          "nome":{
+                                              "type":"string"
+                                          },
+                                          "participante":{
+                                              "type":"string"
+                                          }
+                                      }
+                                  }
+                                },
+                                "mensagens":{
+                                  "type":"array",
+                                  "items": {
+                                      "$ref": "#/definitions/Mensagem"
+                                  }
+                                }
+                            }
+                          }
+                      }
+                  }
+                },
+                "security": [
+                  {
+                    "api_key": []
+                  }
+                ]
+            }
+        },
+        "/conversas":{
+            "post": {
+                "tags": [
+                  "conversas"
+                ],
+                "summary": "Insere uma nova conversa.",
+                "description": "Insere uma nova conversa.",
+                "operationId": "createConversa",
+                "parameters": [
+                  {
+                    "name": "participantes",
+                    "in": "path",
+                    "description": "ID do utilizador.",
+                    "required": true,
+                    "type": "array",
+                    "items": {
+                        "type":"string"
+                    }
+                  }
+                ],
+                "responses": {
+                  "200": {
+                      "description": "Id da conversa criada.",
+                      "schema":{
+                          "type":"object",
+                          "properties": {
+                              "id":{
+                                  "type":"string"
+                              }
+                          }
+                      }
+                  }
+                },
+                "security": [
+                  {
+                    "api_key": []
+                  }
+                ]
+            }
+        }
+    },
+    "definitions": {
+        "Utilizador": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "nomeUtilizador": {
+                "type": "string"
+              },
+              "numeroAluno": {
+                "type": "string"
+              },
+              "dataNascimento": {
+                "type": "string"
+              },
+              "numeroTelemovel": {
+                "type": "string"
+              },
+              "sexo": {
+                "type": "string"
+              }
+            }
+        },
+        "Curso":{
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "designacao": {
+                "type": "string"
+              }
+            }
+        },
+        "Ano":{
+            "type": "object",
+            "properties":{
+                "id":{
+                    "type":"string"
+                },
+                "nome":{
+                    "type":"string"
+                },
+                "anoLetivo":{
+                    "type":"string"
+                },
+                "idCurso":{
+                    "type":"string"
+                }
+            }
+        },
+        "Cadeira":{
+            "type": "object",
+            "properties":{
+                "id":{
+                    "type":"string"
+                },
+                "nome":{
+                    "type":"string"
+                },
+                "idAno":{
+                    "type":"string"
+                }
+            }
+        },
+        "Publicacao":{
+            "type": "object",
+            "properties": {
+                "info":{
+                    "type":"object",
+                    "properties": {
+                        "id":{
+                            "type":"string"
+                        },
+                        "conteudo":{
+                            "type":"string"
+                        },
+                        "data":{
+                            "type":"string"
+                        },
+                        "likes":{
+                            "type":"integer"
+                        },
+                        "idUtilizador":{
+                            "type":"string"
+                        }
+                    }
+                },
+                "ficheiros":{
+                    "type":"array",
+                    "items": {
+                        "$ref": "#/definitions/Ficheiro"
+                    }
+                },
+                "comentarios":{
+                    "type":"array",
+                    "items": {
+                        "$ref": "#/definitions/Comentario"
+                    }
+                }
+            }
+        },
+        "Comentario":{
+            "type": "object",
+            "properties": {
+                "id":{
+                    "type":"string"
+                },
+                "conteudo":{
+                    "type":"string"
+                },
+                "data":{
+                    "type":"string"
+                },
+                "likes":{
+                    "type":"integer"
+                },
+                "idUtilizador":{
+                    "type":"string"
+                }
+            }
+        },
+        "Ficheiro":{
+            "type":"object",
+            "properties": {
+                "id":{
+                    "type":"string"
+                },
+                "nome":{
+                    "type":"string"
+                }
+            }
+
+        },
+        "Conversa":{
+            "type":"object",
+            "properties": {
+                "id":{
+                    "type":"string"
+                },
+                "participantes":{
+                    "type":"array",
+                    "items":{
+                        "$ref": "#/definitions/Utilizador"
+                    }
+                }
+            }
+
+        },
+        "Mensagem":{
+            "type":"object",
+            "properties": {
+                "idMensagem":{
+                    "type":"string"
+                },
+                "texto":{
+                    "type":"string"
+                },
+                "dataEnvio":{
+                    "type":"string"
+                },
+                "remetente":{
+                    "type":"string"
+                }
+            }
+        },
+        "Evento":{
+            "type":"object",
+            "properties": {
+                "id":{
+                    "type":"string"
+                },
+                "nome":{
+                    "type":"string"
+                },
+                "conteudo":{
+                    "type":"string"
+                },
+                "dataInicio":{
+                    "type":"string"
+                },
+                "dataFim":{
+                    "type":"string"
+                }
+            }
+        }
+    }
+}

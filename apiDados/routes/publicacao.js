@@ -39,7 +39,7 @@ router.post('/:idPublicacao/comentario', function(req, res){
 // ------------------------------------------------------ PUT --------------------------------------------
 
 router.put('/:idPublicacao', function(req, res){
-    Publicacao.updatePublicacao(req.params.idPublicacao, req.body.publicacaoNova)
+    Publicacao.updatePublicacao(req.params.idPublicacao, req.body)
     .then(dados => res.jsonp(dados))
     .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
 })
