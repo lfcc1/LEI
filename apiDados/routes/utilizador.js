@@ -16,12 +16,19 @@ router.get('/:id', function(req, res, next){
       .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
   })
 
+router.get('/:id/pedidosAmizade', function(req, res, next){
+    Utilizador.getPedidos(req.params.id)
+      .then(dados => res.jsonp(dados))
+      .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
+  })
+
 router.get('/:id/eventos', function(req, res, next){
     Utilizador.getEventos(req.params.id)
       .then(dados => res.jsonp(dados))
       .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
   })
   
+
 // -------------------------------------------------------------- PUT ---------------------------------------------------------------------
 
 router.put('/evento', function(req, res, next){
@@ -53,12 +60,26 @@ router.post('/', function(req, res, next){
     .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
 })
 
+router.post('/pedidosamizade/:idUtilizador', function(req, res){
+  Utilizador.fazPedidoAmizade(req.params.idUtilizador, req.body.idUtilizador2)
+            .then(dados => res.jsonp(dados))
+            .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
+
+})
+
 // -------------------------------------------------------------- DELETE ---------------------------------------------------------------------
 
 router.delete('/amigos/:id1/:id2', function(req, res, next){
   Utilizador.removeAmizade(req.params.id1, req.params.id2)
     .then(dados => res.jsonp(dados))
     .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
+})
+
+router.delete('/pedidosamizade/:idUtilizador1/:idUtilizador2', function(req, res){
+  console.log(req.body)
+  Utilizador.rejeitaPedido(req.params.idUtilizador1, req.params.idUtilizador2)
+            .then(dados => res.jsonp(dados))
+            .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
 })
 
   module.exports = router;

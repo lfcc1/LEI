@@ -111,21 +111,18 @@ Utilizador.updateUtilizador = async function(idUtilizador, utilizador){
     delete{
         c:${iduser} c:numAluno ?numAluno .
         c:${iduser} c:numTelemovel ?numTelemovel .
-        c:${iduser} c:nome ?nome .
         c:${iduser} c:sexo ?sexo .
         c:${iduser} c:dataNasc ?dataNasc .
     }
     Insert{
-        c:${iduser} c:numAluno ${utilizador.numAluno} .
-        c:${iduser} c:numTelemovel ${utilizador.numTelemovel} .
-        c:${iduser} c:nome ${utilizador.nome} .
-        c:${iduser} c:sexo ${utilizador.sexo} .
-        c:${iduser} c:dataNasc ${utilizador.dataNasc} .
+        c:${iduser} c:numAluno "${utilizador.numAluno}" .
+        c:${iduser} c:numTelemovel "${utilizador.numTelemovel}" .
+        c:${iduser} c:sexo "${utilizador.sexo}" .
+        c:${iduser} c:dataNasc "${utilizador.dataNasc}" .
     }
     where{
         c:${iduser} c:numAluno ?numAluno .
         c:${iduser} c:numTelemovel ?numTelemovel .
-        c:${iduser} c:nome ?nome .
         c:${iduser} c:sexo ?sexo .
         c:${iduser} c:dataNasc ?dataNasc .
     }
@@ -134,14 +131,68 @@ Utilizador.updateUtilizador = async function(idUtilizador, utilizador){
     return Connection.makePost(query)
 }
 
+Utilizador.getPedidos = async function(idUtilizador){
+    var iduser = idUtilizador.replace(/@/,"\\@");
+
+    var query = `
+    select (STRAFTER(STR(?user), 'UMbook#') as ?idUtilizador) ?nome where{
+        ?user c:fazPedidoAmizade c:${iduser} .
+        ?user c:nome ?nome .
+    }
+    `
+
+    return Connection.makeQuery(query)
+}
+
+Utilizador.rejeitaPedido = async function(id1, id2){
+    var iduser1 = id1.replace(/@/,"\\@");
+    var iduser2 = id2.replace(/@/,"\\@");
+
+    var query = `
+    delete {
+        c:${iduser1} c:fazPedidoAmizade c:${iduser2} .
+     } where{
+        c:${iduser1} c:fazPedidoAmizade c:${iduser2} .
+     } 
+    `
+
+    return Connection.makePost(query)
+}
+
+
 Utilizador.adicionarAmigo = async function(id1, id2){
+    var iduser1 = id1.replace(/@/,"\\@");
+    var iduser2 = id2.replace(/@/,"\\@");
+    console.log(iduser1)
+    console.log(iduser2)
+
+    var query1 = `
+    delete {
+        c:${iduser2} c:fazPedidoAmizade c:${iduser1} .
+     } where{
+        c:${iduser2} c:fazPedidoAmizade c:${iduser1} .
+     } 
+    `
+
+    var query2 = `
+    Insert Data {
+        c:${iduser1} c:éAmigoDe c:${iduser2} .
+    } 
+    `
+
+    await Connection.makePost(query1)
+
+    return Connection.makePost(query2)
+}
+
+Utilizador.fazPedidoAmizade = async function(id1, id2){
     var iduser1 = id1.replace(/@/,"\\@");
     var iduser2 = id2.replace(/@/,"\\@");
     console.log(iduser1)
     console.log(iduser2)
     var query = `
     Insert Data {
-        c:${iduser1} c:éAmigoDe c:${iduser2} .
+        c:${iduser1} c:fazPedidoAmizade c:${iduser2} .
     } 
     `
 
