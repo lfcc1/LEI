@@ -2,11 +2,7 @@
   <div>
         <p v-if="!ready">A ir buscar o Grupo à BD...</p>
         <div v-else> 
-            <v-card class="ma-8">
-              <v-container style="width:76%">
                 <Publicacao :publicacoes="this.item.publicacoes" :idGrupo="this.idUniversidade" :tipoGrupo="this.tipoGrupo" />
-              </v-container>
-            </v-card>
         </div>
     </div>
 </template>

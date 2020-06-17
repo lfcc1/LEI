@@ -1,12 +1,12 @@
 <template>
   <v-container>
-    <v-container>
+    <center>
+      <v-card class="mr-10 mt-3 mb-3 ml-10" width=80%>
     <v-card-title class="justify-center" style="background: #d6d6c2; color: #900000;" dark>
         Publicações
     </v-card-title>
-    </v-container>
     <!--<form method="post" id="publicacao" enctype="multipart/form-data"> !-->
-        <div class="form-group files text-center">
+        <div class="form-group files text-center" style="margin-top: 20px">
             <v-spacer></v-spacer>
             <textarea v-model="conteudo" placeholder="Escreva alguma publicação..." rows="5" style="width:80%; resize: none; border:1px solid #900000; "></textarea>
 
@@ -19,35 +19,38 @@
 
             </div> 
         </div>
+    </v-card>
+    </center>
     <!--</form> !-->
     <hr>
     <div v-if="this.publicacoesAtuais.length==0">
         <center><h2> Ainda não existem publicações! </h2></center>
     </div>
-    <div v-else>
-         <v-list v-model="publicacoesAtuais" >
+    <div v-else >
+      
+         <v-list v-model="publicacoesAtuais" color="transparent" class="justify-center">
             <!--<v-list-item-group disabled v-model="publicacoesAtuais" color="primary"> -->
-            <v-list-item
+            <v-list-item class="justify-center"
                 v-for="item in publicacoesAtuais"
                 :key="item.idPublicacao"
             >
-            <v-container>
+            
             <v-card
-                class="mx-auto"
-                color="#C0C0C0"
+                class="ml-10 mt-3 mb-3 mr-10 justify-center"
+                color="white"
                 dark
-                width = "100%"
+                width = "83%"
             >
-            <v-card-title v-text="item.dados.info.dataPublicacao">
-            <span class="title font-weight-light"></span>
-            </v-card-title>
+            <v-card-text class="black--text" v-text="item.dados.info.dataPublicacao">
+            </v-card-text>
+    <v-text-field v-if="item.editar" class=" ml-4 black--text" v-model="item.dados.info.conteudo" multi-line autofocus/>
 
-    <v-text-field v-if="item.editar" class="headline font-weight-bold" v-model="item.dados.info.conteudo" multi-line autofocus/>
-    <v-card-text v-else class="headline font-weight-bold" v-text="item.dados.info.conteudo">
+    <v-card-text v-else class="  black--text" v-text="item.dados.info.conteudo">
+
     </v-card-text>
 
     <v-card-actions>
-      <v-list-item class="grow">
+      <v-list-item class>
         <v-list-item-avatar color="grey darken-3">
           <v-img
             class="elevation-6"
@@ -56,21 +59,21 @@
         </v-list-item-avatar>
 
         <v-list-item-content>
-          <a  class="font-weight-bold white--text" v-text="item.dados.info.nomeUtilizador" @click="seeUser(item.dados.info.idUtilizador)"></a>
+          <a  class="font-weight-bold black--text" v-text="item.dados.info.nomeUtilizador" @click="seeUser(item.dados.info.idUtilizador)"></a>
         </v-list-item-content>
 
         <v-row
           justify="end"
         >
-          <v-icon class="mr-1">mdi-heart</v-icon>
-          <span class="subheading mr-2">{{item.dados.info.likes}}</span>
-          <v-icon class="mr-1" @click="item.showComments = !item.showComments">mdi-comment</v-icon>
-          <span class="subheading mr-2">{{item.dados.comentarios.length}}</span>
-          <v-icon class="mr-1 " @click="showFiles(item)">mdi-file</v-icon>
+          <v-icon color="#900000" class="mr-1">mdi-heart</v-icon>
+          <span class=" black--text subheading mr-2">{{item.dados.info.likes}}</span>
+          <v-icon class="mr-1" :color="corComentariosIcon" @click="openComentarios(item)">mdi-comment</v-icon>
+          <span class="black--text subheading mr-2">{{item.dados.comentarios.length}}</span>
+          <v-icon  color="#900000" class="mr-1 " @click="showFiles(item)">mdi-file</v-icon>
           <!--<v-btn class="mr-1" @click="showFiles = true" icon="mdi-myFileIcon"></v-btn> v-if="this.idUtilizador == item.dados.info.idUtilizador"  -->
-          <span class="subheading mr-2">{{item.dados.ficheiros.length}}</span>
-          <v-icon v-if="utilizadorOwner(item.dados.info.idUtilizador)" class="mr-1" @click="item.editar = true">mdi-square-edit-outline</v-icon>
-          <v-icon v-if="utilizadorOwner(item.dados.info.idUtilizador)" class="mr-1" @click="deletePub(item.idPublicacao)">mdi-close-thick</v-icon>
+          <span class="black--text subheading mr-2">{{item.dados.ficheiros.length}}</span>
+          <v-icon v-if="utilizadorOwner(item.dados.info.idUtilizador)" color="#900000" class="mr-1" @click="item.editar = true">mdi-square-edit-outline</v-icon>
+          <v-icon v-if="utilizadorOwner(item.dados.info.idUtilizador)" color="#900000" class="mr-1" @click="deletePub(item.idPublicacao)">mdi-close-thick</v-icon>
         
         </v-row>
             <v-spacer/>
@@ -81,12 +84,11 @@
               width="70%"
               background-color="#e0e0e0"
             >
+             <hr color="#900000" style="width:100%">
                         <!--<v-list v-if="item,dados.comentarios.length != 0" >-->
                 <Comentario :comentarios="item.dados.comentarios" :idPublicacao="item.idPublicacao"/>
             </v-container>
   </v-card>
-  </v-container>
-
             </v-list-item>
             <!--</v-list-item-group> -->
         </v-list>
@@ -133,7 +135,8 @@ const h = require("@/config/hosts").hostAPI
         idUtilizador:"",
         editConteudo:"",
         publicacaoAtual: {dados:{ficherios:[]}},
-        dialog: false
+        dialog: false,
+        corComentariosIcon: "#900001"
     }},
     created: function(){
       //ir buscar à sessão 
@@ -161,6 +164,16 @@ const h = require("@/config/hosts").hostAPI
                .catch(error => console.log(error))
 
           //this.updatePubs()
+        }
+      },
+      openComentarios: function(item){
+        if(item.showComments == false){
+        item.showComments = true
+        this.corComentariosIcon = "#900000"
+        }
+        else{
+            item.showComments = false
+            this.corComentariosIcon = "#900001"
         }
       },
       postFiles: function(id){

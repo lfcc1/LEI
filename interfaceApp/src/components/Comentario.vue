@@ -1,9 +1,9 @@
 <template>
-<v-container class="white">
+<v-container  >
    
-  <v-list class="white">
+  <v-list color="#f0f0f0" class="pa-3">
         <center>
-        <h3 class=" font-weight-bold " style="color:#900000"> Comentários </h3>
+        <h3 class=" font-weight-bold " style="color:black"> Comentários </h3>
         </center>
         <v-list-item
         v-for="(comentario,index) in comentariosAtuais"
@@ -35,7 +35,7 @@
 
         </v-row>
         
-        <hr v-if="index < comentariosAtuais.length - 1" color="#900000" style="width:100%">
+        <hr v-if="index < comentariosAtuais.length - 1" color="grey" style="width:100%">
         </v-container>
         </v-list-item>
         <textarea  class="black--text" v-model="conteudo"  placeholder="Comente algo sobre a publicação.."   rows="3" style="width:100%; resize: none; border:1px solid #000000;">
