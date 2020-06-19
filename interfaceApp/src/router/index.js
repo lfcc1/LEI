@@ -15,6 +15,7 @@ import EditUserProfile from '../views/EditUserProfile.vue'
 import Evento from '../views/Evento.vue'
 import EventoCurso from '../views/EventoCurso.vue'
 import MeusEventos from '../views/MeusEventos.vue'
+import PedidosAmizade from '../views/PedidosAmizade.vue'
 
 
 Vue.use(VueRouter)
@@ -129,6 +130,14 @@ const routes = [
     path: '/meuseventos',
     name: 'MeusEventos',
     component: MeusEventos,
+    meta: {
+
+    }
+  },
+  {
+    path: '/pedidosamizade',
+    name: 'Pedidos de Amizade',
+    component: PedidosAmizade,
     meta: {
 
     }

@@ -73,6 +73,7 @@ export default {
         { title: 'Meus Eventos', icon: 'mdi-calendar-multiple-check', href:"/meuseventos" },
         // Ir buscar á sessão
         { title: 'Meu Perfil', icon: 'mdi-account-circle', href:"/userProfile/lguilhermem@hotmail.com" },
+        { title: 'Pedidos de amizade', icon: 'mdi-bell-ring', href:"/pedidosamizade" },
         { title: 'Notificações', icon: 'mdi-bell-ring', href:"/notificacoes" },
       ],
       color: '#900000',

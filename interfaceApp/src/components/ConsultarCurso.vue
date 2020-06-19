@@ -290,6 +290,7 @@ export default {
             }
         },
         apresentaUser: function(item){
+            console.log(item)
             alert(item)
             this.$router.push({ name: 'UserProfile', params: {id: item.id }})
         }

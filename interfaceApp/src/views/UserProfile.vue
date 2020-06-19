@@ -149,8 +149,14 @@
                         <v-list-item
                         v-for="amigo in user.amigos"
                         :key="amigo.idAmigo"
-                        @click="seeUser(user.idAmigo)" 
+                        @click="seeUser(amigo.idAmigo)" 
                         >
+                        <v-list-item-avatar color="grey darken-3">
+                          <v-img
+                            class="elevation-6"
+                            :src="amigo.fotoPerfil"
+                          ></v-img>
+                        </v-list-item-avatar>
                         <v-list-item-content style="width: 50%;"> 
                             <v-list-item-title v-text="amigo.nome"></v-list-item-title>
                         </v-list-item-content>
@@ -197,7 +203,7 @@
                      :color="colorRed"
                     label="Número de aluno"
                     prepend-icon="mdi-account-card-details"
-                    v-model="this.user.info.numAluno"
+                    v-model="numAluno"
                   />
                 </v-flex>
                 <v-flex
@@ -218,7 +224,7 @@
                 >
                 <v-combobox
                   id="genero"
-                  v-model="this.user.info.sexo"
+                  v-model="sexo"
                   prepend-icon="mdi-gender-male-female"
                   :items="['Masculino', 'Feminino', 'Outro']"
                   label="Género"
@@ -231,7 +237,8 @@
                     prepend-icon="mdi-calendar-question"
                     label="Data Nascimento"
                     class="purple-input"
-                    v-model="this.user.info.dataNasc"
+                    :formatter="format"
+                    v-model="dataNasc"
                     type="date"/>
                 </v-flex>
                 <v-flex
@@ -241,7 +248,7 @@
                     label="Número de Telemóvel"
                     class="purple-input"
                     prepend-icon="mdi-cellphone-android"
-                    v-model="this.user.info.numTelemovel"
+                    v-model="numTelemovel"
                     type="number"/>
                 </v-flex>
                 <v-flex
@@ -261,8 +268,15 @@
                         <v-list-item
                         v-for="amigo in user.amigos"
                         :key="amigo.idAmigo"
-                        @click="seeUser(user.idAmigo)" 
+                        @click="seeUser(amigo.idAmigo)" 
                         >
+                        <v-list-item-avatar color="grey darken-3">
+                          <v-img
+                            class="elevation-6"
+                            :src="amigo.fotoPerfil"
+                          ></v-img>
+                        </v-list-item-avatar>
+
                         <v-list-item-content style="width: 50%;"> 
                             <v-list-item-title v-text="amigo.nome"></v-list-item-title>
                         </v-list-item-content>
@@ -275,7 +289,7 @@
                   <v-btn
                     class="mx-0 font-weight-light"
                     color="#900000"
-                    @click="updateUtilizador(this.user.info)"
+                    @click="updateUtilizador()"
                   >
                     Editar Perfil
                   </v-btn>
@@ -329,6 +343,10 @@ export default {
     colorRed: "#900000",
     idUtilizador: "",
     user: {},
+    numAluno: "",
+    numTelemovel:"",
+    dataNasc:"",
+    sexo: "",
     userReady: false,
     dialogAmigos: false,
     files:{},
@@ -343,21 +361,36 @@ export default {
       let response = await axios.get(h + "utilizadores/" + this.idUtilizador )//
       console.log(response.data)
       this.user = response.data
+      this.initVModels()
+      this.updateAmigos()
       this.userReady = true
     } catch (e) {
       return e
     }
   },
   methods:{
+    seeUser: async function(idUser){
+        this.dialogAmigos = false
+        this.$router.push({ name: 'UserProfile', params: {id: idUser }})
+        this.$router.go(0)
+      },
+    initVModels: function(){
+      this.numAluno = this.user.info.numAluno
+      this.numTelemovel = this.user.info.numTelemovel
+      this.sexo = this.user.info.sexo
+      this.dataNasc = this.user.info.dataNasc
+    },
     utilizadorOwner: function(){
       return this._id == this.idUtilizador
     },
-    updateUtilizador: async function(utilizador){
+    updateUtilizador: async function(){
       if(confirm("Tem a certeza que pretende alterar o seu perfil?")){
-        axios.put(h + "utilizadores/" + this.idUtilizador, utilizador)
+        axios.put(h + "utilizadores/" + this.idUtilizador, {sexo: this.sexo, numAluno: this.numAluno, numTelemovel: this.numTelemovel, dataNasc: this.dataNasc})
             .then(async d =>{
               let response = await axios.get(h + "utilizadores/" + this.idUtilizador )//
               this.user = response.data
+              this.initVModels()
+              this.updateAmigos()
             })
             .catch(e => console.log(e))
       }
@@ -369,9 +402,15 @@ export default {
       }
       return result
     },
+    updateAmigos: async function(){
+      this.user.amigos.forEach(element =>{
+        element.fotoPerfil = "http://localhost:3050/images/" + element.idAmigo
+      })
+    }
+    ,
     adicionarAmigo: async function(){
-      if(confirm("Tem a certeza que pretende adicionar " + this.user.info.nome +" como amigo?")){
-        axios.put(h + "utilizadores/" + this._id + "/amigo", {idAmigo : this.idUtilizador})
+      if(confirm("Tem a certeza que pretende enviar pedido de amizade a " + this.user.info.nome +"?")){
+        axios.post(h + "utilizadores/pedidosamizade/" + this._id, {idUtilizador2 : this.idUtilizador})
             .then(async e =>{
                 let response = await axios.get(h + "utilizadores/" + this.idUtilizador )//
                 this.user = response.data
@@ -403,6 +442,9 @@ export default {
     },
     processFile(event) {
     this.files = event.target.files[0]
+  },
+  format(value, event) {
+    return moment(value).format('YYYY-MM-DD')
   }
   }
 }

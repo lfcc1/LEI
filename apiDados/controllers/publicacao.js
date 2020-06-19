@@ -79,7 +79,7 @@ Publicacao.insertPublicacao = async function(publicacao){
         c:${idPublicacao} c:data "${data}" .
         c:${idPublicacao} c:éPublicadoPor c:${idUtilizador} .
         c:${idPublicacao} c:éPublicadaEm c:${publicacao.idGrupo} .
-        c:${idPublicacao} c:titulo c:${publicacao.titulo} .
+        c:${idPublicacao} c:titulo "${publicacao.titulo}" .
     }
     `
 
