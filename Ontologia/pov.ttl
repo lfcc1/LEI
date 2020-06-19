@@ -62,6 +62,17 @@
                owl:inverseOf :pussuiAno .
 
 
+###  http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#fazPedidoAmizade
+:fazPedidoAmizade rdf:type owl:ObjectProperty ;
+                  owl:inverseOf :pedidoAmizadeFeitoPor ;
+                  rdfs:domain :Admin ,
+                              :Aluno ,
+                              :Responsavel ;
+                  rdfs:range :Admin ,
+                             :Aluno ,
+                             :Responsavel .
+
+
 ###  http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#frequenta
 :frequenta rdf:type owl:ObjectProperty ;
            owl:inverseOf :éFrequentadoPor ;
@@ -113,6 +124,10 @@
                        :Aluno ,
                        :Responsavel ;
            rdfs:range :Conversa .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#pedidoAmizadeFeitoPor
+:pedidoAmizadeFeitoPor rdf:type owl:ObjectProperty .
 
 
 ###  http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#pertence
@@ -757,7 +772,7 @@
                                                                                            :mensagem004 ;
                                                                                     :frequenta :MIEI ,
                                                                                                :Primeiro_Ano ;
-                                                                                    :dataNasc "14-02-1998"^^xsd:string ;
+                                                                                    :dataNasc "1998-02-14"^^xsd:string ;
                                                                                     :nome "Luís Braga"^^xsd:string ;
                                                                                     :numAluno "a82088"^^xsd:string ;
                                                                                     :numTelemovel "930405069"^^xsd:string ;
@@ -772,11 +787,10 @@
                                                                                 :envia :mensagem005 ;
                                                                                 :frequenta :MIEI ;
                                                                                 :gere :Primeiro_Ano ;
-                                                                                :dataNasc "06-02-1997" ;
+                                                                                :dataNasc "1997-02-06" ;
                                                                                 :nome "Filipe Cunha" ;
                                                                                 :numAluno "a83099" ;
-                                                                                :numTelemovel 919488654 ,
-                                                                                              934059688 ;
+                                                                                :numTelemovel 934059688 ;
                                                                                 :pass 123456 ;
                                                                                 :sexo "Masculino" .
 
@@ -787,7 +801,7 @@
                                                                                 :envia :mensagem003 ;
                                                                                 :frequenta :MIEI ;
                                                                                 :gere :Segundo_Ano ;
-                                                                                :dataNasc "12-11-1998" ;
+                                                                                :dataNasc "1998-11-12" ;
                                                                                 :nome "João Nunes" ;
                                                                                 :numAluno "a82300" ;
                                                                                 :numTelemovel 913958634 ;
@@ -802,7 +816,7 @@
                                                                                            :mensagem006 ;
                                                                                     :frequenta :MIEI ,
                                                                                                :Primeiro_Ano ;
-                                                                                    :dataNasc "15-10-1998"^^xsd:string ;
+                                                                                    :dataNasc "1998-10-15"^^xsd:string ;
                                                                                     :nome "Luís Martins"^^xsd:string ;
                                                                                     :numAluno "a82298"^^xsd:string ;
                                                                                     :numTelemovel "930492785"^^xsd:string ;
@@ -815,7 +829,7 @@
                                                                                           :Aluno ;
                                                                                  :frequenta :MIEI ,
                                                                                             :Segundo_Ano ;
-                                                                                 :dataNasc "01-01-1996" ;
+                                                                                 :dataNasc "1996-01-01" ;
                                                                                  :nome "Frederico Sousa" ;
                                                                                  :numAluno "a76465" ;
                                                                                  :numTelemovel 919458385 ;
