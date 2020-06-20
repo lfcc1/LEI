@@ -112,7 +112,7 @@ const routes = [
   },
   {
     path: '/eventos',
-    name: 'Evento',
+    name: 'Eventos Gerais',
     component: Evento,
     meta: {
 
@@ -120,7 +120,7 @@ const routes = [
   },
   {
     path: '/eventoscurso',
-    name: 'EventoCurso',
+    name: 'Evento do teu Curso',
     component: EventoCurso,
     meta: {
 
@@ -128,7 +128,7 @@ const routes = [
   },
   {
     path: '/meuseventos',
-    name: 'MeusEventos',
+    name: 'Meus Eventos',
     component: MeusEventos,
     meta: {
 

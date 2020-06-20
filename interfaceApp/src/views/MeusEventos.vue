@@ -1,6 +1,7 @@
 <template>
   <div>
     <v-card class="ma-8">
+       <v-container v-if="this.eventos.length != 0">
             <v-list>
             <v-list-item
             v-for="evento in this.eventos"
@@ -50,6 +51,10 @@
                         </v-list>
                         </v-card>
                     </v-dialog>
+       </v-container>
+       <v-container v-else>
+         <center> <h3> Ainda não marcou que ia em nenhum evento. </h3> </center>
+       </v-container>
       </v-card>
     </div>
 </template>

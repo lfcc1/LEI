@@ -8,11 +8,13 @@ Publicacao.getPublicacao = async function (idPublicacao){
     var info = await Publicacao.getPublicacaoAtomica(idPublicacao)
     var ficheiros = await Publicacao.getFicheirosFromPublicacao(idPublicacao)
     var comentarios = await Publicacao.getComentariosFromPublicacao(idPublicacao)
+    var likes = await Publicacao.getLikesFromPublicacao(idPublicacao)
     
     var publicacao = {
         info : info[0],
         ficheiros : ficheiros,
-        comentarios : comentarios
+        comentarios : comentarios,
+        gostos : likes
     }
 
     return publicacao
@@ -59,6 +61,17 @@ Publicacao.getComentariosFromPublicacao = async function (idPublicacao){
     }
     `
     
+    return Connection.makeQuery(query);
+}
+
+Publicacao.getLikesFromPublicacao = async function(idPublicacao){
+    var query = `
+    select (STRAFTER(STR(?utilizador), 'UMbook#') as ?idUtilizador) ?nomeUtilizador where{
+        ?utilizador c:gostaDe c:${idPublicacao} . 
+        ?utilizador c:nome ?nomeUtilizador .
+    }
+    `
+
     return Connection.makeQuery(query);
 }
 
@@ -123,6 +136,34 @@ Publicacao.updatePublicacao = async function(idPublicacao, publicacaoNova){
     return idPublicacao
 }
 
+
+Publicacao.adicionaLike = async function(idPublicacao, idUtilizador){
+    console.log(idUtilizador)
+    var iduser = idUtilizador.replace(/@/,"\\@");
+
+    var query = `
+    Insert Data {
+        c:${iduser} c:gostaDe c:${idPublicacao} . 
+    }
+    `
+
+    return Connection.makePost(query)
+}
+
+Publicacao.removeLike = async function(idPublicacao, idUtilizador){
+    var iduser = idUtilizador.replace(/@/,"\\@");
+
+    var query = `
+    Delete {
+        c:${iduser} c:gostaDe c:${idPublicacao} . 
+    }
+    where{
+        c:${iduser} c:gostaDe c:${idPublicacao} .
+    }
+    `
+
+    return Connection.makePost(query)
+}
 
 Publicacao.insertComentario = async function(idPublicacao, comentario){
     var idComentario = "com" + nanoid.nanoid()

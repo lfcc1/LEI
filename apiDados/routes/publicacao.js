@@ -44,6 +44,19 @@ router.put('/:idPublicacao', function(req, res){
     .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
 })
 
+router.put('/:idPublicacao/gosto', function(req, res){
+    Publicacao.adicionaLike(req.params.idPublicacao, req.body.idUtilizador)
+    .then(dados => res.jsonp(dados))
+    .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
+})
+
+router.put('/:idPublicacao/desgosto', function(req, res){
+    Publicacao.removeLike(req.params.idPublicacao, req.body.idUtilizador)
+    .then(dados => res.jsonp(dados))
+    .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
+})
+
+
 // ------------------------------------------------------ DELETE --------------------------------------------
 
 router.delete('/:idPublicacao', function(req, res){

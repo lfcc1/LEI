@@ -34,6 +34,11 @@
                        :Grupo .
 
 
+###  http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#adoradaPor
+:adoradaPor rdf:type owl:ObjectProperty ;
+            owl:inverseOf :gostaDe .
+
+
 ###  http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#comenta
 :comenta rdf:type owl:ObjectProperty ;
          owl:inverseOf :éComentadoPor ;
@@ -90,6 +95,15 @@
       owl:inverseOf :éGeridoPor ;
       rdfs:domain :Responsavel ;
       rdfs:range :Ano .
+
+
+###  http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#gostaDe
+:gostaDe rdf:type owl:ObjectProperty ;
+         rdfs:domain :Admin ,
+                     :Aluno ,
+                     :Responsavel ;
+         rdfs:range :Comentario ,
+                    :Publicacao .
 
 
 ###  http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#guardadoEm

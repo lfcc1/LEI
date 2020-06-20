@@ -80,8 +80,9 @@
         <v-row
           justify="end"
         >
-          <v-icon color="#900000" class="mr-1">mdi-heart</v-icon>
-          <span class=" black--text subheading mr-2">{{item.dados.info.likes}}</span>
+          <v-icon v-if="!utilizadorGostou(item.dados.gostos)" color="#900000" class="mr-1" @click="addLike(item.idPublicacao)">mdi-heart-outline</v-icon>
+          <v-icon v-else color="#900000" class="mr-1" @click="deleteLike(item.idPublicacao)">mdi-heart</v-icon>
+          <span class=" black--text subheading mr-2" @click="mostraLikes(item.dados.gostos)">{{item.dados.gostos.length}}</span>
           <v-icon class="mr-1" :color="corComentariosIcon" @click="openComentarios(item)">mdi-comment</v-icon>
           <span class="black--text subheading mr-2">{{item.dados.comentarios.length}}</span>
           <v-icon  color="#900000" class="mr-1 " @click="showFiles(item)">mdi-file</v-icon>
@@ -129,6 +130,37 @@
                     </v-list>
                     </v-card>
                     </v-dialog>
+                  <v-dialog
+                    v-model="showLikes"
+                    width="500"
+                    v-bind:style="{color:white}"
+                  >
+                    <v-card>
+                    <v-card-title class="justify-center" style="background: #d6d6c2; color: #900000;" dark>
+                            Gostos
+                    </v-card-title>
+                    <v-list>
+                    <v-list-item
+                    v-for="gosto in likesAtuais"
+                    :key="gosto.idUtilizador"
+                    @click="seeUser(gosto.idUtilizador)" 
+                    >
+
+                    <v-list-item-avatar color="grey darken-3">
+                          <v-img
+                            class="elevation-6"
+                            :src="gosto.fotoPerfil"
+                          ></v-img>
+                        </v-list-item-avatar>
+                    <v-list-item-content style="width: 50%;"> 
+                        <v-list-item-title v-text="gosto.nomeUtilizador"></v-list-item-title>
+                    </v-list-item-content>
+
+                    </v-list-item>
+                    
+                    </v-list>
+                    </v-card>
+                    </v-dialog>
   </v-container>
 </template>
 
@@ -152,6 +184,8 @@ const h = require("@/config/hosts").hostAPI
         editConteudo:"",
         publicacaoAtual: {dados:{ficherios:[]}},
         dialog: false,
+        showLikes: false,
+        likesAtuais: [],
         corComentariosIcon: "#900001"
     }},
     created: function(){
@@ -269,6 +303,7 @@ const h = require("@/config/hosts").hostAPI
               .then(async r => {
                   var response = await axios.get(h + this.tipoGrupo + "/" + this.idGrupo + "/publicacoes")
                   this.publicacoesAtuais = response.data
+                  this.updatePubs()
               })
               .catch(e => console.log(e))
         }
@@ -289,6 +324,41 @@ const h = require("@/config/hosts").hostAPI
       },
       utilizadorOwner: function(idUtilizador){
         return this.idUtilizador == idUtilizador
+      },
+      addLike : function(idPublicacao){
+        axios.put(h + 'publicacoes/' + idPublicacao + '/gosto', {idUtilizador : this.idUtilizador})
+             .then(async dados =>{
+                var response = await axios.get(h + this.tipoGrupo + "/" + this.idGrupo + "/publicacoes")
+                this.publicacoesAtuais = response.data
+                this.updatePubs()
+             })
+      },
+      deleteLike : function(idPublicacao){
+        axios.put(h + 'publicacoes/' + idPublicacao + '/desgosto', {idUtilizador : this.idUtilizador})
+             .then(async dados =>{
+                var response = await axios.get(h + this.tipoGrupo + "/" + this.idGrupo + "/publicacoes")
+                this.publicacoesAtuais = response.data
+                this.updatePubs()
+             })
+      },
+      updateLikes : function(){
+        this.likesAtuais.forEach(element =>{
+          element.fotoPerfil = 'http://localhost:3050/images/'+element.idUtilizador
+        })
+      },
+      mostraLikes: async function(likes){
+        if(likes.length > 0){
+          this.likesAtuais = likes
+          await this.updateLikes()
+          this.showLikes = true
+        }
+      },
+      utilizadorGostou : function(likes){
+        var result = false
+        for(let i = 0; i < likes.length; i++){
+          if(likes[i].idUtilizador == this.idUtilizador) result = true
+        }
+        return result
       }
     }
 }

@@ -114,13 +114,13 @@
             <h6 class="category text-gray font-weight-thin mb-3">Estudante MIEI</h6>
             <h4 class="card-title font-weight-light">{{this.user.info.nome}}</h4>
             <p class="card-description font-weight-light">{{this.user.pubs.length}} publicações</p>
-            <div v-if="isnotAmigo()">
+            <div v-if="isAmigo()">
             <v-btn
               color="#900000"
               round
               class="font-weight-light"
               @click="adicionarAmigo()"
-            >Adicionar Amigo</v-btn>
+            > <v-icon>mdi-account-plus-outline</v-icon> Adicionar Amigo</v-btn>
             </div>
             <div v-else>
             <v-btn
@@ -395,11 +395,12 @@ export default {
             .catch(e => console.log(e))
       }
     },
-    isnotAmigo: async function(){
-      var result = true
+    isAmigo: async function(){
+      var result = false
       for(let i = 0; i < this.user.amigos.length; i++){
-        if(this._id == this.user.amigos[i].idAmigo) result = false
+        if(this._id == this.user.amigos[i].idAmigo) result = true
       }
+      //alert(result)
       return result
     },
     updateAmigos: async function(){
