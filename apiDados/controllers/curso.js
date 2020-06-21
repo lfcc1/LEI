@@ -43,8 +43,9 @@ Curso.getCursoAtomica = async function(idCurso){
 
 Curso.getCursos = async function(){
     var query = `
-    select (STRAFTER(STR(?cours), 'UMbook#') as ?curso) where{
+    select (STRAFTER(STR(?cours), 'UMbook#') as ?curso) ?designacao where{
         ?cours a c:Curso .
+        ?cours c:nome ?designacao .
     }
     `
     return Connection.makeQuery(query)
@@ -53,9 +54,10 @@ Curso.getCursos = async function(){
 
 Curso.getAnosFromCurso = async function(idCurso){
     var query = `
-    select (STRAFTER(STR(?years), 'UMbook#') as ?id) ?designacao where{
+    select (STRAFTER(STR(?years), 'UMbook#') as ?id) ?designacao ?anoLetivo where{
         c:${idCurso} c:pussuiAno ?years .
         ?years c:nome ?designacao .
+        ?years c:anoLetivo ?anoLetivo .
     }
     `
 
@@ -138,4 +140,33 @@ Curso.insertCurso = async function(curso){
 
     await Connection.makePost(query)
     return id
+}
+
+Curso.editarCurso = async function(idCurso, designacao){
+    var query = `
+    delete{
+        c:${idCurso} c:nome ?designacao .
+    }
+    insert{
+        c:${idCurso} c:nome "${designacao}" .
+    }
+    where{
+        c:${idCurso} c:nome ?designacao .
+    }
+    `
+
+    return Connection.makePost(query)
+}
+
+Curso.deleteCurso = async function(idCurso){
+    var query = `
+    delete{
+        c:${idCurso} ?p ?a .
+    }
+    where{
+        c:${idCurso} ?p ?a .
+    }
+    `
+
+    return Connection.makePost(query)
 }

@@ -44,5 +44,12 @@ router.get('/:idCadeira', function(req, res, next){
       .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
  })
 
+ // -------------------------------------------------------------- DELETE ---------------------------------------------------------------------
+
+ router.delete('/:idCadeira', function(req, res, next){
+   Cadeira.deleteCadeira(req.params.idCadeira)
+      .then(dados => res.jsonp(dados))
+      .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
+ })
 
   module.exports = router;

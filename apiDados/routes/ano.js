@@ -67,9 +67,9 @@ router.get('/:idAno', function(req, res, next){
 
   // AINDA NÃO ESTÃO A DAR
 
-router.put('/update', function(req, res){
-  Ano.updateAno(req.body)
-     .then(dados => {/*res.jsonp(dados)*/})
+router.put('/:idAno', function(req, res){
+  Ano.editarAno(req.params.idAno, req.body.designacao, req.body.anoLetivo)
+     .then(dados => {res.jsonp(dados)})
      .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
 })
 
@@ -87,15 +87,7 @@ router.put('/:idAno/estudante/:idEstudante', function(req, res){
          .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
 })
 
-
-router.put('/:idAno/cadeira/:idCadeira', function(req, res){
-    Ano.addCadeira(req.params.idAno, req.params.idCadeira)
-         .then(dados => res.jsonp(dados))
-         .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
-})
-
 // -------------------------------------------------------------- DELETE ---------------------------------------------------------------------
-// Ainda não estão a dar 
 
 router.delete('/:idAno', function(req, res){
   Ano.deleteAno(req.params.idAno)

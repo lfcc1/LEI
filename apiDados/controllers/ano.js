@@ -149,7 +149,7 @@ Ano.insertAno = async function(ano){
     var nome = ano.nome 
     var anoLetivo = ano.anoLetivo
     var idCurso = ano.idCurso
-    var id = idCurso + "_" + nome.replace(/ /g,"_")+ "_" + anoLetivo.replace("-","_");;
+    var id = idCurso + "_" + nome.replace(/ /g,"_");
     var query = `
     insert data {
         c:${id} a owl:NamedIndividual ,
@@ -165,23 +165,34 @@ Ano.insertAno = async function(ano){
 
 }
 
-// ver melhor
-Ano.deleteAno = async function(idAno, ano){
+Ano.editarAno = async function(idCurso, designacao, anoLetivo){
     var query = `
-    delete where{
-        c:${idAno} c:nome "${ano.nome}" . 
-        c:${idAno} c:anoLetivo "${ano.anoLetivo}" .
-        c:${idAno} c:fazParteCurso c:${ano.idCurso} .
+    delete{
+        c:${idCurso} c:nome ?designacao .
+        c:${idCurso} c:anoLetivo ?anoLetivo .
+    }
+    insert{
+        c:${idCurso} c:nome "${designacao}" .
+        c:${idCurso} c:anoLetivo "${anoLetivo}" .
+    }
+    where{
+        c:${idCurso} c:nome ?designacao .
+        c:${idCurso} c:anoLetivo ?anoLetivo .
     }
     `
 
-    return Connection.makeDelete(query)
+    return Connection.makePost(query)
 }
 
-// acabar o delete
-Ano.updateAno = async function(ano){
-    await Ano.deleteAno(ano.id)
-    await Ano.insertAno(ano)
+Ano.deleteAno = async function(idAno){
+    var query = `
+    delete{
+        c:${idAno} ?p ?a . 
+    }
+    where{
+        c:${idAno} ?p ?a .
+    }
+    `
 
-    return response
+    return Connection.makePost(query)
 }

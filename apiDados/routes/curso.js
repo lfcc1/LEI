@@ -59,4 +59,20 @@ router.get('/', function(req, res, next) {
   })
 
 
+  router.put('/:idCurso', function(req, res, next){
+    Curso.editarCurso(req.params.idCurso, req.body.designacao)
+    .then(dados => res.jsonp(dados))
+    .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
+  })
+
+// -------------------------------------------------------------- DELETE ---------------------------------------------------------------------
+
+
+router.delete('/:idCurso', function(req, res, next){
+  Curso.deleteCurso(req.params.idCurso)
+  .then(dados => res.jsonp(dados))
+  .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
+})
+
+
   module.exports = router;

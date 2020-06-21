@@ -114,3 +114,16 @@ Cadeira.insertCadeira = async function(cadeira){
     return {id : id}
 
 }
+
+Cadeira.deleteCadeira = async function(idCadeira){
+    var query = `
+    delete{
+        c:${idCadeira} ?p ?a .
+    }
+    where{
+        c:${idCadeira} ?p ?a .
+    }
+    `
+
+    return Connection.makePost(query)
+}

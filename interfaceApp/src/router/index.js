@@ -16,6 +16,9 @@ import Evento from '../views/Evento.vue'
 import EventoCurso from '../views/EventoCurso.vue'
 import MeusEventos from '../views/MeusEventos.vue'
 import PedidosAmizade from '../views/PedidosAmizade.vue'
+import GestaoCurso from '../views/GestaoCurso.vue'
+import EditarCurso from '../views/EditarCurso.vue'
+import EditarAno from '../views/EditarAno.vue'
 
 
 Vue.use(VueRouter)
@@ -80,7 +83,7 @@ const routes = [
     }
   },
   {
-    path: '/curso',
+    path: '/curso/:id',
     name: 'O Meu Curso',
     component: Curso,
     meta: { 
@@ -141,6 +144,21 @@ const routes = [
     meta: {
 
     }
+  },
+  {
+    name: 'Gestão de cursos',
+    path: '/gestaocursos',
+    component: GestaoCurso
+  },
+  {
+    name: 'Editar Curso',
+    path: '/editarcurso/:id',
+    component: EditarCurso
+  },
+  {
+    name: 'Editar Ano',
+    path: '/editarano/:id',
+    component: EditarAno
   }
 
 ]

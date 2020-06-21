@@ -24,8 +24,8 @@ export default {
 
   created: async function() {
     try {
-        // ir á sessão
-      var idCurso = "MIEI"
+      // ir á sessão
+      var idCurso = this.$route.params.id
       let response = await axios.get(h + "cursos/" + idCurso )
       this.item = response.data
       this.item.idCurso = idCurso

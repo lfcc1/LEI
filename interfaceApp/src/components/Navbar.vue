@@ -67,7 +67,8 @@ export default {
       mini: true,
       items: [
         { title: 'Universidade', icon: 'mdi-view-dashboard',href:"/universidade" },
-        { title: 'Meu Curso', icon: 'mdi-school', href:"/curso" },
+        // Ir buscar á sessão
+        { title: 'Meu Curso', icon: 'mdi-school', href:"/curso/MIEI" },
         { title: 'Eventos Gerais', icon: 'mdi-calendar-clock', href:"/eventos" },
         { title: 'Eventos do teu curso', icon: 'mdi-calendar-clock', href:"/eventoscurso" },
         { title: 'Meus Eventos', icon: 'mdi-calendar-multiple-check', href:"/meuseventos" },

@@ -1,5 +1,5 @@
 <template>
-    <v-card>
+    <v-card class="ma-8">
         <v-container v-if="pedidosAmizade.length > 0" style="width:60%">
             <v-list>
                         <v-list-item
