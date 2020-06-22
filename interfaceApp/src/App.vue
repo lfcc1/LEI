@@ -3,7 +3,7 @@
     
     <NavBar/>
     <Toolbar/>
-    <Views/>
+    <Views @refreshConversas="refreshConversas"/>
     
       
   <div class="item doctor" style="padding-right:20%">
@@ -246,11 +246,7 @@ export default {
     this.myself.name = "Luís Martins"
     this.myself.id = this.userID
     this.myself.profilePicture = 'http://localhost:3050/images/'+this.userID
-      let response = await axios.get("http://localhost:3050/api/conversas/participante/"+ this.userID )
-      this.conversas = response.data
-      for(let i = 0; i<this.conversas.length; i++){
-        this.conversas[i].avatar = 'http://localhost:3050/images/' + this.conversas[i].participantes[1].participante
-      }
+    this.refreshConversas()
       console.log(this.conversas)
     } catch (e) {
 
@@ -261,7 +257,7 @@ export default {
     console.log("MENSAGEM RECEBIDA")
     console.log(msg)
       var newM = {}
-      newM.content = msg.texto
+      newM.content = msg.conteudo
       newM.type = 'text'
       newM.participantId = msg.from
       newM.timestamp = "" 
@@ -273,6 +269,13 @@ export default {
         onType: function (conversa) {
             //here you can set any behavior
             //console.log(conversa)
+        },
+        refreshConversas: async function () {
+            let response = await axios.get("http://localhost:3051/api/conversas/participante/"+ this.userID )
+            this.conversas = response.data
+            for(let i = 0; i<this.conversas.length; i++){
+              this.conversas[i].avatar = 'http://localhost:3050/images/' + this.conversas[i].participantes[1].idUtilizador
+            }
         },
         loadMoreMessages(resolve) {
             setTimeout(() => {
@@ -294,7 +297,7 @@ export default {
                        var data = {}
             data.to = chat.participants[0]; /// MUDAR COM SESSOES
             data.idConversa = chat.idConversa;
-            data.texto = message.content
+            data.conteudo = message.content
             data.from = this.userID;
             socket.emit('mensagem', data)
             
@@ -337,8 +340,8 @@ export default {
               if(e.participante != this.userID){
               var newP = {}
               newP.name = e.nome
-              newP.id = e.participante
-              newP.profilePicture = 'http://localhost:3050/images/'+ e.participante
+              newP.id = e.idUtilizador
+              newP.profilePicture = 'http://localhost:3050/images/'+ e.idUtilizador
               newParticipantes.push(newP)
               }
             })
@@ -348,9 +351,9 @@ export default {
           var newMessages = []
             messages.forEach(m => {
               var newM = {}
-              newM.content = m.texto
+              newM.content = m.conteudo
               newM.type = 'text'
-              newM.participantId = m.remetente
+              newM.participantId = m.from
               newM.timestamp = m.dataEnvio 
               if(m.remetente == this.userID)
                 newM.myself = true
@@ -369,10 +372,10 @@ export default {
           return result
         },
         abrirChat(item){
-          if(this.chatExiste(item.idConversa))
+          if(this.chatExiste(item._id))
             return;
           var chat = {}
-          chat.idConversa = item.idConversa
+          chat.idConversa = item._id
           chat.messages = this.parseMessage(item.mensagens) 
           chat.participants = this.parseParticipantes(item.participantes) 
           if(this.chats.length >= 3)

@@ -70,6 +70,9 @@ export default {
         })
       },
       aceitaPedido: async function(pedido){
+          let t = await axios.get(h + "utilizadores/" + this.idUtilizador + "/pedidosamizade" )
+          this.$emit('refreshConversas')
+          this.pedidosAmizade = response.data
           await axios.put(h + "utilizadores/" + this.idUtilizador + "/amigo", {idAmigo: pedido.idUtilizador})
           let response = await axios.get(h + "utilizadores/" + this.idUtilizador + "/pedidosamizade" )
           this.pedidosAmizade = response.data

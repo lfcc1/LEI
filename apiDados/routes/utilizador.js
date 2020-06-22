@@ -67,6 +67,13 @@ router.post('/pedidosamizade/:idUtilizador', function(req, res){
 
 })
 
+router.post('/login', function(req, res){
+  Utilizador.login(req.body)
+            .then(dados => res.jsonp(dados))
+            .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
+
+})
+
 // -------------------------------------------------------------- DELETE ---------------------------------------------------------------------
 
 router.delete('/amigos/:id1/:id2', function(req, res, next){

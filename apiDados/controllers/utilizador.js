@@ -1,5 +1,6 @@
 var Utilizador = module.exports
 var Connection = require('./connection')
+var bcrypt = require('bcryptjs')
 
 var axios = require ('axios')
 
@@ -26,6 +27,10 @@ Utilizador.getUtilizador = async function(idUtilizador){
 }
 
 
+
+
+
+
 Utilizador.getUtilizadorAtomica = async function(idUtilizador){
 
     var iduser = idUtilizador.replace(/@/,"\\@");
@@ -46,6 +51,32 @@ Utilizador.getUtilizadorAtomica = async function(idUtilizador){
     `
 
     return Connection.makeQuery(query)
+}
+
+
+Utilizador.login = async function(user){
+
+    var iduser = user.idUtilizador.replace(/@/,"\\@");
+
+
+    var query = `
+    select ?email ?password where{
+        c:${iduser} a c:Aluno .
+        c:${iduser} c:password ?password .
+        ?idcurso a c:Curso .
+    	?idcurso c:nome ?curso .
+    }
+    `
+    var result = await Connection.makeQuery(query);
+    
+    if(result.length <= 0) 
+        return 0
+    
+    var password = bcrypt.hashSync(user.password, 10);
+    if(result[0].password == password)
+        return 1
+    else 
+        return 0;
 }
 
 
@@ -227,6 +258,7 @@ Utilizador.removerAmigo = async function(id1, id2){
 
 Utilizador.insertUtilizador = async function(utilizador){
     var iduser = utilizador.id.replace(/@/,"\\@");
+    var newPassword = bcrypt.hashSync(utilizador.password, 10);
     var query = `
     Insert Data {
         c:${iduser} a owl:NamedIndividual ,
@@ -238,6 +270,7 @@ Utilizador.insertUtilizador = async function(utilizador){
         c:${iduser} c:dataNasc "${utilizador.dataNascimento}" .
         c:${iduser} c:frequenta c:${utilizador.idCurso} .
         c:${iduser} c:frequenta c:${utilizador.idAno} . 
+        c:${iduser} c:password c:${newPassword} .
     }
     `
 

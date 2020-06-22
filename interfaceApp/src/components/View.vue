@@ -5,7 +5,7 @@
         name="fade"
         mode="out-in"
       >
-        <router-view />
+        <router-view @refreshConversas="refreshConversas"/>
       </transition>
     </div>
   </v-content>
@@ -17,6 +17,11 @@ export default {
     return {
       title: 'Vuetify Material Dashboard by CreativeTim'
     }
+  },
+  methods:{
+     refreshConversas :function(){
+       this.$emit('refreshConversas')
+     },
   }
 }
 </script>

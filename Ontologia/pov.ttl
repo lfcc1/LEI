@@ -331,11 +331,11 @@
                           :Responsavel .
 
 
-###  http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#pass
-:pass rdf:type owl:DatatypeProperty ;
-      rdfs:domain :Admin ,
-                  :Aluno ,
-                  :Responsavel .
+###  http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#password
+:password rdf:type owl:DatatypeProperty ;
+          rdfs:domain :Admin ,
+                      :Aluno ,
+                      :Responsavel .
 
 
 ###  http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#path
@@ -624,7 +624,6 @@
          :nome "Admin"^^xsd:string ;
          :numAluno "Desconhecido"^^xsd:string ;
          :numTelemovel "933333333"^^xsd:string ;
-         :pass "Admin"^^xsd:string ;
          :sexo "Desconhecido"^^xsd:string .
 
 
@@ -790,7 +789,6 @@
                                                                                     :nome "Luís Braga"^^xsd:string ;
                                                                                     :numAluno "a82088"^^xsd:string ;
                                                                                     :numTelemovel "930405069"^^xsd:string ;
-                                                                                    :pass "BragaMen"^^xsd:string ;
                                                                                     :sexo "Masculino"^^xsd:string .
 
 
@@ -805,7 +803,6 @@
                                                                                 :nome "Filipe Cunha" ;
                                                                                 :numAluno "a83099" ;
                                                                                 :numTelemovel 934059688 ;
-                                                                                :pass 123456 ;
                                                                                 :sexo "Masculino" .
 
 
@@ -819,7 +816,6 @@
                                                                                 :nome "João Nunes" ;
                                                                                 :numAluno "a82300" ;
                                                                                 :numTelemovel 913958634 ;
-                                                                                :pass 123456 ;
                                                                                 :sexo "Masculino" .
 
 
@@ -834,7 +830,6 @@
                                                                                     :nome "Luís Martins"^^xsd:string ;
                                                                                     :numAluno "a82298"^^xsd:string ;
                                                                                     :numTelemovel "930492785"^^xsd:string ;
-                                                                                    :pass "12345678"^^xsd:string ;
                                                                                     :sexo "Masculino"^^xsd:string .
 
 
@@ -847,7 +842,6 @@
                                                                                  :nome "Frederico Sousa" ;
                                                                                  :numAluno "a76465" ;
                                                                                  :numTelemovel 919458385 ;
-                                                                                 :pass 123456 ;
                                                                                  :sexo "Masculino" .
 
 
