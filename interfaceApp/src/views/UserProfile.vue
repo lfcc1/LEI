@@ -362,6 +362,7 @@
 import axios from "axios"
 var FormData = require('form-data');
 const h = require("@/config/hosts").hostAPI
+const host = require("@/config/hosts").host
 
 export default {
     name: 'UserProfile',
@@ -384,7 +385,7 @@ export default {
     try {
       this.idUtilizador = this.$route.params.id
       // ir buscar à sessão
-      this.srcImage = 'http://localhost:3050/images/' + this.idUtilizador
+      this.srcImage = host+'/images/' + this.idUtilizador
       this._id = 'lguilhermem@hotmail.com'
       let response = await axios.get(h + "utilizadores/" + this.idUtilizador )//
       console.log(response.data)
@@ -433,7 +434,7 @@ export default {
     },
     updateAmigos: async function(){
       this.user.amigos.forEach(element =>{
-        element.fotoPerfil = "http://localhost:3050/images/" + element.idAmigo
+        element.fotoPerfil = host+"images/" + element.idAmigo
       })
     }
     ,

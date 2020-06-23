@@ -130,6 +130,7 @@
 <script>
 import axios from "axios"
 const h = require("@/config/hosts").hostAPI
+const host = require("@/config/hosts").host
 export default {
     name: 'Consulta',
     props: ["item"],
@@ -187,7 +188,7 @@ export default {
     methods: {
         updateEstudantes:function(){
             this.estudantes.forEach(e =>{
-                e.imagem = "http://localhost:3050/images/"+ e.id
+                e.imagem = host+"images/"+ e.id
             })
         },
         updateResponsaveis: function(novosResponsaveis){

@@ -36,6 +36,7 @@
    <v-text-field
       label="Procurar..."
       color="white"
+      v-model="searchInput"
       hide-details
       style="max-width: 400px; margin-right: 32px; margin-top:10px;"
       dark
@@ -49,6 +50,7 @@
           elevation="1"
           fab
           small
+          @click="search()"
         >
           <v-icon color="#900000">mdi-magnify</v-icon>
         </v-btn>
@@ -139,6 +141,7 @@ export default {
       'Another Notification',
       'Another One'
     ],
+    searchInput :"",
     title: null,
     responsive: false
   }),
@@ -158,12 +161,16 @@ export default {
   },
 
   methods: {
+
     ...mapMutations('app', ['setDrawer', 'toggleDrawer']),
     onClickBtn () {
       this.setDrawer(!this.$store.state.app.drawer)
     },
     onClick () {
       //
+    },
+    search (){
+     this.$router.push({ name: 'Resultados da Pesquisa',params: {titulo: this.searchInput} })
     },
     onResponsiveInverted () {
       if (window.innerWidth < 991) {

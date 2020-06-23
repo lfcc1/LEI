@@ -21,6 +21,27 @@ Publicacao.getPublicacao = async function (idPublicacao){
 }
 
 
+
+Publicacao.findPublicacaoByTitulo = async function (titulo){
+
+    var query = `
+    select (STRAFTER(STR(?idPub), 'UMbook#') as ?idPublicacao) where {
+        ?idPub a c:Publicacao .
+    	?idPub  [] ?titulo .
+    filter(CONTAINS(?titulo,"${titulo}")) .
+    } 
+    `
+    var idPubs = await Connection.makeQuery(query);
+    var result = []
+    for(i in idPubs){
+        var pub = await Publicacao.getPublicacao(idPubs[i].idPublicacao)
+        result.push(pub)
+    }
+
+    return result
+
+}
+
 Publicacao.getPublicacaoAtomica = async function (idPublicacao){
     var query = `
     select (STRAFTER(STR(?utilizador), 'UMbook#') as ?idUtilizador) ?nomeUtilizador ?likes ?conteudo ?dataPublicacao ?titulo where {

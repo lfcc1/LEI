@@ -61,6 +61,7 @@
 
 <script>
 import axios from "axios"
+const host = require("@/config/hosts").host
 const h = require("@/config/hosts").hostAPI
 
 export default {
@@ -94,7 +95,7 @@ export default {
         if(evento.dados.participantes.length > 0){
           this.eventoAtual = evento
           for(let i = 0; i < evento.dados.participantes.length; i++){
-            evento.dados.participantes[i].srcImage = 'http://localhost:3050/images/' + evento.dados.participantes[i].idUtilizador
+            evento.dados.participantes[i].srcImage = host+'images/' + evento.dados.participantes[i].idUtilizador
           }
           this.dialog = true  
         }

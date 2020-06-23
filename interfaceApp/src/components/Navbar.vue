@@ -60,6 +60,7 @@
 </template>
 
 <script>
+const host = require("@/config/hosts").host
 export default {
   data () {
     return {
@@ -76,6 +77,7 @@ export default {
         { title: 'Meu Perfil', icon: 'mdi-account-circle', href:"/userProfile/lguilhermem@hotmail.com" },
         { title: 'Pedidos de amizade', icon: 'mdi-account-plus-outline', href:"/pedidosamizade" },
         { title: 'Notificações', icon: 'mdi-bell-ring', href:"/notificacoes" },
+        { title: 'Gestao Cursos', icon: 'mdi-cog-outline', href:"/gestaocursos" },
       ],
       color: '#900000',
       colors: [
@@ -96,7 +98,7 @@ export default {
   created: function(){
     // ir buscar à sessão
     this.idUtilizador = "lguilhermem@hotmail.com"
-    this.srcImage = 'http://localhost:3050/images/' + this.idUtilizador
+    this.srcImage = host+'images/' + this.idUtilizador
   },
   computed: {
     bg () {

@@ -1,0 +1,1 @@
+module.exports.hostMongo = "mongodb://localhost:27017/"

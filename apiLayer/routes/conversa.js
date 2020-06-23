@@ -2,8 +2,7 @@
 var express = require('express');
 var axios = require('axios');
 var router = express.Router();
-
-var apiChat = 'http://localhost:3051/api/'
+var apiChat = require('../config/config').hostChat
 
 
 /*

@@ -8,12 +8,18 @@ var Publicacao = require('../controllers/publicacao')
 
 // ------------------------------------------------------ GET --------------------------------------------
 
+router.get('/search/:titulo', function(req, res){
+    Publicacao.findPublicacaoByTitulo(req.params.titulo)
+    .then(dados => res.jsonp(dados))
+    .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
+})
+
+
 router.get('/:idPublicacao', function(req, res){
     Publicacao.getPublicacao(req.params.idPublicacao)
     .then(dados => res.jsonp(dados))
     .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
 })
-
 
 router.get('/:idPublicacao/comentarios', function(req, res){
     Publicacao.getComentariosFromPublicacao(req.params.idPublicacao)

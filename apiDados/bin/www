@@ -29,45 +29,6 @@ server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
 
-var connectedSockets = {}
-var s;
-var io = require('socket.io').listen(server);
-
-//var io = req.app.get('socketio');
-  io.on('connection', function(socket){
-    var idUtilizador = socket.handshake.query['idUtilizador'];
-
-    connectedSockets[idUtilizador]=socket;
-    s=socket;
-    console.log('User'+idUtilizador+' a user connected');
-
-
-    socket.on('mensagem', function(data){
-      /*
-      var token =  jwt.sign({ sub: 'token gerado no TP DAW2019',nAcess:0},"daw2019",
-      {
-          expiresIn: 60,
-          issuer:'Servidor Interface Web',
-      })
-      console.log('message: ' + JSON.stringify(data) );
-
-      */
-
-     s.emit("mensagem", data) 
-     /* axios.post('http://localhost:3050/api/mensagens',data)
-        .then( () => { 
-          
-        })
-        .catch(erro =>{ console.log("ERRO: "+erro);data.erro ="Mensagem Não enviada, tente novamente mais tarde"; connectedSockets[data.from].emit("erro",data )})
-    */
-      
-    });
-    
-    socket.on('disconnect', function(){
-      console.log('user disconnected');
-    });
-  });
-
 /**
  * Normalize a port into a number, string, or false.
  */

@@ -5,7 +5,7 @@
         name="fade"
         mode="out-in"
       >
-        <router-view @refreshConversas="refreshConversas"/>
+        <router-view :key="$route.fullPath" @refreshConversas="refreshConversas"/>
       </transition>
     </div>
   </v-content>

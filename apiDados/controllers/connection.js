@@ -17,11 +17,13 @@ var prefixes = `
 `
 Connection.prefixes = prefixes
 
-var getLink = "http://localhost:7200/repositories/UMbook" + "?query=" 
+var hostGraphDB = require("../config/config").hostGraphDB
+
+var getLink = hostGraphDB + "repositories/UMbook" + "?query=" 
 
 Connection.getLink = getLink
 
-var postLink = "http://localhost:7200/repositories/UMbook" + "/statements"
+var postLink = hostGraphDB +"repositories/UMbook" + "/statements"
 
 Connection.postLink = postLink
 

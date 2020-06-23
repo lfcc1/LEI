@@ -2,12 +2,20 @@
 var express = require('express');
 var router = express.Router();
 
-var apiPublicacoes = "http://localhost:3050/api/publicacoes/"
+var host = require('../config/config').host
+var apiPublicacoes = host+"publicacoes/"
 var axios = require('axios')
 
 // ---------- ROTA   : /api/publicacoes ....
 
 // ------------------------------------------------------ GET --------------------------------------------
+
+router.get('/search/:titulo', function(req, res){
+    axios.get(apiPublicacoes + "search/" + req.params.titulo)
+    .then(dados => res.jsonp(dados.data))
+    .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
+})
+
 
 router.get('/:idPublicacao', function(req, res){
     axios.get(apiPublicacoes + req.params.idPublicacao)

@@ -35,6 +35,7 @@
 
 <script>
 import axios from "axios"
+const host = require("@/config/hosts").host
 const h = require("@/config/hosts").hostAPI
 
 export default {
@@ -66,7 +67,7 @@ export default {
   methods:{
       updatePedidos: async function(){
         this.pedidosAmizade.forEach(element =>{
-            element.fotoPerfil = "http://localhost:3050/images/" + element.idUtilizador
+            element.fotoPerfil = host+"images/" + element.idUtilizador
         })
       },
       aceitaPedido: async function(pedido){

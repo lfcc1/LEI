@@ -2,7 +2,8 @@
 var express = require('express');
 var router = express.Router();
 
-var apiUtilizadores = "http://localhost:3050/api/utilizadores/"
+var host = require('../config/config').host
+var apiUtilizadores = host+"utilizadores/"
 var axios = require('axios')
 
 

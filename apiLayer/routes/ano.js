@@ -1,8 +1,9 @@
 // ------------------------------------------------------------ Anos -------------------------------------------------------------------------
 var express = require('express');
 var router = express.Router();
+var host = require('../config/config').host
 
-var apiAnos = "http://localhost:3050/api/anos/"
+var apiAnos = host+"anos/"
 var axios = require('axios')
 
 // ---------- ROTA   : /api/anos ....

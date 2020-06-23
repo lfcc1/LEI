@@ -1,9 +1,10 @@
 // --------------------------------------- Cadeira -----------------------------------------
 var express = require('express');
 var router = express.Router();
-
-var apiCadeiras = "http://localhost:3050/api/cadeiras/"
+var host = require('../config/config').host
+var apiCadeiras = host+"cadeiras/"
 var axios = require('axios')
+
 
 // ---------- ROTA   : /api/cadeiras ....
 

@@ -1,17 +1,11 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import store from '../auth/store.js'
-import Users from '../views/Users.vue'
-import User from '../views/User.vue'
-import Grupos from '../views/Grupos.vue'
 import UserProfile from '../views/UserProfile.vue'
-import Grupo from '../views/Grupo.vue'
 import Curso from '../views/Curso.vue'
-import Ano from '../views/Ano.vue'
 import Login from '../views/Login.vue'
 import Registar from '../views/Registar.vue'
 import Universidade from '../views/Universidade.vue'
-import EditUserProfile from '../views/EditUserProfile.vue'
 import Evento from '../views/Evento.vue'
 import EventoCurso from '../views/EventoCurso.vue'
 import MeusEventos from '../views/MeusEventos.vue'
@@ -19,6 +13,7 @@ import PedidosAmizade from '../views/PedidosAmizade.vue'
 import GestaoCurso from '../views/GestaoCurso.vue'
 import EditarCurso from '../views/EditarCurso.vue'
 import EditarAno from '../views/EditarAno.vue'
+import SearchResult from '../views/SearchResult.vue'
 
 
 Vue.use(VueRouter)
@@ -35,49 +30,9 @@ const routes = [
     component: Login
   },
   {
-    path: '/',
-    name: 'lista',
-    component: Users,
-    meta: { 
-      //requiresAuth: true
-    }
-  },
-  {
     path: '/userProfile/:id',
     name: 'UserProfile',
     component: UserProfile,
-    meta: { 
-      //requiresAuth: true
-    }
-  },
-  {
-    path: '/editUserProfile',
-    name: 'editUserProfile',
-    component: EditUserProfile,
-    meta: { 
-      //requiresAuth: true
-    }
-  },
-  {
-    path: '/users',
-    name: 'lista',
-    component: Users,
-    meta: { 
-      //requiresAuth: true
-    }
-  },
-  {
-    path: '/users/:id',
-    name: 'consulta',
-    component: User,
-    meta: { 
-      //requiresAuth: true
-    }
-  },
-  {
-    path: '/grupos',
-    name: 'lista',
-    component: Grupos,
     meta: { 
       //requiresAuth: true
     }
@@ -89,21 +44,6 @@ const routes = [
     meta: { 
       //requiresAuth: true
     },
-  },
-  {
-    path: '/ano/:id',
-    name: 'Ano' ,
-    component: Ano,
-    meta: { 
-      //requiresAuth: true
-    }
-    /*props: true/*,
-    beforeRouteUpdate(to, from, next) { next() },
-    beforeEnter: (to, from, next) => {
-      next({
-        //replace: true
-      });
-    }*/
   },
   {
     path: '/universidade',
@@ -159,6 +99,11 @@ const routes = [
     name: 'Editar Ano',
     path: '/editarano/:id',
     component: EditarAno
+  },
+  {
+    name: 'Resultados da Pesquisa',
+    path: '/searchResult/:titulo',
+    component: SearchResult
   }
 
 ]

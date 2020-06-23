@@ -1,0 +1,1 @@
+module.exports.hostGraphDB = "http://localhost:7200/"

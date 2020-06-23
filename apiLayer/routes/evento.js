@@ -2,7 +2,8 @@
 var express = require('express');
 var router = express.Router();
 
-var apiEventos = "http://localhost:3050/api/eventos/"
+var host = require('../config/config').host
+var apiEventos = host+"eventos/"
 var axios = require('axios')
 
 // ---------- ROTA   : /api/eventos ....

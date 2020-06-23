@@ -85,11 +85,12 @@
 import NavBar from '@/components/Navbar.vue'
 import Toolbar from '@/components/Toolbar.vue'
 import Views from '@/components/View.vue'
+const host = require("@/config/hosts").host
 import { Chat } from 'vue-quick-chat'
 import 'vue-quick-chat/dist/vue-quick-chat.css';
 import axios from "axios"
 import io from "socket.io-client";
-var socket = io.connect("http://localhost:3050",{query:"idUtilizador=lguilhermem@hotmail.com"});
+var socket = io.connect(host,{query:"idUtilizador=lguilhermem@hotmail.com"});
 export default {
     components: {
     NavBar,
@@ -245,7 +246,7 @@ export default {
     try {
     this.myself.name = "Luís Martins"
     this.myself.id = this.userID
-    this.myself.profilePicture = 'http://localhost:3050/images/'+this.userID
+    this.myself.profilePicture = host+'images/'+this.userID
     this.refreshConversas()
       console.log(this.conversas)
     } catch (e) {
@@ -271,10 +272,10 @@ export default {
             //console.log(conversa)
         },
         refreshConversas: async function () {
-            let response = await axios.get("http://localhost:3051/api/conversas/participante/"+ this.userID )
+            let response = await axios.get(host+"api/conversas/participante/"+ this.userID )
             this.conversas = response.data
             for(let i = 0; i<this.conversas.length; i++){
-              this.conversas[i].avatar = 'http://localhost:3050/images/' + this.conversas[i].participantes[1].idUtilizador
+              this.conversas[i].avatar = host+ '/images/' + this.conversas[i].participantes[1].idUtilizador
             }
         },
         loadMoreMessages(resolve) {
@@ -341,7 +342,7 @@ export default {
               var newP = {}
               newP.name = e.nome
               newP.id = e.idUtilizador
-              newP.profilePicture = 'http://localhost:3050/images/'+ e.idUtilizador
+              newP.profilePicture = host+'images/'+ e.idUtilizador
               newParticipantes.push(newP)
               }
             })

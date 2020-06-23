@@ -49,6 +49,7 @@
 
 <script>
 import axios from "axios"
+const host = require("@/config/hosts").host
 const h = require("@/config/hosts").hostAPI
 
 export default {
@@ -95,8 +96,7 @@ export default {
         },
         updateComentarios: async function(){
             for(let i = 0; i < this.comentariosAtuais.length; i++){
-                this.comentariosAtuais[i].fotoPerfil = 'http://localhost:3050/images/'+this.comentariosAtuais[i].idUtilizador
-                console.log("http://localhost:3050/images/"+this.comentariosAtuais[i].idUtilizador)
+                this.comentariosAtuais[i].fotoPerfil = host+ 'images/'+this.comentariosAtuais[i].idUtilizador
             }
         },
         utilizadorOwner: async function(comentario){

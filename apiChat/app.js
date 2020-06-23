@@ -8,8 +8,8 @@ var indexRouter = require('./routes/index');
 
 
 var mongoose = require('mongoose')
-
-mongoose.connect('mongodb://127.0.0.1:27017/UMbook', {useNewUrlParser: true, useUnifiedTopology: true})
+var hostMongo = require('./config/config').hostMongo
+mongoose.connect(hostMongo +'UMbook', {useNewUrlParser: true, useUnifiedTopology: true})
   .then(()=> console.log('Mongo ready: ' + mongoose.connection.readyState))
   .catch((erro)=> console.log('Mongo: erro na conexão: ' + erro))
 
