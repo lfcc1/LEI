@@ -147,7 +147,6 @@ Ano.addCadeira = async function(idAno, idCadeira){
 
 Ano.insertAno = async function(ano){
     var nome = ano.nome 
-    var anoLetivo = ano.anoLetivo
     var idCurso = ano.idCurso
     var id = idCurso + "_" + nome.replace(/ /g,"_");
     var query = `

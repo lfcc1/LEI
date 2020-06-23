@@ -247,9 +247,14 @@ Utilizador.removerAmigo = async function(id1, id2){
     var iduser2 = id2.replace(/@/,"\\@");
 
     var query = `
-    Insert Data {
-        c:${iduser1} c:éAmigoDe "${iduser2}" .
+    Delete {
+        c:${iduser1} c:éAmigoDe c:${iduser2} .
+        c:${iduser2} c:éAmigoDe c:${iduser1} .
     } 
+    Where{
+        c:${iduser1} c:éAmigoDe c:${iduser2} .
+        c:${iduser2} c:éAmigoDe c:${iduser1} .
+    }
     `
 
     return Connection.makePost(query)

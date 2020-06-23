@@ -107,17 +107,28 @@
             size="130"
           >
             <img
+              @click="dialogImage = true"
               :src="srcImage"
             >
           </v-avatar>
+          <v-dialog
+          v-model="dialogImage"
+          width="500"
+          v-bind:style="{color:white}"
+          >
+              <v-card>
+                <v-img
+                  :src="srcImage"
+                />
+              </v-card>
+          </v-dialog>
           <v-card-text class="text-xs-center">
             <h6 class="category text-gray font-weight-thin mb-3">Estudante MIEI</h6>
             <h4 class="card-title font-weight-light">{{this.user.info.nome}}</h4>
             <p class="card-description font-weight-light">{{this.user.pubs.length}} publicações</p>
-            <div v-if="isAmigo()">
+            <div v-if="!isAmigo()">
             <v-btn
               color="#900000"
-              round
               class="font-weight-light"
               @click="adicionarAmigo()"
             > <v-icon>mdi-account-plus-outline</v-icon> Adicionar Amigo</v-btn>
@@ -125,7 +136,6 @@
             <div v-else>
             <v-btn
               color="#900000"
-              round
               class="font-weight-light"
               @click="removerAmigo()"
             >Remover Amizade</v-btn>
@@ -309,10 +319,22 @@
             class="mx-auto d-block"
             size="130"
           >
-            <img
+            <v-img
+              @click="dialogImage = true"
               :src="srcImage"
-            >
+            />
           </v-avatar>
+          <v-dialog
+                    v-model="dialogImage"
+                    width="500"
+                    v-bind:style="{color:white}"
+                >
+                        <v-card>
+                          <v-img
+                            :src="srcImage"
+                          />
+                        </v-card>
+          </v-dialog>
           <v-card-text class="text-xs-center">
             
             <h6 class="category text-gray font-weight-thin mb-3">Estudante MIEI</h6>
@@ -321,7 +343,12 @@
             <v-btn class="mx-0 font-weight-light" color="#900000" @click="dialogAmigos = true" >
               Amigos ({{this.user.amigos.length}})
             </v-btn>
-            <input type="file" @change="processFile($event)">
+            <p/>
+            <label for="file-input" style="display: inline-block; cursor: pointer;">
+              <v-icon> mdi-camera </v-icon> Escolha uma foto
+            </label>
+            <input id="file-input" type="file" @change="processFile($event)" style="display: none;">
+            <input/>
             <v-btn @click="uploadImage()" color="#900000"> Upload Image </v-btn>
           </v-card-text>
         </material-card>
@@ -349,6 +376,7 @@ export default {
     sexo: "",
     userReady: false,
     dialogAmigos: false,
+    dialogImage: false,
     files:{},
     srcImage:""
   }),
@@ -395,12 +423,12 @@ export default {
             .catch(e => console.log(e))
       }
     },
-    isAmigo: async function(){
+    isAmigo: function(){
       var result = false
       for(let i = 0; i < this.user.amigos.length; i++){
         if(this._id == this.user.amigos[i].idAmigo) result = true
       }
-      //alert(result)
+      console.log(result)
       return result
     },
     updateAmigos: async function(){
@@ -419,9 +447,9 @@ export default {
             .catch(e => console.log(e))
       }
     },
-    removeAmigo: async function(){
+    removerAmigo: async function(){
       if(confirm("Tem a certeza que pretende remover a sua amizade com " + this.user.info.nome +"?")){
-        axios.delete(h + "utilizadores/" + this._id +"/" + this.idUtilizador)
+        axios.delete(h + "utilizadores/amigos/" + this._id +"/" + this.idUtilizador)
             .then(async e =>{
                 let response = await axios.get(h + "utilizadores/" + this.idUtilizador )//
                 this.user = response.data

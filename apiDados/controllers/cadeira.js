@@ -100,7 +100,8 @@ Cadeira.getResponsaveisFromCadeira = async function(idCadeira){
 
 
 Cadeira.insertCadeira = async function(cadeira){
-    var id = cadeira.idAno + "_" + cadeira.nome
+    var nome = cadeira.nome
+    var id = cadeira.idAno + "_" + nome.replace(/ /g,"_")
     var query = `
     insert data {
         c:${id} a owl:NamedIndividual ,

@@ -1,10 +1,10 @@
 <template>
   <div>
     <v-card class="ma-8">
-          <v-container v-if="this.eventosParcerias.length != 0">
+          <v-container v-if="eventosParcerias.length != 0">
             <v-list>
             <v-list-item
-            v-for="evento in this.eventosParcerias"
+            v-for="evento in eventosParcerias"
             :key="evento.idEvento" 
             >
             <v-container>
@@ -84,7 +84,8 @@ export default {
       this.idCurso = "MIEI"
       await this.getEventos()
       this.ready = true
-      await this.updateEventos()
+      this.eventoAtual = this.eventosParcerias[0]
+      //await this.updateEventos()
     } catch (e) {
       return e
     }
@@ -93,8 +94,8 @@ export default {
       showDialog: function(evento){ 
         if(evento.dados.participantes.length > 0){
           this.eventoAtual = evento
-          for(let i = 0; i < evento.dados.participantes.length; i++){
-            evento.dados.participantes[i].srcImage = 'http://localhost:3050/images/' + evento.dados.participantes[i].idUtilizador
+          for(let i = 0; i < this.eventoAtual.dados.participantes.length; i++){
+            this.eventoAtual.dados.participantes[i].srcImage = 'http://localhost:3050/images/' + this.eventoAtual.dados.participantes[i].idUtilizador
           }
           this.dialog = true  
         }

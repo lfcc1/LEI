@@ -2,7 +2,8 @@
 var express = require('express');
 var router = express.Router();
 
-var Utilizador = require('../controllers/utilizador')
+var apiUtilizadores = "http://localhost:3050/api/utilizadores/"
+var axios = require('axios')
 
 
 // ---------- ROTA   : /api/utilizadores ....
@@ -11,20 +12,20 @@ var Utilizador = require('../controllers/utilizador')
 
 // Toda a informação relativa a um utilizador
 router.get('/:id', function(req, res, next){
-    Utilizador.getUtilizador(req.params.id)
-      .then(dados => res.jsonp(dados))
+  axios.get(apiUtilizadores + req.params.id)
+      .then(dados =>{ res.jsonp(dados.data)})
       .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
   })
 
 router.get('/:id/pedidosAmizade', function(req, res, next){
-    Utilizador.getPedidos(req.params.id)
-      .then(dados => res.jsonp(dados))
+  axios.get(apiUtilizadores + req.params.id + "/pedidosAmizade")
+      .then(dados => res.jsonp(dados.data))
       .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
   })
 
 router.get('/:id/eventos', function(req, res, next){
-    Utilizador.getEventos(req.params.id)
-      .then(dados => res.jsonp(dados))
+  axios.get(apiUtilizadores + req.params.id + "/eventos")
+      .then(dados => res.jsonp(dados.data))
       .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
   })
   
@@ -32,20 +33,21 @@ router.get('/:id/eventos', function(req, res, next){
 // -------------------------------------------------------------- PUT ---------------------------------------------------------------------
 
 router.put('/evento', function(req, res, next){
-  Utilizador.adicionarEvento(req.body.idUtilizador, req.body.idEvento)
-    .then(dados => res.jsonp(dados))
+  axios.put(apiUtilizadores + "evento" , req.body)
+    .then(dados => res.jsonp(dados.data))
     .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
 })
 
 router.put('/:idUtilizador', function(req, res, next){
-  Utilizador.updateUtilizador(req.params.idUtilizador, req.body)
-    .then(dados => res.jsonp(dados))
+  axios.put(apiUtilizadores + req.params.idUtilizador, req.body)
+    .then(dados => res.jsonp(dados.data))
     .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
 })
 
 router.put('/:idUtilizador/amigo', function(req, res, next){
-  Utilizador.adicionarAmigo(req.params.idUtilizador, req.body.idAmigo)
-    .then(dados => res.jsonp(dados))
+  console.log(req.params.idUtilizador)
+  axios.put(apiUtilizadores + req.params.idUtilizador + "/amigo", req.body)
+    .then(dados => res.jsonp(dados.data))
     .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
 })
 
@@ -55,21 +57,21 @@ router.put('/:idUtilizador/amigo', function(req, res, next){
 
 // Insere um novo utilizador
 router.post('/', function(req, res, next){
-  Utilizador.insertUtilizador(req.body)
-    .then(dados => res.jsonp(dados))
+  axios.post(apiUtilizadores, req.body)
+    .then(dados => res.jsonp(dados.data))
     .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
 })
 
 router.post('/pedidosamizade/:idUtilizador', function(req, res){
-  Utilizador.fazPedidoAmizade(req.params.idUtilizador, req.body.idUtilizador2)
-            .then(dados => res.jsonp(dados))
+  axios.post(apiUtilizadores + "pedidosamizade/" + req.params.idUtilizador, req.body)
+            .then(dados => res.jsonp(dados.data))
             .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
 
 })
 
 router.post('/login', function(req, res){
-  Utilizador.login(req.body)
-            .then(dados => res.jsonp(dados))
+  axios.post(apiUtilizadores + "login", req.body)
+            .then(dados => res.jsonp(dados.data))
             .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
 
 })
@@ -77,15 +79,14 @@ router.post('/login', function(req, res){
 // -------------------------------------------------------------- DELETE ---------------------------------------------------------------------
 
 router.delete('/amigos/:id1/:id2', function(req, res, next){
-  Utilizador.removerAmigo(req.params.id1, req.params.id2)
-    .then(dados => res.jsonp(dados))
+  axios.delete(apiUtilizadores + "amigos/" + req.params.id1 + "/" + req.params.id2)
+    .then(dados => res.jsonp(dados.data))
     .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
 })
 
 router.delete('/pedidosamizade/:idUtilizador1/:idUtilizador2', function(req, res){
-  console.log(req.body)
-  Utilizador.rejeitaPedido(req.params.idUtilizador1, req.params.idUtilizador2)
-            .then(dados => res.jsonp(dados))
+  axios.delete(apiUtilizadores + "pedidosamizade/" + req.params.idUtilizador1 + "/" + req.params.idUtilizador2)
+            .then(dados => res.jsonp(dados.data))
             .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
 })
 
