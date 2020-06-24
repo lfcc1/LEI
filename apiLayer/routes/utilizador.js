@@ -11,6 +11,12 @@ var axios = require('axios')
 
 // -------------------------------------------------------------- GET ---------------------------------------------------------------------
 
+router.get('/', function(req, res, next){
+  axios.get(apiUtilizadores)
+      .then(dados =>{ res.jsonp(dados.data)})
+      .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
+  })
+
 // Toda a informação relativa a um utilizador
 router.get('/:id', function(req, res, next){
   axios.get(apiUtilizadores + req.params.id)
@@ -78,6 +84,12 @@ router.post('/login', function(req, res){
 })
 
 // -------------------------------------------------------------- DELETE ---------------------------------------------------------------------
+
+router.delete('/:idUtilizador', function(req, res, next){
+  axios.delete(apiUtilizadores + req.params.idUtilizador)
+    .then(dados => res.jsonp(dados.data))
+    .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
+})
 
 router.delete('/amigos/:id1/:id2', function(req, res, next){
   axios.delete(apiUtilizadores + "amigos/" + req.params.id1 + "/" + req.params.id2)

@@ -27,7 +27,32 @@ Utilizador.getUtilizador = async function(idUtilizador){
 }
 
 
+Utilizador.getUtilizadores = async function(){
+    var query = `
+    select (STRAFTER(STR(?id), 'UMbook#') as ?idUtilizador) ?numAluno ?numTelemovel ?nome ?sexo ?dataNasc (STRAFTER(STR(?curso), 'UMbook#') as ?idCurso) where  {
+        ?id c:numAluno ?numAluno .
+        ?id c:numTelemovel ?numTelemovel .
+        ?id c:nome ?nome .
+        ?id c:sexo ?sexo .
+        ?id c:dataNasc ?dataNasc .
+        ?id c:frequenta ?curso .
+        ?curso a c:Curso .
+    }
+    `
+    var utilizadores = await Connection.makeQuery(query)
+    for(i in utilizadores){
+        var id = utilizadores[i].idUtilizador.replace(/@/,"\\@");
+        var queryTipos = `
+        select (STRAFTER(STR(?tipo), 'UMbook#') as ?classe) where  {
+            c:${id} a ?tipo .
+            filter(contains(STR(?tipo), 'UMbook#')) .
+        }
+        `
+        utilizadores[i].classes = await Connection.makeQuery(queryTipos)
+    }
 
+    return utilizadores
+}
 
 
 
@@ -281,4 +306,18 @@ Utilizador.insertUtilizador = async function(utilizador){
 
     await Connection.makePost(query)
     return { "id" : iduser}
+}
+
+Utilizador.deleteUser = async function(idUtilizador){
+    var iduser = idUtilizador.replace(/@/,"\\@");
+
+    var query = `
+    delete {
+        c:${iduser} ?b ?a .
+     } where{
+        c:${iduser} ?b ?a .
+     } 
+    `
+
+    return Connection.makePost(query)
 }

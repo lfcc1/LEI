@@ -27,7 +27,7 @@ Publicacao.findPublicacaoByTitulo = async function (titulo){
     var query = `
     select (STRAFTER(STR(?idPub), 'UMbook#') as ?idPublicacao) where {
         ?idPub a c:Publicacao .
-    	?idPub  [] ?titulo .
+    	?idPub ?p ?titulo .
     filter(CONTAINS(?titulo,"${titulo}")) .
     } 
     `

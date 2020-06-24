@@ -14,6 +14,7 @@ import GestaoCurso from '../views/GestaoCurso.vue'
 import EditarCurso from '../views/EditarCurso.vue'
 import EditarAno from '../views/EditarAno.vue'
 import SearchResult from '../views/SearchResult.vue'
+import GestaoUsers from '../views/GestaoUsers.vue'
 
 
 Vue.use(VueRouter)
@@ -104,6 +105,11 @@ const routes = [
     name: 'Resultados da Pesquisa',
     path: '/searchResult/:titulo',
     component: SearchResult
+  },
+  {
+    name: 'Gestão de utilizadores',
+    path: '/gestaousers',
+    component: GestaoUsers
   }
 
 ]

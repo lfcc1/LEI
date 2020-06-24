@@ -335,21 +335,19 @@
                           />
                         </v-card>
           </v-dialog>
-          <v-card-text class="text-xs-center">
-            
-            <h6 class="category text-gray font-weight-thin mb-3">Estudante MIEI</h6>
-            <h4 class="card-title font-weight-light">{{this.user.info.nome}}</h4>
-            <p class="card-description font-weight-light">{{this.user.pubs.length}} publicações</p>
-            <v-btn class="mx-0 font-weight-light" color="#900000" @click="dialogAmigos = true" >
-              Amigos ({{this.user.amigos.length}})
-            </v-btn>
-            <p/>
+            <v-card-text class="text-xs-center">
             <label for="file-input" style="display: inline-block; cursor: pointer;">
               <v-icon> mdi-camera </v-icon> Escolha uma foto
             </label>
             <input id="file-input" type="file" @change="processFile($event)" style="display: none;">
             <input/>
-            <v-btn @click="uploadImage()" color="#900000"> Upload Image </v-btn>
+            <v-btn @click="uploadImage()" color="#900000"> Confirmar </v-btn>
+            <h6 class="category text-gray font-weight-thin mb-3">Estudante MIEI</h6>
+            <h4 class="card-title font-weight-light">{{this.user.info.nome}}</h4>
+            <p class="card-description font-weight-light">{{this.user.pubs.length}} publicações</p>
+            <v-btn class="mx-0 font-weight-light" color="#900000" @click="dialogAmigos = true" >
+              Amigos ({{this.user.amigos.length}})
+            </v-btn>            
           </v-card-text>
         </material-card>
       </v-flex>

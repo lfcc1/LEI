@@ -9,6 +9,12 @@ var Utilizador = require('../controllers/utilizador')
 
 // -------------------------------------------------------------- GET ---------------------------------------------------------------------
 
+router.get('/', function(req, res, next){
+  Utilizador.getUtilizadores()
+    .then(dados => res.jsonp(dados))
+    .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
+})
+
 // Toda a informação relativa a um utilizador
 router.get('/:id', function(req, res, next){
     Utilizador.getUtilizador(req.params.id)
@@ -75,6 +81,12 @@ router.post('/login', function(req, res){
 })
 
 // -------------------------------------------------------------- DELETE ---------------------------------------------------------------------
+
+router.delete('/:idUtilizador', function(req, res, next){
+  Utilizador.deleteUser(req.params.idUtilizador)
+    .then(dados => res.jsonp(dados))
+    .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
+})
 
 router.delete('/amigos/:id1/:id2', function(req, res, next){
   Utilizador.removerAmigo(req.params.id1, req.params.id2)
