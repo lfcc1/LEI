@@ -8,6 +8,7 @@
 
 <script>
 import Consulta from '@/components/ConsultarCurso.vue'
+import VueJwtDecode from "vue-jwt-decode";
 import axios from "axios"
 const h = require("@/config/hosts").hostAPI
 
@@ -25,8 +26,11 @@ export default {
   created: async function() {
     try {
       // ir á sessão
-      var idCurso = this.$route.params.id
-      let response = await axios.get(h + "cursos/" + idCurso )
+      let token = localStorage.getItem("jwt")//.decode('UTF-8');
+      let decoded = await VueJwtDecode.decode(token);
+      console.log(decoded.user)
+      var idCurso = decoded.user.utilizador.idCurso
+      let response = await axios.get(h + "cursos/" + idCurso + "?token=" + token )
       this.item = response.data
       this.item.idCurso = idCurso
       this.ready = true

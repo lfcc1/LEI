@@ -64,7 +64,8 @@ export default {
 
   created: async function() {
     try {
-      let response = await axios.get(h + "cursos" )//
+      this.token = localStorage.getItem("jwt")
+      let response = await axios.get(h + "cursos?token=" + this.token )//
       this.cursos = response.data
       console.log(response.data)
     } catch (e) {
@@ -80,9 +81,9 @@ export default {
       },
       apagarCurso: function(id){
           if(confirm("De certeza que quer apagar o curso?")){
-              axios.delete(h + "cursos/" + id)
+              axios.delete(h + "cursos/" + id + "?token=" + this.token)
                .then(()=>{
-                    axios.get(h + "cursos" )
+                    axios.get(h + "cursos?token=" + this.token )
                         .then(dados =>{
                             this.cursos = dados.data
                         })
@@ -96,9 +97,9 @@ export default {
               if(this.idCurso == this.cursos[i].curso) r = false
           }
           if(r){
-            axios.post(h + "cursos", {id: this.idCurso, nome: this.designacao})
+            axios.post(h + "cursos?token=" + this.token, {id: this.idCurso, nome: this.designacao})
                 .then(() =>{
-                    axios.get(h + "cursos" )
+                    axios.get(h + "cursos?token=" + this.token )
                          .then(dados =>{
                                 this.cursos = dados.data
                         })

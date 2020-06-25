@@ -49,6 +49,7 @@
 
 <script>
 import axios from "axios"
+import VueJwtDecode from "vue-jwt-decode";
 const host = require("@/config/hosts").host
 const h = require("@/config/hosts").hostAPI
 
@@ -61,9 +62,12 @@ export default {
         conteudo:"",
         idUtilizador:""
     }},
-    created: function(){
+    created: async function(){
       // ir buscar à sessão
-      this.idUtilizador = "lguilhermem@hotmail.com"
+      let token = localStorage.getItem("jwt")//.decode('UTF-8');
+      this.token = token
+      let decoded = await VueJwtDecode.decode(token);
+      this.idUtilizador = decoded.user.utilizador.idUtilizador
       
       this.comentariosAtuais = this.comentarios
       this.updateComentarios()
@@ -76,8 +80,8 @@ export default {
             
             comentario.idUtilizador = this.idUtilizador
             comentario.conteudo = this.conteudo
-            await axios.post(h + 'publicacoes/' + this.idPublicacao + '/comentario', comentario)
-            var response = await axios.get(h+'publicacoes/' + this.idPublicacao + '/comentarios')
+            await axios.post(h + 'publicacoes/' + this.idPublicacao + '/comentario?token=' + this.token, comentario)
+            var response = await axios.get(h+'publicacoes/' + this.idPublicacao + '/comentarios?token=' + this.token)
             this.comentariosAtuais = response.data
             this.updateComentarios()
             this.conteudo = "" 
@@ -86,9 +90,9 @@ export default {
             this.$router.push({ name: 'UserProfile', params: {id: idUser }})
         },
         deleteComentario: async function(id){
-            axios.delete(h+"publicacoes/comentario/" + id)
+            axios.delete(h+"publicacoes/comentario/" + id + "?token=" + this.token)
                  .then(async e =>{
-                    var response = await axios.get(h+'publicacoes/' + this.idPublicacao + '/comentarios')
+                    var response = await axios.get(h+'publicacoes/' + this.idPublicacao + '/comentarios?token=' + this.token)
                     this.comentariosAtuais = response.data
                     this.updateComentarios()
                  })

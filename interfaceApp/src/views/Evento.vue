@@ -60,6 +60,7 @@
 
 <script>
 import axios from "axios"
+import VueJwtDecode from "vue-jwt-decode";
 const host = require("@/config/hosts").host
 const h = require("@/config/hosts").hostAPI
 
@@ -72,7 +73,6 @@ export default {
     item: {},
     eventos: [],
     title: "Eventos Gerais",
-    idCurso: "",
     idUtilizador: "",
     eventoAtual: {},
     dialog: false
@@ -81,8 +81,10 @@ export default {
   created: async function() {
     try {
         // ir á sessão
-      this.idCurso = "MIEI"
-      this.idUtilizador = "lguilhermem@hotmail.com"
+      let token = localStorage.getItem("jwt")//.decode('UTF-8');
+      this.token = token
+      let decoded = await VueJwtDecode.decode(token);
+      this.idUtilizador = decoded.user.utilizador.idUtilizador
       await this.getEventos()
       this.eventoAtual = this.eventos[0]
       this.ready = true
@@ -102,9 +104,9 @@ export default {
       },
         getEventos: async function(){
           this.eventos = []
-          var response = await axios.get(h + "eventos/")
+          var response = await axios.get(h + "eventos?token=" + this.token)
           var neweventos = response.data
-          response = await axios.get(h+"utilizadores/" + this.idUtilizador +'/eventos')
+          response = await axios.get(h+"utilizadores/" + this.idUtilizador +'/eventos?token=' + this.token)
           var eventosParticipa = response.data
           for(let i = 0; i<neweventos.length; i++){
               var result = false;
@@ -120,7 +122,7 @@ export default {
 
         },
         addParticipante: async function(idEvento){
-         await axios.put(h + 'utilizadores/evento/', {idEvento: idEvento, idUtilizador: this.idUtilizador} )
+         await axios.put(h + 'utilizadores/evento?token=' + this.token, {idEvento: idEvento, idUtilizador: this.idUtilizador} )
          await this.getEventos()
       },
       seeUser: async function(idUser){

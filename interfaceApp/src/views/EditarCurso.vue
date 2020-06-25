@@ -80,6 +80,7 @@ export default {
 
   created: async function() {
     try {
+      this.token = localStorage.getItem("jwt")
       this.idCurso = this.$route.params.id
       this.designacaoCurso = this.$route.params.designacao
       let response = await axios.get(h + "cursos/" + this.idCurso + "/anos" )//
@@ -95,9 +96,9 @@ export default {
       },
       apagarAno: function(id){
           if(confirm("De certeza que quer apagar o ano?")){
-              axios.delete(h + "anos/" + id)
+              axios.delete(h + "anos/" + id + "?token=" +  this.token)
                .then(()=>{
-                    axios.get(h + "cursos/" + this.idCurso + "/anos" )
+                    axios.get(h + "cursos/" + this.idCurso + "/anos?token=" + this.token )
                         .then(dados =>{
                             this.anos = dados.data
                         })
@@ -111,9 +112,9 @@ export default {
               if(this.designacao == this.anos[i].designacao) r = false
           }
           if(r){
-            axios.post(h + "anos", {nome: this.designacao, anoLetivo: this.anoLetivo, idCurso: this.idCurso})
+            axios.post(h + "anos?token=" + this.token, {nome: this.designacao, anoLetivo: this.anoLetivo, idCurso: this.idCurso})
                 .then(() =>{
-                    axios.get(h + "cursos/" + this.idCurso + "/anos" )
+                    axios.get(h + "cursos/" + this.idCurso + "/anos?token=" + this.token )
                          .then(dados =>{
                                 this.anos = dados.data
                         })
@@ -122,7 +123,7 @@ export default {
           else alert("Esse curso já existe!")
       },
       editarCurso: function(){
-          axios.put(h + "cursos/" + this.idCurso, {designacao: this.designacaoCurso})
+          axios.put(h + "cursos/" + this.idCurso + "?token=" + this.token, {designacao: this.designacaoCurso})
       }
   }
 }

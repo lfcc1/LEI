@@ -31,7 +31,7 @@ var extractFromBody = function(req){
 }
 
 passport.use(new JWTStrategy({
-  secretOrKey: 'UmBook2020',
+  secretOrKey: 'LEI-UMbook',
   jwtFromRequest:ExtractJWT.fromExtractors([extractFromQS,extractFromBody]),
   passReqToCallback: true
 }, async (req,payload,done) =>{
@@ -45,6 +45,8 @@ passport.use(new JWTStrategy({
 
 
 var app = express();
+
+app.use(passport.initialize());
 
 var cors = require('cors')
 const corsOpts = {

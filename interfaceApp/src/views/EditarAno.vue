@@ -78,10 +78,11 @@ export default {
 
   created: async function() {
     try {
+      this.token = localStorage.getItem("jwt")
       this.idAno = this.$route.params.id
       this.designacaoAno = this.$route.params.designacao
       this.anoLetivoAno = this.$route.params.anoLetivo
-      let response = await axios.get(h + "anos/" + this.idAno + "/cadeiras" )//
+      let response = await axios.get(h + "anos/" + this.idAno + "/cadeiras" + "?token=" + this.token )//
       this.cadeiras = response.data
       console.log(response.data)
     } catch (e) {
@@ -94,9 +95,9 @@ export default {
       },
       apagarCadeira: function(id){
           if(confirm("De certeza que quer apagar a cadeira?")){
-              axios.delete(h + "cadeiras/" + id)
+              axios.delete(h + "cadeiras/" + id + "?token=" + this.token)
                .then(()=>{
-                    axios.get(h + "anos/" + this.idAno + "/cadeiras" )
+                    axios.get(h + "anos/" + this.idAno + "/cadeiras" + "?token=" + this.token )
                         .then(dados =>{
                             this.cadeiras = dados.data
                         })
@@ -110,9 +111,9 @@ export default {
               if(this.designacao == this.cadeiras[i].designacao) r = false
           }
           if(r){
-            axios.post(h + "cadeiras", {nome: this.designacao, idAno: this.idAno})
+            axios.post(h + "cadeiras?token=" + this.token, {nome: this.designacao, idAno: this.idAno})
                 .then(() =>{
-                    axios.get(h + "anos/" + this.idAno + "/cadeiras" )
+                    axios.get(h + "anos/" + this.idAno + "/cadeiras?token=" + this.token )
                          .then(dados =>{
                                 this.cadeiras = dados.data
                         })
@@ -121,7 +122,7 @@ export default {
           else alert("Essa cadeira já existe!")
       },
       editarAno: function(){
-          axios.put(h + "anos/" + this.idAno, {designacao: this.designacaoAno, anoLetivo: this.anoLetivoAno})
+          axios.put(h + "anos/" + this.idAno + "?token=" + this.token, {designacao: this.designacaoAno, anoLetivo: this.anoLetivoAno})
       }
   }
 }

@@ -359,6 +359,7 @@
 
 import axios from "axios"
 var FormData = require('form-data');
+import VueJwtDecode from "vue-jwt-decode";
 const h = require("@/config/hosts").hostAPI
 const host = require("@/config/hosts").host
 
@@ -381,11 +382,14 @@ export default {
   }),
    created: async function() {
     try {
+      let token = localStorage.getItem("jwt")//.decode('UTF-8');
+      this.token = token
+      let decoded = await VueJwtDecode.decode(token);
       this.idUtilizador = this.$route.params.id
       // ir buscar à sessão
       this.srcImage = host+'/images/' + this.idUtilizador
-      this._id = 'lguilhermem@hotmail.com'
-      let response = await axios.get(h + "utilizadores/" + this.idUtilizador )//
+      this._id = decoded.user.utilizador.idUtilizador
+      let response = await axios.get(h + "utilizadores/" + this.idUtilizador + "?token=" + this.token )//
       console.log(response.data)
       this.user = response.data
       this.initVModels()
@@ -412,9 +416,9 @@ export default {
     },
     updateUtilizador: async function(){
       if(confirm("Tem a certeza que pretende alterar o seu perfil?")){
-        axios.put(h + "utilizadores/" + this.idUtilizador, {sexo: this.sexo, numAluno: this.numAluno, numTelemovel: this.numTelemovel, dataNasc: this.dataNasc})
+        axios.put(h + "utilizadores/" + this.idUtilizador + "?token=" + this.token, {sexo: this.sexo, numAluno: this.numAluno, numTelemovel: this.numTelemovel, dataNasc: this.dataNasc})
             .then(async d =>{
-              let response = await axios.get(h + "utilizadores/" + this.idUtilizador )//
+              let response = await axios.get(h + "utilizadores/" + this.idUtilizador + "?token=" + this.token )//
               this.user = response.data
               this.initVModels()
               this.updateAmigos()
@@ -438,20 +442,24 @@ export default {
     ,
     adicionarAmigo: async function(){
       if(confirm("Tem a certeza que pretende enviar pedido de amizade a " + this.user.info.nome +"?")){
-        axios.post(h + "utilizadores/pedidosamizade/" + this._id, {idUtilizador2 : this.idUtilizador})
+        axios.post(h + "utilizadores/pedidosamizade/" + this._id + "?token=" + this.token, {idUtilizador2 : this.idUtilizador})
             .then(async e =>{
-                let response = await axios.get(h + "utilizadores/" + this.idUtilizador )//
+                let response = await axios.get(h + "utilizadores/" + this.idUtilizador + "?token=" + this.token )//
                 this.user = response.data
+                this.updateAmigos()
             })
             .catch(e => console.log(e))
       }
     },
     removerAmigo: async function(){
       if(confirm("Tem a certeza que pretende remover a sua amizade com " + this.user.info.nome +"?")){
-        axios.delete(h + "utilizadores/amigos/" + this._id +"/" + this.idUtilizador)
+        //await axios.put(h + "conversas/")
+        //this.$emit('refreshConversas')
+        axios.delete(h + "utilizadores/amigos/" + this._id +"/" + this.idUtilizador + "?token=" + this.token)
             .then(async e =>{
-                let response = await axios.get(h + "utilizadores/" + this.idUtilizador )//
+                let response = await axios.get(h + "utilizadores/" + this.idUtilizador + "?token=" + this.token )//
                 this.user = response.data
+                this.updateAmigos()
             })
             .catch(e => console.log(e))
       }
@@ -459,7 +467,7 @@ export default {
     uploadImage: async function(){
       let formData = new FormData();
       formData.append("ficheiro", this.files);
-      await axios.post(h + "ficheiros/fotoPerfil",
+      await axios.post(h + "ficheiros/fotoPerfil?token=" + this.token,
           formData,
           {
             headers: {

@@ -166,6 +166,7 @@
 
 <script>
 import axios from "axios"
+import VueJwtDecode from "vue-jwt-decode";
 import Comentario from '@/components/Comentario.vue'
 var dateFormat = require('dateformat');
 var FormData = require('form-data');
@@ -190,14 +191,18 @@ const ficheiroUrl = require("@/config/hosts").ficheiros
         likesAtuais: [],
         corComentariosIcon: "#900001"
     }},
-    created: function(){
+    created: async function(){
       //ir buscar à sessão 
-      this.idUtilizador = "lguilhermem@hotmail.com"
+      let token = localStorage.getItem("jwt")//.decode('UTF-8');
+      let decoded = await VueJwtDecode.decode(token);
+      console.log(decoded.user)
+      this.idUtilizador = decoded.user.utilizador.idUtilizador
       this.publicacoesAtuais = this.publicacoes
       this.updatePubs()
     },
     watch: {
     publicacoes: function (val) {
+      this.token = localStorage.getItem("jwt")
       this.publicacoesAtuais = val
       this.updatePubs()
     }
@@ -211,10 +216,10 @@ const ficheiroUrl = require("@/config/hosts").ficheiros
           publicacao.idUtilizador = this.idUtilizador
           publicacao.idGrupo = this.idGrupo
           publicacao.titulo = this.titulo
-          axios.post(h + "publicacoes/", publicacao)
+          axios.post(h + "publicacoes?token=" + this.token, publicacao)
                .then(async id => {
                   await this.postFiles(id.data.id)
-                  var response = await axios.get(h + this.tipoGrupo + "/" + this.idGrupo + "/publicacoes")
+                  var response = await axios.get(h + this.tipoGrupo + "/" + this.idGrupo + "/publicacoes?token=" + this.token)
                   this.publicacoesAtuais = response.data
                   this.conteudo = "";
                   this.files = []
@@ -245,7 +250,7 @@ const ficheiroUrl = require("@/config/hosts").ficheiros
         }
         formData.append("guardadoEm", id)
  
-        axios.post(ficheiroUrl + 'ficheiros/',
+        axios.post(ficheiroUrl + 'ficheiros?token=' + this.token,
           formData,
           {
             headers: {
@@ -284,7 +289,7 @@ const ficheiroUrl = require("@/config/hosts").ficheiros
       download: function(id, nome){
          axios({
             method: "get",
-            url: ficheiroUrl + "ficheiros/" + id + "/download",
+            url: ficheiroUrl + "ficheiros/" + id + "/download?token=" + this.token,
             responseType: 'arraybuffer'
           })
              .then(function (response) {
@@ -301,9 +306,9 @@ const ficheiroUrl = require("@/config/hosts").ficheiros
       },
       deletePub: function(id){
         if(confirm("Tem a certeza que pretende eliminar esta publicação?")){
-          axios.delete(h+"publicacoes/"+id)
+          axios.delete(h+"publicacoes/"+id+"?token=" + this.token)
               .then(async r => {
-                  var response = await axios.get(h + this.tipoGrupo + "/" + this.idGrupo + "/publicacoes")
+                  var response = await axios.get(h + this.tipoGrupo + "/" + this.idGrupo + "/publicacoes?token=" + this.token)
                   this.publicacoesAtuais = response.data
                   this.updatePubs()
               })
@@ -328,17 +333,17 @@ const ficheiroUrl = require("@/config/hosts").ficheiros
         return this.idUtilizador == idUtilizador
       },
       addLike : function(idPublicacao){
-        axios.put(h + 'publicacoes/' + idPublicacao + '/gosto', {idUtilizador : this.idUtilizador})
+        axios.put(h + 'publicacoes/' + idPublicacao + '/gosto?token=' + this.token, {idUtilizador : this.idUtilizador})
              .then(async dados =>{
-                var response = await axios.get(h + this.tipoGrupo + "/" + this.idGrupo + "/publicacoes")
+                var response = await axios.get(h + this.tipoGrupo + "/" + this.idGrupo + "/publicacoes?token=" + this.token)
                 this.publicacoesAtuais = response.data
                 this.updatePubs()
              })
       },
       deleteLike : function(idPublicacao){
-        axios.put(h + 'publicacoes/' + idPublicacao + '/desgosto', {idUtilizador : this.idUtilizador})
+        axios.put(h + 'publicacoes/' + idPublicacao + '/desgosto?token=' + this.token, {idUtilizador : this.idUtilizador})
              .then(async dados =>{
-                var response = await axios.get(h + this.tipoGrupo + "/" + this.idGrupo + "/publicacoes")
+                var response = await axios.get(h + this.tipoGrupo + "/" + this.idGrupo + "/publicacoes?token=" + this.token)
                 this.publicacoesAtuais = response.data
                 this.updatePubs()
              })

@@ -171,6 +171,7 @@ export default {
     }    
     ,
     created: function(){
+        this.token = localStorage.getItem("jwt")
         this.anos = this.item.anos
         this.publicacoes = this.item.publicacoes
         this.responsaveis = []
@@ -212,7 +213,7 @@ export default {
             //alert(JSON.stringify(item))
             this.id = id
             if(this.rota == "cursos/"){
-                axios.get(h + this.rota + id)
+                axios.get(h + this.rota + id + "?token=" + this.token)
                      .then(dados => {
                          this.designacao = dados.data.info.designacao
                          this.back = false
@@ -236,7 +237,7 @@ export default {
                      })
             }
             else{
-            axios.get(h + this.rota + id )
+            axios.get(h + this.rota + id + "?token=" + this.token )
                  .then(dados => {
                      if(dados.data.cadeiras != null){
                          this.designacao = dados.data.info.nome

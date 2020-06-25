@@ -26,9 +26,10 @@ export default {
 
   created: async function() {
     try {
+      this.token = localStorage.getItem("jwt")
       this.idUniversidade = "UM"
       this.tipoGrupo = "cursos"
-      let response = await axios.get(h + "cursos/" + this.idUniversidade )//
+      let response = await axios.get(h + "cursos/" + this.idUniversidade + "?token=" + this.token )//
       console.log(response.data)
       this.item = response.data
       this.ready = true

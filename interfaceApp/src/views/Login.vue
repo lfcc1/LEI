@@ -1,11 +1,10 @@
 <template>
- <div id="app">
   <v-container>
     <v-layout row class="text-xs-center">
       <v-flex xs4 class="grey lighten-4">
         <v-container style="position: relative;top: 13%;" class="text-xs-center">
           <v-card flat>
-            <v-card-title primary-title>
+            <v-card-title class="justify-center" primary-title>
               <h4>Login</h4>
             </v-card-title>
             <v-form>
@@ -20,12 +19,14 @@
       </v-flex>
     </v-layout>
   </v-container>
-</div>
 </template>
 
 
 
 <script>
+import axios from "axios"
+const h = require("@/config/hosts").hostAPI
+
   export default {
     data(){
       return {
@@ -34,12 +35,25 @@
       }
     },
     methods: {
-      login: function () {
-        let email = this.email 
-        let password = this.password
-        this.$store.dispatch('login', { email, password })
-       .then(() => this.$router.push('/universidade'))
-       .catch(err => console.log(err))
+      login: async function () {
+        try {
+        let response = await axios.post(h + "utilizadores/login", {idUtilizador: this.email, password: this.password});
+        console.log(response.data)
+        if(!response.data.authentication){
+          this.password = ""
+          alert("Crendenciais erradas, tente novamente.")
+        } 
+        let token = response.data.token;
+        localStorage.setItem("jwt", token);
+        //localStorage.removeItem("jwt")
+        if (token) {
+          alert("Login efetuado com sucesso");
+          this.$router.push("/universidade");
+        }
+      } catch (err) {
+        this.password = ""
+        alert("Crendenciais erradas tente novamente")
+      }
       }
     }
   }

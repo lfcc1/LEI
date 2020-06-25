@@ -20,6 +20,12 @@ Conversas.findByParticipanteSimple = (participante) => {
             .exec()
 }
 
+Conversas.putConversaInativa = (idC) => {
+    return Conversa.updateOne({ "_id" : idC }, { "ativo": false })
+            .exec()
+}
+
+
 Conversas.addParticipante = (idC, email) => {
     return Conversa.update({ "_id" : idC }, { $push: { participantes: email } })
             .exec()

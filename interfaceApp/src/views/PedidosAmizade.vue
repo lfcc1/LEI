@@ -35,6 +35,7 @@
 
 <script>
 import axios from "axios"
+import VueJwtDecode from "vue-jwt-decode";
 const host = require("@/config/hosts").host
 const h = require("@/config/hosts").hostAPI
 
@@ -55,8 +56,11 @@ export default {
   created: async function() {
     try {
       // ir à sessão
-      this.idUtilizador = "joniboy@hotmail.com"
-      let response = await axios.get(h + "utilizadores/" + this.idUtilizador + "/pedidosamizade" )
+      let token = localStorage.getItem("jwt")//.decode('UTF-8');
+      this.token = token
+      let decoded = await VueJwtDecode.decode(token);
+      this.idUtilizador = decoded.user.utilizador.idUtilizador
+      let response = await axios.get(h + "utilizadores/" + this.idUtilizador + "/pedidosamizade?token=" + this.token )
       this.pedidosAmizade = response.data
       this.updatePedidos()
       console.log(response.data)
@@ -85,17 +89,17 @@ export default {
             ativo: true,
             visto: true
           }
-          await axios.post(h + "conversas", conversa)
+          await axios.post(h + "conversas?token=" + this.token, conversa)
           this.$emit('refreshConversas')
-          await axios.put(h + "utilizadores/" + this.idUtilizador + "/amigo", {idAmigo: pedido.idUtilizador})
-          let response = await axios.get(h + "utilizadores/" + this.idUtilizador + "/pedidosamizade" )
+          await axios.put(h + "utilizadores/" + this.idUtilizador + "/amigo?token=" + this.token, {idAmigo: pedido.idUtilizador})
+          let response = await axios.get(h + "utilizadores/" + this.idUtilizador + "/pedidosamizade?token=" + this.token )
           this.pedidosAmizade = response.data
           this.updatePedidos()
           
       },
       rejeitaPedido: async function(pedido){
-          await axios.delete(h + "utilizadores/pedidosamizade/" + pedido.idUtilizador + "/" + this.idUtilizador )
-          let response = await axios.get(h + "utilizadores/" + this.idUtilizador + "/pedidosamizade" )
+          await axios.delete(h + "utilizadores/pedidosamizade/" + pedido.idUtilizador + "/" + this.idUtilizador + "?token=" + this.token )
+          let response = await axios.get(h + "utilizadores/" + this.idUtilizador + "/pedidosamizade?token=" + this.token )
           this.pedidosAmizade = response.data
           this.updatePedidos()
 

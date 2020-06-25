@@ -1,5 +1,5 @@
 <template>
-<v-container>
+<v-container v-if="isLogged()">
 <nav>
 
   <v-navigation-drawer 
@@ -24,7 +24,7 @@
               </v-list-item-avatar>
                 
               <v-list-item-content>
-                <v-list-item-title >Filipe Cunha</v-list-item-title>
+                <v-list-item-title >Filipe</v-list-item-title>
                 <v-list-item-subtitle>Logged in</v-list-item-subtitle>
               </v-list-item-content>
 
@@ -45,11 +45,13 @@
               :to="item.href"
             >
               <v-list-item-icon>
-                <v-icon>{{ item.icon }}</v-icon>
+                <v-icon v-if=" item.title != 'Logout' " >{{ item.icon }}</v-icon>
+                <v-icon v-else @click="logout()" style="cursor: pointer;">{{ item.icon }}</v-icon>
               </v-list-item-icon>
   
               <v-list-item-content>
-                <v-list-item-title>{{ item.title }}</v-list-item-title>
+                <v-list-item-title v-if=" item.title != 'Logout' ">{{ item.title }}</v-list-item-title>
+                <v-list-item-title v-else @click="logout()" style="cursor: pointer;">{{ item.title }}</v-list-item-title>
               </v-list-item-content>
             </v-list-item>
           </v-list>
@@ -60,6 +62,7 @@
 </template>
 
 <script>
+import VueJwtDecode from "vue-jwt-decode";
 const host = require("@/config/hosts").host
 export default {
   data () {
@@ -67,17 +70,7 @@ export default {
       drawer: true,
       mini: true,
       items: [
-        { title: 'Universidade', icon: 'mdi-view-dashboard',href:"/universidade" },
-        // Ir buscar á sessão
-        { title: 'Meu Curso', icon: 'mdi-school', href:"/curso/MIEI" },
-        { title: 'Eventos Gerais', icon: 'mdi-calendar-clock', href:"/eventos" },
-        { title: 'Eventos do teu curso', icon: 'mdi-calendar-clock', href:"/eventoscurso" },
-        { title: 'Meus Eventos', icon: 'mdi-calendar-multiple-check', href:"/meuseventos" },
-        // Ir buscar á sessão
-        { title: 'Meu Perfil', icon: 'mdi-account-circle', href:"/userProfile/lguilhermem@hotmail.com" },
-        { title: 'Pedidos de amizade', icon: 'mdi-account-plus-outline', href:"/pedidosamizade" },
-        { title: 'Notificações', icon: 'mdi-bell-ring', href:"/notificacoes" },
-        { title: 'Gestao Cursos', icon: 'mdi-cog-outline', href:"/gestaocursos" },
+
       ],
       color: '#900000',
       colors: [
@@ -92,12 +85,31 @@ export default {
       expandOnHover: false,
       background: false,
       srcImage:"",
-      idUtilizador:""
+      idUtilizador:"",
+      nome:""
     }
   },
-  created: function(){
+  created: async function(){
     // ir buscar à sessão
-    this.idUtilizador = "lguilhermem@hotmail.com"
+    let token = localStorage.getItem("jwt")//.decode('UTF-8');
+    let decoded = await VueJwtDecode.decode(token);
+    this.idUtilizador = decoded.user.utilizador.idUtilizador
+    this.items = [
+        { title: 'Universidade', icon: 'mdi-view-dashboard',href:"/universidade" },
+        // Ir buscar á sessão
+        { title: 'Meu Curso', icon: 'mdi-school', href:"/curso" },
+        { title: 'Eventos Gerais', icon: 'mdi-calendar-clock', href:"/eventos" },
+        { title: 'Eventos do teu curso', icon: 'mdi-calendar-clock', href:"/eventoscurso" },
+        { title: 'Meus Eventos', icon: 'mdi-calendar-multiple-check', href:"/meuseventos" },
+        // Ir buscar á sessão
+        { title: 'Meu Perfil', icon: 'mdi-account-circle', href:"/userProfile/" + this.idUtilizador },
+        { title: 'Pedidos de amizade', icon: 'mdi-account-plus-outline', href:"/pedidosamizade" },
+        { title: 'Notificações', icon: 'mdi-bell-ring', href:"/notificacoes" },
+        { title: 'Gestao de Cursos', icon: 'mdi-cog-outline', href:"/gestaocursos" },
+        { title: 'Gestao de Utilizadores', icon: 'mdi-cog-outline', href:"/gestaousers" },
+        { title: 'Logout', icon: 'mdi-logout'}
+    ]
+    this.nome = decoded.user.utilizador.nome
     this.srcImage = host+'images/' + this.idUtilizador
   },
   computed: {
@@ -105,6 +117,19 @@ export default {
       return this.background ? 'https://cdn.vuetifyjs.com/images/backgrounds/bg-2.jpg' : undefined
     },
   },
+  methods:{
+    logout: function(){
+      localStorage.removeItem("jwt");
+      this.$router.push("/");
+    },
+    isLogged: function(){
+      if (localStorage.getItem("jwt") == null) {
+      return false
+      } else {
+      return true
+      }
+    }
+  }
 }
 </script>
 

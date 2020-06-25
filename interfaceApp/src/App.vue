@@ -1,12 +1,12 @@
 <template>
   <v-app style="background: #eee;">
     
-    <NavBar/>
-    <Toolbar/>
+    <NavBar v-if="isLogged()"/>
+    <Toolbar v-if="isLogged()"/>
     <Views @refreshConversas="refreshConversas"/>
     
       
-  <div class="item doctor" style="padding-right:20%">
+  <div v-if="isLogged()" class="item doctor" style="padding-right:20%">
     <div class="splitscreen">
 
 
@@ -46,6 +46,7 @@
           
 
   <v-navigation-drawer
+      v-if="isLogged()"
       v-model="drawerRight"
       app
       clipped
@@ -382,7 +383,14 @@ export default {
           if(this.chats.length >= 3)
             this.chats.splice(2,1)
           this.chats.push(chat)
-        }
+        },
+        isLogged: function(){
+          if (localStorage.getItem("jwt") == null) {
+          return false
+          } else {
+          return true
+          }
+    }
     }
   }
 </script>

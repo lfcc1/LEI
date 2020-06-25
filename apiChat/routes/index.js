@@ -55,6 +55,15 @@ router.get('/conversas/participante/:id/simples', function(req, res){
           .catch(erro => res.status(500).jsonp(erro))
 })
 
+//                                                  PUT
+
+router.put('/conversas/:id', function(req, res){
+  Conversas.putConversaInativa(req.params.id)
+          .then(dados => res.jsonp(dados))
+          .catch(erro => res.status(500).jsonp(erro))
+})
+
+
 
 //                                                  POST
 

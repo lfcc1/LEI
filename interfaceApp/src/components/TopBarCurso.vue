@@ -1,5 +1,5 @@
 <template>
-    <vue-navigation-bar :options="options" />
+    <vue-navigation-bar v-if="isLogged()" :options="options" />
 </template>
 
 <script>
@@ -52,8 +52,18 @@
                     ],
                 }
             }
-        }
+        },
+    methods:{
+    isLogged: function(){
+      if (localStorage.getItem("jwt") == null) {
+        return false
+      } else {
+        return true
+      }
     }
+    }
+    }
+
 </script>
 
 <style lang="scss">

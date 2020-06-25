@@ -1,6 +1,7 @@
 // --------------------------------------- Conversa -----------------------------------------
 var express = require('express');
 var axios = require('axios');
+var passport = require('passport')
 var router = express.Router();
 var apiChat = require('../config/config').hostChat
 
@@ -24,34 +25,41 @@ function checkPermissao(acess){
 
 //GET
 
-router.get('/conversas', function(req,res){
+router.get('/conversas', passport.authenticate('jwt', {session: false}), function(req,res){
   axios.get(apiChat + "conversas")
           .then(dados => res.jsonp(dados.data))
           .catch(erro => res.status(500).jsonp(erro))
 })
 
-router.get('/conversas/participante/:id', function(req, res){
+router.get('/conversas/participante/:id', passport.authenticate('jwt', {session: false}), function(req, res){
     axios.get(apiChat + "conversas/participante/" + req.params.id)
           .then(dados => res.jsonp(dados.data))
           .catch(erro => res.status(500).jsonp(erro))
 })
 
-router.get('/conversas/participante/:id/simples', function(req, res){
+router.get('/conversas/participante/:id/simples', passport.authenticate('jwt', {session: false}), function(req, res){
     axios.get(apiChat + "conversas/participante/" + req.params.id + "/simples")
     .then(dados => res.jsonp(dados.data))
     .catch(erro => res.status(500).jsonp(erro))
 })
 
+//                                                  PUT
+
+router.put('/conversas/:id', passport.authenticate('jwt', {session: false}), function(req, res){
+    axios.put(apiChat + "conversas/" + req.params.id, req.body)
+    .then(dados => res.jsonp(dados.data))
+    .catch(erro => res.status(500).jsonp(erro))
+})
 
 //                                                  POST
 
-router.post('/conversas', function(req, res){
+router.post('/conversas', passport.authenticate('jwt', {session: false}), function(req, res){
     axios.post(apiChat + "conversas", req.body)
     .then(dados => res.jsonp(dados.data))
     .catch(erro => res.status(500).jsonp(erro))
 })
 
-router.post('/conversas/:conversa/:participante', function(req, res){
+router.post('/conversas/:conversa/:participante', passport.authenticate('jwt', {session: false}), function(req, res){
     axios.post(apiChat + "conversas/" + req.params.conversa + "/" + req.params.participante)
     .then(dados => res.jsonp(dados.data))
     .catch(erro => res.status(500).jsonp(erro))
@@ -60,7 +68,7 @@ router.post('/conversas/:conversa/:participante', function(req, res){
 
 //                                                    DELETE
 
-router.delete('/conversas/:conversa/:participante', function(req, res){
+router.delete('/conversas/:conversa/:participante', passport.authenticate('jwt', {session: false}), function(req, res){
     axios.delete(apiChat + "conversas/" + req.params.conversa + "/" + req.params.participante)
     .then(dados => res.jsonp(dados.data))
     .catch(erro => res.status(500).jsonp(erro))
@@ -70,19 +78,19 @@ router.delete('/conversas/:conversa/:participante', function(req, res){
 /////////////////////// Mensagens /////////////////////////////
 
 
-router.get('/mensagens', function(req, res){
+router.get('/mensagens', passport.authenticate('jwt', {session: false}), function(req, res){
     axios.get(apiChat + "mensagens")
     .then(dados => res.jsonp(dados.data))
     .catch(erro => res.status(500).jsonp(erro))
 })
 
-router.get('/mensagens/:conversa', function(req, res){
+router.get('/mensagens/:conversa', passport.authenticate('jwt', {session: false}), function(req, res){
     axios.get(apiChat + "mensagens/" + req.params.conversa)
     .then(dados => res.jsonp(dados.data))
     .catch(erro => res.status(500).jsonp(erro))
 })
 
-router.post('/mensagens', function(req, res){
+router.post('/mensagens', passport.authenticate('jwt', {session: false}), function(req, res){
     axios.post(apiChat + "mensagens/", req.body)
             .then( () => res.jsonp({Result:"Message inserted"}))
             .catch(erro => res.status(500).jsonp(erro))

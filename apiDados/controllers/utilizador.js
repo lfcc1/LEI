@@ -11,12 +11,33 @@ Utilizador.getUtilizador = async function(idUtilizador){
         var publicacoes = await Utilizador.getPublicacoesFromUtilizador(idUtilizador)
         var anos = await Utilizador.getAnosInscrito(idUtilizador)
         var amigos = await Utilizador.getAmigos(idUtilizador)
+        var tipos = await Utilizador.getTipos(idUtilizador)
 
         var utilizador = {
             info: informacao[0],
             pubs: publicacoes,
             anosInscrito: anos,
-            amigos: amigos
+            amigos: amigos,
+            tipos: tipos
+        }
+
+        return utilizador
+    }
+    catch(e){
+        throw e
+    }
+}
+
+Utilizador.getUtilizadorSimples = async function(idUtilizador){
+    try{
+        var tipos = await Utilizador.getTipos(idUtilizador)
+        var info = await Utilizador.getUtilizadorAtomica(idUtilizador)
+
+        var utilizador = {
+            idUtilizador: idUtilizador,
+            idCurso: info[0].idCurso,
+            nome: info[0].nome,
+            tipos: tipos
         }
 
         return utilizador
@@ -41,19 +62,24 @@ Utilizador.getUtilizadores = async function(){
     `
     var utilizadores = await Connection.makeQuery(query)
     for(i in utilizadores){
-        var id = utilizadores[i].idUtilizador.replace(/@/,"\\@");
-        var queryTipos = `
-        select (STRAFTER(STR(?tipo), 'UMbook#') as ?classe) where  {
-            c:${id} a ?tipo .
-            filter(contains(STR(?tipo), 'UMbook#')) .
-        }
-        `
-        utilizadores[i].classes = await Connection.makeQuery(queryTipos)
+        utilizadores[i].classes = await Utilizador.getTipos(utilizadores[i].idUtilizador)
     }
 
     return utilizadores
 }
 
+Utilizador.getTipos = async function(idUtilizador){
+    var id = idUtilizador.replace(/@/,"\\@");
+
+    var query = `
+    select (STRAFTER(STR(?tipo), 'UMbook#') as ?classe) where  {
+        c:${id} a ?tipo .
+        filter(contains(STR(?tipo), 'UMbook#')) .
+    }
+    `
+
+    return Connection.makeQuery(query)
+}
 
 
 Utilizador.getUtilizadorAtomica = async function(idUtilizador){
@@ -62,16 +88,16 @@ Utilizador.getUtilizadorAtomica = async function(idUtilizador){
 
 
     var query = `
-    select ?numAluno ?numTelemovel ?nome ?sexo ?dataNasc ?curso where{
+    select ?numAluno ?numTelemovel ?nome ?sexo ?dataNasc ?curso (STRAFTER(STR(?idcurs), 'UMbook#') as ?idCurso) where{
         c:${iduser} a c:Aluno .
         c:${iduser} c:numAluno ?numAluno .
         c:${iduser} c:numTelemovel ?numTelemovel .
         c:${iduser} c:nome ?nome .
         c:${iduser} c:sexo ?sexo .
         c:${iduser} c:dataNasc ?dataNasc .
-        c:${iduser} c:frequenta ?idcurso .
-        ?idcurso a c:Curso .
-    	?idcurso c:nome ?curso .
+        c:${iduser} c:frequenta ?idcurs .
+        ?idcurs a c:Curso .
+    	?idcurs c:nome ?curso .
     }
     `
 
@@ -85,23 +111,22 @@ Utilizador.login = async function(user){
 
 
     var query = `
-    select ?email ?password where{
-        c:${iduser} a c:Aluno .
+    select ?password where{
         c:${iduser} c:password ?password .
-        ?idcurso a c:Curso .
-    	?idcurso c:nome ?curso .
     }
     `
     var result = await Connection.makeQuery(query);
     
     if(result.length <= 0) 
-        return 0
-    
-    var password = bcrypt.hashSync(user.password, 10);
-    if(result[0].password == password)
-        return 1
+        return {authentication: false}
+
+    if(bcrypt.compareSync(user.password, result[0].password)){
+        var utilizador = await Utilizador.getUtilizadorSimples(user.idUtilizador)
+        utilizador.idUtilizador = user.idUtilizador
+        return {authentication: true, utilizador: utilizador}
+    }
     else 
-        return 0;
+        return {authentication: false}
 }
 
 
@@ -289,18 +314,19 @@ Utilizador.removerAmigo = async function(id1, id2){
 Utilizador.insertUtilizador = async function(utilizador){
     var iduser = utilizador.id.replace(/@/,"\\@");
     var newPassword = bcrypt.hashSync(utilizador.password, 10);
+    console.log(newPassword)
     var query = `
     Insert Data {
         c:${iduser} a owl:NamedIndividual ,
-                        c:Utilizador .
+                        c:Aluno .
         c:${iduser} c:numAluno "${utilizador.numeroAluno}" .
         c:${iduser} c:numTelemovel "${utilizador.numeroTelemovel}" .
         c:${iduser} c:nome "${utilizador.nome}" .
         c:${iduser} c:sexo "${utilizador.sexo}" .
+        c:${iduser} c:password "${newPassword}" .
         c:${iduser} c:dataNasc "${utilizador.dataNascimento}" .
         c:${iduser} c:frequenta c:${utilizador.idCurso} .
         c:${iduser} c:frequenta c:${utilizador.idAno} . 
-        c:${iduser} c:password c:${newPassword} .
     }
     `
 

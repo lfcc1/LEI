@@ -26,7 +26,7 @@ const routes = [
     component: Registar
   },
   {
-    path: '/login',
+    path: '/',
     name: 'Login',
     component: Login
   },
@@ -35,15 +35,15 @@ const routes = [
     name: 'UserProfile',
     component: UserProfile,
     meta: { 
-      //requiresAuth: true
+      requiresAuth: true
     }
   },
   {
-    path: '/curso/:id',
+    path: '/curso',
     name: 'O Meu Curso',
     component: Curso,
     meta: { 
-      //requiresAuth: true
+      requiresAuth: true
     },
   },
   {
@@ -51,7 +51,7 @@ const routes = [
     name: 'Universidade do Minho',
     component: Universidade,
     meta: { 
-      //requiresAuth: true
+      requiresAuth: true
     }
   },
   {
@@ -59,7 +59,7 @@ const routes = [
     name: 'Eventos Gerais',
     component: Evento,
     meta: {
-
+      requiresAuth: true
     }
   },
   {
@@ -67,7 +67,7 @@ const routes = [
     name: 'Evento do teu Curso',
     component: EventoCurso,
     meta: {
-
+      requiresAuth: true
     }
   },
   {
@@ -75,7 +75,7 @@ const routes = [
     name: 'Meus Eventos',
     component: MeusEventos,
     meta: {
-
+      requiresAuth: true
     }
   },
   {
@@ -83,33 +83,48 @@ const routes = [
     name: 'Pedidos de Amizade',
     component: PedidosAmizade,
     meta: {
-
+      requiresAuth: true
     }
   },
   {
     name: 'Gestão de cursos',
     path: '/gestaocursos',
-    component: GestaoCurso
+    component: GestaoCurso,
+    meta: {
+      requiresAuth: true
+    }
   },
   {
     name: 'Editar Curso',
     path: '/editarcurso/:id',
-    component: EditarCurso
+    component: EditarCurso,
+    meta: {
+      requiresAuth: true
+    }
   },
   {
     name: 'Editar Ano',
     path: '/editarano/:id',
-    component: EditarAno
+    component: EditarAno,
+    meta:{
+      requiresAuth: true
+    }
   },
   {
     name: 'Resultados da Pesquisa',
     path: '/searchResult/:titulo',
-    component: SearchResult
+    component: SearchResult,
+    meta:{
+      requiresAuth: true
+    }
   },
   {
     name: 'Gestão de utilizadores',
     path: '/gestaousers',
-    component: GestaoUsers
+    component: GestaoUsers,
+    meta:{
+      requiresAuth: true
+    }
   }
 
 ]
@@ -127,27 +142,20 @@ const router = new VueRouter({
     }
     return { x: 0, y: 0 }
   },
-  /*
-  beforeRouteUpdate(to, from, next) {
-    /*
-    something...
-    
-  
-    next(to) // DO IT!
-  }*/
 })
 
-/*
 router.beforeEach((to, from, next) => {
-  if(to.matched.some(record => record.meta.requiresAuth)) {
-    if (store.getters.isLoggedIn) {
-      next()
-      return
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (localStorage.getItem("jwt") == null) {
+      next({
+        path: "/"
+      });
+    } else {
+      next();
     }
-    next('/login') 
   } else {
-    next() 
+    next();
   }
-})*/
+});
 
 export default router

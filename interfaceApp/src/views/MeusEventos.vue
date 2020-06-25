@@ -61,6 +61,7 @@
 
 <script>
 import axios from "axios"
+import VueJwtDecode from "vue-jwt-decode";
 const host = require("@/config/hosts").host
 const h = require("@/config/hosts").hostAPI
 
@@ -79,8 +80,11 @@ export default {
   created: async function() {
     try {
         // ir á sessão
-      var idUser = "lguilhermem@hotmail.com"
-      var response = await axios.get(h + "eventos/participante/" + idUser)
+      let token = localStorage.getItem("jwt")//.decode('UTF-8');
+      this.token = token
+      let decoded = await VueJwtDecode.decode(token);
+      var idUser = decoded.user.utilizador.idUtilizador
+      var response = await axios.get(h + "eventos/participante/" + idUser + "?token=" + this.token)
       this.eventos = response.data
       console.log(this.eventos)
       this.eventoAtual = this.eventos[0]
