@@ -1,9 +1,9 @@
 <template>
-  <v-app style="background: #eee;">
+  <v-app :color= color>
     
-    <NavBar v-if="isLogged()"/>
-    <Toolbar v-if="isLogged()"/>
-    <Views @refreshConversas="refreshConversas"/>
+    <NavBar @refreshLogout="refreshLogout" v-if="isLogged()"/>
+    <Toolbar @refreshLogout="refreshLogout"/>
+    <Views @refreshConversas="refreshConversas" @refreshLogout="refreshLogout"/>
     
       
   <div v-if="isLogged()" class="item doctor" style="padding-right:20%">
@@ -29,11 +29,10 @@
         :async-mode="asyncMode"
         :scroll-bottom="scrollBottom"
         :display-header="true"
-        :send-images="true"
+        :send-images="false"
         :profile-picture-config="profilePictureConfig"
         :timestamp-config="timestampConfig"
         @onImageClicked="onImageClicked"
-        @onImageSelected="onImageSelected"
         @onMessageSubmit="(message) => {onMessageSubmit(message,item,index)}"
         @onType="onType(item)"
         @onClose="onCloses(index)"/>
@@ -65,7 +64,7 @@
         </v-list-item-avatar>
 
         <v-list-item-content>
-          <v-list-item-title v-text="item.participantes[1].nome"></v-list-item-title>
+          <v-list-item-title v-text="nomeUtilizador(item)"></v-list-item-title>
         </v-list-item-content>
 
         <v-list-item-icon>
@@ -91,7 +90,9 @@ import { Chat } from 'vue-quick-chat'
 import 'vue-quick-chat/dist/vue-quick-chat.css';
 import axios from "axios"
 import io from "socket.io-client";
-var socket = io.connect(host,{query:"idUtilizador=lguilhermem@hotmail.com"});
+var FormData = require('form-data');
+
+
 export default {
     components: {
     NavBar,
@@ -101,7 +102,8 @@ export default {
   },
      data() {
         return {
-          userID :"lguilhermem@hotmail.com",
+          userID :"",
+          socket:{},
           chats:[],
           conversas: [],
 
@@ -114,6 +116,7 @@ export default {
       items2: [
         { title: 'Travis Howard', avatar: 'https://cdn.vuetifyjs.com/images/lists/5.jpg' },
       ],
+      color: "#eee",
        participants: [
         {
           name: 'Arnaldo',
@@ -124,6 +127,7 @@ export default {
           id: 2
         }
       ],
+      token: "",
       myself: {
         name: 'Matheus S.',
         id: 3
@@ -245,7 +249,11 @@ export default {
 
     created: async function(){
     try {
-    this.myself.name = "Luís Martins"
+    this.token = localStorage.getItem("jwt")
+    this.utilizador = JSON.parse(localStorage.getItem("utilizador"))
+    this.myself.name = this.utilizador.nome
+    this.userID = this.utilizador.idUtilizador
+    this.socket = io.connect(host,{query:"idUtilizador=" + this.userID});
     this.myself.id = this.userID
     this.myself.profilePicture = host+'images/'+this.userID
     this.refreshConversas()
@@ -255,15 +263,16 @@ export default {
     }
 
 
-  socket.on("mensagem", msg => {
+  this.socket.on("mensagem", msg => {
     console.log("MENSAGEM RECEBIDA")
     console.log(msg)
       var newM = {}
       newM.content = msg.conteudo
       newM.type = 'text'
       newM.participantId = msg.from
-      newM.timestamp = "" 
-      this.chats[0].messages.push(newM)  
+      newM.timestamp = msg.dataEnvio
+
+      this.chats.find(element => element.idConversa == msg.idConversa ).messages.push(newM)  
   })
 
   },
@@ -273,10 +282,14 @@ export default {
             //console.log(conversa)
         },
         refreshConversas: async function () {
-            let response = await axios.get(host+"api/conversas/participante/"+ this.userID )
+            let response = await axios.get(host+"api/conversas/participante/"+ this.userID + "?token=" + this.token )
+            console.log(response.data)
             this.conversas = response.data
             for(let i = 0; i<this.conversas.length; i++){
-              this.conversas[i].avatar = host+ '/images/' + this.conversas[i].participantes[1].idUtilizador
+              var id
+              if(this.userID == this.conversas[i].participantes[0].idUtilizador) id = this.conversas[i].participantes[1].idUtilizador
+              else id = this.conversas[i].participantes[0].idUtilizador
+              this.conversas[i].avatar = host+ '/images/' + id
             }
         },
         loadMoreMessages(resolve) {
@@ -297,11 +310,11 @@ export default {
             */
             this.chats[index].messages.push(message);
                        var data = {}
-            data.to = chat.participants[0]; /// MUDAR COM SESSOES
+            data.to = chat.participants[0].id; /// MUDAR COM SESSOES
             data.idConversa = chat.idConversa;
             data.conteudo = message.content
             data.from = this.userID;
-            socket.emit('mensagem', data)
+            this.socket.emit('mensagem', data)
             
  
             /*
@@ -318,7 +331,18 @@ export default {
         },
         onImageSelected(files, message){
             let src = 'https://149364066.v2.pressablecdn.com/wp-content/uploads/2017/03/vue.jpg'
-            this.messages.push(message);
+            let formData = new FormData();
+            formData.append("ficheiro", files);
+            formData.append("idUtilizador", this.userID)
+            axios.post(host + "api/ficheiros/fotoPerfil",
+                formData,
+                {
+                  headers: {
+                      'Content-Type': 'multipart/form-data'
+                  }
+                }
+              )
+           
             /**
              * This timeout simulates a requisition that uploads the image file to the server.
              * It's up to you implement the request and deal with the response in order to
@@ -339,14 +363,30 @@ export default {
         parseParticipantes(participantes){
             var newParticipantes = []
             participantes.forEach(e =>{
-              if(e.participante != this.userID){
-              var newP = {}
-              newP.name = e.nome
-              newP.id = e.idUtilizador
-              newP.profilePicture = host+'images/'+ e.idUtilizador
-              newParticipantes.push(newP)
+              if(e.idUtilizador != this.userID){
+                //alert(JSON.stringify(e))
+                var newP = {
+                  name: e.nome,
+                  id: e.idUtilizador,
+                  profilePicture: host+'images/'+ e.idUtilizador
+                }
+                newParticipantes.push(newP)
               }
             })
+            /*
+            for(let i = 0; i < participantes.length; i++){
+              e = participantes[i]
+              if(e.idUtilizador != this.userID){
+                alert(JSON.stringify(e))
+                var newP = {
+                  name: e.nome,
+                  id: e.idUtilizador,
+                  profilePicture: host+'images/'+ e.idUtilizador
+                }
+                newParticipantes.push(newP)
+              }
+
+            }*/
             return newParticipantes;
         },
         parseMessage(messages){
@@ -357,7 +397,7 @@ export default {
               newM.type = 'text'
               newM.participantId = m.from
               newM.timestamp = m.dataEnvio 
-              if(m.remetente == this.userID)
+              if(m.from == this.userID)
                 newM.myself = true
               else 
                 newM.myself = false
@@ -377,8 +417,10 @@ export default {
           if(this.chatExiste(item._id))
             return;
           var chat = {}
+          this.refreshConversas()
           chat.idConversa = item._id
           chat.messages = this.parseMessage(item.mensagens) 
+          alert(JSON.stringify(this.parseParticipantes(item.participantes)))
           chat.participants = this.parseParticipantes(item.participantes) 
           if(this.chats.length >= 3)
             this.chats.splice(2,1)
@@ -390,7 +432,16 @@ export default {
           } else {
           return true
           }
-    }
+        },
+        refreshLogout: function(){
+          alert("REATIVOU")
+          this.color = "#fff"
+          this.color = "#eee"
+        },
+        nomeUtilizador: function(item){
+          if( item.participantes[0].idUtilizador == this.userID ) return item.participantes[1].nome
+          else return item.participantes[0].nome
+        }
     }
   }
 </script>

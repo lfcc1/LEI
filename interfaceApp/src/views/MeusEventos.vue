@@ -82,8 +82,8 @@ export default {
         // ir á sessão
       let token = localStorage.getItem("jwt")//.decode('UTF-8');
       this.token = token
-      let decoded = await VueJwtDecode.decode(token);
-      var idUser = decoded.user.utilizador.idUtilizador
+      let utilizador = JSON.parse(localStorage.getItem("utilizador"))
+      var idUser = utilizador.idUtilizador
       var response = await axios.get(h + "eventos/participante/" + idUser + "?token=" + this.token)
       this.eventos = response.data
       console.log(this.eventos)

@@ -7,8 +7,6 @@ var upload = multer({dest: 'uploads/'})
 const mkdirp = require('mkdirp-promise')
 var md5 = require('md5');
 
-var idUtilizador = "lguilhermem@hotmail.com"
-
 const { resolveSoa } = require('dns');
 
 // ---------- ROTA   : /api/ficheiros ....
@@ -45,8 +43,7 @@ router.post('/fotoPerfil', upload.single('ficheiro'), function(req, res){
 
   let oldPath = __dirname + '/../'+req.file.path
   let newPath = __dirname + '/../public/images/'
-  let name = req.file.originalname
-
+  let idUtilizador = req.body.idUtilizador
   //let type = name.split(".")[1] 
 
   fs.readFile(oldPath, function(err, buf) {

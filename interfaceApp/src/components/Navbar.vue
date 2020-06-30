@@ -1,5 +1,5 @@
 <template>
-<v-container v-if="isLogged()">
+<v-container v-if="isLogged()" v-model="reatividade">
 <nav>
 
   <v-navigation-drawer 
@@ -24,7 +24,7 @@
               </v-list-item-avatar>
                 
               <v-list-item-content>
-                <v-list-item-title >Filipe</v-list-item-title>
+                <v-list-item-title >{{this.nomeUtilizador}}</v-list-item-title>
                 <v-list-item-subtitle>Logged in</v-list-item-subtitle>
               </v-list-item-content>
 
@@ -65,12 +65,15 @@
 import VueJwtDecode from "vue-jwt-decode";
 const host = require("@/config/hosts").host
 export default {
+  props:[
+    'logged'
+  ],
   data () {
     return {
+      reatividade : "#900000",
       drawer: true,
       mini: true,
       items: [
-
       ],
       color: '#900000',
       colors: [
@@ -86,20 +89,21 @@ export default {
       background: false,
       srcImage:"",
       idUtilizador:"",
+      nomeUtilizador:"",
       nome:""
     }
   },
   created: async function(){
     // ir buscar à sessão
-    let token = localStorage.getItem("jwt")//.decode('UTF-8');
-    let decoded = await VueJwtDecode.decode(token);
-    this.idUtilizador = decoded.user.utilizador.idUtilizador
+    let utilizador = JSON.parse(localStorage.getItem("utilizador"))
+    this.idUtilizador = utilizador.idUtilizador
+    this.nomeUtilizador = utilizador.nome
     this.items = [
         { title: 'Universidade', icon: 'mdi-view-dashboard',href:"/universidade" },
         // Ir buscar á sessão
         { title: 'Meu Curso', icon: 'mdi-school', href:"/curso" },
         { title: 'Eventos Gerais', icon: 'mdi-calendar-clock', href:"/eventos" },
-        { title: 'Eventos do teu curso', icon: 'mdi-calendar-clock', href:"/eventoscurso" },
+        { title: 'Eventos do teu curso', icon: 'mdi-calendar-heart', href:"/eventoscurso" },
         { title: 'Meus Eventos', icon: 'mdi-calendar-multiple-check', href:"/meuseventos" },
         // Ir buscar á sessão
         { title: 'Meu Perfil', icon: 'mdi-account-circle', href:"/userProfile/" + this.idUtilizador },
@@ -109,7 +113,6 @@ export default {
         { title: 'Gestao de Utilizadores', icon: 'mdi-cog-outline', href:"/gestaousers" },
         { title: 'Logout', icon: 'mdi-logout'}
     ]
-    this.nome = decoded.user.utilizador.nome
     this.srcImage = host+'images/' + this.idUtilizador
   },
   computed: {
@@ -119,8 +122,11 @@ export default {
   },
   methods:{
     logout: function(){
-      localStorage.removeItem("jwt");
-      this.$router.push("/");
+      if(confirm("De certeza que pretende terminar sessão?")){
+        this.nomeUtilizador = "None"
+        localStorage.removeItem("jwt");
+        this.$router.push("/");
+      }
     },
     isLogged: function(){
       if (localStorage.getItem("jwt") == null) {

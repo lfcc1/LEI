@@ -313,6 +313,7 @@ Utilizador.removerAmigo = async function(id1, id2){
 
 Utilizador.insertUtilizador = async function(utilizador){
     var iduser = utilizador.id.replace(/@/,"\\@");
+    console.log(iduser)
     var newPassword = bcrypt.hashSync(utilizador.password, 10);
     console.log(newPassword)
     var query = `

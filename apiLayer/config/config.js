@@ -7,7 +7,7 @@ const jwtKey = "LEI-UMbook"
 const jwtExpirySeconds = 60 * 60
 
 module.exports.generateToken = function(user){
-    
+
     const token = jwt.sign({ user }, jwtKey, {
 		algorithm: "HS256",
 		expiresIn: jwtExpirySeconds,

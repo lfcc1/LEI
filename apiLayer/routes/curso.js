@@ -33,7 +33,7 @@ router.get('/', function(req, res, next) {
   });
   
   // Todos os anos que pertencam a um determinado curso
-  router.get('/:idCurso/anos', passport.authenticate('jwt', {session: false}), function(req, res, next) {
+  router.get('/:idCurso/anos', function(req, res, next) {
     axios.get(apiCurso + req.params.idCurso + "/anos")
          .then(dados => res.jsonp(dados.data))
          .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })

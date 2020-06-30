@@ -97,9 +97,13 @@
             password: this.password,
             is_admin: this.is_admin
             }
-            this.$store.dispatch('register', data)
-            .then(() => this.$router.push('/universidade'))
-            .catch(err => console.log(err))
+            axios.post(h + "utilizadores/", data)
+                 .then(()=>{
+                   this.$router.push('/')
+                 })
+            ///this.$store.dispatch('register', data)
+            //.then(() => this.$router.push('/universidade'))
+            //.catch(err => console.log(err))
         }
         else {
             alert('Ainda possuí campos por preencher!')

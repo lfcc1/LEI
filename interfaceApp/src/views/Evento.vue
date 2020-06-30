@@ -18,6 +18,7 @@
                 <center> <v-btn color="#C0C0C0" dark @click="addParticipante(evento.idEvento)"> Participar </v-btn> </center>
                 <center>   Começa: {{ evento.dados.info.dataInicio }} </center> <p></p>
                 <center>   Acaba: {{  evento.dados.info.dataFim }}  </center> 
+                <center>   Organizador: {{evento.dados.parcerias[0].nome}} </center>
             </v-card>
             </v-container>
             </v-list-item>
@@ -83,8 +84,8 @@ export default {
         // ir á sessão
       let token = localStorage.getItem("jwt")//.decode('UTF-8');
       this.token = token
-      let decoded = await VueJwtDecode.decode(token);
-      this.idUtilizador = decoded.user.utilizador.idUtilizador
+      let utilizador = JSON.parse(localStorage.getItem("utilizador"))
+      this.idUtilizador = utilizador.idUtilizador
       await this.getEventos()
       this.eventoAtual = this.eventos[0]
       this.ready = true

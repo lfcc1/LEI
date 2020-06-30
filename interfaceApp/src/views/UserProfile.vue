@@ -108,7 +108,7 @@
           >
             <img
               @click="dialogImage = true"
-              :src="srcImage"
+              :src= srcImage
             >
           </v-avatar>
           <v-dialog
@@ -384,11 +384,11 @@ export default {
     try {
       let token = localStorage.getItem("jwt")//.decode('UTF-8');
       this.token = token
-      let decoded = await VueJwtDecode.decode(token);
+      let utilizador = JSON.parse(localStorage.getItem("utilizador"))
       this.idUtilizador = this.$route.params.id
       // ir buscar à sessão
       this.srcImage = host+'/images/' + this.idUtilizador
-      this._id = decoded.user.utilizador.idUtilizador
+      this._id = utilizador.idUtilizador
       let response = await axios.get(h + "utilizadores/" + this.idUtilizador + "?token=" + this.token )//
       console.log(response.data)
       this.user = response.data
@@ -466,8 +466,10 @@ export default {
     },
     uploadImage: async function(){
       let formData = new FormData();
+      console.log(this.files)
       formData.append("ficheiro", this.files);
-      await axios.post(h + "ficheiros/fotoPerfil?token=" + this.token,
+      formData.append("idUtilizador", this._id)
+      await axios.post(h + "ficheiros/fotoPerfil",
           formData,
           {
             headers: {
@@ -475,6 +477,7 @@ export default {
             }
           }
         )
+      this.$router.go(0)
     },
     processFile(event) {
     this.files = event.target.files[0]
@@ -486,3 +489,9 @@ export default {
 }
 </script>
 
+
+<style>
+.image-upload>input {
+  display: none;
+}
+</style>

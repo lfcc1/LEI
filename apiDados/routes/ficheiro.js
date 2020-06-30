@@ -63,6 +63,7 @@ router.post('/fotoPerfil', upload.single('ficheiro'), function(req, res){
 
 // Inserir um novo ficheiro
     router.post('/', upload.array('ficheiro'), function(req, res){
+      console.log(req.files)
       addFiles(req.files, req.body)
       .then(dados => res.jsonp(dados))
       .catch(erro => res.status(500).jsonp(erro))

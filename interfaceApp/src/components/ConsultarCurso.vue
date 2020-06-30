@@ -66,11 +66,10 @@
                             :items="this.estudantes"
                             :footer-props="footer_props"
                             :search="filtrar"
-                            @click:row="apresentaUser"
                             
                         >
                             <template v-slot:item="row">
-                        <tr>
+                        <tr @click="apresentaUser(row.item)">
                             <td> <v-avatar
                                     slot="offset"
                                     class="mx-auto d-block"
@@ -292,8 +291,6 @@ export default {
             }
         },
         apresentaUser: function(item){
-            console.log(item)
-            alert(item)
             this.$router.push({ name: 'UserProfile', params: {id: item.id }})
         }
     }

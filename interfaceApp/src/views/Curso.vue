@@ -26,11 +26,11 @@ export default {
   created: async function() {
     try {
       // ir á sessão
-      let token = localStorage.getItem("jwt")//.decode('UTF-8');
-      let decoded = await VueJwtDecode.decode(token);
-      console.log(decoded.user)
-      var idCurso = decoded.user.utilizador.idCurso
-      let response = await axios.get(h + "cursos/" + idCurso + "?token=" + token )
+      this.token = localStorage.getItem("jwt")//.decode('UTF-8');
+      console.log(this.token)
+      let utilizador = JSON.parse(localStorage.getItem("utilizador"))
+      var idCurso = utilizador.idCurso
+      let response = await axios.get(h + "cursos/" + idCurso + "?token=" + this.token )
       this.item = response.data
       this.item.idCurso = idCurso
       this.ready = true

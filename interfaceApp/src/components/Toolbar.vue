@@ -4,7 +4,7 @@
     app
     flat
     prominent
-    style="background: #900000;"
+    :color= color
     height="40%"
       clipped-right
   >
@@ -34,6 +34,7 @@
     <v-spacer />
 
    <v-text-field
+      v-if="isLogged()"
       label="Procurar..."
       color="white"
       v-model="searchInput"
@@ -58,7 +59,7 @@
     </v-text-field>
 
 
-    <v-toolbar-items>
+    <v-toolbar-items v-if="isLogged()">
       <v-flex
         align-center
         layout
@@ -114,13 +115,9 @@
         >
           <v-icon color="white">mdi-account</v-icon>
         </router-link>
-                <router-link
-          v-ripple
-          class="toolbar-items"
-          to="/logout"
-        >
-          <v-icon color="white">mdi-logout</v-icon>
-        </router-link>
+        
+          <v-icon @click="logout()" color="white">mdi-logout</v-icon>
+        
       </v-flex>
     </v-toolbar-items>
   </v-app-bar>
@@ -143,7 +140,8 @@ export default {
     ],
     searchInput :"",
     title: null,
-    responsive: false
+    responsive: false,
+    color: "#900000"
   }),
 
   watch: {
@@ -169,6 +167,14 @@ export default {
     onClick () {
       //
     },
+    logout: function(){
+      if(confirm("De certeza que pretende terminar sessão?")){
+        this.$emit('refreshLogout')
+        this.color = "#900001"
+        localStorage.removeItem("jwt");
+        this.$router.push("/");
+      }
+    },
     search (){
      this.$router.push({ name: 'Resultados da Pesquisa',params: {titulo: this.searchInput} })
     },
@@ -177,6 +183,13 @@ export default {
         this.responsive = true
       } else {
         this.responsive = false
+      }
+    },
+    isLogged: function(){
+      if (localStorage.getItem("jwt") == null) {
+      return false
+      } else {
+      return true
       }
     }
   }

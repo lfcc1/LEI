@@ -58,8 +58,9 @@ export default {
       // ir à sessão
       let token = localStorage.getItem("jwt")//.decode('UTF-8');
       this.token = token
-      let decoded = await VueJwtDecode.decode(token);
-      this.idUtilizador = decoded.user.utilizador.idUtilizador
+      let utilizador = JSON.parse(localStorage.getItem("utilizador"))
+      this.idUtilizador = utilizador.idUtilizador
+      this.nomeUtilizador = utilizador.nome
       let response = await axios.get(h + "utilizadores/" + this.idUtilizador + "/pedidosamizade?token=" + this.token )
       this.pedidosAmizade = response.data
       this.updatePedidos()
@@ -83,7 +84,7 @@ export default {
               },
               {
                 idUtilizador: this.idUtilizador,
-                nome: "Joni Boy"
+                nome: this.nomeUtilizador
               }
             ],
             ativo: true,

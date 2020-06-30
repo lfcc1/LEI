@@ -84,9 +84,9 @@ export default {
       // ir á sessão
       let token = localStorage.getItem("jwt")//.decode('UTF-8');
       this.token = token
-      let decoded = await VueJwtDecode.decode(token);
-      this.idUtilizador = decoded.user.utilizador.idUtilizador
-      this.idCurso = decoded.user.utilizador.idCurso
+      let utilizador = JSON.parse(localStorage.getItem("utilizador"))
+      this.idUtilizador = utilizador.idUtilizador
+      this.idCurso = utilizador.idCurso
       await this.getEventos()
       this.ready = true
       this.eventoAtual = this.eventosParcerias[0]
@@ -119,9 +119,7 @@ export default {
           }
           if(!result) this.eventosParcerias.push(neweventosParcerias[i])
         }
-        await this.updateEventos()
-
-        }
+      }
       ,
       addParticipante: async function(idEvento){
          await axios.put(h + 'utilizadores/evento?token=' + this.token, {idEvento: idEvento, idUtilizador: this.idUtilizador} )

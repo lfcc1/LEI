@@ -189,14 +189,14 @@ const ficheiroUrl = require("@/config/hosts").ficheiros
         dialog: false,
         showLikes: false,
         likesAtuais: [],
-        corComentariosIcon: "#900001"
+        corComentariosIcon: "#900001",
+        token: ""
     }},
     created: async function(){
       //ir buscar à sessão 
-      let token = localStorage.getItem("jwt")//.decode('UTF-8');
-      let decoded = await VueJwtDecode.decode(token);
-      console.log(decoded.user)
-      this.idUtilizador = decoded.user.utilizador.idUtilizador
+      this.token = localStorage.getItem("jwt")//.decode('UTF-8');
+      let utilizador = JSON.parse(localStorage.getItem("utilizador"))
+      this.idUtilizador = utilizador.idUtilizador
       this.publicacoesAtuais = this.publicacoes
       this.updatePubs()
     },

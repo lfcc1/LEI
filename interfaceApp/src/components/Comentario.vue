@@ -66,8 +66,8 @@ export default {
       // ir buscar à sessão
       let token = localStorage.getItem("jwt")//.decode('UTF-8');
       this.token = token
-      let decoded = await VueJwtDecode.decode(token);
-      this.idUtilizador = decoded.user.utilizador.idUtilizador
+      let utilizador = JSON.parse(localStorage.getItem("utilizador"))
+      this.idUtilizador = utilizador.idUtilizador
       
       this.comentariosAtuais = this.comentarios
       this.updateComentarios()

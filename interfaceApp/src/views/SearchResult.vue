@@ -173,9 +173,9 @@ const ficheiroUrl = require("@/config/hosts").ficheiros
       try{
       let token = localStorage.getItem("jwt")//.decode('UTF-8');
       this.token = token
-      let decoded = await VueJwtDecode.decode(token);
+      let utilizador = JSON.parse(localStorage.getItem("utilizador"))
       var titulo = this.$route.params.titulo
-      this.idUtilizador = decoded.user.utilizador.idUtilizador
+      this.idUtilizador = utilizador.idUtilizador
       let res = await axios.get(h + "publicacoes/search/"+titulo + "?token=" + this.token)
       console.log(res)
       this.publicacoesAtuais = res.data

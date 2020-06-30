@@ -5,7 +5,7 @@
         name="fade"
         mode="out-in"
       >
-        <router-view :key="$route.fullPath" @refreshConversas="refreshConversas"/>
+        <router-view :key="$route.fullPath" @refreshConversas="refreshConversas" @refreshLogout="refreshLogout" />
       </transition>
     </div>
   </v-content>
@@ -21,6 +21,9 @@ export default {
   methods:{
      refreshConversas :function(){
        this.$emit('refreshConversas')
+     },
+      refreshLogout :function(){
+       this.$emit('refreshLogout')
      },
   }
 }
