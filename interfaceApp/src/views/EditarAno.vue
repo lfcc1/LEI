@@ -58,7 +58,7 @@ export default {
     item: {},
     cadeiras: [],
     header_cadeiras: [
-      {text: "Identificador do Ano", sortable: true, value: 'id', class: 'subtitle-1'},
+      {text: "Identificador da Cadeira", sortable: true, value: 'id', class: 'subtitle-1'},
       {text: "Designação", value: 'designacao', class: 'subtitle-1'},
       {text: "Operações", class: 'subtitle-1'},
     ],

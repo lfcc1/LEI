@@ -98,6 +98,20 @@ Cadeira.getResponsaveisFromCadeira = async function(idCadeira){
 }
 
 
+Cadeira.getPastasFromCadeira = async function(idCadeira){
+
+    var query = `
+    select (STRAFTER(STR(?pasta), 'UMbook#') as ?idPasta) ?nome
+        where{
+            c:${idCadeira} c:possuiPasta ?pasta .
+            ?pasta c:nome ?nome .
+        }
+    `
+
+    return Connection.makeQuery(query)
+}
+
+
 Cadeira.getFicheirosFromCadeira = async function(idCadeira){
 
     var query = `
@@ -110,6 +124,38 @@ Cadeira.getFicheirosFromCadeira = async function(idCadeira){
     `
     
     return Connection.makeQuery(query)
+}
+
+
+Cadeira.getFicheirosFromPasta = async function(idPasta){
+
+    var query = `
+        select (STRAFTER(STR(?ficheiro), 'UMbook#') as ?idFicheiro) ?data ?nome where{
+            ?ficheiro a c:Ficheiro .
+            ?ficheiro c:guardadoEm c:${idPasta} .
+            ?ficheiro c:nome ?nome .
+            ?ficheiro c:data ?data .
+        } Order by DESC(?data)
+    `
+    
+    return Connection.makeQuery(query)
+}
+
+
+Cadeira.editarCadeira = async function(idCadeira, cadeira){
+    var query = `
+    delete{
+        c:${idCadeira} c:nome ?designacao .
+    }
+    insert{
+        c:${idCadeira} c:nome "${cadeira.designacao}" .
+    }
+    where{
+        c:${idCadeira} c:nome ?designacao .
+    }
+    `
+
+    return Connection.makePost(query)
 }
 
 
@@ -128,6 +174,39 @@ Cadeira.insertCadeira = async function(cadeira){
     await Connection.makePost(query)
     return {id : id}
 
+}
+
+
+
+Cadeira.insertPasta = async function(pasta){
+    var nome = pasta.nome
+    var id = pasta.idCadeira + "_" + nome.replace(/ /g,"_")
+    var query = `
+    insert data {
+        c:${id} a owl:NamedIndividual ,
+                        c:Pasta .
+        c:${id} c:nome "${pasta.nome}" . 
+        c:${pasta.idCadeira} c:possuiPasta c:${id} .
+    }
+    `
+
+    await Connection.makePost(query)
+    return {id : id}
+
+}
+
+
+Cadeira.deletePasta = async function(idPasta){
+    var query = `
+    delete{
+        c:${idPasta} ?p ?a .
+    }
+    where{
+        c:${idPasta} ?p ?a .
+    }
+    `
+
+    return Connection.makePost(query)
 }
 
 Cadeira.deleteCadeira = async function(idCadeira){

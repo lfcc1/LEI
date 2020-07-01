@@ -74,6 +74,7 @@
         try {
         let response = await axios.get(h + "cursos/")
         var item = response.data
+        console.log(item)
         for(var i = 0; i < item.length ; i++){
             this.cursos.push(item[i].curso)
         }

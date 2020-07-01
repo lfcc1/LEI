@@ -306,7 +306,7 @@ export default {
                 alert(this.rota + this.pai)
                 this.apresentaAno(this.pai)
             }
-            this.pubs = false
+            this.pubs = true
         },
         apresentaUser: function(item){
             this.$router.push({ name: 'UserProfile', params: {id: item.id }})

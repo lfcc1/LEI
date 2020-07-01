@@ -75,7 +75,9 @@ router.put('/:idUtilizador/amigo', passport.authenticate('jwt', {session: false}
 // Insere um novo utilizador
 router.post('/', function(req, res, next){
   Utilizador.insertUtilizador(req.body)
-    .then(dados => res.jsonp(dados))
+    .then(dados =>{ 
+      res.jsonp(dados)
+    })
     .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
 })
 

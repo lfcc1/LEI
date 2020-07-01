@@ -13,6 +13,7 @@ import PedidosAmizade from '../views/PedidosAmizade.vue'
 import GestaoCurso from '../views/GestaoCurso.vue'
 import EditarCurso from '../views/EditarCurso.vue'
 import EditarAno from '../views/EditarAno.vue'
+import EditarCadeira from '../views/EditarCadeira.vue'
 import SearchResult from '../views/SearchResult.vue'
 import GestaoUsers from '../views/GestaoUsers.vue'
 import SearchUsers from '../views/SearchUsers.vue'
@@ -107,6 +108,14 @@ const routes = [
     name: 'Editar Ano',
     path: '/editarano/:id',
     component: EditarAno,
+    meta:{
+      requiresAuth: true
+    }
+  },
+  {
+    name: 'Editar Cadeira',
+    path: '/editarcadeira/:id',
+    component: EditarCadeira,
     meta:{
       requiresAuth: true
     }

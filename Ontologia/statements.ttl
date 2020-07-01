@@ -13,19 +13,15 @@
 
 <http://www.semanticweb.org/filip/ontologies/2020/1/UMbook> a owl:Ontology .
 
+:armezenadoEm a owl:AnnotationProperty .
+
 :PussuiFicheiro a owl:ObjectProperty .
 
 :guardadoEm a owl:ObjectProperty .
 
-:Ano a owl:Class .
-
 :Cadeira a owl:Class .
 
-:Curso a owl:Class .
-
-:Grupo a owl:Class .
-
-:Mensagem a owl:Class .
+:Pasta a owl:Class .
 
 :Publicacao a owl:Class .
 
@@ -36,6 +32,10 @@
 :éAdministradoPor a owl:ObjectProperty .
 
 :Admin a owl:Class .
+
+:Ano a owl:Class .
+
+:Curso a owl:Class .
 
 :adoradaPor a owl:ObjectProperty .
 
@@ -60,6 +60,8 @@
 :envia a owl:ObjectProperty .
 
 :éEnviada a owl:ObjectProperty .
+
+:Mensagem a owl:Class .
 
 :fazParteCurso a owl:ObjectProperty .
 
@@ -96,6 +98,10 @@
 :pertence a owl:ObjectProperty .
 
 :pussuiMensagem a owl:ObjectProperty .
+
+:possuiPasta a owl:ObjectProperty .
+
+:éPossuidoPor a owl:ObjectProperty .
 
 :publica a owl:ObjectProperty .
 
@@ -151,17 +157,27 @@
 
 :Notificacao a owl:Class .
 
+:AEbbZHQ2lXZw2GKZjXXFE a :Ficheiro, owl:NamedIndividual .
+
 :Algebra_Linear a :Cadeira, owl:NamedIndividual .
+
+:Ae3bjpLBiFIwU9pGMwqdh a :Ficheiro, owl:NamedIndividual .
 
 :Analise a :Cadeira, owl:NamedIndividual .
 
 :Arquitetura_Computadores a :Cadeira, owl:NamedIndividual .
+
+:BNXd5qRM-WEQr7VfDKb1s a :Ficheiro, owl:NamedIndividual .
+
+:BVXi04DYfsmLs1GtaJYOZ a :Ficheiro, owl:NamedIndividual .
 
 :Calculo a :Cadeira, owl:NamedIndividual .
 
 :Calculo_Programas a :Cadeira, owl:NamedIndividual .
 
 :Comunicacao_Dados a :Cadeira, owl:NamedIndividual .
+
+:DgIdSs-d-9iEViQ6hjlTx a :Ficheiro, owl:NamedIndividual .
 
 :EES a :Cadeira, owl:NamedIndividual .
 
@@ -171,7 +187,21 @@
 
 :Estatistica_Aplicada a :Cadeira, owl:NamedIndividual .
 
+:F8ePnUq0srtKazkeH1q5T a :Ficheiro, owl:NamedIndividual .
+
+:GMOtfTg0GkKOCzekTq1WY a :Ficheiro, owl:NamedIndividual .
+
+:HRvlfMMwLkV6GXfkS4aPs a :Ficheiro, owl:NamedIndividual .
+
+:HuVOyWv1jcgRBIeaij2wh a :Ficheiro, owl:NamedIndividual .
+
+:IG4ok43qp4_7rN9NsLjFj a :Ficheiro, owl:NamedIndividual .
+
 :ISD a :Cadeira, owl:NamedIndividual .
+
+:K0DJsdW-TQ--BQvMTO2vF a :Ficheiro, owl:NamedIndividual .
+
+:K2y6TCRgna4SOKlaASw93 a :Ficheiro, owl:NamedIndividual .
 
 :LI1 a :Cadeira, owl:NamedIndividual .
 
@@ -181,11 +211,23 @@
 
 :Logica a :Cadeira, owl:NamedIndividual .
 
+:LzythN_y0ye86Na3Vbp-k a :Ficheiro, owl:NamedIndividual .
+
+:MHbADLa4yTA_ByInA_E6Q a :Ficheiro, owl:NamedIndividual .
+
 :MIEI a :Curso, owl:NamedIndividual .
 
 :Primeiro_Ano a :Ano, owl:NamedIndividual .
 
 :Segundo_Ano a :Ano, owl:NamedIndividual .
+
+:NB1PhxtKPjCzIT_l1uaAH a :Ficheiro, owl:NamedIndividual .
+
+:NJeGYctwKTl-UKuPG6oSQ a :Ficheiro, owl:NamedIndividual .
+
+:On5Z8z0f2Y0rjszE83CrM a :Ficheiro, owl:NamedIndividual .
+
+:P3fLVuwU3M8U_tcK6l8hS a :Ficheiro, owl:NamedIndividual .
 
 :POO a :Cadeira, owl:NamedIndividual .
 
@@ -199,14 +241,46 @@
 
 :TMD a :Cadeira, owl:NamedIndividual .
 
+:Pt-jDdEScRtR-WbVNyXqK a :Ficheiro, owl:NamedIndividual .
+
+:Q_exm87PQOmH-PNnVqOfa a :Ficheiro, owl:NamedIndividual .
+
+:Qi1NaUrZ4WFKpbyM27Jh3 a :Ficheiro, owl:NamedIndividual .
+
+:Qjlx5pA2yXOX-XVJWYbLm a :Ficheiro, owl:NamedIndividual .
+
 :Sistemas_Operativos a :Cadeira, owl:NamedIndividual .
 
 <http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#Algortimos&Complexidade>
   a :Cadeira, owl:NamedIndividual .
 
+:UERiPvG4yWj1d22FbSQFH a :Ficheiro, owl:NamedIndividual .
+
 :UM a :Curso, owl:NamedIndividual .
 
+:VvVVKTx9QSZhrMdiVpO-X a :Ficheiro, owl:NamedIndividual .
+
+:WP2ubDCB6c6svClJQ9ncm a :Ficheiro, owl:NamedIndividual .
+
+:WwXub2sOUzGC-n10qyyAT a :Ficheiro, owl:NamedIndividual .
+
+:XaJ5L85JMclS3p7wXx0pu a :Ficheiro, owl:NamedIndividual .
+
+:Yhl6Kf_CLuaclkE91MHfe a :Ficheiro, owl:NamedIndividual .
+
+:Zyf-0ZLwsPSYsAbeY47_f a :Ficheiro, owl:NamedIndividual .
+
+:_4JceVJj9hHCSvDe11RGO a :Ficheiro, owl:NamedIndividual .
+
+:_LCcjj8gIyceelPZ90cDU a :Ficheiro, owl:NamedIndividual .
+
+:_tLXn4r4v4GkDoBK8baxZ a :Ficheiro, owl:NamedIndividual .
+
+:aGEFJiRtiGRiJPTdRswOO a :Ficheiro, owl:NamedIndividual .
+
 :admin01 a :Admin, owl:NamedIndividual .
+
+:c0TjLhClMxmbfcAdZjjBk a :Ficheiro, owl:NamedIndividual .
 
 :comentario001 a :Comentario, owl:NamedIndividual .
 
@@ -242,6 +316,12 @@
 <http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#flipcunha@gmail.com> a
     :Aluno, :Responsavel, owl:NamedIndividual .
 
+:dCgUh7ysfo3tMbXbs_nFh a :Ficheiro, owl:NamedIndividual .
+
+:dGioxMh2xv-8etw2L0FRO a :Ficheiro, owl:NamedIndividual .
+
+:eSxiOCmIK_GapFC5py8ON a :Ficheiro, owl:NamedIndividual .
+
 :evento001 a :Evento, owl:NamedIndividual .
 
 :evento002 a :Evento, owl:NamedIndividual .
@@ -252,157 +332,166 @@
 
 :ficheiro002 a :Ficheiro, owl:NamedIndividual .
 
-<http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#olmofred@hotmail.com> a
-    :Aluno, owl:NamedIndividual .
+:hFGecztJQDwmFchFr9Wk- a :Ficheiro, owl:NamedIndividual .
+
+:hMBJWrasCBr93ChaEFKJE a :Ficheiro, owl:NamedIndividual .
+
+:jZKkTL7x_f0LZbom04D4r a :Ficheiro, owl:NamedIndividual .
+
+:kcZJnOqcSN8IPbRZHaSh5 a :Ficheiro, owl:NamedIndividual .
+
+:mZuf8LYSDB0gJyQMl6zuK a :Ficheiro, owl:NamedIndividual .
+
+:nagYznx_ScyyeKauB1pbY a :Ficheiro, owl:NamedIndividual .
+
+:po3kxnNlVE-X6YR9V9W4V a :Ficheiro, owl:NamedIndividual .
+
+:q7-5ZJZeS2Ii4Sh-aeTom a :Ficheiro, owl:NamedIndividual .
+
+:qV_4kR4A7rOh8bR0R9HCz a :Ficheiro, owl:NamedIndividual .
+
+:rPyS68NGztUgWg36CyMzK a :Ficheiro, owl:NamedIndividual .
+
+:ruL3H5W6jzUNr7p9-YNkT a :Ficheiro, owl:NamedIndividual .
+
+:sP5EAhmFoki469YgHtzjr a :Ficheiro, owl:NamedIndividual .
+
+:spmEnlqTCl2uXodKuc475 a :Ficheiro, owl:NamedIndividual .
+
+:undefined a owl:NamedIndividual .
+
+:xh-bJT1BUY0c-7nRCWSIk a :Ficheiro, owl:NamedIndividual .
+
+:xny3dSMejgnlB95bJ29PQ a :Ficheiro, owl:NamedIndividual .
+
+:y0g2PsoBn01RBflGYhq5N a :Ficheiro, owl:NamedIndividual .
+
+:yR3NXq0YQyvII4zJiJkxf a :Ficheiro, owl:NamedIndividual .
+
+:ygRau3yyV0Su0APWrEfAe a :Ficheiro, owl:NamedIndividual .
+
+:zEh_7EiUb8vTcCFLz7xfq a :Ficheiro, owl:NamedIndividual .
+
+:zxdEZs0fzCBO_mG0rkk5i a :Ficheiro, owl:NamedIndividual .
+
+:0DNljiFywjFfXDjkVG3ko a :Ficheiro, owl:NamedIndividual .
+
+:08xSCa2jNkByHbTaQQeQx a :Ficheiro, owl:NamedIndividual .
+
+:1m187NO9Jx9IArf7IH_-K a :Ficheiro, owl:NamedIndividual .
+
+:2q8LS2-bOEjmIS8PMJLQ8 a :Ficheiro, owl:NamedIndividual .
+
+:48kTci_EK9kHmMYvIi-Rg a :Ficheiro, owl:NamedIndividual .
+
+:5xDjyT1fjtvhzipJ55MQf a :Ficheiro, owl:NamedIndividual .
+
+:8MkE1g1k87d8L8SavO8-J a :Ficheiro, owl:NamedIndividual .
+
+:8SP0qjE1ATydgJFT9Fat- a :Ficheiro, owl:NamedIndividual .
+
+:8pYj0Pml8Hsdz_TVPqOoH a :Ficheiro, owl:NamedIndividual .
+
+:84RFhUO8ZIg2j8sWsMtne a :Ficheiro, owl:NamedIndividual .
 
 <http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#gervasio@uminho.pt> a :Aluno,
     owl:NamedIndividual .
 
-:Qjlx5pA2yXOX-XVJWYbLm a :Ficheiro, owl:NamedIndividual .
+<http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#olmofred@hotmail.com> a
+    :Aluno, owl:NamedIndividual .
 
-:po3kxnNlVE-X6YR9V9W4V a :Ficheiro, owl:NamedIndividual .
+<http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#Filipe-Cunha1@hotmail.com>
+  a :Aluno, owl:NamedIndividual .
 
-:kcZJnOqcSN8IPbRZHaSh5 a :Ficheiro, owl:NamedIndividual .
+:Algebra_Linear_Testes a :Pasta, owl:NamedIndividual .
 
-:AEbbZHQ2lXZw2GKZjXXFE a :Ficheiro, owl:NamedIndividual .
+:Algebra_Linear_Fichas a :Pasta, owl:NamedIndividual .
 
-:rPyS68NGztUgWg36CyMzK a :Ficheiro, owl:NamedIndividual .
+:Algebra_Linear_Material_de_Apoio a :Pasta, owl:NamedIndividual .
 
-:ygRau3yyV0Su0APWrEfAe a :Ficheiro, owl:NamedIndividual .
+:Analise_Testes a :Pasta, owl:NamedIndividual .
 
-:08xSCa2jNkByHbTaQQeQx a :Ficheiro, owl:NamedIndividual .
+:Analise_Fichas a :Pasta, owl:NamedIndividual .
 
-:jZKkTL7x_f0LZbom04D4r a :Ficheiro, owl:NamedIndividual .
+:Analise_Material_de_Apoio a :Pasta, owl:NamedIndividual .
 
-:Zyf-0ZLwsPSYsAbeY47_f a :Ficheiro, owl:NamedIndividual .
+:Calculo_Material_de_Apoio a :Pasta, owl:NamedIndividual .
 
-:Ae3bjpLBiFIwU9pGMwqdh a :Ficheiro, owl:NamedIndividual .
+:EES_Material_de_Apoio a :Pasta, owl:NamedIndividual .
 
-:NB1PhxtKPjCzIT_l1uaAH a :Ficheiro, owl:NamedIndividual .
+:LI1_Material_de_Apoio a :Pasta, owl:NamedIndividual .
 
-:Yhl6Kf_CLuaclkE91MHfe a :Ficheiro, owl:NamedIndividual .
+:LI2_Material_de_Apoio a :Pasta, owl:NamedIndividual .
 
-:c0TjLhClMxmbfcAdZjjBk a :Ficheiro, owl:NamedIndividual .
+:Logica_Material_de_Apoio a :Pasta, owl:NamedIndividual .
 
-:F8ePnUq0srtKazkeH1q5T a :Ficheiro, owl:NamedIndividual .
+:Programacao_Funcional_Material_de_Apoio a :Pasta, owl:NamedIndividual .
 
-:On5Z8z0f2Y0rjszE83CrM a :Ficheiro, owl:NamedIndividual .
+:Programacao_Imperativa_Material_de_Apoio a :Pasta, owl:NamedIndividual .
 
-:zxdEZs0fzCBO_mG0rkk5i a :Ficheiro, owl:NamedIndividual .
+:Sistemas_Computacao_Material_de_Apoio a :Pasta, owl:NamedIndividual .
 
-:K2y6TCRgna4SOKlaASw93 a :Ficheiro, owl:NamedIndividual .
+:TFM_Material_de_Apoio a :Pasta, owl:NamedIndividual .
 
-:hFGecztJQDwmFchFr9Wk- a :Ficheiro, owl:NamedIndividual .
+:TMD_Material_de_Apoio a :Pasta, owl:NamedIndividual .
 
-:0DNljiFywjFfXDjkVG3ko a :Ficheiro, owl:NamedIndividual .
+:TMD_Fichas a :Pasta, owl:NamedIndividual .
 
-:_LCcjj8gIyceelPZ90cDU a :Ficheiro, owl:NamedIndividual .
+:TMD_Testes a :Pasta, owl:NamedIndividual .
 
-:UERiPvG4yWj1d22FbSQFH a :Ficheiro, owl:NamedIndividual .
+:Calculo_Fichas a :Pasta, owl:NamedIndividual .
 
-:q7-5ZJZeS2Ii4Sh-aeTom a :Ficheiro, owl:NamedIndividual .
+:Calculo_Testes a :Pasta, owl:NamedIndividual .
 
-:dCgUh7ysfo3tMbXbs_nFh a :Ficheiro, owl:NamedIndividual .
+:EES_Testes a :Pasta, owl:NamedIndividual .
 
-:dGioxMh2xv-8etw2L0FRO a :Ficheiro, owl:NamedIndividual .
+:EES_Fichas a :Pasta, owl:NamedIndividual .
 
-:8SP0qjE1ATydgJFT9Fat- a :Ficheiro, owl:NamedIndividual .
+:LI1_Testes a :Pasta, owl:NamedIndividual .
 
-:2q8LS2-bOEjmIS8PMJLQ8 a :Ficheiro, owl:NamedIndividual .
+:LI1_Fichas a :Pasta, owl:NamedIndividual .
 
-:aGEFJiRtiGRiJPTdRswOO a :Ficheiro, owl:NamedIndividual .
+:LI2_Testes a :Pasta, owl:NamedIndividual .
 
-:mZuf8LYSDB0gJyQMl6zuK a :Ficheiro, owl:NamedIndividual .
+:LI2_Fichas a :Pasta, owl:NamedIndividual .
 
-:BNXd5qRM-WEQr7VfDKb1s a :Ficheiro, owl:NamedIndividual .
+:Logica_Testes a :Pasta, owl:NamedIndividual .
 
-:IG4ok43qp4_7rN9NsLjFj a :Ficheiro, owl:NamedIndividual .
+:Logica_Fichas a :Pasta, owl:NamedIndividual .
 
-:hMBJWrasCBr93ChaEFKJE a :Ficheiro, owl:NamedIndividual .
+:Programacao_Funcional_Testes a :Pasta, owl:NamedIndividual .
 
-:8pYj0Pml8Hsdz_TVPqOoH a :Ficheiro, owl:NamedIndividual .
+:Programacao_Funcional_Fichas a :Pasta, owl:NamedIndividual .
 
-:HuVOyWv1jcgRBIeaij2wh a :Ficheiro, owl:NamedIndividual .
+:Programacao_Imperativa_Testes a :Pasta, owl:NamedIndividual .
 
-:zEh_7EiUb8vTcCFLz7xfq a :Ficheiro, owl:NamedIndividual .
+:Programacao_Imperativa_Fichas a :Pasta, owl:NamedIndividual .
 
-:GMOtfTg0GkKOCzekTq1WY a :Ficheiro, owl:NamedIndividual .
+:Sistemas_Computacao_Testes a :Pasta, owl:NamedIndividual .
 
-:nagYznx_ScyyeKauB1pbY a :Ficheiro, owl:NamedIndividual .
+:Sistemas_Computacao_Fichas a :Pasta, owl:NamedIndividual .
 
-:48kTci_EK9kHmMYvIi-Rg a :Ficheiro, owl:NamedIndividual .
+:TFM_Testes a :Pasta, owl:NamedIndividual .
 
-:P3fLVuwU3M8U_tcK6l8hS a :Ficheiro, owl:NamedIndividual .
+:TFM_Fichas a :Pasta, owl:NamedIndividual .
 
-:qV_4kR4A7rOh8bR0R9HCz a :Ficheiro, owl:NamedIndividual .
+:zDDZNWacArnLTd2amcvhH a :Ficheiro, owl:NamedIndividual .
 
-:MHbADLa4yTA_ByInA_E6Q a :Ficheiro, owl:NamedIndividual .
+:3g-jNODh7VV_GJypwlyBv a :Ficheiro, owl:NamedIndividual .
 
-:_tLXn4r4v4GkDoBK8baxZ a :Ficheiro, owl:NamedIndividual .
-
-:WP2ubDCB6c6svClJQ9ncm a :Ficheiro, owl:NamedIndividual .
-
-:BVXi04DYfsmLs1GtaJYOZ a :Ficheiro, owl:NamedIndividual .
-
-:Pt-jDdEScRtR-WbVNyXqK a :Ficheiro, owl:NamedIndividual .
-
-:eSxiOCmIK_GapFC5py8ON a :Ficheiro, owl:NamedIndividual .
-
-:5xDjyT1fjtvhzipJ55MQf a :Ficheiro, owl:NamedIndividual .
-
-:84RFhUO8ZIg2j8sWsMtne a :Ficheiro, owl:NamedIndividual .
-
-:sP5EAhmFoki469YgHtzjr a :Ficheiro, owl:NamedIndividual .
-
-:Qi1NaUrZ4WFKpbyM27Jh3 a :Ficheiro, owl:NamedIndividual .
-
-:xny3dSMejgnlB95bJ29PQ a :Ficheiro, owl:NamedIndividual .
-
-:1m187NO9Jx9IArf7IH_-K a :Ficheiro, owl:NamedIndividual .
-
-:HRvlfMMwLkV6GXfkS4aPs a :Ficheiro, owl:NamedIndividual .
-
-:DgIdSs-d-9iEViQ6hjlTx a :Ficheiro, owl:NamedIndividual .
-
-:K0DJsdW-TQ--BQvMTO2vF a :Ficheiro, owl:NamedIndividual .
-
-:ruL3H5W6jzUNr7p9-YNkT a :Ficheiro, owl:NamedIndividual .
-
-:Q_exm87PQOmH-PNnVqOfa a :Ficheiro, owl:NamedIndividual .
-
-:VvVVKTx9QSZhrMdiVpO-X a :Ficheiro, owl:NamedIndividual .
-
-:yR3NXq0YQyvII4zJiJkxf a :Ficheiro, owl:NamedIndividual .
-
-:XaJ5L85JMclS3p7wXx0pu a :Ficheiro, owl:NamedIndividual .
-
-:8MkE1g1k87d8L8SavO8-J a :Ficheiro, owl:NamedIndividual .
-
-:_4JceVJj9hHCSvDe11RGO a :Ficheiro, owl:NamedIndividual .
-
-:WwXub2sOUzGC-n10qyyAT a :Ficheiro, owl:NamedIndividual .
-
-:y0g2PsoBn01RBflGYhq5N a :Ficheiro, owl:NamedIndividual .
-
-:spmEnlqTCl2uXodKuc475 a :Ficheiro, owl:NamedIndividual .
-
-:LzythN_y0ye86Na3Vbp-k a :Ficheiro, owl:NamedIndividual .
-
-:NJeGYctwKTl-UKuPG6oSQ a :Ficheiro, owl:NamedIndividual .
-
-:xh-bJT1BUY0c-7nRCWSIk a :Ficheiro, owl:NamedIndividual .
+:vS0EYYOO5eMnM3xNq8Gow a :Ficheiro, owl:NamedIndividual .
 
 :path rdfs:domain :Ficheiro;
   rdfs:subPropertyOf owl:topDataProperty .
 
-:PussuiFicheiro rdfs:domain :Ano, :Cadeira, :Curso, :Grupo, :Mensagem, :Publicacao;
+:PussuiFicheiro rdfs:domain :Cadeira, :Pasta, :Publicacao;
   rdfs:range :Ficheiro .
 
 :guardadoEm rdfs:domain :Ficheiro;
   rdfs:range :Mensagem, :Publicacao .
 
 :administra rdfs:domain :Admin;
-  rdfs:range :Ano, :Cadeira, :Curso, :Grupo .
+  rdfs:range :Ano, :Cadeira, :Curso .
 
 :gostaDe rdfs:domain :Admin, :Aluno, :Responsavel;
   rdfs:range :Comentario, :Publicacao .
@@ -429,7 +518,7 @@
   owl:inverseOf :pedidoAmizadeFeitoPor .
 
 :frequenta rdfs:domain :Admin, :Aluno, :Responsavel;
-  rdfs:range :Ano, :Cadeira, :Curso, :Grupo;
+  rdfs:range :Ano, :Cadeira, :Curso;
   owl:inverseOf :éFrequentadoPor .
 
 :gere rdfs:domain :Responsavel;
@@ -451,11 +540,15 @@
   rdfs:range :Conversa;
   owl:inverseOf :pussuiMensagem .
 
+:possuiPasta rdfs:domain :Cadeira, :Pasta;
+  rdfs:range :Pasta;
+  owl:inverseOf :éPossuidoPor .
+
 :publica rdfs:domain :Admin, :Aluno, :Responsavel;
   rdfs:range :Publicacao;
   owl:inverseOf :éPublicadoPor .
 
-:pussuiPublicacao rdfs:domain :Ano, :Cadeira, :Curso, :Grupo;
+:pussuiPublicacao rdfs:domain :Ano, :Cadeira, :Curso;
   rdfs:range :Publicacao;
   owl:inverseOf :éPublicadaEm .
 
@@ -484,7 +577,7 @@
 
 :gostos rdfs:domain :Comentario, :Publicacao .
 
-:nome rdfs:domain :Admin, :Aluno, :Ano, :Cadeira, :Evento, :Ficheiro, :Responsavel .
+:nome rdfs:domain :Admin, :Aluno, :Ano, :Cadeira, :Evento, :Ficheiro, :Pasta, :Responsavel .
 
 :numAluno rdfs:domain :Admin, :Aluno, :Responsavel .
 
@@ -514,19 +607,153 @@
 
 :temPresenca owl:inverseOf :vai .
 
-:publicacao001 :PussuiFicheiro :ficheiro001;
-  :conteudo "ficheiro";
-  :data "2020-04-13";
-  :éPublicadaEm :ISD;
-  :éPublicadoPor :admin01 .
+:AEbbZHQ2lXZw2GKZjXXFE :armezenadoEm :Algebra_Linear .
+
+:Ae3bjpLBiFIwU9pGMwqdh :armezenadoEm :Algebra_Linear .
+
+:BNXd5qRM-WEQr7VfDKb1s :armezenadoEm :Algebra_Linear .
+
+:BVXi04DYfsmLs1GtaJYOZ :armezenadoEm :Algebra_Linear .
+
+:DgIdSs-d-9iEViQ6hjlTx :armezenadoEm :Algebra_Linear .
+
+:F8ePnUq0srtKazkeH1q5T :armezenadoEm :Algebra_Linear .
+
+:GMOtfTg0GkKOCzekTq1WY :armezenadoEm :Algebra_Linear .
+
+:HRvlfMMwLkV6GXfkS4aPs :armezenadoEm :Algebra_Linear .
+
+:HuVOyWv1jcgRBIeaij2wh :armezenadoEm :Algebra_Linear .
+
+:IG4ok43qp4_7rN9NsLjFj :armezenadoEm :Algebra_Linear .
+
+:K0DJsdW-TQ--BQvMTO2vF :armezenadoEm :Algebra_Linear .
+
+:K2y6TCRgna4SOKlaASw93 :armezenadoEm :Algebra_Linear .
+
+:LzythN_y0ye86Na3Vbp-k :armezenadoEm :Algebra_Linear .
+
+:MHbADLa4yTA_ByInA_E6Q :armezenadoEm :Algebra_Linear .
+
+:NB1PhxtKPjCzIT_l1uaAH :armezenadoEm :Algebra_Linear .
+
+:NJeGYctwKTl-UKuPG6oSQ :armezenadoEm :Algebra_Linear .
+
+:On5Z8z0f2Y0rjszE83CrM :armezenadoEm :Algebra_Linear .
+
+:P3fLVuwU3M8U_tcK6l8hS :armezenadoEm :Algebra_Linear .
+
+:Pt-jDdEScRtR-WbVNyXqK :armezenadoEm :Algebra_Linear .
+
+:Q_exm87PQOmH-PNnVqOfa :armezenadoEm :Algebra_Linear .
+
+:Qi1NaUrZ4WFKpbyM27Jh3 :armezenadoEm :Algebra_Linear .
+
+:Qjlx5pA2yXOX-XVJWYbLm :armezenadoEm :Algebra_Linear .
+
+:UERiPvG4yWj1d22FbSQFH :armezenadoEm :Algebra_Linear .
+
+:VvVVKTx9QSZhrMdiVpO-X :armezenadoEm :Algebra_Linear .
+
+:WP2ubDCB6c6svClJQ9ncm :armezenadoEm :Algebra_Linear .
+
+:WwXub2sOUzGC-n10qyyAT :armezenadoEm :Algebra_Linear .
+
+:XaJ5L85JMclS3p7wXx0pu :armezenadoEm :Algebra_Linear .
+
+:Yhl6Kf_CLuaclkE91MHfe :armezenadoEm :Algebra_Linear .
+
+:Zyf-0ZLwsPSYsAbeY47_f :armezenadoEm :Algebra_Linear .
+
+:_4JceVJj9hHCSvDe11RGO :armezenadoEm :Algebra_Linear .
+
+:_LCcjj8gIyceelPZ90cDU :armezenadoEm :Algebra_Linear .
+
+:_tLXn4r4v4GkDoBK8baxZ :armezenadoEm :Algebra_Linear .
+
+:aGEFJiRtiGRiJPTdRswOO :armezenadoEm :Algebra_Linear .
+
+:c0TjLhClMxmbfcAdZjjBk :armezenadoEm :Algebra_Linear .
+
+:dCgUh7ysfo3tMbXbs_nFh :armezenadoEm :Algebra_Linear .
+
+:dGioxMh2xv-8etw2L0FRO :armezenadoEm :Algebra_Linear .
+
+:eSxiOCmIK_GapFC5py8ON :armezenadoEm :Algebra_Linear .
+
+:hFGecztJQDwmFchFr9Wk- :armezenadoEm :Algebra_Linear .
+
+:hMBJWrasCBr93ChaEFKJE :armezenadoEm :Algebra_Linear .
+
+:jZKkTL7x_f0LZbom04D4r :armezenadoEm :Algebra_Linear .
+
+:kcZJnOqcSN8IPbRZHaSh5 :armezenadoEm :Algebra_Linear .
+
+:mZuf8LYSDB0gJyQMl6zuK :armezenadoEm :Algebra_Linear .
+
+:nagYznx_ScyyeKauB1pbY :armezenadoEm :Algebra_Linear .
+
+:po3kxnNlVE-X6YR9V9W4V :armezenadoEm :Algebra_Linear .
+
+:q7-5ZJZeS2Ii4Sh-aeTom :armezenadoEm :Algebra_Linear .
+
+:qV_4kR4A7rOh8bR0R9HCz :armezenadoEm :Algebra_Linear .
+
+:rPyS68NGztUgWg36CyMzK :armezenadoEm :Algebra_Linear .
+
+:ruL3H5W6jzUNr7p9-YNkT :armezenadoEm :Algebra_Linear .
+
+:sP5EAhmFoki469YgHtzjr :armezenadoEm :Algebra_Linear .
+
+:spmEnlqTCl2uXodKuc475 :armezenadoEm :Algebra_Linear .
+
+:xh-bJT1BUY0c-7nRCWSIk :armezenadoEm :Algebra_Linear .
+
+:xny3dSMejgnlB95bJ29PQ :armezenadoEm :Algebra_Linear .
+
+:y0g2PsoBn01RBflGYhq5N :armezenadoEm :Algebra_Linear .
+
+:yR3NXq0YQyvII4zJiJkxf :armezenadoEm :Algebra_Linear .
+
+:ygRau3yyV0Su0APWrEfAe :armezenadoEm :Algebra_Linear .
+
+:zEh_7EiUb8vTcCFLz7xfq :armezenadoEm :Algebra_Linear .
+
+:zxdEZs0fzCBO_mG0rkk5i :armezenadoEm :Algebra_Linear .
+
+:0DNljiFywjFfXDjkVG3ko :armezenadoEm :Algebra_Linear .
+
+:08xSCa2jNkByHbTaQQeQx :armezenadoEm :Algebra_Linear .
+
+:1m187NO9Jx9IArf7IH_-K :armezenadoEm :Algebra_Linear .
+
+:2q8LS2-bOEjmIS8PMJLQ8 :armezenadoEm :Algebra_Linear .
+
+:48kTci_EK9kHmMYvIi-Rg :armezenadoEm :Algebra_Linear .
+
+:5xDjyT1fjtvhzipJ55MQf :armezenadoEm :Algebra_Linear .
+
+:8MkE1g1k87d8L8SavO8-J :armezenadoEm :Algebra_Linear .
+
+:8SP0qjE1ATydgJFT9Fat- :armezenadoEm :Algebra_Linear .
+
+:8pYj0Pml8Hsdz_TVPqOoH :armezenadoEm :Algebra_Linear .
+
+:84RFhUO8ZIg2j8sWsMtne :armezenadoEm :Algebra_Linear .
+
+:zDDZNWacArnLTd2amcvhH :armezenadoEm :Algebra_Linear .
+
+:publicacao001 :PussuiFicheiro :ficheiro001 .
 
 :ficheiro001 :guardadoEm :publicacao001 .
 
 :ficheiro002 :guardadoEm :publicacao001 .
 
+:3g-jNODh7VV_GJypwlyBv :guardadoEm :undefined .
+
+:vS0EYYOO5eMnM3xNq8Gow :guardadoEm :undefined .
+
 :comentario001 :comentadoEm :publicacao002;
-  :conteudo "Esqueci-me da minha palavra-passe, como a posso recuperar?";
-  :data "2020-04-16";
   :éComentadoPor <http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#lguilhermem@hotmail.com> .
 
 <http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#lguilhermem@hotmail.com>
@@ -549,11 +776,15 @@
 
 :MIEI :pussuiAno :Primeiro_Ano, :Segundo_Ano .
 
-<http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#olmofred@hotmail.com> :frequenta
-    :MIEI, :Segundo_Ano .
+<http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#Filipe-Cunha1@hotmail.com>
+  :fazPedidoAmizade <http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#a82088@alunos.uminho.pt>;
+  :frequenta :MIEI, :undefined .
 
 <http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#gervasio@uminho.pt> :frequenta
     :MIEI, :undefined .
+
+<http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#olmofred@hotmail.com> :frequenta
+    :MIEI, :Segundo_Ano .
 
 :Primeiro_Ano :anoLetivo "2019-2020";
   :leciona :Algebra_Linear, :Analise, :Calculo, :EES, :LI1, :LI2, :Logica, :Programacao_Funcional,
@@ -566,14 +797,10 @@
 
 :evento001 :conteudo "A fase final do campeonato de futsal da Unversidade do Minho está de volta, se não está a participar, venha pelo menos assistir e divirta-se com os seus amigos.";
   :parceriaCom :UM;
-  :dataFim "2020-06-20";
-  :temPresenca <http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#a82088@alunos.uminho.pt>;
-  :dataInicio "2020-06-15";
-  :temPresenca <http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#flipcunha@gmail.com> .
+  :temPresenca <http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#a82088@alunos.uminho.pt>,
+    <http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#flipcunha@gmail.com> .
 
 :evento002 :conteudo "Este torneio de FIFA na PS4 será elaborado pelo CESIUM.";
-  :dataFim "2020-06-20 19:00:00";
-  :dataInicio "2020-06-20 09:00:00";
   :parceriaCom :MIEI;
   :temPresenca <http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#joniboy@hotmail.com> .
 
@@ -589,11 +816,49 @@
   :pussuiParticipantes <http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#flipcunha@gmail.com>,
     <http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#lguilhermem@hotmail.com> .
 
+:Algebra_Linear :possuiPasta :Algebra_Linear_Fichas, :Algebra_Linear_Material_Apoio,
+    :Algebra_Linear_Material_de_Apoio, :Algebra_Linear_Testes .
+
+:Analise :possuiPasta :Analise_Fichas, :Analise_Material_de_Apoio, :Analise_Testes,
+    :Analise_teste, :Analise_testePAstas .
+
+:Calculo :possuiPasta :Calculo_Fichas, :Calculo_Material_de_Apoio, :Calculo_Testes .
+
+:EES :possuiPasta :EES_Fichas, :EES_Material_de_Apoio, :EES_Testes .
+
+:LI1 :possuiPasta :LI1_Fichas, :LI1_Material_de_Apoio, :LI1_Testes .
+
+:LI2 :possuiPasta :LI2_Fichas, :LI2_Material_de_Apoio, :LI2_Testes .
+
+:Logica :possuiPasta :Logica_Fichas, :Logica_Material_de_Apoio, :Logica_Testes .
+
+:Programacao_Funcional :possuiPasta :Programacao_Funcional_Fichas, :Programacao_Funcional_Material_de_Apoio,
+    :Programacao_Funcional_Testes .
+
+:Programacao_Imperativa :possuiPasta :Programacao_Imperativa_Fichas, :Programacao_Imperativa_Material_de_Apoio,
+    :Programacao_Imperativa_Testes .
+
+:Sistemas_Computacao :possuiPasta :Sistemas_Computacao_Fichas, :Sistemas_Computacao_Material_de_Apoio,
+    :Sistemas_Computacao_Testes .
+
+:TFM :possuiPasta :TFM_Fichas, :TFM_Material_de_Apoio, :TFM_Testes .
+
+:TMD :possuiPasta :TMD_Fichas, :TMD_Material_de_Apoio, :TMD_Testes .
+
 :publicacao002 :conteudo "Estejam atentos ao swap para os horários.";
   :data "2020-04-16";
-  :gostos 2;
   :éPublicadaEm :Segundo_Ano;
   :éPublicadoPor <http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#joniboy@hotmail.com> .
+
+:publicacao001 :conteudo "ficheiro";
+  :data "2020-04-13";
+  :gostos 20;
+  :éPublicadaEm :ISD;
+  :éPublicadoPor :admin01 .
+
+:comentario001 :conteudo "Esqueci-me da minha palavra-passe, como a posso recuperar?";
+  :data "2020-04-16";
+  :gostos 0 .
 
 :mensagem001 :conteudo "Olá, Joe! Tudo bem?";
   :data "2020-04-16" .
@@ -613,174 +878,278 @@
 :mensagem006 :conteudo "já vou descer mano";
   :data "2020-04-16" .
 
-:Qjlx5pA2yXOX-XVJWYbLm :data "2020-07-01 16:58:32" .
+:AEbbZHQ2lXZw2GKZjXXFE :data "2020-07-01 17:13:29";
+  :nome "4654_folha2Sistemas.pdf" .
 
-:po3kxnNlVE-X6YR9V9W4V :data "2020-07-01 17:13:29" .
+:Ae3bjpLBiFIwU9pGMwqdh :data "2020-07-01 17:13:29";
+  :nome "4671_folha6ValoresVectoresProprios.pdf" .
 
-:kcZJnOqcSN8IPbRZHaSh5 :data "2020-07-01 17:13:29" .
+:BNXd5qRM-WEQr7VfDKb1s :data "2020-07-01 17:13:31";
+  :nome "Exercicios_Espacos_Vectoriais.pdf" .
 
-:AEbbZHQ2lXZw2GKZjXXFE :data "2020-07-01 17:13:29" .
+:BVXi04DYfsmLs1GtaJYOZ :data "2020-07-01 17:13:32";
+  :nome "ficha1 - Matrizes.pdf" .
 
-:rPyS68NGztUgWg36CyMzK :data "2020-07-01 17:13:29" .
+:DgIdSs-d-9iEViQ6hjlTx :data "2020-07-01 17:13:31";
+  :nome "Teste2A_2009-10_AL_LEI.pdf" .
 
-:ygRau3yyV0Su0APWrEfAe :data "2020-07-01 17:13:29" .
+:F8ePnUq0srtKazkeH1q5T :data "2020-07-01 17:13:29";
+  :nome "ExameA_2010-11_AL_LEI.pdf" .
 
-:08xSCa2jNkByHbTaQQeQx :data "2020-07-01 17:13:29" .
+:GMOtfTg0GkKOCzekTq1WY :data "2020-07-01 17:13:31";
+  :nome "Teste1A_2009-10_AL_LEI_Resolucao.pdf" .
 
-:jZKkTL7x_f0LZbom04D4r :data "2020-07-01 17:13:29" .
+:HRvlfMMwLkV6GXfkS4aPs :data "2020-07-01 17:13:32";
+  :nome "ficha6 - AplicacoesLineares.pdf" .
 
-:Zyf-0ZLwsPSYsAbeY47_f :data "2020-07-01 17:13:29" .
+:HuVOyWv1jcgRBIeaij2wh :data "2020-07-01 17:13:32";
+  :nome "AlgebraLinear_LEI_2010-11.pdf" .
 
-:Ae3bjpLBiFIwU9pGMwqdh :data "2020-07-01 17:13:29" .
+:IG4ok43qp4_7rN9NsLjFj :data "2020-07-01 17:13:32";
+  :nome "TesteC_2010-11_AL_LEI.pdf" .
 
-:NB1PhxtKPjCzIT_l1uaAH :data "2020-07-01 17:13:29" .
+:K0DJsdW-TQ--BQvMTO2vF :data "2020-07-01 17:13:32";
+  :nome "ficha2 - EspacosVectoriais.pdf" .
 
-:Yhl6Kf_CLuaclkE91MHfe :data "2020-07-01 17:13:29" .
+:K2y6TCRgna4SOKlaASw93 :data "2020-07-01 17:13:30";
+  :nome "ExameA_2011-12_AL_LEI.pdf" .
 
-:c0TjLhClMxmbfcAdZjjBk :data "2020-07-01 17:13:29" .
+:LzythN_y0ye86Na3Vbp-k :data "2020-07-01 17:13:37";
+  :nome "folha2Sistemas_Solucao.pdf" .
 
-:F8ePnUq0srtKazkeH1q5T :data "2020-07-01 17:13:29" .
+:MHbADLa4yTA_ByInA_E6Q :data "2020-07-01 17:13:31";
+  :nome "Teste1_2008-09_AL_LEI_Resolucao.pdf" .
 
-:On5Z8z0f2Y0rjszE83CrM :data "2020-07-01 17:13:29" .
+:NB1PhxtKPjCzIT_l1uaAH :data "2020-07-01 17:13:29";
+  :nome "4670_folha5Determinantes.pdf" .
 
-:zxdEZs0fzCBO_mG0rkk5i :data "2020-07-01 17:13:29" .
+:NJeGYctwKTl-UKuPG6oSQ :data "2020-07-01 17:13:37";
+  :nome "Teste_Modelo_2010-11_AL_LEI_Resolucao.pdf" .
 
-:K2y6TCRgna4SOKlaASw93 :data "2020-07-01 17:13:30" .
+:On5Z8z0f2Y0rjszE83CrM :data "2020-07-01 17:13:29";
+  :nome "Duvidas_AL_2010-2011.pdf" .
 
-:hFGecztJQDwmFchFr9Wk- :data "2020-07-01 17:13:30" .
+:P3fLVuwU3M8U_tcK6l8hS :data "2020-07-01 17:13:32";
+  :nome "Teste2A_2009-10_AL_LEI_Resolucao.pdf" .
 
-:0DNljiFywjFfXDjkVG3ko :data "2020-07-01 17:13:29" .
+:Pt-jDdEScRtR-WbVNyXqK :data "2020-07-01 17:13:31";
+  :nome "Teste2A_2011-12_AL_LEI_Resolucao.pdf" .
 
-:_LCcjj8gIyceelPZ90cDU :data "2020-07-01 17:13:30" .
+:Q_exm87PQOmH-PNnVqOfa :data "2020-07-01 17:13:36";
+  :nome "Algebra_Linear_e_Geometria_Analitica_2008.pdf" .
 
-:UERiPvG4yWj1d22FbSQFH :data "2020-07-01 17:13:31" .
+:Qi1NaUrZ4WFKpbyM27Jh3 :data "2020-07-01 17:13:32";
+  :nome "TesteB_2010-11_AL_LEI.pdf" .
 
-:q7-5ZJZeS2Ii4Sh-aeTom :data "2020-07-01 17:13:31" .
+:Qjlx5pA2yXOX-XVJWYbLm :data "2020-07-01 16:58:32";
+  :nome "umbook.owl" .
 
-:dCgUh7ysfo3tMbXbs_nFh :data "2020-07-01 17:13:31" .
+:UERiPvG4yWj1d22FbSQFH :data "2020-07-01 17:13:31";
+  :nome "folha1Matrizes.pdf" .
 
-:dGioxMh2xv-8etw2L0FRO :data "2020-07-01 17:13:31" .
+:VvVVKTx9QSZhrMdiVpO-X :data "2020-07-01 17:13:36";
+  :nome "Capitulo_4-Determinantes.pdf" .
 
-:8SP0qjE1ATydgJFT9Fat- :data "2020-07-01 17:13:31" .
+:WP2ubDCB6c6svClJQ9ncm :data "2020-07-01 17:13:31";
+  :nome "TesteA_2010-11_AL_LEI.pdf" .
 
-:2q8LS2-bOEjmIS8PMJLQ8 :data "2020-07-01 17:13:30" .
+:WwXub2sOUzGC-n10qyyAT :data "2020-07-01 17:13:37";
+  :nome "Capitulo_1-Matrizes.pdf" .
 
-:aGEFJiRtiGRiJPTdRswOO :data "2020-07-01 17:13:31" .
+:XaJ5L85JMclS3p7wXx0pu :data "2020-07-01 17:13:37";
+  :nome "Teste_Blackboard_AL_LEI_Resolucao.pdf" .
 
-:mZuf8LYSDB0gJyQMl6zuK :data "2020-07-01 17:13:31" .
+:Yhl6Kf_CLuaclkE91MHfe :data "2020-07-01 17:13:29";
+  :nome "4638_folha1Matrizes.pdf" .
 
-:BNXd5qRM-WEQr7VfDKb1s :data "2020-07-01 17:13:31" .
+:Zyf-0ZLwsPSYsAbeY47_f :data "2020-07-01 17:13:29";
+  :nome "4778_AplicacoesLineares.pdf" .
 
-:IG4ok43qp4_7rN9NsLjFj :data "2020-07-01 17:13:32" .
+:_4JceVJj9hHCSvDe11RGO :data "2020-07-01 17:13:37";
+  :nome "TesteB_2010-11_AL_LEI_Resolucao.pdf" .
 
-:hMBJWrasCBr93ChaEFKJE :data "2020-07-01 17:13:31" .
+:_LCcjj8gIyceelPZ90cDU :data "2020-07-01 17:13:30";
+  :nome "ExameB_2010-11_AL_LEI.pdf" .
 
-:8pYj0Pml8Hsdz_TVPqOoH :data "2020-07-01 17:13:32" .
+:_tLXn4r4v4GkDoBK8baxZ :data "2020-07-01 17:13:31";
+  :nome "Teste1A_2011-12_AL_LEI.pdf" .
 
-:HuVOyWv1jcgRBIeaij2wh :data "2020-07-01 17:13:32" .
+:aGEFJiRtiGRiJPTdRswOO :data "2020-07-01 17:13:31";
+  :nome "ficha3 - SistemasLineares.pdf" .
 
-:zEh_7EiUb8vTcCFLz7xfq :data "2020-07-01 17:13:31" .
+:c0TjLhClMxmbfcAdZjjBk :data "2020-07-01 17:13:29";
+  :nome "4755_Sistemas.pdf" .
 
-:GMOtfTg0GkKOCzekTq1WY :data "2020-07-01 17:13:31" .
+:dCgUh7ysfo3tMbXbs_nFh :data "2020-07-01 17:13:31";
+  :nome "ficha5 - ValoresVectoresProprios.pdf" .
 
-:nagYznx_ScyyeKauB1pbY :data "2020-07-01 17:13:31" .
+:dGioxMh2xv-8etw2L0FRO :data "2020-07-01 17:13:31";
+  :nome "folha2Sistemas.pdf" .
 
-:48kTci_EK9kHmMYvIi-Rg :data "2020-07-01 17:13:31" .
+:eSxiOCmIK_GapFC5py8ON :data "2020-07-01 17:13:31";
+  :nome "folha5Determinantes.pdf" .
 
-:P3fLVuwU3M8U_tcK6l8hS :data "2020-07-01 17:13:32" .
+:hFGecztJQDwmFchFr9Wk- :data "2020-07-01 17:13:30";
+  :nome "ExameA_2011-12_AL_LEI_Resolucao.pdf" .
 
-:qV_4kR4A7rOh8bR0R9HCz :data "2020-07-01 17:13:31" .
+:hMBJWrasCBr93ChaEFKJE :data "2020-07-01 17:13:31";
+  :nome "folha3EspacosVectoriais.pdf" .
 
-:MHbADLa4yTA_ByInA_E6Q :data "2020-07-01 17:13:31" .
+:jZKkTL7x_f0LZbom04D4r :data "2020-07-01 17:13:29";
+  :nome "4783_ValoresVectoresProprios.pdf" .
 
-:_tLXn4r4v4GkDoBK8baxZ :data "2020-07-01 17:13:31" .
+:kcZJnOqcSN8IPbRZHaSh5 :data "2020-07-01 17:13:29";
+  :nome "4666_folha4AplicacoesLineares.pdf" .
 
-:WP2ubDCB6c6svClJQ9ncm :data "2020-07-01 17:13:31" .
+:mZuf8LYSDB0gJyQMl6zuK :data "2020-07-01 17:13:31";
+  :nome "Teste_Modelo_2010-11_AL_LEI.pdf" .
 
-:BVXi04DYfsmLs1GtaJYOZ :data "2020-07-01 17:13:32" .
+:nagYznx_ScyyeKauB1pbY :data "2020-07-01 17:13:31";
+  :nome "ficha4 - Determinantes.pdf" .
 
-:Pt-jDdEScRtR-WbVNyXqK :data "2020-07-01 17:13:31" .
+:po3kxnNlVE-X6YR9V9W4V :data "2020-07-01 17:13:29";
+  :nome "4749_Matrizes.pdf" .
 
-:eSxiOCmIK_GapFC5py8ON :data "2020-07-01 17:13:31" .
+:q7-5ZJZeS2Ii4Sh-aeTom :data "2020-07-01 17:13:31";
+  :nome "ExameD_2010-11_AL_LEI.pdf" .
 
-:5xDjyT1fjtvhzipJ55MQf :data "2020-07-01 17:13:31" .
+:qV_4kR4A7rOh8bR0R9HCz :data "2020-07-01 17:13:31";
+  :nome "Teste1A_2011-12_AL_LEI_Resolucao.pdf" .
 
-:84RFhUO8ZIg2j8sWsMtne :data "2020-07-01 17:13:31" .
+:rPyS68NGztUgWg36CyMzK :data "2020-07-01 17:13:29";
+  :nome "4672_folha7ExerciciosRevisao.pdf" .
 
-:sP5EAhmFoki469YgHtzjr :data "2020-07-01 17:13:31" .
+:ruL3H5W6jzUNr7p9-YNkT :data "2020-07-01 17:13:35";
+  :nome "Ficha3-Ex_3-8_a_3-10.pdf" .
 
-:Qi1NaUrZ4WFKpbyM27Jh3 :data "2020-07-01 17:13:32" .
+:sP5EAhmFoki469YgHtzjr :data "2020-07-01 17:13:31";
+  :nome "folha4AplicacoesLineares.pdf" .
 
-:xny3dSMejgnlB95bJ29PQ :data "2020-07-01 17:13:31" .
+:spmEnlqTCl2uXodKuc475 :data "2020-07-01 17:13:37";
+  :nome "folha3EspacosVectoriais_Solucao.pdf" .
 
-:1m187NO9Jx9IArf7IH_-K :data "2020-07-01 17:13:32" .
+:xh-bJT1BUY0c-7nRCWSIk :data "2020-07-01 17:13:37";
+  :nome "Capitulo_6-Aplicacoes_Lineares.pdf" .
 
-:HRvlfMMwLkV6GXfkS4aPs :data "2020-07-01 17:13:32" .
+:xny3dSMejgnlB95bJ29PQ :data "2020-07-01 17:13:31";
+  :nome "folha6ValoresVectoresProprios.pdf" .
 
-:DgIdSs-d-9iEViQ6hjlTx :data "2020-07-01 17:13:31" .
+:y0g2PsoBn01RBflGYhq5N :data "2020-07-01 17:13:37";
+  :nome "Capitulo_2-Espacos_Vectoriais.pdf" .
 
-:K0DJsdW-TQ--BQvMTO2vF :data "2020-07-01 17:13:32" .
+:yR3NXq0YQyvII4zJiJkxf :data "2020-07-01 17:13:37";
+  :nome "Capitulo_3-Sistemas_de_Equacoes_Lineares.pdf" .
 
-:ruL3H5W6jzUNr7p9-YNkT :data "2020-07-01 17:13:35" .
+:ygRau3yyV0Su0APWrEfAe :data "2020-07-01 17:13:29";
+  :nome "4660_folha3EspacosVectoriais.pdf" .
 
-:Q_exm87PQOmH-PNnVqOfa :data "2020-07-01 17:13:36" .
+:zEh_7EiUb8vTcCFLz7xfq :data "2020-07-01 17:13:31";
+  :nome "Teste1A_2009-10_AL_LEI.pdf" .
 
-:VvVVKTx9QSZhrMdiVpO-X :data "2020-07-01 17:13:36" .
+:zxdEZs0fzCBO_mG0rkk5i :data "2020-07-01 17:13:29";
+  :nome "4782_Determinantes.pdf" .
 
-:yR3NXq0YQyvII4zJiJkxf :data "2020-07-01 17:13:37" .
+:0DNljiFywjFfXDjkVG3ko :data "2020-07-01 17:13:29";
+  :nome "Comentario_ParteI_Teste1A_2009-10_AL_LEI.pdf" .
 
-:XaJ5L85JMclS3p7wXx0pu :data "2020-07-01 17:13:37" .
+:08xSCa2jNkByHbTaQQeQx :data "2020-07-01 17:13:29";
+  :nome "4773_EspacosVectoriais.pdf" .
 
-:8MkE1g1k87d8L8SavO8-J :data "2020-07-01 17:13:37" .
+:1m187NO9Jx9IArf7IH_-K :data "2020-07-01 17:13:32";
+  :nome "Ficha3-Ex_9_e_Ex_10.pdf" .
 
-:_4JceVJj9hHCSvDe11RGO :data "2020-07-01 17:13:37" .
+:2q8LS2-bOEjmIS8PMJLQ8 :data "2020-07-01 17:13:30";
+  :nome "ExameC_2010-11_AL_LEI.pdf" .
 
-:WwXub2sOUzGC-n10qyyAT :data "2020-07-01 17:13:37" .
+:48kTci_EK9kHmMYvIi-Rg :data "2020-07-01 17:13:31";
+  :nome "Teste2A_2008-09_AL_LEI.pdf" .
 
-:y0g2PsoBn01RBflGYhq5N :data "2020-07-01 17:13:37" .
+:5xDjyT1fjtvhzipJ55MQf :data "2020-07-01 17:13:31";
+  :nome "Matrizes.pdf" .
 
-:spmEnlqTCl2uXodKuc475 :data "2020-07-01 17:13:37" .
+:8MkE1g1k87d8L8SavO8-J :data "2020-07-01 17:13:37";
+  :nome "Capitulo_5-Valores_e_Vectores_Proprios.pdf" .
 
-:LzythN_y0ye86Na3Vbp-k :data "2020-07-01 17:13:37" .
+:8SP0qjE1ATydgJFT9Fat- :data "2020-07-01 17:13:31";
+  :nome "folha1Matrizes_Solucao.pdf" .
 
-:NJeGYctwKTl-UKuPG6oSQ :data "2020-07-01 17:13:37" .
+:8pYj0Pml8Hsdz_TVPqOoH :data "2020-07-01 17:13:32";
+  :nome "TesteD_2010-11_AL_LEI.pdf" .
 
-:xh-bJT1BUY0c-7nRCWSIk :data "2020-07-01 17:13:37" .
+:84RFhUO8ZIg2j8sWsMtne :data "2020-07-01 17:13:31";
+  :nome "Teste2A_2011-12_AL_LEI.pdf" .
+
+:zDDZNWacArnLTd2amcvhH :data "2020-07-01 23:01:58";
+  :nome "statements.ttl" .
+
+:3g-jNODh7VV_GJypwlyBv :data "2020-07-01 23:38:15";
+  :nome "pov.ttl" .
+
+:vS0EYYOO5eMnM3xNq8Gow :data "2020-07-01 23:38:28";
+  :nome "umbook.owl" .
+
+:evento001 :dataFim "2020-06-20";
+  :dataInicio "2020-06-15";
+  :nome "Campeonato de Futsal UMinho" .
+
+:evento002 :dataFim "2020-06-20 19:00:00";
+  :dataInicio "2020-06-20 09:00:00";
+  :nome "Torneio FIFA CESIUM" .
 
 :admin01 :dataNasc "";
-  :nome "Admin" .
+  :nome "Admin";
+  :numAluno "Desconhecido";
+  :numTelemovel "933333333" .
 
 <http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#lguilhermem@hotmail.com>
   :dataNasc "1998-10-15";
-  :nome "Luís Martins" .
+  :nome "Luís Martins";
+  :numAluno "a82298";
+  :numTelemovel "930492785" .
 
 <http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#a82088@alunos.uminho.pt>
   :dataNasc "1998-02-14";
-  :nome "Luís Braga" .
+  :nome "Luís Braga";
+  :numAluno "a82088";
+  :numTelemovel "930405069" .
 
 <http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#joniboy@hotmail.com> :dataNasc
     "1998-11-12";
-  :nome "João Nunes" .
+  :nome "João Nunes";
+  :numAluno "a82300";
+  :numTelemovel 913958634 .
 
 <http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#flipcunha@gmail.com> :dataNasc
     "1997-02-06";
-  :nome "Filipe Cunha" .
-
-<http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#olmofred@hotmail.com> :dataNasc
-    "1996-01-01";
-  :nome "Frederico Sousa" .
+  :nome "Filipe Cunha";
+  :numAluno "a83099";
+  :numTelemovel 934059688 .
 
 <http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#gervasio@uminho.pt> :dataNasc
     "1994-02-15";
-  :nome "Gervásio" .
+  :nome "Gervásio";
+  :numAluno "a9384";
+  :numTelemovel "935857473";
+  :password "$2a$10$ueiLZKSSF5J1ugxMiAquiu58em077wJx7FivPVtoFKcARMgzVXoPC" .
 
-:comentario001 :gostos 0 .
+<http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#olmofred@hotmail.com> :dataNasc
+    "1996-01-01";
+  :nome "Frederico Sousa";
+  :numAluno "a76465";
+  :numTelemovel 919458385 .
 
-:publicacao001 :gostos 20 .
+<http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#Filipe-Cunha1@hotmail.com>
+  :dataNasc "2020-07-14";
+  :nome "Luis Filipe Costa Cunha";
+  :numAluno "A83099";
+  :numTelemovel "888";
+  :password "$2a$10$6o64Fks.U0lFtGCgOwQJY.oGIkzHcWUJsI9HqKpjov6YjLM.YkYXe" .
+
+:publicacao002 :gostos 2 .
 
 :Algebra_Linear :nome "Álgebra Linear" .
 
-:Analise :nome "Análise Matemática" .
+:Analise :nome "Analise" .
 
 :Arquitetura_Computadores :nome "Arquitetura de Computadores" .
 
@@ -833,261 +1202,333 @@
 
 :UM :nome "Universidade do Minho" .
 
-:evento001 :nome "Campeonato de Futsal UMinho" .
-
-:evento002 :nome "Torneio FIFA CESIUM" .
-
 :ficheiro001 :nome "oslusiadas.pdf";
   :path "ficheiros/oslusiadas.pdf" .
 
 :ficheiro002 :nome "1teste.PNG";
   :path "ficheiros/1teste.PNG" .
 
-:Qjlx5pA2yXOX-XVJWYbLm :nome "umbook.owl";
-  :path "D:/Github/LEI/apiDados/routes/../ficheiros/6dbcf4c8/cec63991/04ac2a40/fd1bcb19/umbook.owl" .
+:Algebra_Linear_Testes :nome "Testes" .
 
-:po3kxnNlVE-X6YR9V9W4V :nome "4749_Matrizes.pdf";
-  :path "D:/Github/LEI/apiDados/routes/../ficheiros/cf311b5e/077a3409/1eb9f5a9/ed8d9ef5/4749_Matrizes.pdf" .
+:Algebra_Linear_Fichas :nome "Fichas" .
 
-:kcZJnOqcSN8IPbRZHaSh5 :nome "4666_folha4AplicacoesLineares.pdf";
-  :path "D:/Github/LEI/apiDados/routes/../ficheiros/c8aeb74b/ec243429/c3e8f21c/a20838a1/4666_folha4AplicacoesLineares.pdf" .
+:Algebra_Linear_Material_de_Apoio :nome "Material de Apoio" .
 
-:AEbbZHQ2lXZw2GKZjXXFE :nome "4654_folha2Sistemas.pdf";
-  :path "D:/Github/LEI/apiDados/routes/../ficheiros/b7197609/48aca1b3/53da5d29/c62645cf/4654_folha2Sistemas.pdf" .
+:Analise_Testes :nome "Testes" .
 
-:rPyS68NGztUgWg36CyMzK :nome "4672_folha7ExerciciosRevisao.pdf";
-  :path "D:/Github/LEI/apiDados/routes/../ficheiros/63f1818b/ce158a8f/dc518b5b/6abd3612/4672_folha7ExerciciosRevisao.pdf" .
+:Analise_Fichas :nome "Fichas" .
 
-:ygRau3yyV0Su0APWrEfAe :nome "4660_folha3EspacosVectoriais.pdf";
-  :path "D:/Github/LEI/apiDados/routes/../ficheiros/f07a93da/ad012c05/20234011/3f4fc212/4660_folha3EspacosVectoriais.pdf" .
+:Analise_Material_de_Apoio :nome "Material de Apoio" .
 
-:08xSCa2jNkByHbTaQQeQx :nome "4773_EspacosVectoriais.pdf";
-  :path "D:/Github/LEI/apiDados/routes/../ficheiros/18b3a27b/80357dd3/40194b62/31ee5c0a/4773_EspacosVectoriais.pdf" .
+:Calculo_Material_de_Apoio :nome "Material de Apoio" .
 
-:jZKkTL7x_f0LZbom04D4r :nome "4783_ValoresVectoresProprios.pdf";
-  :path "D:/Github/LEI/apiDados/routes/../ficheiros/57483fab/99f40863/52dbf54f/6df3ac90/4783_ValoresVectoresProprios.pdf" .
+:EES_Material_de_Apoio :nome "Material de Apoio" .
 
-:Zyf-0ZLwsPSYsAbeY47_f :nome "4778_AplicacoesLineares.pdf";
-  :path "D:/Github/LEI/apiDados/routes/../ficheiros/54c2bad7/233f323e/ecd27409/51a79f73/4778_AplicacoesLineares.pdf" .
+:LI1_Material_de_Apoio :nome "Material de Apoio" .
 
-:Ae3bjpLBiFIwU9pGMwqdh :nome "4671_folha6ValoresVectoresProprios.pdf";
-  :path "D:/Github/LEI/apiDados/routes/../ficheiros/077c908f/a1f7f6f9/4e04dc8c/761c76dc/4671_folha6ValoresVectoresProprios.pdf" .
+:LI2_Material_de_Apoio :nome "Material de Apoio" .
 
-:NB1PhxtKPjCzIT_l1uaAH :nome "4670_folha5Determinantes.pdf";
-  :path "D:/Github/LEI/apiDados/routes/../ficheiros/67a65d9f/80103289/0bf1a6f4/c7107da1/4670_folha5Determinantes.pdf" .
+:Logica_Material_de_Apoio :nome "Material de Apoio" .
 
-:Yhl6Kf_CLuaclkE91MHfe :nome "4638_folha1Matrizes.pdf";
-  :path "D:/Github/LEI/apiDados/routes/../ficheiros/de4bcca7/f498eac0/adc63e8f/3ab5972a/4638_folha1Matrizes.pdf" .
+:Programacao_Funcional_Material_de_Apoio :nome "Material de Apoio" .
 
-:c0TjLhClMxmbfcAdZjjBk :nome "4755_Sistemas.pdf";
-  :path "D:/Github/LEI/apiDados/routes/../ficheiros/922b2c75/eaa7087a/e20820f6/5a138428/4755_Sistemas.pdf" .
+:Programacao_Imperativa_Material_de_Apoio :nome "Material de Apoio" .
 
-:F8ePnUq0srtKazkeH1q5T :nome "ExameA_2010-11_AL_LEI.pdf";
-  :path "D:/Github/LEI/apiDados/routes/../ficheiros/2f9391ac/712f736b/6dc396e6/f50c85bb/ExameA_2010-11_AL_LEI.pdf" .
+:Sistemas_Computacao_Material_de_Apoio :nome "Material de Apoio" .
 
-:On5Z8z0f2Y0rjszE83CrM :nome "Duvidas_AL_2010-2011.pdf";
-  :path "D:/Github/LEI/apiDados/routes/../ficheiros/461e560f/10a81ea4/aa991ec4/70415e0d/Duvidas_AL_2010-2011.pdf" .
+:TFM_Material_de_Apoio :nome "Material de Apoio" .
 
-:zxdEZs0fzCBO_mG0rkk5i :nome "4782_Determinantes.pdf";
-  :path "D:/Github/LEI/apiDados/routes/../ficheiros/b3845a8d/b7d44f1b/fe393399/59bcbc20/4782_Determinantes.pdf" .
+:TMD_Material_de_Apoio :nome "Material de Apoio" .
 
-:K2y6TCRgna4SOKlaASw93 :nome "ExameA_2011-12_AL_LEI.pdf";
-  :path "D:/Github/LEI/apiDados/routes/../ficheiros/acf1f2ee/553fb21b/f7dba037/cd6b0c0b/ExameA_2011-12_AL_LEI.pdf" .
+:TMD_Fichas :nome "Fichas" .
 
-:hFGecztJQDwmFchFr9Wk- :nome "ExameA_2011-12_AL_LEI_Resolucao.pdf";
-  :path "D:/Github/LEI/apiDados/routes/../ficheiros/65bd9f10/e64a9ca8/c74d1b65/400a61c9/ExameA_2011-12_AL_LEI_Resolucao.pdf" .
+:TMD_Testes :nome "Testes" .
 
-:0DNljiFywjFfXDjkVG3ko :nome "Comentario_ParteI_Teste1A_2009-10_AL_LEI.pdf";
-  :path "D:/Github/LEI/apiDados/routes/../ficheiros/a3054efb/9c9a6de9/207eb6d2/0266f6bc/Comentario_ParteI_Teste1A_2009-10_AL_LEI.pdf" .
+:Calculo_Fichas :nome "Fichas" .
 
-:_LCcjj8gIyceelPZ90cDU :nome "ExameB_2010-11_AL_LEI.pdf";
-  :path "D:/Github/LEI/apiDados/routes/../ficheiros/b9e9a00d/715fbcda/09912a39/bf84ef12/ExameB_2010-11_AL_LEI.pdf" .
+:Calculo_Testes :nome "Testes" .
 
-:UERiPvG4yWj1d22FbSQFH :nome "folha1Matrizes.pdf";
-  :path "D:/Github/LEI/apiDados/routes/../ficheiros/2dd3d279/9c136637/998e1ef3/fecb0e2f/folha1Matrizes.pdf" .
+:EES_Testes :nome "Testes" .
 
-:q7-5ZJZeS2Ii4Sh-aeTom :nome "ExameD_2010-11_AL_LEI.pdf";
-  :path "D:/Github/LEI/apiDados/routes/../ficheiros/1dd62ef7/bdfc19e5/d1a10808/ece8376b/ExameD_2010-11_AL_LEI.pdf" .
+:EES_Fichas :nome "Fichas" .
 
-:dCgUh7ysfo3tMbXbs_nFh :nome "ficha5 - ValoresVectoresProprios.pdf";
-  :path "D:/Github/LEI/apiDados/routes/../ficheiros/4ca5fc8b/58cbe624/a51912bf/07e0f914/ficha5 - ValoresVectoresProprios.pdf" .
+:LI1_Testes :nome "Testes" .
 
-:dGioxMh2xv-8etw2L0FRO :nome "folha2Sistemas.pdf";
-  :path "D:/Github/LEI/apiDados/routes/../ficheiros/a535334e/e4d85ebf/55a92c28/9c73df8b/folha2Sistemas.pdf" .
+:LI1_Fichas :nome "Fichas" .
 
-:8SP0qjE1ATydgJFT9Fat- :nome "folha1Matrizes_Solucao.pdf";
-  :path "D:/Github/LEI/apiDados/routes/../ficheiros/95558b50/97c7299f/6f2c4062/1b1ed89b/folha1Matrizes_Solucao.pdf" .
+:LI2_Testes :nome "Testes" .
 
-:2q8LS2-bOEjmIS8PMJLQ8 :nome "ExameC_2010-11_AL_LEI.pdf";
-  :path "D:/Github/LEI/apiDados/routes/../ficheiros/1e4280bd/4a2d7ff2/04be872a/13c320aa/ExameC_2010-11_AL_LEI.pdf" .
+:LI2_Fichas :nome "Fichas" .
 
-:aGEFJiRtiGRiJPTdRswOO :nome "ficha3 - SistemasLineares.pdf";
-  :path "D:/Github/LEI/apiDados/routes/../ficheiros/b5edb461/b12f5f57/262b48da/9b518b29/ficha3 - SistemasLineares.pdf" .
+:Logica_Testes :nome "Testes" .
 
-:mZuf8LYSDB0gJyQMl6zuK :nome "Teste_Modelo_2010-11_AL_LEI.pdf";
-  :path "D:/Github/LEI/apiDados/routes/../ficheiros/ed538092/cea5fc62/ea079440/24648445/Teste_Modelo_2010-11_AL_LEI.pdf" .
+:Logica_Fichas :nome "Fichas" .
 
-:BNXd5qRM-WEQr7VfDKb1s :nome "Exercicios_Espacos_Vectoriais.pdf";
-  :path "D:/Github/LEI/apiDados/routes/../ficheiros/1bb5e406/0f168f19/a64f615a/a061a0a1/Exercicios_Espacos_Vectoriais.pdf" .
+:Programacao_Funcional_Testes :nome "Testes" .
 
-:IG4ok43qp4_7rN9NsLjFj :nome "TesteC_2010-11_AL_LEI.pdf";
-  :path "D:/Github/LEI/apiDados/routes/../ficheiros/d413e643/a4003efd/14f2f46f/e321d18c/TesteC_2010-11_AL_LEI.pdf" .
+:Programacao_Funcional_Fichas :nome "Fichas" .
 
-:hMBJWrasCBr93ChaEFKJE :nome "folha3EspacosVectoriais.pdf";
-  :path "D:/Github/LEI/apiDados/routes/../ficheiros/dc7971b2/14902b1b/638a4bae/269fbb06/folha3EspacosVectoriais.pdf" .
+:Programacao_Imperativa_Testes :nome "Testes" .
 
-:8pYj0Pml8Hsdz_TVPqOoH :nome "TesteD_2010-11_AL_LEI.pdf";
-  :path "D:/Github/LEI/apiDados/routes/../ficheiros/8e2f4bd3/492bfd4f/be017eae/84ba8c0c/TesteD_2010-11_AL_LEI.pdf" .
+:Programacao_Imperativa_Fichas :nome "Fichas" .
 
-:HuVOyWv1jcgRBIeaij2wh :nome "AlgebraLinear_LEI_2010-11.pdf";
-  :path "D:/Github/LEI/apiDados/routes/../ficheiros/c26bc0fe/9ddb02d4/03d5385a/e7e6a4e7/AlgebraLinear_LEI_2010-11.pdf" .
+:Sistemas_Computacao_Testes :nome "Testes" .
 
-:zEh_7EiUb8vTcCFLz7xfq :nome "Teste1A_2009-10_AL_LEI.pdf";
-  :path "D:/Github/LEI/apiDados/routes/../ficheiros/e5912ef1/b4512d7a/e9eddc7d/662d1ca0/Teste1A_2009-10_AL_LEI.pdf" .
+:Sistemas_Computacao_Fichas :nome "Fichas" .
 
-:GMOtfTg0GkKOCzekTq1WY :nome "Teste1A_2009-10_AL_LEI_Resolucao.pdf";
-  :path "D:/Github/LEI/apiDados/routes/../ficheiros/e96363d9/dd916c5f/dd6f8119/21a3bd64/Teste1A_2009-10_AL_LEI_Resolucao.pdf" .
+:TFM_Testes :nome "Testes" .
 
-:nagYznx_ScyyeKauB1pbY :nome "ficha4 - Determinantes.pdf";
-  :path "D:/Github/LEI/apiDados/routes/../ficheiros/e1693e01/fb3c7860/f62a67dc/13b079a2/ficha4 - Determinantes.pdf" .
+:TFM_Fichas :nome "Fichas" .
 
-:48kTci_EK9kHmMYvIi-Rg :nome "Teste2A_2008-09_AL_LEI.pdf";
-  :path "D:/Github/LEI/apiDados/routes/../ficheiros/ca802bfc/2587df6c/050291a3/3e01420b/Teste2A_2008-09_AL_LEI.pdf" .
+:AEbbZHQ2lXZw2GKZjXXFE :path "D:/Github/LEI/apiDados/routes/../ficheiros/b7197609/48aca1b3/53da5d29/c62645cf/4654_folha2Sistemas.pdf";
+  :size "62180" .
 
-:P3fLVuwU3M8U_tcK6l8hS :nome "Teste2A_2009-10_AL_LEI_Resolucao.pdf";
-  :path "D:/Github/LEI/apiDados/routes/../ficheiros/d68d2758/9dc82049/d8c31d84/3cbf7d0a/Teste2A_2009-10_AL_LEI_Resolucao.pdf" .
+:Ae3bjpLBiFIwU9pGMwqdh :path "D:/Github/LEI/apiDados/routes/../ficheiros/077c908f/a1f7f6f9/4e04dc8c/761c76dc/4671_folha6ValoresVectoresProprios.pdf";
+  :size "58502" .
 
-:qV_4kR4A7rOh8bR0R9HCz :nome "Teste1A_2011-12_AL_LEI_Resolucao.pdf";
-  :path "D:/Github/LEI/apiDados/routes/../ficheiros/726c2b7d/5736d767/7a13e9c6/aafebd3b/Teste1A_2011-12_AL_LEI_Resolucao.pdf" .
+:BNXd5qRM-WEQr7VfDKb1s :path "D:/Github/LEI/apiDados/routes/../ficheiros/1bb5e406/0f168f19/a64f615a/a061a0a1/Exercicios_Espacos_Vectoriais.pdf";
+  :size "330599" .
 
-:MHbADLa4yTA_ByInA_E6Q :nome "Teste1_2008-09_AL_LEI_Resolucao.pdf";
-  :path "D:/Github/LEI/apiDados/routes/../ficheiros/18550c38/670659b7/a120a438/1d16cec9/Teste1_2008-09_AL_LEI_Resolucao.pdf" .
+:BVXi04DYfsmLs1GtaJYOZ :path "D:/Github/LEI/apiDados/routes/../ficheiros/44c2ca63/d3774f19/6ad8f46f/841c3099/ficha1 - Matrizes.pdf";
+  :size "951504" .
 
-:_tLXn4r4v4GkDoBK8baxZ :nome "Teste1A_2011-12_AL_LEI.pdf";
-  :path "D:/Github/LEI/apiDados/routes/../ficheiros/82b64837/f83d9954/6776e5cd/f8434161/Teste1A_2011-12_AL_LEI.pdf" .
+:DgIdSs-d-9iEViQ6hjlTx :path "D:/Github/LEI/apiDados/routes/../ficheiros/2d9837c3/9130e9f8/472d7d67/7e3490db/Teste2A_2009-10_AL_LEI.pdf";
+  :size "99598" .
 
-:WP2ubDCB6c6svClJQ9ncm :nome "TesteA_2010-11_AL_LEI.pdf";
-  :path "D:/Github/LEI/apiDados/routes/../ficheiros/a5ad8dcc/e9ae2720/cb29648d/30f4f6dc/TesteA_2010-11_AL_LEI.pdf" .
+:F8ePnUq0srtKazkeH1q5T :path "D:/Github/LEI/apiDados/routes/../ficheiros/2f9391ac/712f736b/6dc396e6/f50c85bb/ExameA_2010-11_AL_LEI.pdf";
+  :size "156116" .
 
-:BVXi04DYfsmLs1GtaJYOZ :nome "ficha1 - Matrizes.pdf";
-  :path "D:/Github/LEI/apiDados/routes/../ficheiros/44c2ca63/d3774f19/6ad8f46f/841c3099/ficha1 - Matrizes.pdf" .
+:GMOtfTg0GkKOCzekTq1WY :path "D:/Github/LEI/apiDados/routes/../ficheiros/e96363d9/dd916c5f/dd6f8119/21a3bd64/Teste1A_2009-10_AL_LEI_Resolucao.pdf";
+  :size "88640" .
 
-:Pt-jDdEScRtR-WbVNyXqK :nome "Teste2A_2011-12_AL_LEI_Resolucao.pdf";
-  :path "D:/Github/LEI/apiDados/routes/../ficheiros/f588851d/5648d204/066c51dc/548f47f8/Teste2A_2011-12_AL_LEI_Resolucao.pdf" .
+:HRvlfMMwLkV6GXfkS4aPs :path "D:/Github/LEI/apiDados/routes/../ficheiros/ecc873c8/6d4fe87c/70f9a735/7543f8a7/ficha6 - AplicacoesLineares.pdf";
+  :size "622215" .
 
-:eSxiOCmIK_GapFC5py8ON :nome "folha5Determinantes.pdf";
-  :path "D:/Github/LEI/apiDados/routes/../ficheiros/84df0e0d/00c91192/24d78296/57a3d915/folha5Determinantes.pdf" .
+:HuVOyWv1jcgRBIeaij2wh :path "D:/Github/LEI/apiDados/routes/../ficheiros/c26bc0fe/9ddb02d4/03d5385a/e7e6a4e7/AlgebraLinear_LEI_2010-11.pdf";
+  :size "748388" .
 
-:5xDjyT1fjtvhzipJ55MQf :nome "Matrizes.pdf";
-  :path "D:/Github/LEI/apiDados/routes/../ficheiros/ed34d14c/ba46776a/15e19428/82cf7e8e/Matrizes.pdf" .
+:IG4ok43qp4_7rN9NsLjFj :path "D:/Github/LEI/apiDados/routes/../ficheiros/d413e643/a4003efd/14f2f46f/e321d18c/TesteC_2010-11_AL_LEI.pdf";
+  :size "158678" .
 
-:84RFhUO8ZIg2j8sWsMtne :nome "Teste2A_2011-12_AL_LEI.pdf";
-  :path "D:/Github/LEI/apiDados/routes/../ficheiros/95f2979e/1ee908d9/19e4a485/1fecffe8/Teste2A_2011-12_AL_LEI.pdf" .
+:K0DJsdW-TQ--BQvMTO2vF :path "D:/Github/LEI/apiDados/routes/../ficheiros/e63abf57/43e07833/8916a18a/96f777ab/ficha2 - EspacosVectoriais.pdf";
+  :size "938677" .
 
-:sP5EAhmFoki469YgHtzjr :nome "folha4AplicacoesLineares.pdf";
-  :path "D:/Github/LEI/apiDados/routes/../ficheiros/e30f3499/b484cddd/a19f35be/4862174a/folha4AplicacoesLineares.pdf" .
+:K2y6TCRgna4SOKlaASw93 :path "D:/Github/LEI/apiDados/routes/../ficheiros/acf1f2ee/553fb21b/f7dba037/cd6b0c0b/ExameA_2011-12_AL_LEI.pdf";
+  :size "68562" .
 
-:Qi1NaUrZ4WFKpbyM27Jh3 :nome "TesteB_2010-11_AL_LEI.pdf";
-  :path "D:/Github/LEI/apiDados/routes/../ficheiros/c0bd4005/053b8ddc/9c0081e5/1f6df12a/TesteB_2010-11_AL_LEI.pdf" .
-
-:xny3dSMejgnlB95bJ29PQ :nome "folha6ValoresVectoresProprios.pdf";
-  :path "D:/Github/LEI/apiDados/routes/../ficheiros/e4e57f30/168b8a4c/f83e3d07/439978f3/folha6ValoresVectoresProprios.pdf" .
-
-:1m187NO9Jx9IArf7IH_-K :nome "Ficha3-Ex_9_e_Ex_10.pdf";
-  :path "D:/Github/LEI/apiDados/routes/../ficheiros/ac2c3a13/09fb4782/7485324b/e7e76892/Ficha3-Ex_9_e_Ex_10.pdf" .
-
-:HRvlfMMwLkV6GXfkS4aPs :nome "ficha6 - AplicacoesLineares.pdf";
-  :path "D:/Github/LEI/apiDados/routes/../ficheiros/ecc873c8/6d4fe87c/70f9a735/7543f8a7/ficha6 - AplicacoesLineares.pdf" .
-
-:DgIdSs-d-9iEViQ6hjlTx :nome "Teste2A_2009-10_AL_LEI.pdf";
-  :path "D:/Github/LEI/apiDados/routes/../ficheiros/2d9837c3/9130e9f8/472d7d67/7e3490db/Teste2A_2009-10_AL_LEI.pdf" .
-
-:K0DJsdW-TQ--BQvMTO2vF :nome "ficha2 - EspacosVectoriais.pdf";
-  :path "D:/Github/LEI/apiDados/routes/../ficheiros/e63abf57/43e07833/8916a18a/96f777ab/ficha2 - EspacosVectoriais.pdf" .
-
-:ruL3H5W6jzUNr7p9-YNkT :nome "Ficha3-Ex_3-8_a_3-10.pdf";
-  :path "D:/Github/LEI/apiDados/routes/../ficheiros/22e88ffa/14729fa1/6cea281d/bf5e7fa7/Ficha3-Ex_3-8_a_3-10.pdf" .
-
-:Q_exm87PQOmH-PNnVqOfa :nome "Algebra_Linear_e_Geometria_Analitica_2008.pdf";
-  :path "D:/Github/LEI/apiDados/routes/../ficheiros/303369fc/83fe2833/38b45b09/f388285d/Algebra_Linear_e_Geometria_Analitica_2008.pdf" .
-
-:VvVVKTx9QSZhrMdiVpO-X :nome "Capitulo_4-Determinantes.pdf";
-  :path "D:/Github/LEI/apiDados/routes/../ficheiros/f95ce0fe/8d66e1f0/555de821/276ee7eb/Capitulo_4-Determinantes.pdf";
-  :size "1914603" .
-
-:yR3NXq0YQyvII4zJiJkxf :nome "Capitulo_3-Sistemas_de_Equacoes_Lineares.pdf";
-  :path "D:/Github/LEI/apiDados/routes/../ficheiros/4fbe0034/4972ef38/e4641fc4/d0eda8ce/Capitulo_3-Sistemas_de_Equacoes_Lineares.pdf";
-  :size "2792724" .
-
-:XaJ5L85JMclS3p7wXx0pu :nome "Teste_Blackboard_AL_LEI_Resolucao.pdf";
-  :path "D:/Github/LEI/apiDados/routes/../ficheiros/ae9ce3cc/6f431a8f/e919b48e/f2c407f5/Teste_Blackboard_AL_LEI_Resolucao.pdf";
-  :size "2557244" .
-
-:8MkE1g1k87d8L8SavO8-J :nome "Capitulo_5-Valores_e_Vectores_Proprios.pdf";
-  :path "D:/Github/LEI/apiDados/routes/../ficheiros/811c1b4d/1fd627ec/82148f35/7d2543b9/Capitulo_5-Valores_e_Vectores_Proprios.pdf";
-  :size "3120214" .
-
-:_4JceVJj9hHCSvDe11RGO :nome "TesteB_2010-11_AL_LEI_Resolucao.pdf";
-  :path "D:/Github/LEI/apiDados/routes/../ficheiros/2c57ee84/754949e5/4f9ec374/9c573231/TesteB_2010-11_AL_LEI_Resolucao.pdf";
-  :size "3097356" .
-
-:WwXub2sOUzGC-n10qyyAT :nome "Capitulo_1-Matrizes.pdf";
-  :path "D:/Github/LEI/apiDados/routes/../ficheiros/540f0348/64480fb2/47f1146b/23722460/Capitulo_1-Matrizes.pdf";
-  :size "3764347" .
-
-:y0g2PsoBn01RBflGYhq5N :nome "Capitulo_2-Espacos_Vectoriais.pdf";
-  :path "D:/Github/LEI/apiDados/routes/../ficheiros/0bc6d8ce/4772af77/30b5fd4c/13cd0d70/Capitulo_2-Espacos_Vectoriais.pdf";
-  :size "4122259" .
-
-:spmEnlqTCl2uXodKuc475 :nome "folha3EspacosVectoriais_Solucao.pdf";
-  :path "D:/Github/LEI/apiDados/routes/../ficheiros/884f669e/3efe56d6/120869c9/8d9c8a9f/folha3EspacosVectoriais_Solucao.pdf";
-  :size "4045530" .
-
-:LzythN_y0ye86Na3Vbp-k :nome "folha2Sistemas_Solucao.pdf";
-  :path "D:/Github/LEI/apiDados/routes/../ficheiros/288e308f/11ca2a27/10720180/7ad4c930/folha2Sistemas_Solucao.pdf";
+:LzythN_y0ye86Na3Vbp-k :path "D:/Github/LEI/apiDados/routes/../ficheiros/288e308f/11ca2a27/10720180/7ad4c930/folha2Sistemas_Solucao.pdf";
   :size "4264061" .
 
-:NJeGYctwKTl-UKuPG6oSQ :nome "Teste_Modelo_2010-11_AL_LEI_Resolucao.pdf";
-  :path "D:/Github/LEI/apiDados/routes/../ficheiros/7d566a61/e8a22fc3/ca5f50c8/21f70625/Teste_Modelo_2010-11_AL_LEI_Resolucao.pdf";
+:MHbADLa4yTA_ByInA_E6Q :path "D:/Github/LEI/apiDados/routes/../ficheiros/18550c38/670659b7/a120a438/1d16cec9/Teste1_2008-09_AL_LEI_Resolucao.pdf";
+  :size "82042" .
+
+:NB1PhxtKPjCzIT_l1uaAH :path "D:/Github/LEI/apiDados/routes/../ficheiros/67a65d9f/80103289/0bf1a6f4/c7107da1/4670_folha5Determinantes.pdf";
+  :size "51024" .
+
+:NJeGYctwKTl-UKuPG6oSQ :path "D:/Github/LEI/apiDados/routes/../ficheiros/7d566a61/e8a22fc3/ca5f50c8/21f70625/Teste_Modelo_2010-11_AL_LEI_Resolucao.pdf";
   :size "5073059" .
 
-:xh-bJT1BUY0c-7nRCWSIk :nome "Capitulo_6-Aplicacoes_Lineares.pdf";
-  :path "D:/Github/LEI/apiDados/routes/../ficheiros/27dc24ed/14c65e20/c992cc94/35b58fe9/Capitulo_6-Aplicacoes_Lineares.pdf";
+:On5Z8z0f2Y0rjszE83CrM :path "D:/Github/LEI/apiDados/routes/../ficheiros/461e560f/10a81ea4/aa991ec4/70415e0d/Duvidas_AL_2010-2011.pdf";
+  :size "99591" .
+
+:P3fLVuwU3M8U_tcK6l8hS :path "D:/Github/LEI/apiDados/routes/../ficheiros/d68d2758/9dc82049/d8c31d84/3cbf7d0a/Teste2A_2009-10_AL_LEI_Resolucao.pdf";
+  :size "59117" .
+
+:Pt-jDdEScRtR-WbVNyXqK :path "D:/Github/LEI/apiDados/routes/../ficheiros/f588851d/5648d204/066c51dc/548f47f8/Teste2A_2011-12_AL_LEI_Resolucao.pdf";
+  :size "76884" .
+
+:Q_exm87PQOmH-PNnVqOfa :path "D:/Github/LEI/apiDados/routes/../ficheiros/303369fc/83fe2833/38b45b09/f388285d/Algebra_Linear_e_Geometria_Analitica_2008.pdf";
+  :size "1717028" .
+
+:Qi1NaUrZ4WFKpbyM27Jh3 :path "D:/Github/LEI/apiDados/routes/../ficheiros/c0bd4005/053b8ddc/9c0081e5/1f6df12a/TesteB_2010-11_AL_LEI.pdf";
+  :size "158910" .
+
+:Qjlx5pA2yXOX-XVJWYbLm :path "D:/Github/LEI/apiDados/routes/../ficheiros/6dbcf4c8/cec63991/04ac2a40/fd1bcb19/umbook.owl";
+  :size "19422" .
+
+:UERiPvG4yWj1d22FbSQFH :path "D:/Github/LEI/apiDados/routes/../ficheiros/2dd3d279/9c136637/998e1ef3/fecb0e2f/folha1Matrizes.pdf";
+  :size "35922" .
+
+:VvVVKTx9QSZhrMdiVpO-X :path "D:/Github/LEI/apiDados/routes/../ficheiros/f95ce0fe/8d66e1f0/555de821/276ee7eb/Capitulo_4-Determinantes.pdf";
+  :size "1914603" .
+
+:WP2ubDCB6c6svClJQ9ncm :path "D:/Github/LEI/apiDados/routes/../ficheiros/a5ad8dcc/e9ae2720/cb29648d/30f4f6dc/TesteA_2010-11_AL_LEI.pdf";
+  :size "158769" .
+
+:WwXub2sOUzGC-n10qyyAT :path "D:/Github/LEI/apiDados/routes/../ficheiros/540f0348/64480fb2/47f1146b/23722460/Capitulo_1-Matrizes.pdf";
+  :size "3764347" .
+
+:XaJ5L85JMclS3p7wXx0pu :path "D:/Github/LEI/apiDados/routes/../ficheiros/ae9ce3cc/6f431a8f/e919b48e/f2c407f5/Teste_Blackboard_AL_LEI_Resolucao.pdf";
+  :size "2557244" .
+
+:Yhl6Kf_CLuaclkE91MHfe :path "D:/Github/LEI/apiDados/routes/../ficheiros/de4bcca7/f498eac0/adc63e8f/3ab5972a/4638_folha1Matrizes.pdf";
+  :size "74737" .
+
+:Zyf-0ZLwsPSYsAbeY47_f :path "D:/Github/LEI/apiDados/routes/../ficheiros/54c2bad7/233f323e/ecd27409/51a79f73/4778_AplicacoesLineares.pdf";
+  :size "233751" .
+
+:_4JceVJj9hHCSvDe11RGO :path "D:/Github/LEI/apiDados/routes/../ficheiros/2c57ee84/754949e5/4f9ec374/9c573231/TesteB_2010-11_AL_LEI_Resolucao.pdf";
+  :size "3097356" .
+
+:_LCcjj8gIyceelPZ90cDU :path "D:/Github/LEI/apiDados/routes/../ficheiros/b9e9a00d/715fbcda/09912a39/bf84ef12/ExameB_2010-11_AL_LEI.pdf";
+  :size "157243" .
+
+:_tLXn4r4v4GkDoBK8baxZ :path "D:/Github/LEI/apiDados/routes/../ficheiros/82b64837/f83d9954/6776e5cd/f8434161/Teste1A_2011-12_AL_LEI.pdf";
+  :size "74222" .
+
+:aGEFJiRtiGRiJPTdRswOO :path "D:/Github/LEI/apiDados/routes/../ficheiros/b5edb461/b12f5f57/262b48da/9b518b29/ficha3 - SistemasLineares.pdf";
+  :size "387503" .
+
+:c0TjLhClMxmbfcAdZjjBk :path "D:/Github/LEI/apiDados/routes/../ficheiros/922b2c75/eaa7087a/e20820f6/5a138428/4755_Sistemas.pdf";
+  :size "285713" .
+
+:dCgUh7ysfo3tMbXbs_nFh :path "D:/Github/LEI/apiDados/routes/../ficheiros/4ca5fc8b/58cbe624/a51912bf/07e0f914/ficha5 - ValoresVectoresProprios.pdf";
+  :size "505216" .
+
+:dGioxMh2xv-8etw2L0FRO :path "D:/Github/LEI/apiDados/routes/../ficheiros/a535334e/e4d85ebf/55a92c28/9c73df8b/folha2Sistemas.pdf";
+  :size "32298" .
+
+:eSxiOCmIK_GapFC5py8ON :path "D:/Github/LEI/apiDados/routes/../ficheiros/84df0e0d/00c91192/24d78296/57a3d915/folha5Determinantes.pdf";
+  :size "25309" .
+
+:hFGecztJQDwmFchFr9Wk- :path "D:/Github/LEI/apiDados/routes/../ficheiros/65bd9f10/e64a9ca8/c74d1b65/400a61c9/ExameA_2011-12_AL_LEI_Resolucao.pdf";
+  :size "81118" .
+
+:hMBJWrasCBr93ChaEFKJE :path "D:/Github/LEI/apiDados/routes/../ficheiros/dc7971b2/14902b1b/638a4bae/269fbb06/folha3EspacosVectoriais.pdf";
+  :size "42745" .
+
+:jZKkTL7x_f0LZbom04D4r :path "D:/Github/LEI/apiDados/routes/../ficheiros/57483fab/99f40863/52dbf54f/6df3ac90/4783_ValoresVectoresProprios.pdf";
+  :size "161681" .
+
+:kcZJnOqcSN8IPbRZHaSh5 :path "D:/Github/LEI/apiDados/routes/../ficheiros/c8aeb74b/ec243429/c3e8f21c/a20838a1/4666_folha4AplicacoesLineares.pdf";
+  :size "56543" .
+
+:mZuf8LYSDB0gJyQMl6zuK :path "D:/Github/LEI/apiDados/routes/../ficheiros/ed538092/cea5fc62/ea079440/24648445/Teste_Modelo_2010-11_AL_LEI.pdf";
+  :size "180205" .
+
+:nagYznx_ScyyeKauB1pbY :path "D:/Github/LEI/apiDados/routes/../ficheiros/e1693e01/fb3c7860/f62a67dc/13b079a2/ficha4 - Determinantes.pdf";
+  :size "468471" .
+
+:po3kxnNlVE-X6YR9V9W4V :path "D:/Github/LEI/apiDados/routes/../ficheiros/cf311b5e/077a3409/1eb9f5a9/ed8d9ef5/4749_Matrizes.pdf";
+  :size "312687" .
+
+:q7-5ZJZeS2Ii4Sh-aeTom :path "D:/Github/LEI/apiDados/routes/../ficheiros/1dd62ef7/bdfc19e5/d1a10808/ece8376b/ExameD_2010-11_AL_LEI.pdf";
+  :size "156062" .
+
+:qV_4kR4A7rOh8bR0R9HCz :path "D:/Github/LEI/apiDados/routes/../ficheiros/726c2b7d/5736d767/7a13e9c6/aafebd3b/Teste1A_2011-12_AL_LEI_Resolucao.pdf";
+  :size "101493" .
+
+:rPyS68NGztUgWg36CyMzK :path "D:/Github/LEI/apiDados/routes/../ficheiros/63f1818b/ce158a8f/dc518b5b/6abd3612/4672_folha7ExerciciosRevisao.pdf";
+  :size "55088" .
+
+:ruL3H5W6jzUNr7p9-YNkT :path "D:/Github/LEI/apiDados/routes/../ficheiros/22e88ffa/14729fa1/6cea281d/bf5e7fa7/Ficha3-Ex_3-8_a_3-10.pdf";
+  :size "1283760" .
+
+:sP5EAhmFoki469YgHtzjr :path "D:/Github/LEI/apiDados/routes/../ficheiros/e30f3499/b484cddd/a19f35be/4862174a/folha4AplicacoesLineares.pdf";
+  :size "29517" .
+
+:spmEnlqTCl2uXodKuc475 :path "D:/Github/LEI/apiDados/routes/../ficheiros/884f669e/3efe56d6/120869c9/8d9c8a9f/folha3EspacosVectoriais_Solucao.pdf";
+  :size "4045530" .
+
+:xh-bJT1BUY0c-7nRCWSIk :path "D:/Github/LEI/apiDados/routes/../ficheiros/27dc24ed/14c65e20/c992cc94/35b58fe9/Capitulo_6-Aplicacoes_Lineares.pdf";
   :size "4967020" .
 
-:admin01 :numAluno "Desconhecido";
-  :numTelemovel "933333333";
-  :sexo "Desconhecido" .
+:xny3dSMejgnlB95bJ29PQ :path "D:/Github/LEI/apiDados/routes/../ficheiros/e4e57f30/168b8a4c/f83e3d07/439978f3/folha6ValoresVectoresProprios.pdf";
+  :size "29511" .
+
+:y0g2PsoBn01RBflGYhq5N :path "D:/Github/LEI/apiDados/routes/../ficheiros/0bc6d8ce/4772af77/30b5fd4c/13cd0d70/Capitulo_2-Espacos_Vectoriais.pdf";
+  :size "4122259";
+  :type "application/pdf" .
+
+:yR3NXq0YQyvII4zJiJkxf :path "D:/Github/LEI/apiDados/routes/../ficheiros/4fbe0034/4972ef38/e4641fc4/d0eda8ce/Capitulo_3-Sistemas_de_Equacoes_Lineares.pdf";
+  :size "2792724";
+  :type "application/pdf" .
+
+:ygRau3yyV0Su0APWrEfAe :path "D:/Github/LEI/apiDados/routes/../ficheiros/f07a93da/ad012c05/20234011/3f4fc212/4660_folha3EspacosVectoriais.pdf";
+  :size "71476";
+  :type "application/pdf" .
+
+:zEh_7EiUb8vTcCFLz7xfq :path "D:/Github/LEI/apiDados/routes/../ficheiros/e5912ef1/b4512d7a/e9eddc7d/662d1ca0/Teste1A_2009-10_AL_LEI.pdf";
+  :size "77418";
+  :type "application/pdf" .
+
+:zxdEZs0fzCBO_mG0rkk5i :path "D:/Github/LEI/apiDados/routes/../ficheiros/b3845a8d/b7d44f1b/fe393399/59bcbc20/4782_Determinantes.pdf";
+  :size "143148";
+  :type "application/pdf" .
+
+:0DNljiFywjFfXDjkVG3ko :path "D:/Github/LEI/apiDados/routes/../ficheiros/a3054efb/9c9a6de9/207eb6d2/0266f6bc/Comentario_ParteI_Teste1A_2009-10_AL_LEI.pdf";
+  :size "83709";
+  :type "application/pdf" .
+
+:08xSCa2jNkByHbTaQQeQx :path "D:/Github/LEI/apiDados/routes/../ficheiros/18b3a27b/80357dd3/40194b62/31ee5c0a/4773_EspacosVectoriais.pdf";
+  :size "292855";
+  :type "application/pdf" .
+
+:1m187NO9Jx9IArf7IH_-K :path "D:/Github/LEI/apiDados/routes/../ficheiros/ac2c3a13/09fb4782/7485324b/e7e76892/Ficha3-Ex_9_e_Ex_10.pdf";
+  :size "533314";
+  :type "application/pdf" .
+
+:2q8LS2-bOEjmIS8PMJLQ8 :path "D:/Github/LEI/apiDados/routes/../ficheiros/1e4280bd/4a2d7ff2/04be872a/13c320aa/ExameC_2010-11_AL_LEI.pdf";
+  :size "156103";
+  :type "application/pdf" .
+
+:48kTci_EK9kHmMYvIi-Rg :path "D:/Github/LEI/apiDados/routes/../ficheiros/ca802bfc/2587df6c/050291a3/3e01420b/Teste2A_2008-09_AL_LEI.pdf";
+  :size "72482";
+  :type "application/pdf" .
+
+:5xDjyT1fjtvhzipJ55MQf :path "D:/Github/LEI/apiDados/routes/../ficheiros/ed34d14c/ba46776a/15e19428/82cf7e8e/Matrizes.pdf";
+  :size "305028";
+  :type "application/pdf" .
+
+:8MkE1g1k87d8L8SavO8-J :path "D:/Github/LEI/apiDados/routes/../ficheiros/811c1b4d/1fd627ec/82148f35/7d2543b9/Capitulo_5-Valores_e_Vectores_Proprios.pdf";
+  :size "3120214";
+  :type "application/pdf" .
+
+:8SP0qjE1ATydgJFT9Fat- :path "D:/Github/LEI/apiDados/routes/../ficheiros/95558b50/97c7299f/6f2c4062/1b1ed89b/folha1Matrizes_Solucao.pdf";
+  :size "44892";
+  :type "application/pdf" .
+
+:8pYj0Pml8Hsdz_TVPqOoH :path "D:/Github/LEI/apiDados/routes/../ficheiros/8e2f4bd3/492bfd4f/be017eae/84ba8c0c/TesteD_2010-11_AL_LEI.pdf";
+  :size "158634";
+  :type "application/pdf" .
+
+:84RFhUO8ZIg2j8sWsMtne :path "D:/Github/LEI/apiDados/routes/../ficheiros/95f2979e/1ee908d9/19e4a485/1fecffe8/Teste2A_2011-12_AL_LEI.pdf";
+  :size "64583";
+  :type "application/pdf" .
+
+:zDDZNWacArnLTd2amcvhH :path "C:/Users/Filip/Documents/UM/2/LEI/apiDados/routes/../ficheiros/e946dfbb/bab66992/f02c4e59/eb6bf18b/statements.ttl";
+  :size "79183";
+  :type "application/octet-stream" .
+
+:3g-jNODh7VV_GJypwlyBv :path "C:/Users/Filip/Documents/UM/2/LEI/apiDados/routes/../ficheiros/87c7d063/b524f31d/3bce6e48/651f4e8f/pov.ttl";
+  :size "33271";
+  :type "application/octet-stream" .
+
+:vS0EYYOO5eMnM3xNq8Gow :path "C:/Users/Filip/Documents/UM/2/LEI/apiDados/routes/../ficheiros/6dbcf4c8/cec63991/04ac2a40/fd1bcb19/umbook.owl";
+  :size "19422";
+  :type "application/octet-stream" .
+
+:admin01 :sexo "Desconhecido" .
 
 <http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#lguilhermem@hotmail.com>
-  :numAluno "a82298";
-  :numTelemovel "930492785";
   :sexo "Masculino" .
 
 <http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#a82088@alunos.uminho.pt>
-  :numAluno "a82088";
-  :numTelemovel "930405069";
   :sexo "Masculino" .
 
-<http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#joniboy@hotmail.com> :numAluno
-    "a82300";
-  :numTelemovel 913958634;
-  :sexo "Masculino" .
+<http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#joniboy@hotmail.com> :sexo
+    "Masculino" .
 
-<http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#flipcunha@gmail.com> :numAluno
-    "a83099";
-  :numTelemovel 934059688;
-  :sexo "Masculino" .
+<http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#flipcunha@gmail.com> :sexo
+    "Masculino" .
 
-<http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#olmofred@hotmail.com> :numAluno
-    "a76465";
-  :numTelemovel 919458385;
-  :sexo "Masculino" .
+<http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#gervasio@uminho.pt> :sexo
+    "Masculino" .
 
-<http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#gervasio@uminho.pt> :numAluno
-    "a9384";
-  :numTelemovel "935857473";
-  :password "$2a$10$ueiLZKSSF5J1ugxMiAquiu58em077wJx7FivPVtoFKcARMgzVXoPC";
+<http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#olmofred@hotmail.com> :sexo
+    "Masculino" .
+
+<http://www.semanticweb.org/filip/ontologies/2020/1/UMbook#Filipe-Cunha1@hotmail.com>
   :sexo "Masculino" .
 
 :ficheiro001 :size 100;
@@ -1096,286 +1537,110 @@
 :ficheiro002 :size 100;
   :type "PNG" .
 
-:Qjlx5pA2yXOX-XVJWYbLm :size "19422";
-  :type "application/octet-stream" .
-
-:po3kxnNlVE-X6YR9V9W4V :size "312687";
-  :type "application/pdf" .
-
-:kcZJnOqcSN8IPbRZHaSh5 :size "56543";
-  :type "application/pdf" .
-
-:AEbbZHQ2lXZw2GKZjXXFE :size "62180";
-  :type "application/pdf" .
-
-:rPyS68NGztUgWg36CyMzK :size "55088";
-  :type "application/pdf" .
-
-:ygRau3yyV0Su0APWrEfAe :size "71476";
-  :type "application/pdf" .
-
-:08xSCa2jNkByHbTaQQeQx :size "292855";
-  :type "application/pdf" .
-
-:jZKkTL7x_f0LZbom04D4r :size "161681";
-  :type "application/pdf" .
-
-:Zyf-0ZLwsPSYsAbeY47_f :size "233751";
-  :type "application/pdf" .
-
-:Ae3bjpLBiFIwU9pGMwqdh :size "58502";
-  :type "application/pdf" .
-
-:NB1PhxtKPjCzIT_l1uaAH :size "51024";
-  :type "application/pdf" .
-
-:Yhl6Kf_CLuaclkE91MHfe :size "74737";
-  :type "application/pdf" .
-
-:c0TjLhClMxmbfcAdZjjBk :size "285713";
-  :type "application/pdf" .
-
-:F8ePnUq0srtKazkeH1q5T :size "156116";
-  :type "application/pdf" .
-
-:On5Z8z0f2Y0rjszE83CrM :size "99591";
-  :type "application/pdf" .
-
-:zxdEZs0fzCBO_mG0rkk5i :size "143148";
-  :type "application/pdf" .
-
-:K2y6TCRgna4SOKlaASw93 :size "68562";
-  :type "application/pdf" .
-
-:hFGecztJQDwmFchFr9Wk- :size "81118";
-  :type "application/pdf" .
-
-:0DNljiFywjFfXDjkVG3ko :size "83709";
-  :type "application/pdf" .
-
-:_LCcjj8gIyceelPZ90cDU :size "157243";
-  :type "application/pdf" .
-
-:UERiPvG4yWj1d22FbSQFH :size "35922";
-  :type "application/pdf" .
-
-:q7-5ZJZeS2Ii4Sh-aeTom :size "156062";
-  :type "application/pdf" .
-
-:dCgUh7ysfo3tMbXbs_nFh :size "505216";
-  :type "application/pdf" .
-
-:dGioxMh2xv-8etw2L0FRO :size "32298";
-  :type "application/pdf";
-  :armezenadoEm :Algebra_Linear .
-
-:8SP0qjE1ATydgJFT9Fat- :armezenadoEm :Algebra_Linear;
-  :size "44892";
-  :type "application/pdf" .
-
-:2q8LS2-bOEjmIS8PMJLQ8 :armezenadoEm :Algebra_Linear;
-  :size "156103";
-  :type "application/pdf" .
-
-:aGEFJiRtiGRiJPTdRswOO :armezenadoEm :Algebra_Linear;
-  :size "387503";
-  :type "application/pdf" .
-
-:mZuf8LYSDB0gJyQMl6zuK :armezenadoEm :Algebra_Linear;
-  :size "180205";
-  :type "application/pdf" .
-
-:BNXd5qRM-WEQr7VfDKb1s :armezenadoEm :Algebra_Linear;
-  :size "330599";
-  :type "application/pdf" .
-
-:IG4ok43qp4_7rN9NsLjFj :armezenadoEm :Algebra_Linear;
-  :size "158678";
-  :type "application/pdf" .
-
-:hMBJWrasCBr93ChaEFKJE :armezenadoEm :Algebra_Linear;
-  :size "42745";
-  :type "application/pdf" .
-
-:8pYj0Pml8Hsdz_TVPqOoH :armezenadoEm :Algebra_Linear;
-  :size "158634";
-  :type "application/pdf" .
-
-:HuVOyWv1jcgRBIeaij2wh :armezenadoEm :Algebra_Linear;
-  :size "748388";
-  :type "application/pdf" .
-
-:zEh_7EiUb8vTcCFLz7xfq :armezenadoEm :Algebra_Linear;
-  :size "77418";
-  :type "application/pdf" .
-
-:GMOtfTg0GkKOCzekTq1WY :armezenadoEm :Algebra_Linear;
-  :size "88640";
-  :type "application/pdf" .
-
-:nagYznx_ScyyeKauB1pbY :armezenadoEm :Algebra_Linear;
-  :size "468471";
-  :type "application/pdf" .
-
-:48kTci_EK9kHmMYvIi-Rg :armezenadoEm :Algebra_Linear;
-  :size "72482";
-  :type "application/pdf" .
-
-:P3fLVuwU3M8U_tcK6l8hS :armezenadoEm :Algebra_Linear;
-  :size "59117";
-  :type "application/pdf" .
-
-:qV_4kR4A7rOh8bR0R9HCz :armezenadoEm :Algebra_Linear;
-  :size "101493";
-  :type "application/pdf" .
-
-:MHbADLa4yTA_ByInA_E6Q :armezenadoEm :Algebra_Linear;
-  :size "82042";
-  :type "application/pdf" .
-
-:_tLXn4r4v4GkDoBK8baxZ :armezenadoEm :Algebra_Linear;
-  :size "74222";
-  :type "application/pdf" .
-
-:WP2ubDCB6c6svClJQ9ncm :armezenadoEm :Algebra_Linear;
-  :size "158769";
-  :type "application/pdf" .
-
-:BVXi04DYfsmLs1GtaJYOZ :armezenadoEm :Algebra_Linear;
-  :size "951504";
-  :type "application/pdf" .
-
-:Pt-jDdEScRtR-WbVNyXqK :armezenadoEm :Algebra_Linear;
-  :size "76884";
-  :type "application/pdf" .
-
-:eSxiOCmIK_GapFC5py8ON :armezenadoEm :Algebra_Linear;
-  :size "25309";
-  :type "application/pdf" .
-
-:5xDjyT1fjtvhzipJ55MQf :armezenadoEm :Algebra_Linear;
-  :size "305028";
-  :type "application/pdf" .
-
-:84RFhUO8ZIg2j8sWsMtne :armezenadoEm :Algebra_Linear;
-  :size "64583";
-  :type "application/pdf" .
-
-:sP5EAhmFoki469YgHtzjr :armezenadoEm :Algebra_Linear;
-  :size "29517";
-  :type "application/pdf" .
-
-:Qi1NaUrZ4WFKpbyM27Jh3 :armezenadoEm :Algebra_Linear;
-  :size "158910";
-  :type "application/pdf" .
-
-:xny3dSMejgnlB95bJ29PQ :armezenadoEm :Algebra_Linear;
-  :size "29511";
-  :type "application/pdf" .
-
-:1m187NO9Jx9IArf7IH_-K :armezenadoEm :Algebra_Linear;
-  :size "533314";
-  :type "application/pdf" .
-
-:HRvlfMMwLkV6GXfkS4aPs :armezenadoEm :Algebra_Linear;
-  :size "622215";
-  :type "application/pdf" .
-
-:DgIdSs-d-9iEViQ6hjlTx :armezenadoEm :Algebra_Linear;
-  :size "99598";
-  :type "application/pdf" .
-
-:K0DJsdW-TQ--BQvMTO2vF :armezenadoEm :Algebra_Linear;
-  :size "938677";
-  :type "application/pdf" .
-
-:ruL3H5W6jzUNr7p9-YNkT :armezenadoEm :Algebra_Linear;
-  :size "1283760";
-  :type "application/pdf" .
-
-:Q_exm87PQOmH-PNnVqOfa :armezenadoEm :Algebra_Linear;
-  :size "1717028";
-  :type "application/pdf" .
-
 :publicacao002 :titulo "Titulo da pub 2" .
 
 :publicacao001 :titulo "Titulo da Pub" .
 
-:VvVVKTx9QSZhrMdiVpO-X :armezenadoEm :Algebra_Linear;
-  :type "application/pdf" .
+:AEbbZHQ2lXZw2GKZjXXFE :type "application/pdf" .
 
-:yR3NXq0YQyvII4zJiJkxf :armezenadoEm :Algebra_Linear;
-  :type "application/pdf" .
+:Ae3bjpLBiFIwU9pGMwqdh :type "application/pdf" .
 
-:XaJ5L85JMclS3p7wXx0pu :armezenadoEm :Algebra_Linear;
-  :type "application/pdf" .
+:BNXd5qRM-WEQr7VfDKb1s :type "application/pdf" .
 
-:8MkE1g1k87d8L8SavO8-J :armezenadoEm :Algebra_Linear;
-  :type "application/pdf" .
+:BVXi04DYfsmLs1GtaJYOZ :type "application/pdf" .
 
-:_4JceVJj9hHCSvDe11RGO :armezenadoEm :Algebra_Linear;
-  :type "application/pdf" .
+:DgIdSs-d-9iEViQ6hjlTx :type "application/pdf" .
 
-:WwXub2sOUzGC-n10qyyAT :armezenadoEm :Algebra_Linear;
-  :type "application/pdf" .
+:F8ePnUq0srtKazkeH1q5T :type "application/pdf" .
 
-:y0g2PsoBn01RBflGYhq5N :armezenadoEm :Algebra_Linear;
-  :type "application/pdf" .
+:GMOtfTg0GkKOCzekTq1WY :type "application/pdf" .
 
-:spmEnlqTCl2uXodKuc475 :armezenadoEm :Algebra_Linear;
-  :type "application/pdf" .
+:HRvlfMMwLkV6GXfkS4aPs :type "application/pdf" .
 
-:LzythN_y0ye86Na3Vbp-k :armezenadoEm :Algebra_Linear;
-  :type "application/pdf" .
+:HuVOyWv1jcgRBIeaij2wh :type "application/pdf" .
 
-:NJeGYctwKTl-UKuPG6oSQ :armezenadoEm :Algebra_Linear;
-  :type "application/pdf" .
+:IG4ok43qp4_7rN9NsLjFj :type "application/pdf" .
 
-:xh-bJT1BUY0c-7nRCWSIk :armezenadoEm :Algebra_Linear;
-  :type "application/pdf" .
+:K0DJsdW-TQ--BQvMTO2vF :type "application/pdf" .
 
-:Qjlx5pA2yXOX-XVJWYbLm :armezenadoEm :Algebra_Linear .
+:K2y6TCRgna4SOKlaASw93 :type "application/pdf" .
 
-:po3kxnNlVE-X6YR9V9W4V :armezenadoEm :Algebra_Linear .
+:LzythN_y0ye86Na3Vbp-k :type "application/pdf" .
 
-:kcZJnOqcSN8IPbRZHaSh5 :armezenadoEm :Algebra_Linear .
+:MHbADLa4yTA_ByInA_E6Q :type "application/pdf" .
 
-:AEbbZHQ2lXZw2GKZjXXFE :armezenadoEm :Algebra_Linear .
+:NB1PhxtKPjCzIT_l1uaAH :type "application/pdf" .
 
-:rPyS68NGztUgWg36CyMzK :armezenadoEm :Algebra_Linear .
+:NJeGYctwKTl-UKuPG6oSQ :type "application/pdf" .
 
-:ygRau3yyV0Su0APWrEfAe :armezenadoEm :Algebra_Linear .
+:On5Z8z0f2Y0rjszE83CrM :type "application/pdf" .
 
-:08xSCa2jNkByHbTaQQeQx :armezenadoEm :Algebra_Linear .
+:P3fLVuwU3M8U_tcK6l8hS :type "application/pdf" .
 
-:jZKkTL7x_f0LZbom04D4r :armezenadoEm :Algebra_Linear .
+:Pt-jDdEScRtR-WbVNyXqK :type "application/pdf" .
 
-:Zyf-0ZLwsPSYsAbeY47_f :armezenadoEm :Algebra_Linear .
+:Q_exm87PQOmH-PNnVqOfa :type "application/pdf" .
 
-:Ae3bjpLBiFIwU9pGMwqdh :armezenadoEm :Algebra_Linear .
+:Qi1NaUrZ4WFKpbyM27Jh3 :type "application/pdf" .
 
-:NB1PhxtKPjCzIT_l1uaAH :armezenadoEm :Algebra_Linear .
+:Qjlx5pA2yXOX-XVJWYbLm :type "application/octet-stream" .
 
-:Yhl6Kf_CLuaclkE91MHfe :armezenadoEm :Algebra_Linear .
+:UERiPvG4yWj1d22FbSQFH :type "application/pdf" .
 
-:c0TjLhClMxmbfcAdZjjBk :armezenadoEm :Algebra_Linear .
+:VvVVKTx9QSZhrMdiVpO-X :type "application/pdf" .
 
-:F8ePnUq0srtKazkeH1q5T :armezenadoEm :Algebra_Linear .
+:WP2ubDCB6c6svClJQ9ncm :type "application/pdf" .
 
-:On5Z8z0f2Y0rjszE83CrM :armezenadoEm :Algebra_Linear .
+:WwXub2sOUzGC-n10qyyAT :type "application/pdf" .
 
-:zxdEZs0fzCBO_mG0rkk5i :armezenadoEm :Algebra_Linear .
+:XaJ5L85JMclS3p7wXx0pu :type "application/pdf" .
 
-:K2y6TCRgna4SOKlaASw93 :armezenadoEm :Algebra_Linear .
+:Yhl6Kf_CLuaclkE91MHfe :type "application/pdf" .
 
-:hFGecztJQDwmFchFr9Wk- :armezenadoEm :Algebra_Linear .
+:Zyf-0ZLwsPSYsAbeY47_f :type "application/pdf" .
 
-:0DNljiFywjFfXDjkVG3ko :armezenadoEm :Algebra_Linear .
+:_4JceVJj9hHCSvDe11RGO :type "application/pdf" .
 
-:_LCcjj8gIyceelPZ90cDU :armezenadoEm :Algebra_Linear .
+:_LCcjj8gIyceelPZ90cDU :type "application/pdf" .
 
-:UERiPvG4yWj1d22FbSQFH :armezenadoEm :Algebra_Linear .
+:_tLXn4r4v4GkDoBK8baxZ :type "application/pdf" .
 
-:q7-5ZJZeS2Ii4Sh-aeTom :armezenadoEm :Algebra_Linear .
+:aGEFJiRtiGRiJPTdRswOO :type "application/pdf" .
 
-:dCgUh7ysfo3tMbXbs_nFh :armezenadoEm :Algebra_Linear .
+:c0TjLhClMxmbfcAdZjjBk :type "application/pdf" .
+
+:dCgUh7ysfo3tMbXbs_nFh :type "application/pdf" .
+
+:dGioxMh2xv-8etw2L0FRO :type "application/pdf" .
+
+:eSxiOCmIK_GapFC5py8ON :type "application/pdf" .
+
+:hFGecztJQDwmFchFr9Wk- :type "application/pdf" .
+
+:hMBJWrasCBr93ChaEFKJE :type "application/pdf" .
+
+:jZKkTL7x_f0LZbom04D4r :type "application/pdf" .
+
+:kcZJnOqcSN8IPbRZHaSh5 :type "application/pdf" .
+
+:mZuf8LYSDB0gJyQMl6zuK :type "application/pdf" .
+
+:nagYznx_ScyyeKauB1pbY :type "application/pdf" .
+
+:po3kxnNlVE-X6YR9V9W4V :type "application/pdf" .
+
+:q7-5ZJZeS2Ii4Sh-aeTom :type "application/pdf" .
+
+:qV_4kR4A7rOh8bR0R9HCz :type "application/pdf" .
+
+:rPyS68NGztUgWg36CyMzK :type "application/pdf" .
+
+:ruL3H5W6jzUNr7p9-YNkT :type "application/pdf" .
+
+:sP5EAhmFoki469YgHtzjr :type "application/pdf" .
+
+:spmEnlqTCl2uXodKuc475 :type "application/pdf" .
+
+:xh-bJT1BUY0c-7nRCWSIk :type "application/pdf" .
+
+:xny3dSMejgnlB95bJ29PQ :type "application/pdf" .

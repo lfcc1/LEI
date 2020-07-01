@@ -154,7 +154,7 @@ export default {
     let utilizador = JSON.parse(localStorage.getItem("utilizador"))
     console.log(utilizador)
     this.user = ""
-    this.user = "userProfile/" + utilizador.idUtilizador
+    this.user = "/userProfile/" + utilizador.idUtilizador
     this.onResponsiveInverted()
     window.addEventListener('resize', this.onResponsiveInverted)
   },

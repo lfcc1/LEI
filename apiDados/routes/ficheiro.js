@@ -124,7 +124,7 @@ router.post('/fotoPerfil', upload.single('ficheiro'), passport.authenticate('jwt
       });
     }
 
-    router.post('/ano', upload.array('ficheiro'), passport.authenticate('jwt', {session: false}), function(req, res){
+    router.post('/pastas', upload.array('ficheiro'), passport.authenticate('jwt', {session: false}), function(req, res){
       console.log(req.files)
       addFiles(req.files, req.body)
       .then(dados => res.jsonp(dados))
@@ -164,7 +164,7 @@ router.post('/fotoPerfil', upload.single('ficheiro'), passport.authenticate('jwt
                 })
           
                 console.log(name)
-                Ficheiro.insereFicheiroAno(guardadoEm, name, newPath, size, type)
+                Ficheiro.insereFicheiroPasta(guardadoEm, name, newPath, size, type)
                   .then(id => {
                     console.log(id)
                     ids.push(id); 
@@ -184,5 +184,18 @@ router.post('/fotoPerfil', upload.single('ficheiro'), passport.authenticate('jwt
           
       });
     }
+
+    //-------------------------------------------------------- DELETE -------------------------------------------------------------------
+
+    router.delete('/:idFicheiro', function(req, res, next){
+      Ficheiro.getFicheiroPath(req.params.idFicheiro)
+        .then(dados => {
+        fs.unlinkSync(dados[0].localizacao);
+          Ficheiro.deleteFicheiro(req.params.idFicheiro)
+          .then(dados => res.jsonp(dados))
+          .catch(erro => res.status(500).jsonp(erro))
+        })
+        .catch(erro => res.status(500).jsonp(erro))
+    })
 
   module.exports = router;

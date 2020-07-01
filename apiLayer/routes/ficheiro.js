@@ -8,6 +8,7 @@ const mkdirp = require('mkdirp-promise')
 var md5 = require('md5');
 
 const { resolveSoa } = require('dns');
+const { default: Axios } = require('axios');
 
 // ---------- ROTA   : /api/ficheiros ....
 
@@ -117,5 +118,7 @@ router.post('/fotoPerfil', upload.single('ficheiro'), function(req, res){
           
       });
     }
+
+
 
   module.exports = router;

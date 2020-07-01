@@ -64,7 +64,7 @@ Ficheiro.insereFicheiro = async function(guardadoEm, nome, path, size, type){
     return id
 }
 
-Ficheiro.insereFicheiroAno = async function(guardadoEm, nome, path, size, type){
+Ficheiro.insereFicheiroPasta = async function(guardadoEm, nome, path, size, type){
     var id = nanoid.nanoid()
     var data = dateFormat(new Date(), "yyyy-mm-dd HH:MM:ss");
     var newpath = path.replace(/\\/g,"/");
@@ -73,7 +73,7 @@ Ficheiro.insereFicheiroAno = async function(guardadoEm, nome, path, size, type){
     insert data {
         c:${id} a owl:NamedIndividual ,
                         c:Ficheiro .
-            c:${id} c:armezenadoEm c:${guardadoEm} .
+            c:${id} c:guardadoEm c:${guardadoEm} .
             c:${id} c:nome "${nome}" .
             c:${id} c:path "${newpath}" .
             c:${id} c:size "${size}"  .
@@ -85,3 +85,17 @@ Ficheiro.insereFicheiroAno = async function(guardadoEm, nome, path, size, type){
     response = await Connection.makePost(query)
     return id
 }
+
+Ficheiro.deleteFicheiro = async function(id){
+    var query = `
+    delete {
+        c:${id} ?b ?a .
+     } where{
+        c:${id} ?b ?a .
+     } 
+    `
+
+    return Connection.makePost(query)
+}
+
+

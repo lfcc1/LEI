@@ -8,6 +8,7 @@ var host = config.host
 var apiUtilizadores = host+"utilizadores/"
 var axios = require('axios')
 var passport = require('passport')
+var fs = require('fs');
 
 // ---------- ROTA   : /api/utilizadores ....
 
@@ -78,7 +79,12 @@ router.put('/:idUtilizador/amigo', passport.authenticate('jwt', {session: false}
 // Insere um novo utilizador
 router.post('/', function(req, res, next){
   axios.post(apiUtilizadores, req.body)
-    .then(dados => res.jsonp(dados.data))
+    .then(dados =>{ 
+      fs.copyFile(__dirname + '/../public/images/default-user.png', __dirname + '/../public/images/'+req.body.id, (err) => {
+        if (err) throw err;
+      });
+      res.jsonp(dados.data)
+    })
     .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
 })
 
