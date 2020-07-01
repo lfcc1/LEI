@@ -40,6 +40,12 @@ router.get('/:id/eventos', passport.authenticate('jwt', {session: false}), funct
       .then(dados => res.jsonp(dados))
       .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
   })
+
+  router.get('/:id/publicacoes', passport.authenticate('jwt', {session: false}), function(req, res, next){
+    Utilizador.getPublicacoesFromUtilizador(req.params.id)
+      .then(dados => res.jsonp(dados))
+      .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
+  })
   
 
 // -------------------------------------------------------------- PUT ---------------------------------------------------------------------

@@ -43,7 +43,12 @@ router.get('/:id/eventos', passport.authenticate('jwt', {session: false}), funct
       .then(dados => res.jsonp(dados.data))
       .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
   })
-  
+
+  router.get('/:id/publicacoes', passport.authenticate('jwt', {session: false}), function(req, res, next){
+    axios.get(apiUtilizadores + req.params.id + "/publicacoes" + "?token=" + req.query.token)
+        .then(dados => res.jsonp(dados.data))
+        .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
+    })
 
 // -------------------------------------------------------------- PUT ---------------------------------------------------------------------
 

@@ -2,7 +2,6 @@ var Cadeira = module.exports
 var Connection = require('./connection')
 var Publicacao = require('./publicacao')
 
-var axios = require('axios')
 
 Cadeira.getCadeira = async function(idCadeira){
     try{
@@ -95,6 +94,21 @@ Cadeira.getResponsaveisFromCadeira = async function(idCadeira){
         }
     `
 
+    return Connection.makeQuery(query)
+}
+
+
+Cadeira.getFicheirosFromCadeira = async function(idCadeira){
+
+    var query = `
+        select (STRAFTER(STR(?ficheiro), 'UMbook#') as ?idFicheiro) ?data ?nome where{
+            ?ficheiro a c:Ficheiro .
+            ?ficheiro c:armezenadoEm c:${idCadeira} .
+            ?ficheiro c:nome ?nome .
+            ?ficheiro c:data ?data .
+        } Order by DESC(?data)
+    `
+    
     return Connection.makeQuery(query)
 }
 

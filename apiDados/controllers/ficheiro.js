@@ -4,6 +4,7 @@ var Connection = require('./connection')
 var Publicacao = require('./publicacao')
 var Ano = require('./ano')
 var nanoid = require('nanoid')
+var dateFormat = require('dateformat')
 
 Ficheiro.getFicheiros = async function(){
     var query = `
@@ -43,6 +44,7 @@ Ficheiro.getFicheiroPath = async function(idFicheiro){
 
 Ficheiro.insereFicheiro = async function(guardadoEm, nome, path, size, type){
     var id = nanoid.nanoid()
+    var data = dateFormat(new Date(), "yyyy-mm-dd HH:MM:ss");
     var newpath = path.replace(/\\/g,"/");
     console.log(guardadoEm)
     var query = `
@@ -54,6 +56,29 @@ Ficheiro.insereFicheiro = async function(guardadoEm, nome, path, size, type){
             c:${id} c:path "${newpath}" .
             c:${id} c:size "${size}"  .
             c:${id} c:type "${type}" .
+            c:${id} c:data "${data}" .
+    }
+    `
+
+    response = await Connection.makePost(query)
+    return id
+}
+
+Ficheiro.insereFicheiroAno = async function(guardadoEm, nome, path, size, type){
+    var id = nanoid.nanoid()
+    var data = dateFormat(new Date(), "yyyy-mm-dd HH:MM:ss");
+    var newpath = path.replace(/\\/g,"/");
+    console.log(guardadoEm)
+    var query = `
+    insert data {
+        c:${id} a owl:NamedIndividual ,
+                        c:Ficheiro .
+            c:${id} c:armezenadoEm c:${guardadoEm} .
+            c:${id} c:nome "${nome}" .
+            c:${id} c:path "${newpath}" .
+            c:${id} c:size "${size}"  .
+            c:${id} c:type "${type}" .
+            c:${id} c:data "${data}" .
     }
     `
 

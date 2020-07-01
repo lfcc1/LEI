@@ -4,6 +4,7 @@ var bcrypt = require('bcryptjs')
 
 var axios = require ('axios')
 
+var Publicacao = require('./publicacao')
 
 Utilizador.getUtilizador = async function(idUtilizador){
     try{
@@ -46,6 +47,7 @@ Utilizador.getUtilizadorSimples = async function(idUtilizador){
         throw e
     }
 }
+
 
 
 Utilizador.getUtilizadores = async function(){
@@ -147,13 +149,27 @@ Utilizador.getPublicacoesFromUtilizador = async function(idUtilizador){
     var iduser = idUtilizador.replace(/@/,"\\@");
 
     var query = `
-    select (STRAFTER(STR(?publicou), 'UMbook#') as ?idPublicacoes) where{
-        c:${iduser} a c:Aluno .
-        c:${iduser} c:publica ?publicou .
-    }
+    select (STRAFTER(STR(?idPub), 'UMbook#') as ?idPublicacao) ?dataPublicacao where {
+        ?idPub c:éPublicadoPor c:${iduser} .
+    	?idPub c:éPublicadaEm c:UM .
+        ?idPub c:data ?dataPublicacao .
+	  } Order by DESC(?dataPublicacao) 
     `
 
-    return Connection.makeQuery(query)
+    var idsPublicacoes = await Connection.makeQuery(query)
+
+    var publicacoes = []
+
+    for(let i = 0; i < idsPublicacoes.length ; i++ ){
+        pub = await Publicacao.getPublicacao(idsPublicacoes[i].idPublicacao)
+        var publicacao = {
+            idPublicacao : idsPublicacoes[i].idPublicacao,
+            dados : pub
+        }
+        publicacoes.push(publicacao)
+    }
+
+    return publicacoes
 }
 
 Utilizador.getAnosInscrito = async function(idUtilizador){

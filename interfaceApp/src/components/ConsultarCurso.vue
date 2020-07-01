@@ -59,7 +59,6 @@
                         label="Filtrar"
                         single-line
                         hide-details
-                        dark
                         ></v-text-field>
                         <v-data-table
                             :headers="header_estudantes"
@@ -101,7 +100,6 @@
                         label="Filtrar"
                         single-line
                         hide-details
-                        dark
                          ></v-text-field>
                         <v-data-table
                         :headers="header_responsaveis"
@@ -118,8 +116,26 @@
                     <hr>
 
         <hr>
-        <div style = " width:80% ; ">
+        <div style="width:80%;">
+             <v-row
+            align="center"
+            justify="center"
+            >
+                <v-btn-toggle rounded v-if="atual=='cadeiras'">
+                    <v-btn color= "#900000" @click="pubs = true">
+                        Publicações
+                    </v-btn>
+                    <v-btn color= "#900000" @click="pubs = false">
+                        Ficheiros
+                    </v-btn>
+                </v-btn-toggle>
+            </v-row>
+        <div v-if="pubs">
             <Publicacao :publicacoes="publicacoes" :idGrupo="this.id" :tipoGrupo="this.atual"/>
+        </div>
+        <div v-else>
+            <Files :idCadeira="id" />
+        </div>
         </div>
     </div>
   </v-card>
@@ -137,6 +153,7 @@ export default {
         return {
     publicacoes: [],
     showModal: false,
+    pubs: true,
     showModalResponsaveis: false,
     header_estudantes: [
       {text: "Avatar", value: 'imagem', class: 'subtitle-1'},
@@ -289,6 +306,7 @@ export default {
                 alert(this.rota + this.pai)
                 this.apresentaAno(this.pai)
             }
+            this.pubs = false
         },
         apresentaUser: function(item){
             this.$router.push({ name: 'UserProfile', params: {id: item.id }})

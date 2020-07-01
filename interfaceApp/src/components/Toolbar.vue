@@ -111,7 +111,7 @@
         <router-link
           v-ripple
           class="toolbar-items"
-          to="/userProfile"
+          :to= user
         >
           <v-icon color="white">mdi-account</v-icon>
         </router-link>
@@ -141,7 +141,8 @@ export default {
     searchInput :"",
     title: null,
     responsive: false,
-    color: "#900000"
+    color: "#900000",
+    user: ""
   }),
 
   watch: {
@@ -149,8 +150,11 @@ export default {
       this.title = val.name
     }
   },
-
   mounted () {
+    let utilizador = JSON.parse(localStorage.getItem("utilizador"))
+    console.log(utilizador)
+    this.user = ""
+    this.user = "userProfile/" + utilizador.idUtilizador
     this.onResponsiveInverted()
     window.addEventListener('resize', this.onResponsiveInverted)
   },

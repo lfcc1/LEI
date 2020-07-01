@@ -124,4 +124,65 @@ router.post('/fotoPerfil', upload.single('ficheiro'), passport.authenticate('jwt
       });
     }
 
+    router.post('/ano', upload.array('ficheiro'), passport.authenticate('jwt', {session: false}), function(req, res){
+      console.log(req.files)
+      addFiles(req.files, req.body)
+      .then(dados => res.jsonp(dados))
+      .catch(erro => res.status(500).jsonp(erro))
+      
+    })
+
+    function addFiles(files, body) {
+      return new Promise((resolve, reject) => {
+      
+        var ids = [];
+        var length = files.length - 1
+        for(var i = j = 0; i <= length; i++){
+    
+          let oldPath = __dirname + '/../'+files[i].path
+          let newPath = __dirname + '/../ficheiros/'
+          let guardadoEm = body.guardadoEm
+          let name = files[i].originalname
+          let size = files[i].size
+          let type = files[i].mimetype
+      
+          fs.readFile(oldPath, function(err, buf) {
+            var string = md5(buf);
+            var string1 = string.substring(0, 8);
+            var string2 = string.substring(8, 16);
+            var string3 = string.substring(16, 24);
+            var string4 = string.substring(24, 32);
+            
+            newPath = newPath + string1 + '/' + string2 + '/' + string3 + '/' + string4 + '/';
+    
+            mkdirp(newPath)
+              .then(dados => {
+                newPath = newPath + name;
+      
+                fs.rename(oldPath, newPath, function(err){
+                  if(err) throw err
+                })
+          
+                console.log(name)
+                Ficheiro.insereFicheiroAno(guardadoEm, name, newPath, size, type)
+                  .then(id => {
+                    console.log(id)
+                    ids.push(id); 
+                    
+                    if(j++ == length) resolve(ids);
+                      
+                  })
+                  .catch(erro => { reject(erro)})
+              })
+              .catch(erro => reject(erro))
+      
+            
+      
+          });
+         
+        }
+          
+      });
+    }
+
   module.exports = router;

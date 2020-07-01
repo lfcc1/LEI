@@ -55,13 +55,13 @@ router.put('/:idPublicacao', passport.authenticate('jwt', {session: false}), fun
 })
 
 router.put('/:idPublicacao/gosto', passport.authenticate('jwt', {session: false}), function(req, res){
-    axios.put(apiPublicacoes + req.params.idPublicacao + "/gosto"+ "?token=" + req.query.token)
+    axios.put(apiPublicacoes + req.params.idPublicacao + "/gosto"+ "?token=" + req.query.token, req.body)
     .then(dados => res.jsonp(dados.data))
     .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
 })
 
 router.put('/:idPublicacao/desgosto', passport.authenticate('jwt', {session: false}), function(req, res){
-    axios.put(apiPublicacoes + req.params.idPublicacao + "/desgosto"+ "?token=" + req.query.token)
+    axios.put(apiPublicacoes + req.params.idPublicacao + "/desgosto"+ "?token=" + req.query.token, req.body)
     .then(dados => res.jsonp(dados.data))
     .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
 })

@@ -37,6 +37,12 @@ router.get('/:idCadeira', passport.authenticate('jwt', {session: false}), functi
       .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
  })
 
+ router.get('/:idCadeira/ficheiros', passport.authenticate('jwt', {session: false}), function(req, res, next){
+   Cadeira.getFicheirosFromCadeira(req.params.idCadeira)
+      .then(dados => res.jsonp(dados))
+      .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
+ })
+
  // -------------------------------------------------------------- POST ---------------------------------------------------------------------
 
  router.post('/', passport.authenticate('jwt', {session: false}), function(req, res, next){
