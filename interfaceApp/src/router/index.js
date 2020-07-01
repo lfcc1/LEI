@@ -15,6 +15,7 @@ import EditarCurso from '../views/EditarCurso.vue'
 import EditarAno from '../views/EditarAno.vue'
 import SearchResult from '../views/SearchResult.vue'
 import GestaoUsers from '../views/GestaoUsers.vue'
+import SearchUsers from '../views/SearchUsers.vue'
 
 
 Vue.use(VueRouter)
@@ -125,7 +126,16 @@ const routes = [
     meta:{
       requiresAuth: true
     }
+  },
+  {
+    name: 'Pessoas Encontradas',
+    path: '/searchUsers/:nome',
+    component: SearchUsers,
+    meta:{
+      requiresAuth: true
+    }
   }
+
 
 ]
 

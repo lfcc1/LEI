@@ -176,7 +176,7 @@ const ficheiroUrl = require("@/config/hosts").ficheiros
       let utilizador = JSON.parse(localStorage.getItem("utilizador"))
       var titulo = this.$route.params.titulo
       this.idUtilizador = utilizador.idUtilizador
-      let res = await axios.get(h + "publicacoes/search/"+titulo + "?token=" + this.token)
+      let res = await axios.get(h + "utilizadores/search/"+titulo + "?token=" + this.token)
       console.log(res)
       this.publicacoesAtuais = res.data
 

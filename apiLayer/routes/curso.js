@@ -20,14 +20,14 @@ router.get('/', function(req, res, next) {
   
   // Toda a informação de um curso
   router.get('/:idCurso', passport.authenticate('jwt', {session: false}), function(req, res, next) {
-    axios.get(apiCurso + req.params.idCurso)
+    axios.get(apiCurso + req.params.idCurso + "?token=" + req.query.token)
          .then(dados => res.jsonp(dados.data))
          .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
   });
   
   // Todos os estudantes que frequentam um determinado curso
   router.get('/:idCurso/estudantes', passport.authenticate('jwt', {session: false}), function(req, res, next) {
-    axios.get(apiCurso + req.params.idCurso + "/estudantes")
+    axios.get(apiCurso + req.params.idCurso + "/estudantes" + "?token=" + req.query.token)
          .then(dados => res.jsonp(dados.data))
          .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
   });
@@ -41,14 +41,14 @@ router.get('/', function(req, res, next) {
   
   // Todos os responsaveis de um determinado curso
   router.get('/:idCurso/responsaveis', passport.authenticate('jwt', {session: false}), function(req, res, next){
-    axios.get(apiCurso + req.params.idCurso + "/responsaveis")
+    axios.get(apiCurso + req.params.idCurso + "/responsaveis" + "?token=" + req.query.token)
         .then(dados => res.jsonp(dados.data))
         .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
   })
 
   // Todas as publicações de um determinado curso
   router.get('/:idCurso/publicacoes', passport.authenticate('jwt', {session: false}), function(req, res, next){
-    axios.get(apiCurso + req.params.idCurso + "/publicacoes")
+    axios.get(apiCurso + req.params.idCurso + "/publicacoes" + "?token=" + req.query.token)
         .then(dados => res.jsonp(dados.data))
         .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
   })
@@ -56,14 +56,14 @@ router.get('/', function(req, res, next) {
 // -------------------------------------------------------------- POST ---------------------------------------------------------------------
 
   router.post('/', passport.authenticate('jwt', {session: false}), function(req, res, next){
-    axios.post(apiCurso, req.body)
+    axios.post(apiCurso + "?token=" + req.query.token, req.body)
     .then(dados => res.jsonp(dados.data))
     .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
   })
 
 
   router.put('/:idCurso', passport.authenticate('jwt', {session: false}), function(req, res, next){
-    axios.put(apiCurso + req.params.idCurso, req.body)
+    axios.put(apiCurso + req.params.idCurso + "?token=" + req.query.token, req.body)
     .then(dados => res.jsonp(dados.data))
     .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
   })
@@ -72,7 +72,7 @@ router.get('/', function(req, res, next) {
 
 
 router.delete('/:idCurso', passport.authenticate('jwt', {session: false}), function(req, res, next){
-  axios.delete(apiCurso + req.params.idCurso)
+  axios.delete(apiCurso + req.params.idCurso + "?token" + req.query.token)
   .then(dados => res.jsonp(dados.data))
   .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
 })

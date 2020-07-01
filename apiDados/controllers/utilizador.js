@@ -129,6 +129,18 @@ Utilizador.login = async function(user){
         return {authentication: false}
 }
 
+Utilizador.searchUser = async function(nome){
+    
+    var query = `
+    select (STRAFTER(STR(?idUser), 'UMbook#') as ?idUtilizador) ?nome where {
+        ?idUser a c:Aluno .
+    	?idUser c:nome ?nome .
+        filter(CONTAINS(?nome,"${nome}")) .
+    } 
+    `
+
+    return Connection.makeQuery(query)
+}
 
 Utilizador.getPublicacoesFromUtilizador = async function(idUtilizador){
 

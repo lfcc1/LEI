@@ -12,21 +12,21 @@ var passport = require('passport')
 // ------------------------------------------------------ GET --------------------------------------------
 
 router.get('/search/:titulo', passport.authenticate('jwt', {session: false}), function(req, res){
-    axios.get(apiPublicacoes + "search/" + req.params.titulo)
+    axios.get(apiPublicacoes + "search/" + req.params.titulo + "?token=" + req.query.token)
     .then(dados => res.jsonp(dados.data))
     .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
 })
 
 
 router.get('/:idPublicacao', passport.authenticate('jwt', {session: false}), function(req, res){
-    axios.get(apiPublicacoes + req.params.idPublicacao)
+    axios.get(apiPublicacoes + req.params.idPublicacao + "?token=" + req.query.token)
     .then(dados => res.jsonp(dados.data))
     .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
 })
 
 
 router.get('/:idPublicacao/comentarios', passport.authenticate('jwt', {session: false}), function(req, res){
-    axios.get(apiPublicacoes + req.params.idPublicacao + "/comentarios")
+    axios.get(apiPublicacoes + req.params.idPublicacao + "/comentarios" + "?token=" + req.query.token)
     .then(dados => res.jsonp(dados.data))
     .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
 })
@@ -35,13 +35,13 @@ router.get('/:idPublicacao/comentarios', passport.authenticate('jwt', {session: 
 // ------------------------------------------------------ POST --------------------------------------------
 
 router.post('/', passport.authenticate('jwt', {session: false}), function(req, res){
-    axios.post(apiPublicacoes , req.body)
+    axios.post(apiPublicacoes + "?token=" + req.query.token, req.body)
     .then(dados => res.jsonp(dados.data))
     .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
 })
 
 router.post('/:idPublicacao/comentario', passport.authenticate('jwt', {session: false}), function(req, res){
-    axios.post(apiPublicacoes + req.params.idPublicacao + "/comentario", req.body)
+    axios.post(apiPublicacoes + req.params.idPublicacao + "/comentario"+ "?token=" + req.query.token, req.body)
     .then(dados => res.jsonp(dados.data))
     .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
 })
@@ -49,19 +49,19 @@ router.post('/:idPublicacao/comentario', passport.authenticate('jwt', {session: 
 // ------------------------------------------------------ PUT --------------------------------------------
 
 router.put('/:idPublicacao', passport.authenticate('jwt', {session: false}), function(req, res){
-    axios.put(apiPublicacoes + req.params.idPublicacao, req.body)
+    axios.put(apiPublicacoes + req.params.idPublicacao + "?token=" + req.query.token, req.body )
     .then(dados => res.jsonp(dados.data))
     .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
 })
 
 router.put('/:idPublicacao/gosto', passport.authenticate('jwt', {session: false}), function(req, res){
-    axios.put(apiPublicacoes + req.params.idPublicacao + "/gosto")
+    axios.put(apiPublicacoes + req.params.idPublicacao + "/gosto"+ "?token=" + req.query.token)
     .then(dados => res.jsonp(dados.data))
     .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
 })
 
 router.put('/:idPublicacao/desgosto', passport.authenticate('jwt', {session: false}), function(req, res){
-    axios.put(apiPublicacoes + req.params.idPublicacao + "/desgosto")
+    axios.put(apiPublicacoes + req.params.idPublicacao + "/desgosto"+ "?token=" + req.query.token)
     .then(dados => res.jsonp(dados.data))
     .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
 })
@@ -70,13 +70,13 @@ router.put('/:idPublicacao/desgosto', passport.authenticate('jwt', {session: fal
 // ------------------------------------------------------ DELETE --------------------------------------------
 
 router.delete('/:idPublicacao', passport.authenticate('jwt', {session: false}), function(req, res){
-    axios.delete(apiPublicacoes + req.params.idPublicacao)
+    axios.delete(apiPublicacoes + req.params.idPublicacao + "?token=" + req.query.token)
     .then(dados => res.jsonp(dados.data))
     .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
 })
 
 router.delete('/comentario/:idComentario', passport.authenticate('jwt', {session: false}), function(req, res){
-    axios.delete(apiPublicacoes + "comentario/" + req.params.idComentario)
+    axios.delete(apiPublicacoes + "comentario/" + req.params.idComentario + "?token=" + req.query.token)
     .then(dados => res.jsonp(dados.data))
     .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
 })

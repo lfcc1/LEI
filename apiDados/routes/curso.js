@@ -3,6 +3,7 @@ var express = require('express');
 var router = express.Router();
 
 var Curso = require('../controllers/curso')
+var passport = require('passport')
 
 // ---------- ROTA   : /api/cursos ....
 
@@ -16,14 +17,14 @@ router.get('/', function(req, res, next) {
   });
   
   // Toda a informação de um curso
-  router.get('/:idCurso', function(req, res, next) {
+  router.get('/:idCurso', passport.authenticate('jwt', {session: false}), function(req, res, next) {
     Curso.getCurso(req.params.idCurso)
          .then(dados => res.jsonp(dados))
          .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
   });
   
   // Todos os estudantes que frequentam um determinado curso
-  router.get('/:idCurso/estudantes', function(req, res, next) {
+  router.get('/:idCurso/estudantes', passport.authenticate('jwt', {session: false}), function(req, res, next) {
     Curso.getEstudantesFromCurso(req.params.idCurso)
          .then(dados => res.jsonp(dados))
          .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
@@ -37,14 +38,14 @@ router.get('/', function(req, res, next) {
   });
   
   // Todos os responsaveis de um determinado curso
-  router.get('/:idCurso/responsaveis', function(req, res, next){
+  router.get('/:idCurso/responsaveis', passport.authenticate('jwt', {session: false}), function(req, res, next){
     Curso.getResponsaveisFromCurso(req.params.idCurso)
         .then(dados => res.jsonp(dados))
         .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
   })
 
   // Todas as publicações de um determinado curso
-  router.get('/:idCurso/publicacoes', function(req, res, next){
+  router.get('/:idCurso/publicacoes', passport.authenticate('jwt', {session: false}), function(req, res, next){
     Curso.getPublicacoesFromCurso(req.params.idCurso)
         .then(dados => res.jsonp(dados))
         .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
@@ -52,14 +53,14 @@ router.get('/', function(req, res, next) {
 
 // -------------------------------------------------------------- POST ---------------------------------------------------------------------
 
-  router.post('/', function(req, res, next){
+  router.post('/', passport.authenticate('jwt', {session: false}), function(req, res, next){
     Curso.insertCurso(req.body)
     .then(dados => res.jsonp(dados))
     .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
   })
 
 
-  router.put('/:idCurso', function(req, res, next){
+  router.put('/:idCurso', passport.authenticate('jwt', {session: false}), function(req, res, next){
     Curso.editarCurso(req.params.idCurso, req.body.designacao)
     .then(dados => res.jsonp(dados))
     .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
@@ -68,7 +69,7 @@ router.get('/', function(req, res, next) {
 // -------------------------------------------------------------- DELETE ---------------------------------------------------------------------
 
 
-router.delete('/:idCurso', function(req, res, next){
+router.delete('/:idCurso', passport.authenticate('jwt', {session: false}), function(req, res, next){
   Curso.deleteCurso(req.params.idCurso)
   .then(dados => res.jsonp(dados))
   .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })

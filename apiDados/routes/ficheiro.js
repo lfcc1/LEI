@@ -6,6 +6,7 @@ var multer = require('multer')
 var upload = multer({dest: 'uploads/'})
 const mkdirp = require('mkdirp-promise')
 var md5 = require('md5');
+var passport = require('passport')
 
 var idUtilizador = "lguilhermem@hotmail.com"
 
@@ -17,21 +18,21 @@ const { resolveSoa } = require('dns');
 // -------------------------------------------------------------- GET ---------------------------------------------------------------------
 
 // Todos os ficheiros do sistema
-router.get('/', function(req, res, next){
+router.get('/', passport.authenticate('jwt', {session: false}),  function(req, res, next){
     Ficheiro.getFicheiros()
       .then(dados => res.jsonp(dados))
       .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
   })
   
   // Toda a informação relativa a um ficheiro
-  router.get('/:idFicheiro', function(req, res, next){
+  router.get('/:idFicheiro', passport.authenticate('jwt', {session: false}), function(req, res, next){
     Ficheiro.getFicheiroAtomica(req.params.idFicheiro)
        .then(dados => res.jsonp(dados))
        .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
   })
   
   // Download de um ficheiro
-  router.get('/:idFicheiro/download', function(req, res, next){
+  router.get('/:idFicheiro/download', passport.authenticate('jwt', {session: false}), function(req, res, next){
     Ficheiro.getFicheiroPath(req.params.idFicheiro)
       .then(dados => {
         res.download(dados[0].localizacao)
@@ -42,7 +43,7 @@ router.get('/', function(req, res, next){
 
 // -------------------------------------------------------------- POST ---------------------------------------------------------------------
 // Inserir imagem de perfil
-router.post('/fotoPerfil', upload.single('ficheiro'), function(req, res){
+router.post('/fotoPerfil', upload.single('ficheiro'), passport.authenticate('jwt', {session: false}), function(req, res){
 
   let oldPath = __dirname + '/../'+req.file.path
   let newPath = __dirname + '/../public/images/'
@@ -62,7 +63,7 @@ router.post('/fotoPerfil', upload.single('ficheiro'), function(req, res){
 })
 
 // Inserir um novo ficheiro
-    router.post('/', upload.array('ficheiro'), function(req, res){
+    router.post('/', upload.array('ficheiro'), passport.authenticate('jwt', {session: false}), function(req, res){
       console.log(req.files)
       addFiles(req.files, req.body)
       .then(dados => res.jsonp(dados))

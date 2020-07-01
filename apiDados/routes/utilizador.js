@@ -3,32 +3,39 @@ var express = require('express');
 var router = express.Router();
 
 var Utilizador = require('../controllers/utilizador')
+var passport = require('passport')
 
 
 // ---------- ROTA   : /api/utilizadores ....
 
 // -------------------------------------------------------------- GET ---------------------------------------------------------------------
 
-router.get('/', function(req, res, next){
+router.get('/', passport.authenticate('jwt', {session: false}), function(req, res, next){
   Utilizador.getUtilizadores()
     .then(dados => res.jsonp(dados))
     .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
 })
 
 // Toda a informação relativa a um utilizador
-router.get('/:id', function(req, res, next){
+router.get('/:id', passport.authenticate('jwt', {session: false}), function(req, res, next){
     Utilizador.getUtilizador(req.params.id)
       .then(dados => res.jsonp(dados))
       .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
   })
 
-router.get('/:id/pedidosAmizade', function(req, res, next){
+router.get('/search/:nome', passport.authenticate('jwt', {session: false}), function(req, res, next){
+    Utilizador.searchUser(req.params.nome)
+      .then(dados => res.jsonp(dados))
+      .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
+})
+
+router.get('/:id/pedidosAmizade', passport.authenticate('jwt', {session: false}), function(req, res, next){
     Utilizador.getPedidos(req.params.id)
       .then(dados => res.jsonp(dados))
       .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
   })
 
-router.get('/:id/eventos', function(req, res, next){
+router.get('/:id/eventos', passport.authenticate('jwt', {session: false}), function(req, res, next){
     Utilizador.getEventos(req.params.id)
       .then(dados => res.jsonp(dados))
       .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
@@ -37,19 +44,19 @@ router.get('/:id/eventos', function(req, res, next){
 
 // -------------------------------------------------------------- PUT ---------------------------------------------------------------------
 
-router.put('/evento', function(req, res, next){
+router.put('/evento', passport.authenticate('jwt', {session: false}), function(req, res, next){
   Utilizador.adicionarEvento(req.body.idUtilizador, req.body.idEvento)
     .then(dados => res.jsonp(dados))
     .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
 })
 
-router.put('/:idUtilizador', function(req, res, next){
+router.put('/:idUtilizador', passport.authenticate('jwt', {session: false}), function(req, res, next){
   Utilizador.updateUtilizador(req.params.idUtilizador, req.body)
     .then(dados => res.jsonp(dados))
     .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
 })
 
-router.put('/:idUtilizador/amigo', function(req, res, next){
+router.put('/:idUtilizador/amigo', passport.authenticate('jwt', {session: false}), function(req, res, next){
   Utilizador.adicionarAmigo(req.params.idUtilizador, req.body.idAmigo)
     .then(dados => res.jsonp(dados))
     .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
@@ -66,7 +73,7 @@ router.post('/', function(req, res, next){
     .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
 })
 
-router.post('/pedidosamizade/:idUtilizador', function(req, res){
+router.post('/pedidosamizade/:idUtilizador', passport.authenticate('jwt', {session: false}), function(req, res){
   Utilizador.fazPedidoAmizade(req.params.idUtilizador, req.body.idUtilizador2)
             .then(dados => res.jsonp(dados))
             .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
@@ -82,19 +89,19 @@ router.post('/login', function(req, res){
 
 // -------------------------------------------------------------- DELETE ---------------------------------------------------------------------
 
-router.delete('/:idUtilizador', function(req, res, next){
+router.delete('/:idUtilizador', passport.authenticate('jwt', {session: false}), function(req, res, next){
   Utilizador.deleteUser(req.params.idUtilizador)
     .then(dados => res.jsonp(dados))
     .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
 })
 
-router.delete('/amigos/:id1/:id2', function(req, res, next){
+router.delete('/amigos/:id1/:id2', passport.authenticate('jwt', {session: false}), function(req, res, next){
   Utilizador.removerAmigo(req.params.id1, req.params.id2)
     .then(dados => res.jsonp(dados))
     .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
 })
 
-router.delete('/pedidosamizade/:idUtilizador1/:idUtilizador2', function(req, res){
+router.delete('/pedidosamizade/:idUtilizador1/:idUtilizador2', passport.authenticate('jwt', {session: false}), function(req, res){
   console.log(req.body)
   Utilizador.rejeitaPedido(req.params.idUtilizador1, req.params.idUtilizador2)
             .then(dados => res.jsonp(dados))

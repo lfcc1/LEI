@@ -14,26 +14,32 @@ var passport = require('passport')
 // -------------------------------------------------------------- GET ---------------------------------------------------------------------
 
 router.get('/', passport.authenticate('jwt', {session: false}), function(req, res, next){
-  axios.get(apiUtilizadores)
+  axios.get(apiUtilizadores + "?token=" + req.query.token)
       .then(dados =>{ res.jsonp(dados.data)})
       .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
   })
 
 // Toda a informação relativa a um utilizador
 router.get('/:id', passport.authenticate('jwt', {session: false}), function(req, res, next){
-  axios.get(apiUtilizadores + req.params.id)
+  axios.get(apiUtilizadores + req.params.id + "?token=" + req.query.token)
       .then(dados =>{ res.jsonp(dados.data)})
       .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
   })
 
+router.get('/search/:nome', passport.authenticate('jwt', {session: false}), function(req, res, next){
+    axios.get(apiUtilizadores + "search/" + req.params.nome + "?token=" + req.query.token)
+        .then(dados => res.jsonp(dados.data))
+        .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
+  })
+
 router.get('/:id/pedidosAmizade', passport.authenticate('jwt', {session: false}), function(req, res, next){
-  axios.get(apiUtilizadores + req.params.id + "/pedidosAmizade")
+  axios.get(apiUtilizadores + req.params.id + "/pedidosAmizade" + "?token=" + req.query.token)
       .then(dados => res.jsonp(dados.data))
       .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
   })
 
 router.get('/:id/eventos', passport.authenticate('jwt', {session: false}), function(req, res, next){
-  axios.get(apiUtilizadores + req.params.id + "/eventos")
+  axios.get(apiUtilizadores + req.params.id + "/eventos" + "?token=" + req.query.token)
       .then(dados => res.jsonp(dados.data))
       .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
   })
@@ -42,20 +48,20 @@ router.get('/:id/eventos', passport.authenticate('jwt', {session: false}), funct
 // -------------------------------------------------------------- PUT ---------------------------------------------------------------------
 
 router.put('/evento', passport.authenticate('jwt', {session: false}), function(req, res, next){
-  axios.put(apiUtilizadores + "evento" , req.body)
+  axios.put(apiUtilizadores + "evento" + "?token=" + req.query.token, req.body)
     .then(dados => res.jsonp(dados.data))
     .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
 })
 
 router.put('/:idUtilizador', passport.authenticate('jwt', {session: false}), function(req, res, next){
-  axios.put(apiUtilizadores + req.params.idUtilizador, req.body)
+  axios.put(apiUtilizadores + req.params.idUtilizador + "?token=" + req.query.token, req.body)
     .then(dados => res.jsonp(dados.data))
     .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
 })
 
 router.put('/:idUtilizador/amigo', passport.authenticate('jwt', {session: false}), function(req, res, next){
   console.log(req.params.idUtilizador)
-  axios.put(apiUtilizadores + req.params.idUtilizador + "/amigo", req.body)
+  axios.put(apiUtilizadores + req.params.idUtilizador + "/amigo"+ "?token=" + req.query.token, req.body)
     .then(dados => res.jsonp(dados.data))
     .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
 })
@@ -72,7 +78,7 @@ router.post('/', function(req, res, next){
 })
 
 router.post('/pedidosamizade/:idUtilizador', passport.authenticate('jwt', {session: false}), function(req, res){
-  axios.post(apiUtilizadores + "pedidosamizade/" + req.params.idUtilizador, req.body)
+  axios.post(apiUtilizadores + "pedidosamizade/" + req.params.idUtilizador + "?token=" + req.query.token, req.body)
             .then(dados => res.jsonp(dados.data))
             .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
 
@@ -94,19 +100,19 @@ router.post('/login', function(req, res){
 // -------------------------------------------------------------- DELETE ---------------------------------------------------------------------
 
 router.delete('/:idUtilizador', passport.authenticate('jwt', {session: false}), function(req, res, next){
-  axios.delete(apiUtilizadores + req.params.idUtilizador)
+  axios.delete(apiUtilizadores + req.params.idUtilizador + "?token=" + req.query.token)
     .then(dados => res.jsonp(dados.data))
     .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
 })
 
 router.delete('/amigos/:id1/:id2', passport.authenticate('jwt', {session: false}), function(req, res, next){
-  axios.delete(apiUtilizadores + "amigos/" + req.params.id1 + "/" + req.params.id2)
+  axios.delete(apiUtilizadores + "amigos/" + req.params.id1 + "/" + req.params.id2 + "?token=" + req.query.token)
     .then(dados => res.jsonp(dados.data))
     .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
 })
 
 router.delete('/pedidosamizade/:idUtilizador1/:idUtilizador2', passport.authenticate('jwt', {session: false}), function(req, res){
-  axios.delete(apiUtilizadores + "pedidosamizade/" + req.params.idUtilizador1 + "/" + req.params.idUtilizador2)
+  axios.delete(apiUtilizadores + "pedidosamizade/" + req.params.idUtilizador1 + "/" + req.params.idUtilizador2 + "?token=" + req.query.token)
             .then(dados => res.jsonp(dados.data))
             .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
 })

@@ -26,19 +26,19 @@ function checkPermissao(acess){
 //GET
 
 router.get('/conversas', passport.authenticate('jwt', {session: false}), function(req,res){
-  axios.get(apiChat + "conversas")
+  axios.get(apiChat + "conversas"+ "?token=" + req.query.token)
           .then(dados => res.jsonp(dados.data))
           .catch(erro => res.status(500).jsonp(erro))
 })
 
 router.get('/conversas/participante/:id', passport.authenticate('jwt', {session: false}), function(req, res){
-    axios.get(apiChat + "conversas/participante/" + req.params.id)
+    axios.get(apiChat + "conversas/participante/" + req.params.id+ "?token=" + req.query.token)
           .then(dados => res.jsonp(dados.data))
           .catch(erro => res.status(500).jsonp(erro))
 })
 
 router.get('/conversas/participante/:id/simples', passport.authenticate('jwt', {session: false}), function(req, res){
-    axios.get(apiChat + "conversas/participante/" + req.params.id + "/simples")
+    axios.get(apiChat + "conversas/participante/" + req.params.id + "/simples"+ "?token=" + req.query.token)
     .then(dados => res.jsonp(dados.data))
     .catch(erro => res.status(500).jsonp(erro))
 })
@@ -46,7 +46,7 @@ router.get('/conversas/participante/:id/simples', passport.authenticate('jwt', {
 //                                                  PUT
 
 router.put('/conversas/:id', passport.authenticate('jwt', {session: false}), function(req, res){
-    axios.put(apiChat + "conversas/" + req.params.id, req.body)
+    axios.put(apiChat + "conversas/" + req.params.id + "?token=" + req.query.token, req.body)
     .then(dados => res.jsonp(dados.data))
     .catch(erro => res.status(500).jsonp(erro))
 })
@@ -54,13 +54,13 @@ router.put('/conversas/:id', passport.authenticate('jwt', {session: false}), fun
 //                                                  POST
 
 router.post('/conversas', passport.authenticate('jwt', {session: false}), function(req, res){
-    axios.post(apiChat + "conversas", req.body)
+    axios.post(apiChat + "conversas" + "?token=" + req.query.token, req.body)
     .then(dados => res.jsonp(dados.data))
     .catch(erro => res.status(500).jsonp(erro))
 })
 
 router.post('/conversas/:conversa/:participante', passport.authenticate('jwt', {session: false}), function(req, res){
-    axios.post(apiChat + "conversas/" + req.params.conversa + "/" + req.params.participante)
+    axios.post(apiChat + "conversas/" + req.params.conversa + "/" + req.params.participante + "?token=" + req.query.token)
     .then(dados => res.jsonp(dados.data))
     .catch(erro => res.status(500).jsonp(erro))
 })
@@ -69,7 +69,7 @@ router.post('/conversas/:conversa/:participante', passport.authenticate('jwt', {
 //                                                    DELETE
 
 router.delete('/conversas/:conversa/:participante', passport.authenticate('jwt', {session: false}), function(req, res){
-    axios.delete(apiChat + "conversas/" + req.params.conversa + "/" + req.params.participante)
+    axios.delete(apiChat + "conversas/" + req.params.conversa + "/" + req.params.participante + "?token=" + req.query.token)
     .then(dados => res.jsonp(dados.data))
     .catch(erro => res.status(500).jsonp(erro))
 })
@@ -79,19 +79,19 @@ router.delete('/conversas/:conversa/:participante', passport.authenticate('jwt',
 
 
 router.get('/mensagens', passport.authenticate('jwt', {session: false}), function(req, res){
-    axios.get(apiChat + "mensagens")
+    axios.get(apiChat + "mensagens" + "?token=" + req.query.token)
     .then(dados => res.jsonp(dados.data))
     .catch(erro => res.status(500).jsonp(erro))
 })
 
 router.get('/mensagens/:conversa', passport.authenticate('jwt', {session: false}), function(req, res){
-    axios.get(apiChat + "mensagens/" + req.params.conversa)
+    axios.get(apiChat + "mensagens/" + req.params.conversa + "?token=" + req.query.token)
     .then(dados => res.jsonp(dados.data))
     .catch(erro => res.status(500).jsonp(erro))
 })
 
 router.post('/mensagens', passport.authenticate('jwt', {session: false}), function(req, res){
-    axios.post(apiChat + "mensagens/", req.body)
+    axios.post(apiChat + "mensagens/" + "?token=" + req.query.token, req.body)
             .then( () => res.jsonp({Result:"Message inserted"}))
             .catch(erro => res.status(500).jsonp(erro))
 })

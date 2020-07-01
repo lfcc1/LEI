@@ -1,5 +1,32 @@
 <template>
     <v-card class="ma-8">
+      <v-container>
+        <center>
+        <v-text-field
+          class="text--black"
+          label="Procurar por pessoas..."
+          color="#900000"
+          v-model="searchInput"
+          hide-details
+          style="max-width: 400px; margin-right: 32px; margin-top:10px;"
+        >
+          <template
+            v-if="$vuetify.breakpoint.mdAndUp"
+            v-slot:append-outer
+          >
+            <v-btn
+              class="mt-n2 white"
+              elevation="1"
+              fab
+              small
+              @click="searchPessoas()"
+            >
+            <v-icon color="#900000">mdi-magnify</v-icon>
+            </v-btn>
+          </template>
+        </v-text-field>
+        </center>
+      </v-container>
         <v-container v-if="pedidosAmizade.length > 0" style="width:60%">
             <v-list>
                         <v-list-item
@@ -34,6 +61,9 @@
 </template>
 
 <script>
+import {
+  mapMutations
+} from 'vuex'
 import axios from "axios"
 import VueJwtDecode from "vue-jwt-decode";
 const host = require("@/config/hosts").host
@@ -50,7 +80,9 @@ export default {
     item: {},
     ready: false,
     pedidosAmizade:[],
-    idUtilizador: ""
+    idUtilizador: "",    
+    searchInput :"",
+
   }),
 
   created: async function() {
@@ -107,7 +139,10 @@ export default {
       },
     apresentaUser: async function(idUser){
         this.$router.push({ name: 'UserProfile', params: {id: idUser }})
-      }
+      },
+    searchPessoas (){
+     this.$router.push({ name: 'Pessoas Encontradas',params: {nome: this.searchInput} })
+    },
   }
 }
 </script>

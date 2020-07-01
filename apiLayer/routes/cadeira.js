@@ -13,28 +13,28 @@ var passport = require('passport')
 
 // Toda a informação relativa a uma cadeira
 router.get('/:idCadeira', passport.authenticate('jwt', {session: false}), function(req, res, next){
-   axios.get(apiCadeiras + req.params.idCadeira)
+   axios.get(apiCadeiras + req.params.idCadeira + "?token=" + req.query.token)
        .then(dados => res.jsonp(dados.data))
        .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
   })
   
   // Todos os estudantes de uma determinada cadeira
   router.get('/:idCadeira/estudantes', passport.authenticate('jwt', {session: false}), function(req, res, next){
-   axios.get(apiCadeiras + req.params.idCadeira + "/estudantes")
+   axios.get(apiCadeiras + req.params.idCadeira + "/estudantes" + "?token=" + req.query.token)
        .then(dados => res.jsonp(dados.data))
        .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
   })
   
   // Todos os responsaveis de uma determinada cadeira
   router.get('/:idCadeira/responsaveis', passport.authenticate('jwt', {session: false}), function(req, res, next){
-   axios.get(apiCadeiras + req.params.idCadeira + "/responsaveis")
+   axios.get(apiCadeiras + req.params.idCadeira + "/responsaveis"+ "?token=" + req.query.token)
        .then(dados => res.jsonp(dados.data))
        .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
   })
   
   // Todas as publicações de uma determinada cadeira
   router.get('/:idCadeira/publicacoes', passport.authenticate('jwt', {session: false}), function(req, res, next){
-   axios.get(apiCadeiras + req.params.idCadeira + "/publicacoes")
+   axios.get(apiCadeiras + req.params.idCadeira + "/publicacoes" + "?token=" + req.query.token)
       .then(dados => res.jsonp(dados.data))
       .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
  })
@@ -42,7 +42,7 @@ router.get('/:idCadeira', passport.authenticate('jwt', {session: false}), functi
  // -------------------------------------------------------------- POST ---------------------------------------------------------------------
 
  router.post('/', passport.authenticate('jwt', {session: false}), function(req, res, next){
-   axios.post(apiCadeiras, req.body)
+   axios.post(apiCadeiras + "?token=" + req.query.token, req.body)
       .then(dados => res.jsonp(dados.data))
       .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
  })
@@ -50,7 +50,7 @@ router.get('/:idCadeira', passport.authenticate('jwt', {session: false}), functi
  // -------------------------------------------------------------- DELETE ---------------------------------------------------------------------
 
  router.delete('/:idCadeira', passport.authenticate('jwt', {session: false}), function(req, res, next){
-   axios.delete(apiCadeiras + req.params.idCadeira)
+   axios.delete(apiCadeiras + req.params.idCadeira + "?token=" + req.query.token)
       .then(dados => res.jsonp(dados.data))
       .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
  })
