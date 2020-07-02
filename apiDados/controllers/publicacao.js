@@ -104,12 +104,13 @@ Publicacao.insertPublicacao = async function(publicacao){
     var idUtilizador = publicacao.idUtilizador.replace(/@/,"\\@");
     console.log(data)
 
+    var conteudo = publicacao.conteudo.replace(/\n/g, "\\n");
     var query = `
     Insert Data {
         c:${idPublicacao} a owl:NamedIndividual ,
                         c:Publicacao .
         c:${idPublicacao} c:gostos 0 .
-        c:${idPublicacao} c:conteudo "${publicacao.conteudo}" .
+        c:${idPublicacao} c:conteudo "${conteudo}" .
         c:${idPublicacao} c:data "${data}" .
         c:${idPublicacao} c:éPublicadoPor c:${idUtilizador} .
         c:${idPublicacao} c:éPublicadaEm c:${publicacao.idGrupo} .

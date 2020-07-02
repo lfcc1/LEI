@@ -101,7 +101,7 @@
                     <v-card-title class="justify-center" style="background: #d6d6c2; color: #900000;" dark>
                         Conteúdos Programáticos 
                     </v-card-title>
-                    <h4> {{this.conteudos}} </h4>
+                    <h4 style="white-space:pre-wrap;" > {{this.conteudos}} </h4>
                 </v-card>
                 </v-dialog>
                 <v-dialog

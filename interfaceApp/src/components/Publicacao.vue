@@ -58,9 +58,9 @@
           
     </v-card-actions>
 
-    <v-text-field v-if="item.editar" class=" ml-4 black--text" v-model="item.dados.info.conteudo" multi-line autofocus/>
+    <v-text-field v-if="item.editar" class=" ml-4 black--text" v-model="item.dados.info.conteudo" multi-line autofocus style="white-space:pre-wrap;"/>
 
-    <v-card-text v-else class="  black--text" v-text="item.dados.info.conteudo">
+    <v-card-text v-else class="  black--text" v-text="item.dados.info.conteudo"  style="white-space:pre-wrap;" >
 
     </v-card-text>
 

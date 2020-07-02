@@ -163,7 +163,7 @@ Cadeira.editarCadeira = async function(idCadeira, cadeira){
 Cadeira.insertCadeira = async function(cadeira){
     var nome = cadeira.nome
     var id = cadeira.idAno + "_" + nome.replace(/ /g,"_")
-    var conteudo = cadeira.conteudosProgramaticos.replace(/\n/,"_");
+    var conteudo = cadeira.conteudosProgramaticos.replace(/\n/g, "\\n");
     console.log(cadeira.conteudosProgramaticos)
     console.log(conteudo)
     var query = `
