@@ -49,29 +49,35 @@
        <v-card-title class="justify-center" style=" color: #900000;" dark>
                 {{this.pasta.nome}}
             </v-card-title>
-
-      <v-list-item
-        v-for="item in ficheiros"
-        :key="item.idFicheiro"
-      >
-        <v-list-item-avatar @click="download(item)" style="cursor:pointer">
-          <v-icon color=#900000
-          >mdi-file-document</v-icon>
-        </v-list-item-avatar>
-
-        <v-list-item-content @click="download(item)" style="cursor:pointer">
-          <v-list-item-title v-text="item.nome"></v-list-item-title>
-          <v-list-item-subtitle v-text="item.data"></v-list-item-subtitle>
-        </v-list-item-content>
-
-                <v-list-item-action>
-          <v-btn icon @click="deleteFile(item)">
+    </v-list>
+    <div v-if="ficheiros.length != 0">
+                <v-text-field
+            v-model="filtrar"
+            label="Filtrar"
+            single-line
+            hide-details
+            ></v-text-field>
+                <v-data-table
+            :headers="header_files"
+            :items="ficheiros"
+            :footer-props="footer_props"
+            :search="filtrar"
+            >
+                <template v-slot:item="row">
+                    <tr >
+                        <td @click="download(row.item)" style="cursor:pointer" ><v-icon color=#900000
+          >mdi-file-document</v-icon></td>
+                        <td @click="download(row.item)" style="cursor:pointer" ><v-list-item-title v-text="row.item.nome"></v-list-item-title>
+          <v-list-item-subtitle v-text="row.item.data"></v-list-item-subtitle></td>
+                        <td>
+                          <v-btn icon @click="deleteFile(row.item)">
             <v-icon color="grey lighten-1">mdi-delete</v-icon>
           </v-btn>
-        </v-list-item-action>
-
-      </v-list-item>
-    </v-list>
+                        </td>
+                    </tr>
+                </template>
+            </v-data-table>
+    </div>
   </div>
  </v-card>
             </div>
@@ -100,8 +106,9 @@ export default {
             files: [],
             filtrar:"",
             header_files: [
-            {text: "Nome", value: 'nome', class: 'subtitle-1'},
-            {text: "Data", sortable: true, value: 'data', class: 'subtitle-1'},
+            {text: "Icon", value: 'nome', class: 'subtitle-1'},
+            {text: "Ficheiro", sortable: true, value: 'data', class: 'subtitle-1'},
+            {text: "Operação", value: 'data', class: 'subtitle-1'},
             ],
             footer_props: {
             "items-per-page-text": "Mostrar",
