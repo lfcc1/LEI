@@ -26,8 +26,9 @@ Cadeira.getCadeira = async function(idCadeira){
 
 Cadeira.getCadeiraAtomica = async function(idCadeira){
     var query = `
-    select ?designacao (STRAFTER(STR(?ano), 'UMbook#') as ?idAno) where{
+    select ?designacao (STRAFTER(STR(?ano), 'UMbook#') as ?idAno) ?conteudo where{
         c:${idCadeira} c:nome ?designacao .
+        c:${idCadeira} c:conteudosProgramaticos ?conteudo .
         c:${idCadeira} c:éLecionadaEm ?ano .
         ?ano c:fazParteCurso ?idCurso .
     }
@@ -162,11 +163,15 @@ Cadeira.editarCadeira = async function(idCadeira, cadeira){
 Cadeira.insertCadeira = async function(cadeira){
     var nome = cadeira.nome
     var id = cadeira.idAno + "_" + nome.replace(/ /g,"_")
+    var conteudo = cadeira.conteudosProgramaticos.replace(/\n/,"_");
+    console.log(cadeira.conteudosProgramaticos)
+    console.log(conteudo)
     var query = `
     insert data {
         c:${id} a owl:NamedIndividual ,
                         c:Cadeira .
         c:${id} c:nome "${cadeira.nome}" . 
+        c:${id} c:conteudosProgramaticos "${conteudo}" .
         c:${id} c:éLecionadaEm c:${cadeira.idAno} .
     }
     `

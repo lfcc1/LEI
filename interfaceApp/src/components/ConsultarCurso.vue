@@ -45,6 +45,13 @@
 
                 </v-list-item>
             </v-list>
+            <v-list v-if="atual=='cadeiras'" >
+                <v-list-item @click="dialogConteudos = true">
+                <v-list-item-content style="width: 50%;">
+                    <v-list-item-title > Conteúdos </v-list-item-title>
+                </v-list-item-content>
+                </v-list-item>
+            </v-list>
                         <v-dialog
                         v-model="dialogEstudantes"
                         width="500"
@@ -85,6 +92,18 @@
                         </v-card-text>
                         </v-card>
                         </v-dialog>
+                <v-dialog
+                    v-model="dialogConteudos"
+                    width="500"
+                    v-bind:style="{color:white}"
+                >
+                <v-card>
+                    <v-card-title class="justify-center" style="background: #d6d6c2; color: #900000;" dark>
+                        Conteúdos Programáticos 
+                    </v-card-title>
+                    <h4> {{this.conteudos}} </h4>
+                </v-card>
+                </v-dialog>
                 <v-dialog
                     v-model="dialogResponsaveis"
                     width="500"
@@ -154,6 +173,8 @@ export default {
     publicacoes: [],
     showModal: false,
     pubs: true,
+    conteudos:"",
+    dialogConteudos: false,
     showModalResponsaveis: false,
     header_estudantes: [
       {text: "Avatar", value: 'imagem', class: 'subtitle-1'},
@@ -274,6 +295,7 @@ export default {
                         this.atual = "anos"
                      }
                      else {
+                         this.conteudos = dados.data.info.conteudo
                          this.designacao = dados.data.info.designacao
                          this.pai = dados.data.info.idAno
                          this.atual = "cadeiras"

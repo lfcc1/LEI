@@ -12,6 +12,7 @@
         <v-card class="ma-8">
         <v-container style= "width:60%">
             <v-text-field placeholder="Designação da Cadeira" v-model="designacao" color="#900000"/>
+            <textarea v-model="conteudosProgramaticos" placeholder="Conteúdos Programáticos da Cadeira" rows="5" style="width:100%; resize: none; "></textarea>
             <center><v-btn @click="insertCadeira()" color="#900000"> Adicionar Cadeira </v-btn> </center>
         </v-container>
        <v-card-text>
@@ -57,6 +58,7 @@ export default {
   data: () => ({
     item: {},
     cadeiras: [],
+    conteudosProgramaticos: "",
     header_cadeiras: [
       {text: "Identificador da Cadeira", sortable: true, value: 'id', class: 'subtitle-1'},
       {text: "Designação", value: 'designacao', class: 'subtitle-1'},
@@ -111,7 +113,7 @@ export default {
               if(this.designacao == this.cadeiras[i].designacao) r = false
           }
           if(r){
-            axios.post(h + "cadeiras?token=" + this.token, {nome: this.designacao, idAno: this.idAno})
+            axios.post(h + "cadeiras?token=" + this.token, {nome: this.designacao, conteudosProgramaticos:this.conteudosProgramaticos, idAno: this.idAno})
                 .then(() =>{
                     axios.get(h + "anos/" + this.idAno + "/cadeiras?token=" + this.token )
                          .then(dados =>{
