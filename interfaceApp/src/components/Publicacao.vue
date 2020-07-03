@@ -11,7 +11,7 @@
           <v-text-field maxlength="75" color="#900000" class="" v-model="titulo" placeholder="Titulo da Publicação" style="width:80%" autofocus/>
           </center>
             <v-spacer></v-spacer>
-            <textarea v-model="conteudo" placeholder="Escreva alguma publicação..." rows="5" style="width:80%; resize: none; border:1px solid #900000; "></textarea>
+            <textarea v-model="conteudo" placeholder="Escreva alguma publicação..." class="pa-2" rows="5" style="width:80%; resize: none; border:1px solid #900000; "></textarea>
 
             <div class = "flex" style ="width:90%; padding-left:10%;">
     

@@ -33,8 +33,10 @@ router.get('/', passport.authenticate('jwt', {session: false}),  function(req, r
   
   // Download de um ficheiro
   router.get('/:idFicheiro/download', passport.authenticate('jwt', {session: false}), function(req, res, next){
+    console.log('ola')
     Ficheiro.getFicheiroPath(req.params.idFicheiro)
       .then(dados => {
+        console.log(dados[0])
         res.download(dados[0].localizacao)
       })
       .catch(erro => res.status(500).jsonp(erro))
