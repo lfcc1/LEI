@@ -33,11 +33,9 @@ router.get('/', passport.authenticate('jwt', {session: false}),  function(req, r
   
   // Download de um ficheiro
   router.get('/:idFicheiro/download', passport.authenticate('jwt', {session: false}), function(req, res, next){
-    console.log('ola')
     Ficheiro.getFicheiroPath(req.params.idFicheiro)
       .then(dados => {
-        console.log(dados[0])
-        res.download(dados[0].localizacao)
+        res.download(__dirname + dados[0].localizacao)
       })
       .catch(erro => res.status(500).jsonp(erro))
   })
@@ -48,7 +46,7 @@ router.get('/', passport.authenticate('jwt', {session: false}),  function(req, r
 router.post('/fotoPerfil', upload.single('ficheiro'), passport.authenticate('jwt', {session: false}), function(req, res){
 
   let oldPath = __dirname + '/../'+req.file.path
-  let newPath = __dirname + '/../public/images/'
+  let newPath = '/../public/images/'
   let name = req.file.originalname
 
   //let type = name.split(".")[1] 
@@ -57,7 +55,7 @@ router.post('/fotoPerfil', upload.single('ficheiro'), passport.authenticate('jwt
         if(err) throw err
 
         newPath = newPath + idUtilizador;
-        fs.rename(oldPath, newPath, function(err){
+        fs.rename(oldPath, __dirname + newPath, function(err){
           if(err) throw err
           res.jsonp(1)
         })
@@ -66,7 +64,6 @@ router.post('/fotoPerfil', upload.single('ficheiro'), passport.authenticate('jwt
 
 // Inserir um novo ficheiro
     router.post('/', upload.array('ficheiro'), passport.authenticate('jwt', {session: false}), function(req, res){
-      console.log(req.files)
       addFiles(req.files, req.body)
       .then(dados => res.jsonp(dados))
       .catch(erro => res.status(500).jsonp(erro))
@@ -81,7 +78,7 @@ router.post('/fotoPerfil', upload.single('ficheiro'), passport.authenticate('jwt
         for(var i = j = 0; i <= length; i++){
     
           let oldPath = __dirname + '/../'+files[i].path
-          let newPath = __dirname + '/../ficheiros/'
+          let newPath = '/../ficheiros/'
           let guardadoEm = body.guardadoEm
           let name = files[i].originalname
           let size = files[i].size
@@ -96,12 +93,13 @@ router.post('/fotoPerfil', upload.single('ficheiro'), passport.authenticate('jwt
             
             newPath = newPath + string1 + '/' + string2 + '/' + string3 + '/' + string4 + '/';
     
-            mkdirp(newPath)
+            mkdirp(__dirname + newPath)
               .then(dados => {
                 newPath = newPath + name;
       
-                fs.rename(oldPath, newPath, function(err){
+                fs.copyFile(oldPath, __dirname + newPath, function(err){
                   if(err) throw err
+                  fs.unlinkSync(oldPath);
                 })
           
                 console.log(name)
@@ -127,14 +125,13 @@ router.post('/fotoPerfil', upload.single('ficheiro'), passport.authenticate('jwt
     }
 
     router.post('/pastas', upload.array('ficheiro'), passport.authenticate('jwt', {session: false}), function(req, res){
-      console.log(req.files)
-      addFiles(req.files, req.body)
+      addFilesPasta(req.files, req.body)
       .then(dados => res.jsonp(dados))
       .catch(erro => res.status(500).jsonp(erro))
       
     })
 
-    function addFiles(files, body) {
+    function addFilesPasta(files, body) {
       return new Promise((resolve, reject) => {
       
         var ids = [];
@@ -142,7 +139,7 @@ router.post('/fotoPerfil', upload.single('ficheiro'), passport.authenticate('jwt
         for(var i = j = 0; i <= length; i++){
     
           let oldPath = __dirname + '/../'+files[i].path
-          let newPath = __dirname + '/../ficheiros/'
+          let newPath = '/../ficheiros/'
           let guardadoEm = body.guardadoEm
           let name = files[i].originalname
           let size = files[i].size
@@ -157,15 +154,16 @@ router.post('/fotoPerfil', upload.single('ficheiro'), passport.authenticate('jwt
             
             newPath = newPath + string1 + '/' + string2 + '/' + string3 + '/' + string4 + '/';
     
-            mkdirp(newPath)
+            mkdirp(__dirname + newPath)
               .then(dados => {
+
                 newPath = newPath + name;
-      
-                fs.rename(oldPath, newPath, function(err){
+
+                fs.copyFile(oldPath, __dirname + newPath, function(err){
                   if(err) throw err
+                  fs.unlinkSync(oldPath);
                 })
           
-                console.log(name)
                 Ficheiro.insereFicheiroPasta(guardadoEm, name, newPath, size, type)
                   .then(id => {
                     console.log(id)
@@ -192,7 +190,7 @@ router.post('/fotoPerfil', upload.single('ficheiro'), passport.authenticate('jwt
     router.delete('/:idFicheiro', function(req, res, next){
       Ficheiro.getFicheiroPath(req.params.idFicheiro)
         .then(dados => {
-        fs.unlinkSync(dados[0].localizacao);
+        fs.unlinkSync(__dirname + dados[0].localizacao);
           Ficheiro.deleteFicheiro(req.params.idFicheiro)
           .then(dados => res.jsonp(dados))
           .catch(erro => res.status(500).jsonp(erro))
