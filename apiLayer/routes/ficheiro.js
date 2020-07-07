@@ -47,15 +47,14 @@ router.post('/fotoPerfil', upload.single('ficheiro'), function(req, res){
   let idUtilizador = req.body.idUtilizador
   //let type = name.split(".")[1] 
 
-  fs.readFile(oldPath, function(err, buf) {
-        if(err) throw err
+  newPath = newPath + idUtilizador;
 
-        newPath = newPath + idUtilizador;
-        fs.rename(oldPath, newPath, function(err){
-          if(err) throw err
-          res.jsonp(1)
-        })
+  fs.copyFile(oldPath, newPath, function(err){
+    if(err) throw err
+    fs.unlinkSync(oldPath);
+    res.jsonp(1)
   })
+
 })
 
 // Inserir um novo ficheiro
