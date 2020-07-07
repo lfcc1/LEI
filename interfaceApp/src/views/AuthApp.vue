@@ -84,6 +84,7 @@ import NavBar from '@/components/Navbar.vue'
 import Toolbar from '@/components/Toolbar.vue'
 import Views from '@/components/View.vue'
 const host = require("@/config/hosts").host
+const authpath = require("@/config/hosts").auth
 import { Chat } from 'vue-quick-chat'
 import 'vue-quick-chat/dist/vue-quick-chat.css';
 import axios from "axios"
@@ -198,7 +199,7 @@ export default {
         console.log("INTERCEPTEI")
         const originalRequest = error.config;
 
-           if (originalRequest.url === 'http://localhost:5000/refreshToken')
+           if (originalRequest.url === authpath + 'refreshToken')
               return Promise.reject(error);
             
 
@@ -207,7 +208,7 @@ export default {
             originalRequest._retry = true;
             aux = true
               var user = JSON.parse(localStorage.getItem("utilizador"))
-            return axios.post("http://localhost:5000/refreshToken",user,{withCredentials: true})
+            return axios.post(authpath + 'refreshToken',user,{withCredentials: true})
                 .then(res => {
                   console.log(res.data.token)
                   localStorage.setItem("jwt", res.data.token);

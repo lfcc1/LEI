@@ -1,0 +1,1 @@
+FROM dhlabbasel/graphdb-free:latest

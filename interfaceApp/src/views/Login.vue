@@ -27,6 +27,7 @@
 <script>
 import axios from "axios"
 const h = require("@/config/hosts").hostAPI
+const authpath = require("@/config/hosts").auth
 import VueJwtDecode from "vue-jwt-decode";
 
   export default {
@@ -39,7 +40,7 @@ import VueJwtDecode from "vue-jwt-decode";
     methods: {
       login: async function () {
         try {
-        let response = await axios.post('http://localhost:5000/' + "login", {idUtilizador: this.email, password: this.password},{withCredentials: true});
+        let response = await axios.post(authpath + "login", {idUtilizador: this.email, password: this.password},{withCredentials: true});
         
         console.log(response.data)
         if(!response.data.authentication){
