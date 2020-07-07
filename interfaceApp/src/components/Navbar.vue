@@ -123,9 +123,9 @@ export default {
   methods:{
     logout: function(){
       if(confirm("De certeza que pretende terminar sessão?")){
-        this.nomeUtilizador = "None"
         localStorage.removeItem("jwt");
-        this.$router.push("/");
+        this.$emit('refreshLogout')
+        this.color = "#900001"
       }
     },
     isLogged: function(){

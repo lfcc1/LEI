@@ -173,10 +173,9 @@ export default {
     },
     logout: function(){
       if(confirm("De certeza que pretende terminar sessão?")){
+        localStorage.removeItem("jwt");
         this.$emit('refreshLogout')
         this.color = "#900001"
-        localStorage.removeItem("jwt");
-        this.$router.push("/");
       }
     },
     search (){

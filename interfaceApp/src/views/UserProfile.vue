@@ -534,6 +534,7 @@ export default {
       // ir buscar à sessão
       this.srcImage = host+'/images/' + this.idUtilizador
       this._id = utilizador.idUtilizador
+	    //if (current_time > token.exp) { alert("EXPIRED") }
       let response = await axios.get(h + "utilizadores/" + this.idUtilizador + "?token=" + this.token )//
       console.log(response.data)
       this.user = response.data

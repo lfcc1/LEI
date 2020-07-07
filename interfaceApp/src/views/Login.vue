@@ -39,7 +39,7 @@ import VueJwtDecode from "vue-jwt-decode";
     methods: {
       login: async function () {
         try {
-        let response = await axios.post(h + "utilizadores/login", {idUtilizador: this.email, password: this.password});
+        let response = await axios.post('http://localhost:5000/' + "login", {idUtilizador: this.email, password: this.password},{withCredentials: true});
         
         console.log(response.data)
         if(!response.data.authentication){

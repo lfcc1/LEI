@@ -249,8 +249,9 @@ export default {
             //this.$router.push({name : 'Ano', params:{id : item.id} })
             //alert(JSON.stringify(item))
             this.id = id
+            var token = localStorage.getItem("jwt")
             if(this.rota == "cursos/"){
-                axios.get(h + this.rota + id + "?token=" + this.token)
+                axios.get(h + this.rota + id + "?token=" + token)
                      .then(dados => {
                          this.designacao = dados.data.info.designacao
                          this.back = false
@@ -274,7 +275,8 @@ export default {
                      })
             }
             else{
-            axios.get(h + this.rota + id + "?token=" + this.token )
+                var token = localStorage.getItem("jwt")
+            axios.get(h + this.rota + id + "?token=" + token )
                  .then(dados => {
                      if(dados.data.cadeiras != null){
                          this.designacao = dados.data.info.nome
