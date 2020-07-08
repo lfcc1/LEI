@@ -5,6 +5,31 @@ var router = express.Router();
 var Curso = require('../controllers/curso')
 var passport = require('passport')
 
+
+
+function getPermissao(acess,utilizador){
+  var result= false
+  console.log(utilizador.tipos)
+  utilizador.tipos.forEach(element => {
+    if(element.classe == acess)
+      result = true
+  })
+  return result;
+}
+
+function verifyAcess(acess){
+  return  function(req, res, next) {
+    var u = req.user.user
+    var x = getPermissao(acess,u)
+    if(x){
+      next()
+  }
+  else{
+    console.log("Não tem permissão")
+    res.status(403).jsonp("Não tem permissão")
+  }
+  }
+}
 // ---------- ROTA   : /api/cursos ....
 
 // -------------------------------------------------------------- GET ---------------------------------------------------------------------
@@ -53,14 +78,14 @@ router.get('/', function(req, res, next) {
 
 // -------------------------------------------------------------- POST ---------------------------------------------------------------------
 
-  router.post('/', passport.authenticate('jwt', {session: false}), function(req, res, next){
+  router.post('/', passport.authenticate('jwt', {session: false}),  verifyAcess("Admin"), function(req, res, next){
     Curso.insertCurso(req.body)
     .then(dados => res.jsonp(dados))
     .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
   })
 
 
-  router.put('/:idCurso', passport.authenticate('jwt', {session: false}), function(req, res, next){
+  router.put('/:idCurso', passport.authenticate('jwt', {session: false}),  verifyAcess("Admin"), function(req, res, next){
     Curso.editarCurso(req.params.idCurso, req.body.designacao)
     .then(dados => res.jsonp(dados))
     .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
@@ -69,7 +94,7 @@ router.get('/', function(req, res, next) {
 // -------------------------------------------------------------- DELETE ---------------------------------------------------------------------
 
 
-router.delete('/:idCurso', passport.authenticate('jwt', {session: false}), function(req, res, next){
+router.delete('/:idCurso', passport.authenticate('jwt', {session: false}),  verifyAcess("Admin"), function(req, res, next){
   Curso.deleteCurso(req.params.idCurso)
   .then(dados => res.jsonp(dados))
   .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })

@@ -1,11 +1,16 @@
 <template>
-  <v-app :key="viewKey">
+  <v-app  :key="viewKey">
     
     <div v-if="loggedIn">
     <Auth  @refreshLogout="refreshLogout" />
     </div>
     <div v-else>
-      <Login @refreshLogout="refreshLogout" />
+      <div v-if="!mode">
+      <Login  @refreshLogout="refreshLogout" @registar="registar" />
+      </div>
+      <div v-else>
+      <Registar @login="login"/>
+      </div>
     </div>
   </v-app>
 </template>
@@ -14,6 +19,7 @@
 
 import Auth from '@/views/AuthApp.vue'
 import Login from '@/views/Login.vue'
+import Registar from '@/views/Registar.vue'
 import axios from 'axios'
 
 
@@ -23,13 +29,15 @@ export default {
     components: {
     Auth,
     Login,
+    Registar,
   },
      data() {
 
         return {
           color :"#eee",
           viewKey: 0,
-          loggedIn : false
+          loggedIn : false,
+          mode : false
         }
     },
     created: function(){
@@ -48,6 +56,12 @@ export default {
             this.loggedIn = this.isLogged()
             alert("Forçar Reatividade")
             this.viewKey ++;
+          },
+          registar: function(){
+            this.mode = true
+          },
+          login: function(){
+            this.mode = false
           }
     }
 }

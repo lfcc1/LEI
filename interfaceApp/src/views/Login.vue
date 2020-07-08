@@ -3,10 +3,10 @@
     <v-layout row class="text-xs-center" justify-center align-center>
       <v-flex xs4 class="grey lighten-4">
         <v-container style="position: relative;top: 13%;" class="text-xs-center">
-          <v-card flat>
-            <v-card-title class="justify-center" primary-title>
-              <h2 class="font-weight-bold black--text">Login</h2>
-            </v-card-title>
+          <material-card              
+          color="#900000"
+          title="Login"
+        >
             <v-form>
             <v-text-field prepend-icon="mdi-account" v-model="email" name="Email" label="Email" ></v-text-field>
             <v-text-field prepend-icon="mdi-key" v-model="password" name="Password" label="Password" type="password"></v-text-field>
@@ -14,7 +14,7 @@
               <v-btn primary large block style="background-color: #900000;" @click="login">Login</v-btn>
             </v-card-actions>
             </v-form>
-          </v-card>
+          </material-card>
           <center><v-text> Ainda não possuí conta? </v-text> <span class="font-weight-bold black--text" @click="registar()" style="cursor: pointer;" > Registe-se já! </span></center>
         </v-container>
       </v-flex>
@@ -64,7 +64,7 @@ import VueJwtDecode from "vue-jwt-decode";
       }
       },
       registar: function(){
-        this.$router.push("/registar");
+        this.$emit("registar");
       }
     }
   }

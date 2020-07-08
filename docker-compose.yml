@@ -3,6 +3,7 @@ version: '3.3'
 services:
 
     umbook-graphdb:
+        build: ./ontologia
         container_name: umbook-graphdb
         image: bragamann/umbook-graphdb:2020-07-03
         ports: 
@@ -12,19 +13,21 @@ services:
         volumes: 
             - graphdbvol:/opt/graphdb/home
 
-    umbook-interfaceapp:
-        depends_on: 
-            - "umbook-apilayer"
-            - "umbook-auth"
-        container_name: umbook-interfaceapp
-        image: bragamann/umbook-interfaceapp:2020-07-03
-        ports: 
-            - "8080:8080"
-        networks: 
-            - frontend
-            - gateaway
+   ## umbook-interfaceapp:
+    #    build: ./interfaceapp
+    #    depends_on: 
+     #       - "umbook-apilayer"
+    #        - "umbook-auth"
+   #2     container_name: umbook-interfaceapp
+   #     image: bragamann/umbook-interfaceapp:2020-07-03
+   #     ports: 
+   #         - "8080:8080"
+   #     networks: 
+    #        - frontend
+    #        - gateaway
 
     umbook-apichat:
+        build: ./apiChat
         depends_on: 
             - "umbook-mongo"
         container_name: umbook-apichat
@@ -36,6 +39,7 @@ services:
             - backend
 
     umbook-auth:
+        build: ./authServer
         depends_on: 
             - "umbook-mongo"
             - "umbook-apidados"
@@ -49,6 +53,7 @@ services:
             - backend
 
     umbook-apidados:
+        build: ./apiDados
         container_name: umbook-apidados
         image: bragamann/umbook-apidados:2020-07-03
         ports:
@@ -61,6 +66,7 @@ services:
 
 
     umbook-apilayer:
+        build: ./apiLayer
         depends_on: 
             - "umbook-apichat"
             - "umbook-apidados"
@@ -77,6 +83,7 @@ services:
         
   
     umbook-mongo:
+        build: ./UMbookMongo
         image: bragamann/umbook-mongo:2020-07-03
         container_name: umbook-mongo
         ports:

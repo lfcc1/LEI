@@ -38,7 +38,7 @@
         <hr v-if="index < comentariosAtuais.length - 1" color="grey" style="width:100%">
         </v-container>
         </v-list-item>
-        <textarea  class="black--text" v-model="conteudo"  placeholder="Comente algo sobre a publicação.."   rows="3" style="width:100%; resize: none; border:1px solid #000000;">
+        <textarea  class="black--text pa-3" v-model="conteudo"  placeholder="Comente algo sobre a publicação.."   rows="3" style="width:100%; resize: none; border:1px solid #000000;">
         
         </textarea>
         <v-btn @click="postComentario()" color= "#900000">Comentar</v-btn>
@@ -69,7 +69,10 @@ export default {
       let utilizador = JSON.parse(localStorage.getItem("utilizador"))
       this.idUtilizador = utilizador.idUtilizador
       
-      this.comentariosAtuais = this.comentarios
+      //this.comentariosAtuais = this.comentarios
+      var response = await axios.get(h+'publicacoes/' + this.idPublicacao + '/comentarios?token=' + this.token)
+      console.log(response)
+      this.comentariosAtuais = response.data
       this.updateComentarios()
       console.log(this.comentariosAtuais)
     },
@@ -85,6 +88,7 @@ export default {
             this.comentariosAtuais = response.data
             this.updateComentarios()
             this.conteudo = "" 
+            this.$emit("refresh",this.comentariosAtuais)
         },
         seeUser: async function(idUser){
             this.$router.push({ name: 'UserProfile', params: {id: idUser }})
@@ -104,8 +108,6 @@ export default {
             }
         },
         utilizadorOwner: async function(comentario){
-            console.log(comentario.idUtilizador)
-            console.log(this.idUtilizador)
             return this.idUtilizador == comentario.idUtilizador
         }
     }

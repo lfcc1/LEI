@@ -55,6 +55,7 @@
                         <v-dialog
                         v-model="dialogEstudantes"
                         width="500"
+                        
                         >
                         <v-card>
                         <v-card-text>
@@ -94,14 +95,15 @@
                         </v-dialog>
                 <v-dialog
                     v-model="dialogConteudos"
-                    width="500"
+                    width="900"
+                    
                     v-bind:style="{color:white}"
                 >
-                <v-card>
+                <v-card class="pa-3">
                     <v-card-title class="justify-center" style="background: #d6d6c2; color: #900000;" dark>
                         Conteúdos Programáticos 
                     </v-card-title>
-                    <h4 style="white-space:pre-wrap;" > {{this.conteudos}} </h4>
+                    <h4 class="pa-3" style="white-space:pre-wrap;" > {{this.conteudos}} </h4>
                 </v-card>
                 </v-dialog>
                 <v-dialog

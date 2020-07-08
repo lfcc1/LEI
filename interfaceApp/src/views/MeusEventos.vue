@@ -13,7 +13,7 @@
                     <span class="headline font-weight-bold"></span>
                 </v-card-title>
                 <v-card-text class="title font-weight-light"   v-text="evento.dados.info.conteudo"/>
-                <center> <v-btn color="#C0C0C0" dark @click="showDialog(evento)"> Participantes ({{evento.dados.participantes.length}}) </v-btn> </center>
+                <center> <v-btn color="#900000" dark @click="showDialog(evento)"> Participantes ({{evento.dados.participantes.length}}) </v-btn> </center>
                 <center>   Começa: {{ evento.dados.info.dataInicio }} </center> <p></p>
                 <center>   Acaba: {{  evento.dados.info.dataFim }}  </center> <p/>
                 <center>   Organizador: {{evento.dados.parcerias[0].nome}} </center>

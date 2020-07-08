@@ -6,7 +6,29 @@ var Cadeira = require('../controllers/cadeira')
 var passport = require('passport')
 
 // ---------- ROTA   : /api/cadeiras ....
-
+function getPermissao(acess,utilizador){
+   var result= false
+   console.log(utilizador.tipos)
+   utilizador.tipos.forEach(element => {
+     if(element.classe == acess)
+       result = true
+   })
+   return result;
+ }
+ 
+ function verifyAcess(acess){
+   return  function(req, res, next) {
+     var u = req.user.user
+     var x = getPermissao(acess,u)
+     if(x){
+       next()
+   }
+   else{
+     console.log("Não tem permissão")
+     res.status(403).jsonp("Não tem permissão")
+   }
+   }
+ }
 // -------------------------------------------------------------- GET ---------------------------------------------------------------------
 
 // Toda a informação relativa a uma cadeira
@@ -60,14 +82,14 @@ router.get('/:idCadeira', passport.authenticate('jwt', {session: false}), functi
 
  // -------------------------------------------------------------- POST ---------------------------------------------------------------------
 
- router.post('/', passport.authenticate('jwt', {session: false}), function(req, res, next){
+ router.post('/', passport.authenticate('jwt', {session: false}), verifyAcess("Admin"), function(req, res, next){
    
    Cadeira.insertCadeira(req.body)
       .then(dados => res.jsonp(dados))
       .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
  })
 
- router.post('/pastas', passport.authenticate('jwt', {session: false}), function(req, res, next){
+ router.post('/pastas', passport.authenticate('jwt', {session: false}), verifyAcess("Admin"), function(req, res, next){
    
    Cadeira.insertPasta(req.body)
       .then(dados => res.jsonp(dados))
@@ -79,7 +101,7 @@ router.get('/:idCadeira', passport.authenticate('jwt', {session: false}), functi
  //--------------------------------------------------------------- PUT ------------------------------------------------------------------------
 
 
- router.put('/:id', passport.authenticate('jwt', {session: false}), function(req, res, next){
+ router.put('/:id', passport.authenticate('jwt', {session: false}),verifyAcess("Admin"), function(req, res, next){
    
    Cadeira.editarCadeira(req.params.id,req.body)
       .then(dados => res.jsonp(dados))
@@ -90,13 +112,13 @@ router.get('/:idCadeira', passport.authenticate('jwt', {session: false}), functi
 
 
  
- router.delete('/:idCadeira', function(req, res, next){
+ router.delete('/:idCadeira', passport.authenticate('jwt', {session: false}),verifyAcess("Admin"), function(req, res, next){
    Cadeira.deleteCadeira(req.params.idCadeira)
       .then(dados => res.jsonp(dados))
       .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
  })
 
- router.delete('/pastas/:id', function(req, res, next){
+ router.delete('/pastas/:id', passport.authenticate('jwt', {session: false}),verifyAcess("Admin"), function(req, res, next){
    Cadeira.deletePasta(req.params.id)
       .then(dados => res.jsonp(dados))
       .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })

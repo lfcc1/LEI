@@ -7,6 +7,30 @@ var apiAnos = host+"anos/"
 var axios = require('axios')
 var passport = require('passport')
 
+function getPermissao(acess,utilizador){
+  var result= false
+  console.log(utilizador.tipos)
+  utilizador.tipos.forEach(element => {
+    if(element.classe == acess)
+      result = true
+  })
+  return result;
+}
+
+function verifyAcess(acess){
+  return  function(req, res, next) {
+    var u = req.user.user
+    var x = getPermissao(acess,u)
+    if(x){
+      next()
+  }
+  else{
+    console.log("Não tem permissão")
+    res.status(403).jsonp("Não tem permissão")
+  }
+  }
+}
+
 // ---------- ROTA   : /api/anos ....
 
 // -------------------------------------------------------------- GET ---------------------------------------------------------------------
@@ -57,7 +81,7 @@ router.get('/:idAno', passport.authenticate('jwt', {session: false}), function(r
   
 // -------------------------------------------------------------- POST ---------------------------------------------------------------------
 
-  router.post('/', passport.authenticate('jwt', {session: false}), function(req, res){
+  router.post('/', passport.authenticate('jwt', {session: false}), verifyAcess("Admin"), function(req, res){
     axios.post(apiAnos + "?token=" + req.query.token, req.body)
        .then(dados => res.jsonp(dados.data))
        .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
@@ -69,7 +93,7 @@ router.get('/:idAno', passport.authenticate('jwt', {session: false}), function(r
 // -------------------------------------------------------------- PUT ---------------------------------------------------------------------
 
 
-router.put('/:idAno', passport.authenticate('jwt', {session: false}), function(req, res){
+router.put('/:idAno', passport.authenticate('jwt', {session: false}), verifyAcess("Admin"),function(req, res){
   axios.put(apiAnos + req.params.idAno + "?token=" + req.query.token, req.body)
      .then(dados => {res.jsonp(dados.data)})
      .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
@@ -78,7 +102,7 @@ router.put('/:idAno', passport.authenticate('jwt', {session: false}), function(r
 
 // -------------------------------------------------------------- DELETE ---------------------------------------------------------------------
 
-router.delete('/:idAno', passport.authenticate('jwt', {session: false}), function(req, res){
+router.delete('/:idAno', passport.authenticate('jwt', {session: false}), verifyAcess("Admin"),function(req, res){
   axios.delete(apiAnos + req.params.idAno+ "?token=" + req.query.token)
        .then(dados => res.jsonp(dados.data))
        .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })

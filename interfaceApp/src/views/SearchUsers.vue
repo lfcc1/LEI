@@ -28,6 +28,7 @@
         </center>
       </v-container>
         <v-container v-if="pessoas.length > 0" style="width:40%">
+          <center><h4 class="font-weight-bold " style="color: #900000"> Resultados({{pessoas.length}}): </h4></center>
             <v-list>
                         <v-list-item
                         v-for="pessoa in pessoas"

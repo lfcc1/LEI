@@ -31,7 +31,7 @@
     </div>
     <div v-else >
       
-         <v-list v-model="publicacoesAtuais" color="transparent" class="justify-center">
+         <v-list  v-model="publicacoesAtuais" color="transparent" class="justify-center">
             <!--<v-list-item-group disabled v-model="publicacoesAtuais" color="primary"> -->
             <v-list-item class="justify-center"
                 v-for="item in publicacoesAtuais"
@@ -102,7 +102,7 @@
             >
              <hr color="#900000" style="width:100%">
                         <!--<v-list v-if="item,dados.comentarios.length != 0" >-->
-                <Comentario :comentarios="item.dados.comentarios" :idPublicacao="item.idPublicacao"/>
+                <Comentario  @refresh="(comentarios)=>{refresh(item,comentarios)}" :comentarios="item.dados.comentarios" :idPublicacao="item.idPublicacao"/>
             </v-container>
   </v-card>
             </v-list-item>
@@ -184,6 +184,7 @@ const ficheiroUrl = require("@/config/hosts").ficheiros
         titulo:"",
         files : [],
         idUtilizador:"",
+        viewKey : 0,
         editConteudo:"",
         publicacaoAtual: {dados:{ficheiros:[]}},
         dialog: false,
@@ -230,14 +231,24 @@ const ficheiroUrl = require("@/config/hosts").ficheiros
           //this.updatePubs()
         }
       },
+      refresh(item,comentarios){
+        item.dados.comentarios = comentarios;
+        //this.viewKey ++;
+      },
       openComentarios: function(item){
         if(item.showComments == false){
         item.showComments = true
-        this.corComentariosIcon = "#900000"
+        if(this.corComentariosIcon =="#900000")
+       this.corComentariosIcon = "#900001"
+       else
+       this.corComentariosIcon = "#900000"
         }
         else{
             item.showComments = false
-            this.corComentariosIcon = "#900001"
+            if(this.corComentariosIcon =="#900000")
+             this.corComentariosIcon = "#900001"
+          else
+          this.corComentariosIcon = "#900000"
         }
       },
       postFiles: function(id){

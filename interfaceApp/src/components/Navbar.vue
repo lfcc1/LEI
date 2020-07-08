@@ -98,21 +98,33 @@ export default {
     let utilizador = JSON.parse(localStorage.getItem("utilizador"))
     this.idUtilizador = utilizador.idUtilizador
     this.nomeUtilizador = utilizador.nome
+    console.log(utilizador)
+    if(this.getPermissao(utilizador))
     this.items = [
         { title: 'Universidade', icon: 'mdi-view-dashboard',href:"/universidade" },
-        // Ir buscar á sessão
         { title: 'Meu Curso', icon: 'mdi-school', href:"/curso" },
         { title: 'Eventos Gerais', icon: 'mdi-calendar-clock', href:"/eventos" },
         { title: 'Eventos do teu curso', icon: 'mdi-calendar-heart', href:"/eventoscurso" },
         { title: 'Meus Eventos', icon: 'mdi-calendar-multiple-check', href:"/meuseventos" },
-        // Ir buscar á sessão
         { title: 'Meu Perfil', icon: 'mdi-account-circle', href:"/userProfile/" + this.idUtilizador },
         { title: 'Pedidos de amizade', icon: 'mdi-account-plus-outline', href:"/pedidosamizade" },
-        { title: 'Notificações', icon: 'mdi-bell-ring', href:"/notificacoes" },
         { title: 'Gestao de Cursos', icon: 'mdi-cog-outline', href:"/gestaocursos" },
         { title: 'Gestao de Utilizadores', icon: 'mdi-cog-outline', href:"/gestaousers" },
         { title: 'Logout', icon: 'mdi-logout'}
     ]
+
+  else
+      this.items = [
+        { title: 'Universidade', icon: 'mdi-view-dashboard',href:"/universidade" },
+        { title: 'Meu Curso', icon: 'mdi-school', href:"/curso" },
+        { title: 'Eventos Gerais', icon: 'mdi-calendar-clock', href:"/eventos" },
+        { title: 'Eventos do teu curso', icon: 'mdi-calendar-heart', href:"/eventoscurso" },
+        { title: 'Meus Eventos', icon: 'mdi-calendar-multiple-check', href:"/meuseventos" },
+        { title: 'Meu Perfil', icon: 'mdi-account-circle', href:"/userProfile/" + this.idUtilizador },
+        { title: 'Pedidos de amizade', icon: 'mdi-account-plus-outline', href:"/pedidosamizade" },
+        { title: 'Logout', icon: 'mdi-logout'}
+    ]
+
     this.srcImage = host+'images/' + this.idUtilizador
   },
   computed: {
@@ -121,6 +133,15 @@ export default {
     },
   },
   methods:{
+    getPermissao(utilizador){
+      var result= false
+      utilizador.tipos.forEach(element => {
+        if(element.classe == "Admin")
+          result = true
+      });
+      return result;
+    },
+
     logout: function(){
       if(confirm("De certeza que pretende terminar sessão?")){
         localStorage.removeItem("jwt");

@@ -6,6 +6,30 @@ var Utilizador = require('../controllers/utilizador')
 var passport = require('passport')
 
 
+function getPermissao(acess,utilizador){
+  var result= false
+  console.log(utilizador.tipos)
+  utilizador.tipos.forEach(element => {
+    if(element.classe == acess)
+      result = true
+  })
+  return result;
+}
+
+function verifyAcess(acess){
+  return  function(req, res, next) {
+    var u = req.user.user
+    var x = getPermissao(acess,u)
+    if(x){
+      next()
+  }
+  else{
+    console.log("Não tem permissão")
+    res.status(403).jsonp("Não tem permissão")
+  }
+  }
+}
+
 // ---------- ROTA   : /api/utilizadores ....
 
 // -------------------------------------------------------------- GET ---------------------------------------------------------------------
@@ -97,7 +121,7 @@ router.post('/login', function(req, res){
 
 // -------------------------------------------------------------- DELETE ---------------------------------------------------------------------
 
-router.delete('/:idUtilizador', passport.authenticate('jwt', {session: false}), function(req, res, next){
+router.delete('/:idUtilizador', passport.authenticate('jwt', {session: false}), verifyAcess("Admin"), function(req, res, next){
   Utilizador.deleteUser(req.params.idUtilizador)
     .then(dados => res.jsonp(dados))
     .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })

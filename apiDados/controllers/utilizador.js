@@ -91,7 +91,6 @@ Utilizador.getUtilizadorAtomica = async function(idUtilizador){
 
     var query = `
     select ?numAluno ?numTelemovel ?nome ?sexo ?dataNasc ?curso (STRAFTER(STR(?idcurs), 'UMbook#') as ?idCurso) where{
-        c:${iduser} a c:Aluno .
         c:${iduser} c:numAluno ?numAluno .
         c:${iduser} c:numTelemovel ?numTelemovel .
         c:${iduser} c:nome ?nome .

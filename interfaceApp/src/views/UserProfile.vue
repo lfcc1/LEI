@@ -234,7 +234,7 @@
         xs12
         md3
       >
-        <material-card style="width: 75%" >
+        <material-card style="width: 95%" >
           <v-avatar
             slot="offset"
             class="mx-auto d-block"
@@ -447,7 +447,7 @@
         xs12
         md3
       >
-        <material-card style="width: 75%" >
+        <material-card style="width: 95%" >
           <v-avatar
             slot="offset"
             class="mx-auto d-block"
@@ -476,7 +476,6 @@
             <input id="file-input" type="file" @change="processFile($event)" style="display: none;">
             <input/>
             <v-btn @click="uploadImage()" color="#900000"> Confirmar </v-btn>
-            <h6 class="category text-gray font-weight-thin mb-3">Estudante MIEI</h6>
             <h4 class="card-title font-weight-light">{{this.user.info.nome}}</h4>
             <p class="card-description font-weight-light">{{this.user.pubs.length}} publicações</p>
             <v-btn class="mx-0 font-weight-light" color="#900000" @click="dialogAmigos = true" >

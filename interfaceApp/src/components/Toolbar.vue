@@ -26,8 +26,10 @@
         >
           <v-icon>mdi-view-list</v-icon>
           
-        </v-btn>
+        </v-btn >
+        <div class="font-weight-bold">
         {{ title }}
+        </div>
       </v-toolbar-title>
     </div>
 
@@ -72,42 +74,7 @@
         >
           <v-icon color="white">mdi-view-dashboard</v-icon>
         </router-link>
-        <v-menu
-          bottom
-          left
-          content-class="dropdown-menu"
-          offset-y
-          transition="slide-y-transition">
-          <router-link
-            v-ripple
-            slot="activator"
-            class="toolbar-items"
-            to="/notificacoes"
-          >
-            <v-badge
-              color="error"
-              overlap
-            >
-              <template slot="badge">
-                {{ notifications.length }}
-              </template>
-              <v-icon color="white">mdi-bell</v-icon>
-            </v-badge>
-          </router-link>
-          <v-card>
-            <v-list dense>
-              <v-list-tile
-                v-for="notification in notifications"
-                :key="notification"
-                @click="onClick"
-              >
-                <v-list-tile-title
-                  v-text="notification"
-                />
-              </v-list-tile>
-            </v-list>
-          </v-card>
-        </v-menu>
+
         <router-link
           v-ripple
           class="toolbar-items"
@@ -115,8 +82,14 @@
         >
           <v-icon color="white">mdi-account</v-icon>
         </router-link>
-        
-          <v-icon @click="logout()" color="white">mdi-logout</v-icon>
+                <router-link
+          v-ripple
+          class="toolbar-items"
+          to="./" 
+        >
+                    <v-icon @click="logout()" color="white">mdi-logout</v-icon>
+        </router-link>
+
         
       </v-flex>
     </v-toolbar-items>

@@ -7,8 +7,30 @@ var host = require('../config/config').host
 var apiCurso = host+"cursos/"
 var axios = require('axios')
 
-// ---------- ROTA   : /api/cursos ....
 
+function getPermissao(acess,utilizador){
+  var result= false
+  console.log(utilizador.tipos)
+  utilizador.tipos.forEach(element => {
+    if(element.classe == acess)
+      result = true
+  })
+  return result;
+}
+
+function verifyAcess(acess){
+  return  function(req, res, next) {
+    var u = req.user.user
+    var x = getPermissao(acess,u)
+    if(x){
+      next()
+  }
+  else{
+    console.log("Não tem permissão")
+    res.status(403).jsonp("Não tem permissão")
+  }
+  }
+}
 // -------------------------------------------------------------- GET ---------------------------------------------------------------------
 
 // Todos os cursos disponiveis
@@ -55,14 +77,14 @@ router.get('/', function(req, res, next) {
 
 // -------------------------------------------------------------- POST ---------------------------------------------------------------------
 
-  router.post('/', passport.authenticate('jwt', {session: false}), function(req, res, next){
+  router.post('/', passport.authenticate('jwt', {session: false}), verifyAcess("Admin"), function(req, res, next){
     axios.post(apiCurso + "?token=" + req.query.token, req.body)
     .then(dados => res.jsonp(dados.data))
     .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
   })
 
 
-  router.put('/:idCurso', passport.authenticate('jwt', {session: false}), function(req, res, next){
+  router.put('/:idCurso', passport.authenticate('jwt', {session: false}), verifyAcess("Admin"), function(req, res, next){
     axios.put(apiCurso + req.params.idCurso + "?token=" + req.query.token, req.body)
     .then(dados => res.jsonp(dados.data))
     .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
@@ -71,8 +93,8 @@ router.get('/', function(req, res, next) {
 // -------------------------------------------------------------- DELETE ---------------------------------------------------------------------
 
 
-router.delete('/:idCurso', passport.authenticate('jwt', {session: false}), function(req, res, next){
-  axios.delete(apiCurso + req.params.idCurso + "?token" + req.query.token)
+router.delete('/:idCurso', passport.authenticate('jwt', {session: false}), verifyAcess("Admin"), function(req, res, next){
+  axios.delete(apiCurso + req.params.idCurso + "?token=" + req.query.token)
   .then(dados => res.jsonp(dados.data))
   .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
 })

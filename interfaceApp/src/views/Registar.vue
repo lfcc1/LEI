@@ -3,10 +3,11 @@
   <v-container>
     <v-layout row class="text-xs-center">
         <v-container style="position: relative;top: 15%; width: 60%;" class="text-xs-center">
-          <v-card flat>
-            <v-card-title primary-title class="justify-center">
-              <h2>Registo</h2>
-            </v-card-title>
+          <material-card              
+          color="#900000"
+          title="Registo"
+        >
+
             <v-form>
             <v-text-field prepend-icon="mdi-account-card-details" v-model="numeroAluno" name="Identificador de Aluno" label="Identificador de Aluno" ></v-text-field>
             <v-text-field prepend-icon="mdi-account" v-model="nome" name="Nome" label="Nome" ></v-text-field>
@@ -41,7 +42,10 @@
               <v-btn primary large block style="background-color: #900000;" @click="registar">Confirmar</v-btn>
             </v-card-actions>
             </v-form>
-          </v-card>
+            <v-card-actions class="justify-center">
+            <v-btn   width=100 style="background-color: #900000;" @click="login">Voltar</v-btn>
+            </v-card-actions>
+              </material-card>
         </v-container>
     </v-layout>
   </v-container>
@@ -83,6 +87,9 @@
         }
     },
      methods: {
+       login: function(){
+         this.$emit("login");
+       },
       registar: function () {
         if (this.numeroAluno != "" && this.email != "" && this.numeroTelemovel != "" && this.ano != "" && this.genero != ""
              && this.curso != "" && this.password != "" && this.dataNascimento != "" && this.nome != ""){ 

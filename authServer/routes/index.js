@@ -27,7 +27,7 @@ router.post('/login', function(req, res){
               
               var response = dados.data
               if(response.authentication == true){
-                response.token = await generateToken(response)
+                response.token = await generateToken(response.utilizador)
                 var tokenExistente = await Tokens.findUserTokenAtivo(response.utilizador.idUtilizador)
                 if(tokenExistente == null){
                   var token = nanoid.nanoid();

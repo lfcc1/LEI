@@ -26,16 +26,6 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/registar',
-    name: 'Registar',
-    component: Registar
-  },
-  {
-    path: '/',
-    name: 'Login',
-    component: Login
-  },
-  {
     path: '/userProfile/:id',
     name: 'UserProfile',
     component: UserProfile,

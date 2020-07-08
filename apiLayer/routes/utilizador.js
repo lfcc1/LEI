@@ -10,8 +10,29 @@ var axios = require('axios')
 var passport = require('passport')
 var fs = require('fs');
 
-// ---------- ROTA   : /api/utilizadores ....
+function getPermissao(acess,utilizador){
+  var result= false
+  console.log(utilizador.tipos)
+  utilizador.tipos.forEach(element => {
+    if(element.classe == acess)
+      result = true
+  })
+  return result;
+}
 
+function verifyAcess(acess){
+  return  function(req, res, next) {
+    var u = req.user.user
+    var x = getPermissao(acess,u)
+    if(x){
+      next()
+  }
+  else{
+    console.log("Não tem permissão")
+    res.status(403).jsonp("Não tem permissão")
+  }
+  }
+}
 // -------------------------------------------------------------- GET ---------------------------------------------------------------------
 
 router.get('/', passport.authenticate('jwt', {session: false}), function(req, res, next){
@@ -110,7 +131,7 @@ router.post('/login', function(req, res){
 
 // -------------------------------------------------------------- DELETE ---------------------------------------------------------------------
 
-router.delete('/:idUtilizador', passport.authenticate('jwt', {session: false}), function(req, res, next){
+router.delete('/:idUtilizador', passport.authenticate('jwt', {session: false}), verifyAcess("Admin"), function(req, res, next){
   axios.delete(apiUtilizadores + req.params.idUtilizador + "?token=" + req.query.token)
     .then(dados => res.jsonp(dados.data))
     .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
