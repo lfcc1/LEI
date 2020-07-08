@@ -12,7 +12,6 @@ var fs = require('fs');
 
 function getPermissao(acess,utilizador){
   var result= false
-  console.log(utilizador.tipos)
   utilizador.tipos.forEach(element => {
     if(element.classe == acess)
       result = true
