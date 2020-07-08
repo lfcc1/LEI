@@ -1,1 +1,1 @@
-module.exports.hostMongo = "mongodb://localhost:27017/"
+module.exports.hostMongo = "mongodb://umbook-mongo:27017/"

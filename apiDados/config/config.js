@@ -1,1 +1,1 @@
-module.exports.hostGraphDB = "http://localhost:7200/"
+module.exports.hostGraphDB = "http://umbook-graphdb:7200/"

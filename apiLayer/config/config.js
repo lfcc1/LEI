@@ -1,5 +1,5 @@
-module.exports.host = "http://localhost:3050/api/"
-module.exports.hostChat = "http://localhost:3051/api/"
+module.exports.host = "http://umbook-apidados:3050/api/"
+module.exports.hostChat = "http://umbook-apichat:3051/api/"
 
 var jwt = require('jsonwebtoken')
 

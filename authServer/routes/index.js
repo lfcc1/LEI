@@ -9,7 +9,7 @@ var Tokens = require('../controllers/refreshToken')
 var config = require('../config/config')
 var apiDadosHost = config.apiDadosHost
 const jwtKey = "LEI-UMbook"
-const jwtExpirySeconds = 60*10
+const jwtExpirySeconds = 10 * 60
 
 generateToken = function(user){
 

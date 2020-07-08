@@ -1,0 +1,106 @@
+version: '3.3'
+
+services:
+
+    umbook-graphdb:
+        build: ./ontologia
+        container_name: umbook-graphdb
+        image: bragamann/umbook-graphdb:2020-07-03
+        ports: 
+            - "7200:7200"
+        networks: 
+            - graphdb
+        volumes: 
+            - graphdbvol:/opt/graphdb/home
+
+    umbook-interfaceapp:
+        build: ./interfaceapp
+        depends_on: 
+            - "umbook-apilayer"
+            - "umbook-auth"
+        container_name: umbook-interfaceapp
+        image: bragamann/umbook-interfaceapp:2020-07-03
+        ports: 
+            - "8080:8080"
+        networks: 
+            - frontend
+            - gateaway
+
+    umbook-apichat:
+        build: ./apiChat
+        depends_on: 
+            - "umbook-mongo"
+        container_name: umbook-apichat
+        image: bragamann/umbook-apichat:2020-07-03
+        ports: 
+            - "3051:3051"
+        networks: 
+            - mongo
+            - backend
+
+    umbook-auth:
+        build: ./authServer
+        depends_on: 
+            - "umbook-mongo"
+            - "umbook-apidados"
+        container_name: umbook-auth
+        image: bragamann/umbook-auth:2020-07-03
+        ports: 
+            - "5000:5000"
+        networks: 
+            - mongo
+            - frontend
+            - backend
+
+    umbook-apidados:
+        build: ./apiDados
+        container_name: umbook-apidados
+        image: bragamann/umbook-apidados:2020-07-03
+        ports:
+            - "3050:3050"
+        networks: 
+            - backend
+            - graphdb
+        volumes:
+            - ./apiDados/ficheiros:/app/ficheiros
+
+
+    umbook-apilayer:
+        build: ./apiLayer
+        depends_on: 
+            - "umbook-apichat"
+            - "umbook-apidados"
+        container_name: umbook-apilayer
+        image: bragamann/umbook-apilayer:2020-07-03
+        ports:
+          - "3049:3049"
+        networks: 
+          - frontend
+          - backend
+          - gateaway
+        volumes:
+            - ./apiLayer/public/images:/app/public/images
+        
+  
+    umbook-mongo:
+        build: ./UMbookMongo
+        image: bragamann/umbook-mongo:2020-07-03
+        container_name: umbook-mongo
+        ports:
+            - "27017:27017"
+        networks:
+            - mongo
+        volumes: 
+            - mongodbvol:/data/db
+
+  
+networks:
+    frontend:
+    mongo:
+    backend:
+    graphdb:
+    gateaway:
+
+volumes:
+    graphdbvol:
+    mongodbvol:
