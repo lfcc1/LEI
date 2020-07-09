@@ -107,7 +107,7 @@
             }
             axios.post(h + "utilizadores/", data)
                  .then(()=>{
-                   this.$router.push('/')
+                   this.$emit("login")
                  })
             ///this.$store.dispatch('register', data)
             //.then(() => this.$router.push('/universidade'))

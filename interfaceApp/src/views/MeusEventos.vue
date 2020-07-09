@@ -13,10 +13,19 @@
                     <span class="headline font-weight-bold"></span>
                 </v-card-title>
                 <v-card-text class="title font-weight-light"   v-text="evento.dados.info.conteudo"/>
-                <center> <v-btn color="#900000" dark @click="showDialog(evento)"> Participantes ({{evento.dados.participantes.length}}) </v-btn> </center>
+                <center> <v-btn color="#900000" dark @click="showDialog(evento)"> Participantes ({{evento.dados.participantes.length}}) </v-btn> </center> <p></p>
                 <center>   Começa: {{ evento.dados.info.dataInicio }} </center> <p></p>
                 <center>   Acaba: {{  evento.dados.info.dataFim }}  </center> <p/>
-                <center>   Organizador: {{evento.dados.parcerias[0].nome}} </center>
+                <center>   Organizadores: </center>
+                <v-list>
+                <v-list-item v-for="parceria in evento.dados.parcerias" :key="parceria.idCurso" class="ma-0 justify-center">
+                  <center>
+                  <v-list-item-content>
+                    <v-list-item-title v-text="parceria.nome"></v-list-item-title>
+                  </v-list-item-content>
+                  </center>
+                </v-list-item>
+                </v-list>
             </v-card>
             
             </v-container>

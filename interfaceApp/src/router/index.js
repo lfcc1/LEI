@@ -17,12 +17,21 @@ import EditarCadeira from '../views/EditarCadeira.vue'
 import SearchResult from '../views/SearchResult.vue'
 import GestaoUsers from '../views/GestaoUsers.vue'
 import SearchUsers from '../views/SearchUsers.vue'
+import GestaoEventos from '../views/GestaoEventos.vue'
 
 
 
 
 
 Vue.use(VueRouter)
+
+function getPermissao(tipos, acess){
+  var result = false
+  tipos.forEach(element=> {
+    if (element.classe == acess) result = true
+  })
+  return result
+}
 
 const routes = [
   {
@@ -82,11 +91,21 @@ const routes = [
     }
   },
   {
-    name: 'Gestão de cursos',
+    name: 'Gestão de Cursos',
     path: '/gestaocursos',
     component: GestaoCurso,
     meta: {
       requiresAuth: true
+    },
+    beforeEnter: (to, from, next) => {
+      let utilizador = JSON.parse(localStorage.getItem("utilizador"))
+      let tipos = utilizador.tipos
+      if(getPermissao(tipos, "Admin")){
+        next()
+      }
+      else{
+        next({name: "Universidade do Minho"})
+      }
     }
   },
   {
@@ -95,6 +114,16 @@ const routes = [
     component: EditarCurso,
     meta: {
       requiresAuth: true
+    },
+    beforeEnter: (to, from, next) => {
+      let utilizador = JSON.parse(localStorage.getItem("utilizador"))
+      let tipos = utilizador.tipos
+      if(getPermissao(tipos, "Admin")){
+        next()
+      }
+      else{
+        next({name: "Universidade do Minho"})
+      }
     }
   },
   {
@@ -103,6 +132,16 @@ const routes = [
     component: EditarAno,
     meta:{
       requiresAuth: true
+    },
+    beforeEnter: (to, from, next) => {
+      let utilizador = JSON.parse(localStorage.getItem("utilizador"))
+      let tipos = utilizador.tipos
+      if(getPermissao(tipos, "Admin")){
+        next()
+      }
+      else{
+        next({name: "Universidade do Minho"})
+      }
     }
   },
   {
@@ -111,6 +150,16 @@ const routes = [
     component: EditarCadeira,
     meta:{
       requiresAuth: true
+    },
+    beforeEnter: (to, from, next) => {
+      let utilizador = JSON.parse(localStorage.getItem("utilizador"))
+      let tipos = utilizador.tipos
+      if(getPermissao(tipos, "Admin")){
+        next()
+      }
+      else{
+        next({name: "Universidade do Minho"})
+      }
     }
   },
   {
@@ -122,11 +171,39 @@ const routes = [
     }
   },
   {
-    name: 'Gestão de utilizadores',
+    name: 'Gestão de Utilizadores',
     path: '/gestaousers',
     component: GestaoUsers,
     meta:{
       requiresAuth: true
+    },
+    beforeEnter: (to, from, next) => {
+      let utilizador = JSON.parse(localStorage.getItem("utilizador"))
+      let tipos = utilizador.tipos
+      if(getPermissao(tipos, "Admin")){
+        next()
+      }
+      else{
+        next({name: "Universidade do Minho"})
+      }
+    }
+  },
+  {
+    name: 'Gestão de Eventos',
+    path: '/gestaoeventos',
+    component: GestaoEventos,
+    meta:{
+      requiresAuth: true
+    },
+    beforeEnter: (to, from, next) => {
+      let utilizador = JSON.parse(localStorage.getItem("utilizador"))
+      let tipos = utilizador.tipos
+      if(getPermissao(tipos, "Admin")){
+        next()
+      }
+      else{
+        next({name: "Universidade do Minho"})
+      }
     }
   },
   {

@@ -66,4 +66,13 @@ router.post('/', passport.authenticate('jwt', {session: false}),  verifyAcess("A
     .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
 })
 
+// ------------------------------------------------------ DELETE --------------------------------------------
+
+router.delete('/:id', passport.authenticate('jwt', {session: false}),  verifyAcess("Admin"), function(req, res){
+  Evento.deleteEvento(req.params.id)
+  .then(dados => res.jsonp(dados))
+  .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
+})
+
+
 module.exports = router;

@@ -110,6 +110,7 @@ export default {
         { title: 'Pedidos de amizade', icon: 'mdi-account-plus-outline', href:"/pedidosamizade" },
         { title: 'Gestao de Cursos', icon: 'mdi-cog-outline', href:"/gestaocursos" },
         { title: 'Gestao de Utilizadores', icon: 'mdi-cog-outline', href:"/gestaousers" },
+        { title: 'Gestao de Eventos', icon: 'mdi-cog-outline', href:"/gestaoeventos" },
         { title: 'Logout', icon: 'mdi-logout'}
     ]
 

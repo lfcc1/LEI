@@ -154,6 +154,12 @@ Evento.getParceriasFromEvento = async function(idEvento){
 
 Evento.insertEvento = async function(evento){
     var id = 'ev' + nanoid.nanoid()
+    var queryParcerias = ""
+    for(i = 0; i < evento.parcerias.length; i++){
+        queryParcerias= queryParcerias + `
+        c:${id} c:parceriaCom c:${evento.parcerias[i]} .
+        `
+    }
     var query = `
     insert data {
         c:${id} a owl:NamedIndividual ,
@@ -162,9 +168,23 @@ Evento.insertEvento = async function(evento){
         c:${id} c:conteudo "${evento.conteudo}" . 
         c:${id} c:dataInicio "${evento.dataInicio}" . 
         c:${id} c:dataFim "${evento.dataFim}" . 
+        ` + queryParcerias + `
     }
     `
 
     return Connection.makePost(query)
 
+}
+
+Evento.deleteEvento = async function(id){
+
+    var query = `
+    delete {
+        c:${id} ?b ?a .
+     } where{
+        c:${id} ?b ?a .
+     } 
+    `
+
+    return Connection.makePost(query)
 }
