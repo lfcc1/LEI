@@ -1,4 +1,4 @@
-#!/bin/bash
+
 docker build ./apiChat -t umbook-apichat
 echo 'Tagging'
 docker tag umbook-apichat:latest bragamann/umbook-apichat:2020-07-03
