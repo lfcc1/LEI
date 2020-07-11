@@ -2,7 +2,7 @@
   <div>
         <p v-if="!ready">A ir buscar o Grupo à BD...</p>
         <div v-else> 
-                <Publicacao :publicacoes="this.item.publicacoes" :idGrupo="this.idUniversidade" :tipoGrupo="this.tipoGrupo" />
+                <Publicacao :publicacoes="this.item.publicacoes" :idGrupo="this.idUniversidade" :tipoGrupo="this.tipoGrupo" :isCurso="false" />
         </div>
     </div>
 </template>

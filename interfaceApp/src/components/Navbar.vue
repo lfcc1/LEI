@@ -96,10 +96,10 @@ export default {
   created: async function(){
     // ir buscar à sessão
     let utilizador = JSON.parse(localStorage.getItem("utilizador"))
+    console.log(utilizador.ano)
     this.idUtilizador = utilizador.idUtilizador
     this.nomeUtilizador = utilizador.nome
-    console.log(utilizador)
-    if(this.getPermissao(utilizador))
+    if(this.getPermissao(utilizador, "Admin"))
     this.items = [
         { title: 'Universidade', icon: 'mdi-view-dashboard',href:"/universidade" },
         { title: 'Meu Curso', icon: 'mdi-school', href:"/curso" },
@@ -114,7 +114,19 @@ export default {
         { title: 'Logout', icon: 'mdi-logout'}
     ]
 
-  else
+  else if(this.getPermissao(utilizador, "Responsavel")){
+      this.items = [
+        { title: 'Universidade', icon: 'mdi-view-dashboard',href:"/universidade" },
+        { title: 'Meu Curso', icon: 'mdi-school', href:"/curso" },
+        { title: 'Eventos Gerais', icon: 'mdi-calendar-clock', href:"/eventos" },
+        { title: 'Eventos do teu curso', icon: 'mdi-calendar-heart', href:"/eventoscurso" },
+        { title: 'Meus Eventos', icon: 'mdi-calendar-multiple-check', href:"/meuseventos" },
+        { title: 'Meu Perfil', icon: 'mdi-account-circle', href:"/userProfile/" + this.idUtilizador },
+        { title: 'Pedidos de amizade', icon: 'mdi-account-plus-outline', href:"/pedidosamizade" },
+        { title: 'Editar Ano', icon: 'mdi-cog-outline', href:"/editarano/"+utilizador.ano },
+        { title: 'Logout', icon: 'mdi-logout'}
+      ]
+  } else {
       this.items = [
         { title: 'Universidade', icon: 'mdi-view-dashboard',href:"/universidade" },
         { title: 'Meu Curso', icon: 'mdi-school', href:"/curso" },
@@ -125,7 +137,7 @@ export default {
         { title: 'Pedidos de amizade', icon: 'mdi-account-plus-outline', href:"/pedidosamizade" },
         { title: 'Logout', icon: 'mdi-logout'}
     ]
-
+  }
     this.srcImage = host+'images/' + this.idUtilizador
   },
   computed: {
@@ -134,10 +146,10 @@ export default {
     },
   },
   methods:{
-    getPermissao(utilizador){
+    getPermissao(utilizador, acess){
       var result= false
       utilizador.tipos.forEach(element => {
-        if(element.classe == "Admin")
+        if(element.classe == acess)
           result = true
       });
       return result;

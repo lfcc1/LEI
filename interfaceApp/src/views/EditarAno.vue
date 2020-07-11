@@ -93,11 +93,11 @@ export default {
   },
   methods:{
       editarCadeira: function(id, designacao, anoLetivo){
-          this.$router.push({ name: 'Editar Cadeira', params: {id: id, designacao: designacao}})
+          this.$router.push({ name: 'Editar Cadeira', params: {id: id, designacao: designacao, idAno: this.idAno}})
       },
       apagarCadeira: function(id){
           if(confirm("De certeza que quer apagar a cadeira?")){
-              axios.delete(h + "cadeiras/" + id + "?token=" + this.token)
+              axios.delete(h + "cadeiras/" + id + "?token=" + this.token + "&idAno=" + this.idAno)
                .then(()=>{
                     axios.get(h + "anos/" + this.idAno + "/cadeiras" + "?token=" + this.token )
                         .then(dados =>{

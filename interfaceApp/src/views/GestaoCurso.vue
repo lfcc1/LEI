@@ -74,7 +74,7 @@ export default {
   },
   methods:{
       seeCurso: function(id){1
-          this.$router.push({ name: 'O Meu Curso', params: {id: id}})
+          this.$router.push({ name: 'Ver Curso', params: {id: id}})
       },
       editarCurso: function(id, designacao){
           this.$router.push({ name: 'Editar Curso', params: {id: id, designacao: designacao}})

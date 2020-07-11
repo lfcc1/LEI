@@ -33,12 +33,14 @@ Utilizador.getUtilizadorSimples = async function(idUtilizador){
     try{
         var tipos = await Utilizador.getTipos(idUtilizador)
         var info = await Utilizador.getUtilizadorAtomica(idUtilizador)
-
+        var ano = await Utilizador.getAnosInscrito(idUtilizador)
+        if(ano.length != 0) ano = ano[0].idAnos 
         var utilizador = {
             idUtilizador: idUtilizador,
             idCurso: info[0].idCurso,
             nome: info[0].nome,
-            tipos: tipos
+            tipos: tipos,
+            ano: ano
         }
 
         return utilizador
@@ -177,7 +179,6 @@ Utilizador.getAnosInscrito = async function(idUtilizador){
 
     var query = `
     select (STRAFTER(STR(?anos), 'UMbook#') as ?idAnos) where{
-        c:${iduser} a c:Aluno .
     	?anos a c:Ano .
         c:${iduser} c:frequenta ?anos .
     }
@@ -338,15 +339,35 @@ Utilizador.removerAmigo = async function(id1, id2){
 }
 
 
-Utilizador.insertUtilizador = async function(utilizador){
+Utilizador.insertAluno = async function(utilizador){
     var iduser = utilizador.id.replace(/@/,"\\@");
-    console.log(iduser)
     var newPassword = bcrypt.hashSync(utilizador.password, 10);
-    console.log(newPassword)
     var query = `
     Insert Data {
         c:${iduser} a owl:NamedIndividual ,
                         c:Aluno .
+        c:${iduser} c:numAluno "${utilizador.numeroAluno}" .
+        c:${iduser} c:numTelemovel "${utilizador.numeroTelemovel}" .
+        c:${iduser} c:nome "${utilizador.nome}" .
+        c:${iduser} c:sexo "${utilizador.sexo}" .
+        c:${iduser} c:password "${newPassword}" .
+        c:${iduser} c:dataNasc "${utilizador.dataNascimento}" .
+        c:${iduser} c:frequenta c:${utilizador.idCurso} .
+        c:${iduser} c:frequenta c:${utilizador.idAno} . 
+    }
+    `
+
+    await Connection.makePost(query)
+    return { "id" : iduser}
+}
+
+Utilizador.insertUtilizador = async function(utilizador){
+    var iduser = utilizador.id.replace(/@/,"\\@");
+    var newPassword = bcrypt.hashSync(utilizador.password, 10);
+    var query = `
+    Insert Data {
+        c:${iduser} a owl:NamedIndividual ,
+                        c:${utilizador.tipo} .
         c:${iduser} c:numAluno "${utilizador.numeroAluno}" .
         c:${iduser} c:numTelemovel "${utilizador.numeroTelemovel}" .
         c:${iduser} c:nome "${utilizador.nome}" .

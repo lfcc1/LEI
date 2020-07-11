@@ -30,6 +30,26 @@ function verifyAcess(acess){
   }
 }
 
+function verifyAcess2(){
+  return  function(req, res, next) {
+    var u = req.user.user
+    var x = getPermissao("Admin",u)
+    if(x){
+      next()
+  }
+  else{
+    x = getPermissao("Responsavel", u)
+    if(x && req.params.idAno == u.ano){
+      next()
+    }
+    else{
+      console.log("Não tem permissão")
+      res.status(403).jsonp("Não tem permissão")
+    }
+  }
+  }
+}
+
 // ---------- ROTA   : /api/anos ....
 
 // -------------------------------------------------------------- GET ---------------------------------------------------------------------
@@ -92,7 +112,7 @@ router.get('/:idAno', passport.authenticate('jwt', {session: false}), function(r
 // -------------------------------------------------------------- PUT ---------------------------------------------------------------------
 
 
-router.put('/:idAno', passport.authenticate('jwt', {session: false}), verifyAcess("Admin"),function(req, res){
+router.put('/:idAno', passport.authenticate('jwt', {session: false}), verifyAcess2(),function(req, res){
   axios.put(apiAnos + req.params.idAno + "?token=" + req.query.token, req.body)
      .then(dados => {res.jsonp(dados.data)})
      .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })

@@ -108,6 +108,17 @@ router.post('/', function(req, res, next){
     .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
 })
 
+router.post('/admin', passport.authenticate('jwt', {session: false}), verifyAcess("Admin"), function(req, res, next){
+  axios.post(apiUtilizadores + 'admin?token=' + req.query.token, req.body)
+       .then(dados => {
+        fs.copyFile(__dirname + '/../public/images/default-user.png', __dirname + '/../public/images/'+req.body.id, (err) => {
+          if (err) throw err;
+        });
+        res.jsonp(dados.data)
+       })
+       .catch(erro => {console.log(erro); res.status(500).jsonp(erro)})
+})
+
 router.post('/pedidosamizade/:idUtilizador', passport.authenticate('jwt', {session: false}), function(req, res){
   axios.post(apiUtilizadores + "pedidosamizade/" + req.params.idUtilizador + "?token=" + req.query.token, req.body)
             .then(dados => res.jsonp(dados.data))

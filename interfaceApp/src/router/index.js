@@ -18,6 +18,7 @@ import SearchResult from '../views/SearchResult.vue'
 import GestaoUsers from '../views/GestaoUsers.vue'
 import SearchUsers from '../views/SearchUsers.vue'
 import GestaoEventos from '../views/GestaoEventos.vue'
+import CursoAdmin from '../views/CursoAdmin.vue'
 
 
 
@@ -109,6 +110,25 @@ const routes = [
     }
   },
   {
+    name: 'Ver Curso',
+    path: '/curso/:id',
+    component: CursoAdmin,
+    meta: {
+      requiresAuth: true
+    },
+    beforeEnter: (to, from, next) => {
+      let utilizador = JSON.parse(localStorage.getItem("utilizador"))
+      let tipos = utilizador.tipos
+      if(getPermissao(tipos, "Admin")){
+        next()
+      }
+      else{
+        next({name: "Universidade do Minho"})
+      }
+    }
+  },
+
+  {
     name: 'Editar Curso',
     path: '/editarcurso/:id',
     component: EditarCurso,
@@ -136,7 +156,9 @@ const routes = [
     beforeEnter: (to, from, next) => {
       let utilizador = JSON.parse(localStorage.getItem("utilizador"))
       let tipos = utilizador.tipos
-      if(getPermissao(tipos, "Admin")){
+      let bool1 = getPermissao(tipos, "Admin")
+      let bool2 = getPermissao(tipos, "Responsavel")
+      if(bool1 || (bool2 && utilizador.ano == to.params.id) ){
         next()
       }
       else{
@@ -146,7 +168,7 @@ const routes = [
   },
   {
     name: 'Editar Cadeira',
-    path: '/editarcadeira/:id',
+    path: '/editarcadeira/:idAno/:id',
     component: EditarCadeira,
     meta:{
       requiresAuth: true
@@ -154,7 +176,9 @@ const routes = [
     beforeEnter: (to, from, next) => {
       let utilizador = JSON.parse(localStorage.getItem("utilizador"))
       let tipos = utilizador.tipos
-      if(getPermissao(tipos, "Admin")){
+      let bool1 = getPermissao(tipos, "Admin")
+      let bool2 = getPermissao(tipos, "Responsavel")
+      if(bool1 || (bool2 && utilizador.ano == to.params.idAno) ){
         next()
       }
       else{

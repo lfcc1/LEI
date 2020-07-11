@@ -67,6 +67,7 @@ export default {
     }, 
     filtrar: "",
     idCadeira:"",
+    idAno:"",
     designacaoCadeira:"",
     designacao:"",
     ready: false
@@ -75,6 +76,7 @@ export default {
   created: async function() {
     try {
       this.token = localStorage.getItem("jwt")
+      this.idAno = this.$route.params.idAno
       this.idCadeira = this.$route.params.id
       this.designacaoCadeira = this.$route.params.designacao
       let response = await axios.get(h + "cadeiras/" + this.idCadeira + "/pastas" + "?token=" + this.token )//
@@ -85,12 +87,9 @@ export default {
     }
   },
   methods:{
-      editarCadeira: function(id, designacao, anoLetivo){
-          this.$router.push({ name: 'Editar Cadeira', params: {id: id, designacao: designacao}})
-      },
       apagarPasta: function(id){
           if(confirm("De certeza que quer apagar a Pasta?")){
-              axios.delete(h + "cadeiras/pastas/" + id + "?token=" + this.token)
+              axios.delete(h + "cadeiras/pastas/" + id + "?token=" + this.token + "&idAno=" + this.idAno)
                .then(()=>{
                     axios.get(h + "cadeiras/" + this.idCadeira + "/pastas" + "?token=" + this.token )
                         .then(dados =>{
@@ -106,7 +105,7 @@ export default {
               if(this.designacao == this.pastas[i].designacao) r = false
           }
           if(r){
-            axios.post(h + "cadeiras/pastas?token=" + this.token, {nome: this.designacao, idCadeira: this.idCadeira})
+            axios.post(h + "cadeiras/pastas?token=" + this.token, {nome: this.designacao, idCadeira: this.idCadeira, idAno: this.idAno})
                 .then(() =>{
                     axios.get(h + "cadeiras/" + this.idCadeira + "/pastas?token=" + this.token )
                          .then(dados =>{
@@ -117,7 +116,7 @@ export default {
           else alert("Essa pasta já existe!")
       },
       editarCadeira: function(){
-          axios.put(h + "cadeiras/" + this.idCadeira + "?token=" + this.token, {designacao: this.designacaoCadeira})
+          axios.put(h + "cadeiras/" + this.idCadeira + "?token=" + this.token, {designacao: this.designacaoCadeira, idAno: this.idAno})
       }
   }
 }

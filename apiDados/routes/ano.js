@@ -30,6 +30,26 @@ function verifyAcess(acess){
   }
   }
 }
+
+function verifyAcess2(){
+  return  function(req, res, next) {
+    var u = req.user.user
+    var x = getPermissao("Admin",u)
+    if(x){
+      next()
+  }
+  else{
+    x = getPermissao("Responsavel", u)
+    if(x && req.params.idAno == u.ano){
+      next()
+    }
+    else{
+      console.log("Não tem permissão")
+      res.status(403).jsonp("Não tem permissão")
+    }
+  }
+  }
+}
 // -------------------------------------------------------------- GET ---------------------------------------------------------------------
 
 // Toda a informação relativa a um ano
@@ -91,7 +111,7 @@ router.get('/:idAno', passport.authenticate('jwt', {session: false}), function(r
 
   // AINDA NÃO ESTÃO A DAR
 
-router.put('/:idAno', passport.authenticate('jwt', {session: false}), verifyAcess("Admin"), function(req, res){
+router.put('/:idAno', passport.authenticate('jwt', {session: false}), verifyAcess2(), function(req, res){
   Ano.editarAno(req.params.idAno, req.body.designacao, req.body.anoLetivo)
      .then(dados => {res.jsonp(dados)})
      .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })

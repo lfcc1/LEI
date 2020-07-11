@@ -23,7 +23,7 @@
         
         <span class="subheading mr-2 font-weight-bold black--text" style="padding-top:11px" @click="seeUser(comentario.idUtilizador)" >{{comentario.nomeUtilizador}}</span>
          <span class="subheading mr-2 black--text" style="padding-top:11px" >{{comentario.data}}</span>
-        <v-icon v-if="utilizadorOwner(comentario)"  style="height:50%; margin-top:10px" class="mr-1" color="#900000"  @click="deleteComentario(comentario.idComentario)">mdi-close-thick</v-icon>
+        <v-icon v-if="getPermissao(comentario.idUtilizador)"  style="height:50%; margin-top:10px" class="mr-1" color="#900000"  @click="deleteComentario(comentario.idComentario)">mdi-close-thick</v-icon>
        <!-- <span class="subheading mr-2 black--text" style="padding-top:11px" >{{comentario.conteudo}}</span>-->
          <v-card-text class="subheading mr-2 black--text" v-text="comentario.conteudo">
         </v-card-text>
@@ -55,7 +55,7 @@ const h = require("@/config/hosts").hostAPI
 
 export default {
     name: 'Comentario',
-    props: ["comentarios", "idPublicacao"],
+    props: ["comentarios", "idPublicacao", "isCurso", "idGrupo", "pai"],
     data (){ return{
         publicacoesAtuais: [],
         comentariosAtuais: [],
@@ -68,13 +68,11 @@ export default {
       this.token = token
       let utilizador = JSON.parse(localStorage.getItem("utilizador"))
       this.idUtilizador = utilizador.idUtilizador
-      
+      this.utilizador = utilizador
       //this.comentariosAtuais = this.comentarios
       var response = await axios.get(h+'publicacoes/' + this.idPublicacao + '/comentarios?token=' + this.token)
-      console.log(response)
       this.comentariosAtuais = response.data
       this.updateComentarios()
-      console.log(this.comentariosAtuais)
     },
     methods: {
         postComentario: async function(){
@@ -99,6 +97,7 @@ export default {
                     var response = await axios.get(h+'publicacoes/' + this.idPublicacao + '/comentarios?token=' + this.token)
                     this.comentariosAtuais = response.data
                     this.updateComentarios()
+                    this.$emit("refresh",this.comentariosAtuais)
                  })
                  .catch(error => console.log(error))
         },
@@ -110,6 +109,24 @@ export default {
         utilizadorOwner: async function(comentario){
             return this.idUtilizador == comentario.idUtilizador
         }
+        ,
+      utilizadorTypeEquals: function(tipos, acess){
+        var result = false
+        tipos.forEach(element=> {
+          if (element.classe == acess) result = true
+        })
+        return result
+      },
+      getPermissao: function(idUtilizador){
+        console.log(this.utilizador.tipos)
+        if(this.idUtilizador == idUtilizador) return true
+        if(this.utilizadorTypeEquals(this.utilizador.tipos, "Admin")) return true
+        if(this.isCurso && this.utilizadorTypeEquals(this.utilizador.tipos, "Responsavel")){
+          if(this.utilizador.ano == this.idGrupo || this.utilizador.ano == this.pai){
+            return true
+          }
+        }
+      },
     }
 }
 </script>

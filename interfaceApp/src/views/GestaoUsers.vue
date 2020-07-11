@@ -30,6 +30,56 @@
                 </template>
             </v-data-table>
         </v-card-text>
+        <v-container>
+    <v-layout row class="text-xs-center">
+        <v-container style="position: relative;top: 15%; width: 60%;" class="text-xs-center">
+          <material-card              
+          color="#900000"
+          title="Registar novo utilizador"
+        >
+
+            <v-combobox
+                id="tipo"
+                v-model="tipo"
+                prepend-icon="mdi-cog-outline"
+                :items="tipos"
+                label="Tipo de utilizador"
+            ></v-combobox>
+            <v-text-field prepend-icon="mdi-account-card-details" v-model="numeroAluno" name="Identificador de Aluno" label="Identificador de Aluno" ></v-text-field>
+            <v-text-field prepend-icon="mdi-account" v-model="nome" name="Nome" label="Nome" ></v-text-field>
+            <v-text-field prepend-icon="mdi-email" v-model="email" name="Email" label="Email" ></v-text-field>
+            <v-combobox
+                id="curso"
+                v-model="curso"
+                prepend-icon="mdi-school"
+                :items="cursos"
+                @change="onCursoChange"
+                label="Curso"
+            ></v-combobox>
+            <v-combobox
+                id="ano"
+                v-model="ano"
+                prepend-icon="mdi-numeric-2-box-outline"
+                :items="anos"
+                label="Ano"
+            ></v-combobox>
+            <v-text-field prepend-icon="mdi-calendar-question" v-model="dataNascimento" name="Data de Nascimento" label="Data de Nascimento" type="date"></v-text-field>
+            <v-text-field prepend-icon="mdi-cellphone-android" v-model="numeroTelemovel" name="Número de Telemóvel" label="Número de Telemóvel" type="number"></v-text-field>
+            <v-combobox
+                id="genero"
+                v-model="genero"
+                prepend-icon="mdi-gender-male-female"
+                :items="['Masculino', 'Feminino', 'Outro']"
+                label="Género"
+            ></v-combobox>
+            <v-text-field prepend-icon="mdi-key" v-model="password" name="Password" label="Password" type="password"></v-text-field>
+            <v-card-actions>
+              <v-btn primary large block style="background-color: #900000;" @click="registar">Confirmar</v-btn>
+            </v-card-actions>
+              </material-card>
+        </v-container>
+    </v-layout>
+  </v-container>
   </v-card>
 </template>
 
@@ -65,6 +115,21 @@ export default {
     filtrar: "",
     idCurso:"",
     designacao:"",
+    tipo:"",
+    tipos: ["Admin", "Responsavel", "Aluno"],
+    nome : "",
+    numeroAluno : "",
+    numeroTelemovel : "",
+    genero : "",
+    ano : "",
+    curso : "",
+    dataNascimento : "",
+    cursos : [],
+    anos : [],
+    idAnos : [],
+    email : "",
+    password : "",
+    password_confirmation : "",
     ready: false
   }),
 
@@ -74,12 +139,57 @@ export default {
       let response = await axios.get(h + "utilizadores?token=" + this.token )//
       this.utilizadores = response.data
       await this.updateUtilizadores()
-      console.log(response.data)
+      response = await axios.get(h + "cursos/")
+      var item = response.data
+      for(var i = 0; i < item.length ; i++){
+          this.cursos.push(item[i].curso)
+      }
     } catch (e) {
       return e
     }
   },
   methods:{
+     onCursoChange: async function (item){
+          let response = await axios.get(h + "cursos/" + item + "/anos")
+          for(var i = 0; i < response.data.length; i++){
+              this.anos.push(response.data[i].designacao)
+              this.idAnos.push(response.data[i])
+          }
+      },
+    registar: function () {
+      
+      var idAno = this.idAnos.find(element => element.designacao == this.ano).id
+        if (this.numeroAluno != "" && this.email != "" && this.numeroTelemovel != "" && this.ano != "" && this.genero != ""
+             && this.curso != "" && this.password != "" && this.dataNascimento != "" && this.nome != "" && this.tipo != ""){ 
+            let data = {
+            numeroAluno : this.numeroAluno,
+            numeroTelemovel : this.numeroTelemovel,
+            idAno : idAno,
+            idCurso : this.curso,
+            sexo : this.genero,
+            dataNascimento : this.dataNascimento,
+            nome: this.nome,
+            id: this.email,
+            password: this.password,
+            tipo: this.tipo
+            }
+            
+            axios.post(h + "utilizadores/admin", data)
+                 .then(()=>{
+                   axios.get(h + "utilizadores?token=" + this.token )
+                        .then(dados =>{
+                            this.utilizadores = dados.data
+                            this.updateUtilizadores()
+                        })
+                 })
+            ///this.$store.dispatch('register', data)
+            //.then(() => this.$router.push('/universidade'))
+            //.catch(err => console.log(err))
+        }
+        else {
+            alert('Ainda possuí campos por preencher!')
+        }
+      },
       updateUtilizadores: function(){
           for(let i = 0; i < this.utilizadores.length; i++){
               this.utilizadores[i].tipos = ""
@@ -90,7 +200,7 @@ export default {
           }
       },
       seeCurso: function(id){1
-          this.$router.push({ name: 'O Meu Curso', params: {id: id}})
+          this.$router.push({ name: 'Ver Curso', params: {id: id}})
       },
       apagarUtilizador: function(utilizador){
           if(confirm("De certeza que quer apagar o utilizador " + utilizador.nome +"?")){
@@ -104,22 +214,6 @@ export default {
 
                })
           }
-      },
-      insertCurso: function(){
-          var r = true
-          for(let i = 0; r && i < this.cursos.length; i++){
-              if(this.idCurso == this.cursos[i].curso) r = false
-          }
-          if(r){
-            axios.post(h + "cursos?token=" + this.token, {id: this.idCurso, nome: this.designacao})
-                .then(() =>{
-                    axios.get(h + "cursos?token=" + this.token )
-                         .then(dados =>{
-                                this.cursos = dados.data
-                        })
-                })
-          }
-          else alert("Esse curso já existe!")
       },
       apresentaUser: async function(idUser){
         this.$router.push({ name: 'UserProfile', params: {id: idUser }})

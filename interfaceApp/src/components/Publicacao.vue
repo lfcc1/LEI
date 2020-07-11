@@ -89,7 +89,7 @@
           <!--<v-btn class="mr-1" @click="showFiles = true" icon="mdi-myFileIcon"></v-btn> v-if="this.idUtilizador == item.dados.info.idUtilizador"  -->
           <span class="black--text subheading mr-2">{{item.dados.ficheiros.length}}</span>
           <v-icon v-if="utilizadorOwner(item.dados.info.idUtilizador)" color="#900000" class="mr-1" @click="item.editar = true">mdi-square-edit-outline</v-icon>
-          <v-icon v-if="utilizadorOwner(item.dados.info.idUtilizador)" color="#900000" class="mr-1" @click="deletePub(item.idPublicacao)">mdi-close-thick</v-icon>
+          <v-icon v-if="getPermissao(item.dados.info.idUtilizador)" color="#900000" class="mr-1" @click="deletePub(item.idPublicacao)">mdi-close-thick</v-icon>
         
         </v-row>
             <v-spacer/>
@@ -102,7 +102,8 @@
             >
              <hr color="#900000" style="width:100%">
                         <!--<v-list v-if="item,dados.comentarios.length != 0" >-->
-                <Comentario  @refresh="(comentarios)=>{refresh(item,comentarios)}" :comentarios="item.dados.comentarios" :idPublicacao="item.idPublicacao"/>
+                <Comentario  @refresh="(comentarios)=>{refresh(item,comentarios)}" :comentarios="item.dados.comentarios" 
+                                  :idPublicacao="item.idPublicacao" :isCurso="isCurso" :pai="pai" :idGrupo="idGrupo"/>
             </v-container>
   </v-card>
             </v-list-item>
@@ -177,7 +178,7 @@ const ficheiroUrl = require("@/config/hosts").ficheiros
 
     export default {
     name: 'Publicacao',
-    props: ["publicacoes", "idGrupo", "tipoGrupo"],
+    props: ["publicacoes", "idGrupo", "tipoGrupo", "isCurso", "pai"],
     data (){ return{
         publicacoesAtuais: [],
         conteudo: "",
@@ -197,6 +198,7 @@ const ficheiroUrl = require("@/config/hosts").ficheiros
       //ir buscar à sessão 
       this.token = localStorage.getItem("jwt")//.decode('UTF-8');
       let utilizador = JSON.parse(localStorage.getItem("utilizador"))
+      this.utilizador = utilizador
       this.idUtilizador = utilizador.idUtilizador
       this.publicacoesAtuais = this.publicacoes
       this.updatePubs()
@@ -339,6 +341,22 @@ const ficheiroUrl = require("@/config/hosts").ficheiros
              .catch(erro => console.log(erro))
              */
           
+      },
+      utilizadorTypeEquals: function(tipos, acess){
+        var result = false
+        tipos.forEach(element=> {
+          if (element.classe == acess) result = true
+        })
+        return result
+      },
+      getPermissao: function(idUtilizador){
+        if(this.idUtilizador == idUtilizador) return true
+        if(this.utilizadorTypeEquals(this.utilizador.tipos, "Admin")) return true
+        if(this.isCurso && this.utilizadorTypeEquals(this.utilizador.tipos, "Responsavel")){
+          if(this.utilizador.ano == this.idGrupo || this.utilizador.ano == this.pai){
+            return true
+          }
+        }
       },
       utilizadorOwner: function(idUtilizador){
         return this.idUtilizador == idUtilizador

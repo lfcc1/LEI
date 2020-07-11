@@ -152,7 +152,7 @@
                 </v-btn-toggle>
             </v-row>
         <div v-if="pubs">
-            <Publicacao :publicacoes="publicacoes" :idGrupo="this.id" :tipoGrupo="this.atual"/>
+            <Publicacao :publicacoes="publicacoes" :idGrupo="this.id" :tipoGrupo="this.atual" :isCurso="true" :pai="this.pai"/>
         </div>
         <div v-else>
             <Files :idCadeira="id" />

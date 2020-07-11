@@ -26,7 +26,6 @@
                 prepend-icon="mdi-numeric-2-box-outline"
                 :items="anos"
                 label="Ano"
-                multiple
             ></v-combobox>
             <v-text-field prepend-icon="mdi-calendar-question" v-model="dataNascimento" name="Data de Nascimento" label="Data de Nascimento" type="date"></v-text-field>
             <v-text-field prepend-icon="mdi-cellphone-android" v-model="numeroTelemovel" name="Número de Telemóvel" label="Número de Telemóvel" type="number"></v-text-field>
@@ -91,6 +90,7 @@
          this.$emit("login");
        },
       registar: function () {
+        var idAno = this.idAnos.find(element => element.designacao == this.ano).id
         if (this.numeroAluno != "" && this.email != "" && this.numeroTelemovel != "" && this.ano != "" && this.genero != ""
              && this.curso != "" && this.password != "" && this.dataNascimento != "" && this.nome != ""){ 
             let data = {
