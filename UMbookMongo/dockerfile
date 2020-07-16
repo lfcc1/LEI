@@ -1,1 +1,5 @@
 FROM mongo:latest
+
+RUN mkdir /povoamento/
+
+COPY ./data/db/*.json ./povoamento/

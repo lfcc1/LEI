@@ -1,25 +1,26 @@
-{"_id":{"$oid":"5efb7b275053e1313400efbe"},"idConversa":"5efb60885053e1313400efbb","conteudo":"fff\n","from":"lguilhermem@hotmail.com","dataEnvio":{"$date":"2020-06-30T17:49:27.031Z"},"__v":0}
-{"_id":{"$oid":"5efb7bac5053e1313400efbf"},"idConversa":"5efb60885053e1313400efbb","conteudo":"ola fofa\n","from":"lguilhermem@hotmail.com","dataEnvio":{"$date":"2020-06-30T17:51:40.605Z"},"__v":0}
-{"_id":{"$oid":"5efb7c265053e1313400efc0"},"idConversa":"5efb60885053e1313400efbb","conteudo":"olaaa\n","from":"lguilhermem@hotmail.com","dataEnvio":{"$date":"2020-06-30T17:53:42.826Z"},"__v":0}
-{"_id":{"$oid":"5efb7c405053e1313400efc1"},"idConversa":"5efb60885053e1313400efbb","conteudo":"boas pipoca\n","from":"lguilhermem@hotmail.com","dataEnvio":{"$date":"2020-06-30T17:54:08.286Z"},"__v":0}
-{"_id":{"$oid":"5efb7d235053e1313400efc2"},"idConversa":"5efb60885053e1313400efbb","conteudo":"ola\n","from":"privado@hotmail.com","dataEnvio":{"$date":"2020-06-30T17:57:55.903Z"},"__v":0}
-{"_id":{"$oid":"5efb7d8f5053e1313400efc3"},"idConversa":"5efb60885053e1313400efbb","conteudo":"és lindo\n","from":"privado@hotmail.com","dataEnvio":{"$date":"2020-06-30T17:59:43.571Z"},"__v":0}
-{"_id":{"$oid":"5efb7d9b5053e1313400efc4"},"idConversa":"5efb60885053e1313400efbb","conteudo":"xauzinho, és rude\n","from":"lguilhermem@hotmail.com","dataEnvio":{"$date":"2020-06-30T17:59:55.814Z"},"__v":0}
-{"_id":{"$oid":"5efb7da65053e1313400efc5"},"idConversa":"5efb60885053e1313400efbb","conteudo":":o\n","from":"privado@hotmail.com","dataEnvio":{"$date":"2020-06-30T18:00:06.830Z"},"__v":0}
-{"_id":{"$oid":"5efb7e105053e1313400efc6"},"idConversa":"5efb60885053e1313400efbb","conteudo":"fd","from":"lguilhermem@hotmail.com","dataEnvio":{"$date":"2020-06-30T18:01:52.716Z"},"__v":0}
-{"_id":{"$oid":"5efb7e435053e1313400efc7"},"idConversa":"5efb60885053e1313400efbb","conteudo":"ffff","from":"lguilhermem@hotmail.com","dataEnvio":{"$date":"2020-06-30T18:02:43.716Z"},"__v":0}
-{"_id":{"$oid":"5efb7f0f5053e1313400efc8"},"idConversa":"5efb60885053e1313400efbb","conteudo":"fff","from":"lguilhermem@hotmail.com","dataEnvio":{"$date":"2020-06-30T18:06:07.345Z"},"__v":0}
-{"_id":{"$oid":"5efb7f5e5053e1313400efc9"},"idConversa":"5efb60885053e1313400efbb","conteudo":"gorjiwjir","from":"lguilhermem@hotmail.com","dataEnvio":{"$date":"2020-06-30T18:07:26.255Z"},"__v":0}
-{"_id":{"$oid":"5efb7f9c5053e1313400efca"},"idConversa":"5efb60885053e1313400efbb","conteudo":"fokkodf\n","from":"lguilhermem@hotmail.com","dataEnvio":{"$date":"2020-06-30T18:08:28.425Z"},"__v":0}
-{"_id":{"$oid":"5efb7ff85053e1313400efcb"},"idConversa":"5efb60885053e1313400efbb","conteudo":"rrrrt","from":"lguilhermem@hotmail.com","dataEnvio":{"$date":"2020-06-30T18:10:00.822Z"},"__v":0}
-{"_id":{"$oid":"5efb80015053e1313400efcc"},"idConversa":"5efb60885053e1313400efbb","conteudo":"rrrrr\n","from":"lguilhermem@hotmail.com","dataEnvio":{"$date":"2020-06-30T18:10:09.985Z"},"__v":0}
-{"_id":{"$oid":"5efb80695053e1313400efcd"},"idConversa":"5efb60885053e1313400efbb","conteudo":"fff","from":"lguilhermem@hotmail.com","dataEnvio":{"$date":"2020-06-30T18:11:53.132Z"},"__v":0}
-{"_id":{"$oid":"5efb80b25053e1313400efce"},"idConversa":"5efb60885053e1313400efbb","conteudo":"fff","from":"lguilhermem@hotmail.com","dataEnvio":{"$date":"2020-06-30T18:13:06.000Z"},"__v":0}
-{"_id":{"$oid":"5efb80e85053e1313400efcf"},"idConversa":"5efb60885053e1313400efbb","conteudo":"ffff","from":"lguilhermem@hotmail.com","dataEnvio":{"$date":"2020-06-30T18:14:00.002Z"},"__v":0}
-{"_id":{"$oid":"5efb81585053e1313400efd0"},"idConversa":"5efb60885053e1313400efbb","conteudo":"rere","from":"lguilhermem@hotmail.com","dataEnvio":{"$date":"2020-06-30T18:15:52.402Z"},"__v":0}
-{"_id":{"$oid":"5efb82065053e1313400efd1"},"idConversa":"5efb60885053e1313400efbb","conteudo":"gre","from":"lguilhermem@hotmail.com","dataEnvio":{"$date":"2020-06-30T18:18:46.126Z"},"__v":0}
-{"_id":{"$oid":"5efb82225053e1313400efd2"},"idConversa":"5efb60885053e1313400efbb","conteudo":"ff","from":"lguilhermem@hotmail.com","dataEnvio":{"$date":"2020-06-30T18:19:14.372Z"},"__v":0}
-{"_id":{"$oid":"5f017fd673ae6b32ece90431"},"idConversa":"5efc943a5abe5d43b0ecf65e","conteudo":"Olá, tudo bem?\n","from":"gervasio@uminho.pt","dataEnvio":{"$date":"2020-07-05T07:23:02.435Z"},"__v":0}
-{"_id":{"$oid":"5f017fe273ae6b32ece90432"},"idConversa":"5f017fc273ae6b32ece90428","conteudo":"Olá, tudo bem?\n","from":"gervasio@uminho.pt","dataEnvio":{"$date":"2020-07-05T07:23:14.195Z"},"__v":0}
-{"_id":{"$oid":"5f017fed73ae6b32ece90433"},"idConversa":"5f017fc373ae6b32ece9042b","conteudo":"Olá, tudo bem?\n","from":"gervasio@uminho.pt","dataEnvio":{"$date":"2020-07-05T07:23:25.848Z"},"__v":0}
+[{"_id":{"$oid":"5efb7b275053e1313400efbe"},"idConversa":"5efb60885053e1313400efbb","conteudo":"fff\n","from":"lguilhermem@hotmail.com","dataEnvio":{"$date":"2020-06-30T17:49:27.031Z"},"__v":0},
+{"_id":{"$oid":"5efb7bac5053e1313400efbf"},"idConversa":"5efb60885053e1313400efbb","conteudo":"ola fofa\n","from":"lguilhermem@hotmail.com","dataEnvio":{"$date":"2020-06-30T17:51:40.605Z"},"__v":0},
+{"_id":{"$oid":"5efb7c265053e1313400efc0"},"idConversa":"5efb60885053e1313400efbb","conteudo":"olaaa\n","from":"lguilhermem@hotmail.com","dataEnvio":{"$date":"2020-06-30T17:53:42.826Z"},"__v":0},
+{"_id":{"$oid":"5efb7c405053e1313400efc1"},"idConversa":"5efb60885053e1313400efbb","conteudo":"boas pipoca\n","from":"lguilhermem@hotmail.com","dataEnvio":{"$date":"2020-06-30T17:54:08.286Z"},"__v":0},
+{"_id":{"$oid":"5efb7d235053e1313400efc2"},"idConversa":"5efb60885053e1313400efbb","conteudo":"ola\n","from":"privado@hotmail.com","dataEnvio":{"$date":"2020-06-30T17:57:55.903Z"},"__v":0},
+{"_id":{"$oid":"5efb7d8f5053e1313400efc3"},"idConversa":"5efb60885053e1313400efbb","conteudo":"és lindo\n","from":"privado@hotmail.com","dataEnvio":{"$date":"2020-06-30T17:59:43.571Z"},"__v":0},
+{"_id":{"$oid":"5efb7d9b5053e1313400efc4"},"idConversa":"5efb60885053e1313400efbb","conteudo":"xauzinho, és rude\n","from":"lguilhermem@hotmail.com","dataEnvio":{"$date":"2020-06-30T17:59:55.814Z"},"__v":0},
+{"_id":{"$oid":"5efb7da65053e1313400efc5"},"idConversa":"5efb60885053e1313400efbb","conteudo":":o\n","from":"privado@hotmail.com","dataEnvio":{"$date":"2020-06-30T18:00:06.830Z"},"__v":0},
+{"_id":{"$oid":"5efb7e105053e1313400efc6"},"idConversa":"5efb60885053e1313400efbb","conteudo":"fd","from":"lguilhermem@hotmail.com","dataEnvio":{"$date":"2020-06-30T18:01:52.716Z"},"__v":0},
+{"_id":{"$oid":"5efb7e435053e1313400efc7"},"idConversa":"5efb60885053e1313400efbb","conteudo":"ffff","from":"lguilhermem@hotmail.com","dataEnvio":{"$date":"2020-06-30T18:02:43.716Z"},"__v":0},
+{"_id":{"$oid":"5efb7f0f5053e1313400efc8"},"idConversa":"5efb60885053e1313400efbb","conteudo":"fff","from":"lguilhermem@hotmail.com","dataEnvio":{"$date":"2020-06-30T18:06:07.345Z"},"__v":0},
+{"_id":{"$oid":"5efb7f5e5053e1313400efc9"},"idConversa":"5efb60885053e1313400efbb","conteudo":"gorjiwjir","from":"lguilhermem@hotmail.com","dataEnvio":{"$date":"2020-06-30T18:07:26.255Z"},"__v":0},
+{"_id":{"$oid":"5efb7f9c5053e1313400efca"},"idConversa":"5efb60885053e1313400efbb","conteudo":"fokkodf\n","from":"lguilhermem@hotmail.com","dataEnvio":{"$date":"2020-06-30T18:08:28.425Z"},"__v":0},
+{"_id":{"$oid":"5efb7ff85053e1313400efcb"},"idConversa":"5efb60885053e1313400efbb","conteudo":"rrrrt","from":"lguilhermem@hotmail.com","dataEnvio":{"$date":"2020-06-30T18:10:00.822Z"},"__v":0},
+{"_id":{"$oid":"5efb80015053e1313400efcc"},"idConversa":"5efb60885053e1313400efbb","conteudo":"rrrrr\n","from":"lguilhermem@hotmail.com","dataEnvio":{"$date":"2020-06-30T18:10:09.985Z"},"__v":0},
+{"_id":{"$oid":"5efb80695053e1313400efcd"},"idConversa":"5efb60885053e1313400efbb","conteudo":"fff","from":"lguilhermem@hotmail.com","dataEnvio":{"$date":"2020-06-30T18:11:53.132Z"},"__v":0},
+{"_id":{"$oid":"5efb80b25053e1313400efce"},"idConversa":"5efb60885053e1313400efbb","conteudo":"fff","from":"lguilhermem@hotmail.com","dataEnvio":{"$date":"2020-06-30T18:13:06.000Z"},"__v":0},
+{"_id":{"$oid":"5efb80e85053e1313400efcf"},"idConversa":"5efb60885053e1313400efbb","conteudo":"ffff","from":"lguilhermem@hotmail.com","dataEnvio":{"$date":"2020-06-30T18:14:00.002Z"},"__v":0},
+{"_id":{"$oid":"5efb81585053e1313400efd0"},"idConversa":"5efb60885053e1313400efbb","conteudo":"rere","from":"lguilhermem@hotmail.com","dataEnvio":{"$date":"2020-06-30T18:15:52.402Z"},"__v":0},
+{"_id":{"$oid":"5efb82065053e1313400efd1"},"idConversa":"5efb60885053e1313400efbb","conteudo":"gre","from":"lguilhermem@hotmail.com","dataEnvio":{"$date":"2020-06-30T18:18:46.126Z"},"__v":0},
+{"_id":{"$oid":"5efb82225053e1313400efd2"},"idConversa":"5efb60885053e1313400efbb","conteudo":"ff","from":"lguilhermem@hotmail.com","dataEnvio":{"$date":"2020-06-30T18:19:14.372Z"},"__v":0},
+{"_id":{"$oid":"5f017fd673ae6b32ece90431"},"idConversa":"5efc943a5abe5d43b0ecf65e","conteudo":"Olá, tudo bem?\n","from":"gervasio@uminho.pt","dataEnvio":{"$date":"2020-07-05T07:23:02.435Z"},"__v":0},
+{"_id":{"$oid":"5f017fe273ae6b32ece90432"},"idConversa":"5f017fc273ae6b32ece90428","conteudo":"Olá, tudo bem?\n","from":"gervasio@uminho.pt","dataEnvio":{"$date":"2020-07-05T07:23:14.195Z"},"__v":0},
+{"_id":{"$oid":"5f017fed73ae6b32ece90433"},"idConversa":"5f017fc373ae6b32ece9042b","conteudo":"Olá, tudo bem?\n","from":"gervasio@uminho.pt","dataEnvio":{"$date":"2020-07-05T07:23:25.848Z"},"__v":0},
 {"_id":{"$oid":"5f017ffc73ae6b32ece90434"},"idConversa":"5f017fc473ae6b32ece9042e","conteudo":"Olá, tudo bem?\n","from":"gervasio@uminho.pt","dataEnvio":{"$date":"2020-07-05T07:23:40.055Z"},"__v":0}
+]
