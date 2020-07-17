@@ -49,6 +49,7 @@ echo 'Terminado'
 echo 'Id da imagem no DHub: bragamann/umbook-mongo:2020-07-03'
 
 
+
 docker build ./Ontologia -t umbook-graphdb
 echo 'Tagging'
 docker tag umbook-graphdb:latest bragamann/umbook-graphdb:2020-07-03
@@ -65,6 +66,16 @@ echo 'Pushing'
 docker push bragamann/umbook-auth:2020-07-03
 echo 'Terminado'
 echo 'Id da imagem no DHub: bragamann/umbook-auth:2020-07-03'
+
+
+docker build ./UMbookAuthMongo -t umbook-mongoauth
+echo 'Tagging'
+docker tag umbook-mongoauth:latest bragamann/umbook-mongoauth:2020-07-03
+echo 'Pushing'
+docker push bragamann/umbook-mongoauth:2020-07-03
+echo 'Terminado'
+echo 'Id da imagem no DHub: bragamann/umbook-mongoauth:2020-07-03'
+
 
 
 docker image prune
