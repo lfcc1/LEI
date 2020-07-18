@@ -34,7 +34,7 @@ function verifyAcess(acess){
 }
 // -------------------------------------------------------------- GET ---------------------------------------------------------------------
 
-router.get('/', passport.authenticate('jwt', {session: false}), function(req, res, next){
+router.get('/', passport.authenticate('jwt', {session: false}), verifyAcess("Admin"), function(req, res, next){
   axios.get(apiUtilizadores + "?token=" + req.query.token)
       .then(dados =>{ res.jsonp(dados.data)})
       .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
@@ -131,7 +131,7 @@ router.post('/login', function(req, res){
             .then(async dados => { 
               var response = dados.data
               if(dados.data.authentication == true){
-                response.token = await config.generateToken(response)
+                response.token = await config.generateToken(response.utilizador)
               }
               res.jsonp(response)
             })

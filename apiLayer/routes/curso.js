@@ -19,6 +19,7 @@ function getPermissao(acess,utilizador){
 
 function verifyAcess(acess){
   return  function(req, res, next) {
+    console.log(req.user)
     var u = req.user.user
     var x = getPermissao(acess,u)
     if(x){

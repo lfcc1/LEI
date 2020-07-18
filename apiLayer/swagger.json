@@ -1,0 +1,3416 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "Api UMbook",
+        "description": "Aqui encontra-se a documentação de toda a api de dados da UMbook, incluindo todas as rotas e toda a informação à cerca do que é precisar passar como parâmetros, bem como os resultados que se podem esperar ao executar aquela rota.\n Muitas das rotas encontram-se protegidas, não se esqueça de realizar o login na aba dos utilizadores com as suas credenciais para ter acesso às rotas que lhe são permitido aceder. Receberá um token de acesso e terá que o copiar e colar no botão 'Authorize' no canto superior direito."
+    },
+    "schemes": [
+        "http"
+    ],
+    "host": "localhost:3049",
+    "basePath": "/api",
+    "tags": [
+        {
+          "name": "utilizadores",
+          "description": "Todas as operações à cerca de utilizadores."
+        },
+        {
+          "name": "cursos",
+          "description": "Todas as operações à cerca de cursos."
+        },
+        {
+          "name": "anos",
+          "description": "Todas as operações à cerca de anos."
+        },
+        {
+            "name": "cadeiras",
+            "description": "Todas as operações à cerca de cadeiras."
+        },
+        {
+            "name": "eventos",
+            "description": "Todas as operações à cerca de eventos."
+        },
+        {
+            "name": "publicacoes",
+            "description": "Todas as operações à cerca de publicações."
+        },
+        {
+            "name": "conversas",
+            "description": "Todas as operações à cerca de conversas."
+        }
+      ],
+    "paths": {
+        "/cursos": {
+            "get": {
+                "tags":[
+                    "cursos"
+                ],
+                "summary": "Todos os ids dos cursos registados.",
+                "description": "Retorna uma lista com todos os ids dos cursos presentes e respetivas designações.",
+                "responses": {
+                    "200": {
+                        "description": "Lista de Curso",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "properties": {
+                                    "curso": {
+                                        "type": "string"
+                                    },
+                                    "designacao": {
+                                      "type":"string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post":{
+                "tags":[
+                    "cursos"
+                ],
+                "summary": "Inserir um novo curso.",
+                "description": "Adiciona um novo curso à base de dados.",
+                "parameters": [
+                    {
+                      "name": "id",
+                      "in": "formData",
+                      "description": "ID do curso",
+                      "required": true,
+                      "type": "string"
+                    },
+                    {
+                      "name": "nome",
+                      "in": "formData",
+                      "description": "Nome do curso",
+                      "required": true,
+                      "type": "string"
+                    }
+                  ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna o id do Curso criado",
+                        "schema": {
+                            "type": "string",
+                            "items": {
+                                "properties": {
+                                    "curso": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401":{
+                      "description": "Falta-lhe o token de acesso ou o token não é válido."
+                    }
+                },
+                "security": [
+                  {
+                    "api_key": []
+                  }
+                ]
+            }
+        },
+        "/cursos/{cursoId}": {
+            "get": {
+              "tags": [
+                "cursos"
+              ],
+              "summary": "Dado um identificador de um curso, devolve toda a informação relativa a esse curso.",
+              "description": "Devolve toda a informação relativa a um curso.",
+              "operationId": "getCursoById",
+              "parameters": [
+                {
+                  "name": "cursoId",
+                  "in": "path",
+                  "description": "ID do curso a retornar.",
+                  "required": true,
+                  "type": "string"
+                }
+              ],
+              "responses": {
+                "200": {
+                    "description": "Retorna toda a informação relativa a um curso.",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "info": {
+                                "$ref": "#/definitions/Curso"
+                            },
+                            "anos":{
+                                "type":"array",
+                                "items": {
+                                    "type":"object",
+                                    "properties": {
+                                        "id":{
+                                            "type":"string"
+                                        },
+                                        "designacao":{
+                                            "type":"string"
+                                        }
+                                    }
+                                }
+                            },
+                            "estudantes":{
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/definitions/Utilizador"
+                                }
+                            },
+                            "responsaveis":{
+                                "type": "object",
+                                "properties": {
+                                    "ano":{
+                                        "type":"string"
+                                    },
+                                    "responsaveisAno":{
+                                        "type":"array",
+                                        "items":{
+                                            "$ref": "#/definitions/Utilizador"
+                                        }
+                                    }
+                                }
+                            },
+                            "publicacoes":{
+                                "type":"array",
+                                "items": {
+                                    "$ref": "#/definitions/Publicacao"
+                                }
+                            }
+                        }
+                    }
+                },
+                "401":{
+                  "description": "Falta-lhe o token de acesso ou o token não é válido."
+                },
+                "403":{
+                  "description": "Não possuí nível de acesso suficiente."
+                }
+              },
+              "security": [
+                {
+                  "api_key": []
+                }
+              ]
+            },
+            "put":{
+              "tags": [
+                "cursos"
+              ],
+              "summary": "Dado um identificador de um curso, edite a informação relacionada com ele.",
+              "description": "Para editar um curso, é necessário ser Admin.",
+              "operationId": "putCursoById",
+              "parameters": [
+                {
+                  "name": "cursoId",
+                  "in": "path",
+                  "description": "ID do curso a editar.",
+                  "required": true,
+                  "type": "string"
+                },
+                {
+                  "name": "designacao",
+                  "in": "formData",
+                  "description": "Nova designação.",
+                  "required": true,
+                  "type": "string"
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "O curso foi editado."
+                },
+                "401":{
+                  "description": "Falta-lhe o token de acesso ou o token não é válido."
+                },
+                "403":{
+                  "description": "Não possuí nível de acesso suficiente."
+                }
+              },
+              "security": [
+                {
+                  "api_key": []
+                }
+              ]
+            },
+            "delete": {
+              "tags": [
+                "cursos"
+              ],
+              "summary": "Dado um identificador de um curso, elimine o curso da base de dados.",
+              "description": "Para apagar um curso, é necessário ser Admin.",
+              "operationId": "deleteCursoById",
+              "parameters": [
+                {
+                  "name": "cursoId",
+                  "in": "path",
+                  "description": "ID do curso a editar.",
+                  "required": true,
+                  "type": "string"
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "O curso foi eliminado."
+                },
+                "401":{
+                  "description": "Falta-lhe o token de acesso ou o token não é válido."
+                },
+                "403":{
+                  "description": "Não possuí nível de acesso suficiente."
+                }
+              },
+              "security": [
+                {
+                  "api_key": []
+                }
+              ]
+            }
+        },
+        "/cursos/{cursoId}/anos": {
+            "get": {
+              "tags": [
+                "cursos"
+              ],
+              "summary": "Dado um identificador de um curso, devolve todos os anos pertencentes a esse curso.",
+              "description": "Devolve todos os anos de um curso.",
+              "operationId": "getAnosCursoById",
+              "parameters": [
+                {
+                  "name": "cursoId",
+                  "in": "path",
+                  "description": "ID do curso a retornar.",
+                  "required": true,
+                  "type": "string"
+                }
+              ],
+              "responses": {
+                "200": {
+                    "description": "Retorna todos os anos relativos a um curso.",
+                    "schema": {
+                        "type": "array",
+                        "items": {
+                            "type":"object",
+                            "properties": {
+                                "id":{
+                                    "type":"string"
+                                },
+                                "designacao":{
+                                    "type":"string"
+                                }
+                            }
+                        }
+                    }
+                },
+                "401":{
+                  "description": "Falta-lhe o token de acesso ou o token não é válido."
+                }
+              }
+            }
+        },
+        "/cursos/{cursoId}/estudantes": {
+            "get": {
+              "tags": [
+                "cursos"
+              ],
+              "summary": "Dado um identificador de um curso, devolve todos os estudantes pertencentes a esse curso.",
+              "description": "Devolve todos os estudantes de um curso.",
+              "operationId": "getEstudantesAnoById",
+              "parameters": [
+                {
+                  "name": "cursoId",
+                  "in": "path",
+                  "description": "ID do curso a retornar.",
+                  "required": true,
+                  "type": "string"
+                }
+              ],
+              "responses": {
+                "200": {
+                    "description": "Retorna todos os estudantes relativos a um curso.",
+                    "schema": {
+                        "type":"array",
+                        "items": {
+                           "$ref": "#/definitions/Utilizador"
+                        }
+                    }
+                },
+                "401":{
+                  "description": "Falta-lhe o token de acesso ou o token não é válido."
+                }
+              },
+              "security": [
+                {
+                  "api_key": []
+                }
+              ]
+            }
+        },
+        "/cursos/{cursoId}/publicacoes": {
+            "get": {
+              "tags": [
+                "cursos"
+              ],
+              "summary": "Dado um identificador de um curso, devolve todas as publicações pertencentes a esse curso.",
+              "description": "Devolve todos as publicações de um curso.",
+              "operationId": "getPublicacoesCursoById",
+              "parameters": [
+                {
+                  "name": "cursoId",
+                  "in": "path",
+                  "description": "ID do curso a retornar.",
+                  "required": true,
+                  "type": "string"
+                }
+              ],
+              "responses": {
+                "200": {
+                    "description": "Retorna todos as publicações relativos a um curso.",
+                    "schema": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/definitions/Publicacao"
+                        }
+                    }
+                },
+                "401":{
+                  "description": "Falta-lhe o token de acesso ou o token não é válido."
+                }
+              },
+              "security": [
+                {
+                  "api_key": []
+                }
+              ]
+            }
+        },
+        "/cursos/{cursoId}/responsaveis": {
+            "get": {
+              "tags": [
+                "cursos"
+              ],
+              "summary": "Dado um identificador de um curso, devolve todas os responsáveis pertencentes a esse curso.",
+              "description": "Devolve todos os responsáveis de um curso.",
+              "operationId": "getResponsaveisCursoById",
+              "parameters": [
+                {
+                  "name": "cursoId",
+                  "in": "path",
+                  "description": "ID do curso a retornar.",
+                  "required": true,
+                  "type": "string"
+                }
+              ],
+              "responses": {
+                "200": {
+                    "description": "Retorna todos os responsáveis relativos a um curso.",
+                    "schema": {
+                        "type":"array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "ano":{
+                                    "type":"string"
+                                },
+                                "responsaveisAno":{
+                                    "type":"array",
+                                    "items":{
+                                        "$ref": "#/definitions/Utilizador"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "401":{
+                  "description": "Falta-lhe o token de acesso ou o token não é válido."
+                }
+              },
+              "security": [
+                {
+                  "api_key": []
+                }
+              ]
+            }
+        },
+        "/anos": {
+            "post":{
+                "tags":[
+                    "anos"
+                ],
+                "summary": "Inserir um novo ano de um dado curso.",
+                "description": "Para inserir um novo ano a um curso, é necessário ser Admin.",
+                "parameters": [
+                    {
+                      "name": "nome",
+                      "in": "formData",
+                      "description": "Nome do ano",
+                      "required": true,
+                      "type": "string"
+                    },
+                    {
+                        "name": "anoLetivo",
+                        "in": "formData",
+                        "description": "Ano letivo do ano",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "idCurso",
+                        "in": "formData",
+                        "description": "ID do curso que o ano pertence",
+                        "required": true,
+                        "type": "string"
+                      }
+                  ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna o id do ano criado",
+                        "schema": {
+                            "properties": {
+                                "id": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "401":{
+                      "description": "Falta-lhe o token de acesso ou o token não é válido."
+                    },
+                    "403":{
+                      "description": "Não possuí nível de acesso suficiente."
+                    }
+                },
+                "security": [
+                  {
+                    "api_key": []
+                  }
+                ]
+            }
+        },
+        "/anos/{anoId}": {
+            "get": {
+              "tags": [
+                "anos"
+              ],
+              "summary": "Dado um identificador de um ano, devolve toda a informação relativa a esse ano.",
+              "description": "Devolve toda a informação relativa a um ano.",
+              "operationId": "getAnoById",
+              "parameters": [
+                {
+                  "name": "anoId",
+                  "in": "path",
+                  "description": "ID do ano a retornar.",
+                  "required": true,
+                  "type": "string"
+                }
+              ],
+              "responses": {
+                "200": {
+                    "description": "Retorna toda a informação relativa a um ano.",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "info": {
+                                "$ref": "#/definitions/Ano"
+                            },
+                            "cadeiras":{
+                                "type":"array",
+                                "items": {
+                                    "type":"object",
+                                    "properties": {
+                                        "id":{
+                                            "type":"string"
+                                        },
+                                        "designacao":{
+                                            "type":"string"
+                                        }
+                                    }
+                                }
+                            },
+                            "estudantes":{
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/definitions/Utilizador"
+                                }
+                            },
+                            "responsaveis":{
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/definitions/Utilizador"
+                                }
+                            },
+                            "publicacoes":{
+                                "type":"array",
+                                "items": {
+                                    "$ref": "#/definitions/Publicacao"
+                                }
+                            }
+                        }
+                    }
+                },
+                "401":{
+                  "description": "Falta-lhe o token de acesso ou o token não é válido."
+                }
+              },
+              "security": [
+                {
+                  "api_key": []
+                }
+              ]
+            },
+            "put":{
+              "tags":[
+                "anos"
+            ],
+            "summary": "Editar um determinado ano.",
+            "description": "Para editar um ano, é necessário ser Admin ou Responsável desse ano.",
+            "parameters": [
+                {
+                  "name": "anoId",
+                  "in": "path",
+                  "description": "ID do ano a retornar.",
+                  "required": true,
+                  "type": "string"
+                },
+                {
+                  "name": "nome",
+                  "in": "formData",
+                  "description": "Nome do ano",
+                  "required": true,
+                  "type": "string"
+                },
+                {
+                    "name": "anoLetivo",
+                    "in": "formData",
+                    "description": "Ano letivo do ano",
+                    "required": true,
+                    "type": "string"
+                }
+              ],
+            "responses": {
+                "200": {
+                    "description": "O ano foi editado com sucesso."
+                },
+                "401":{
+                  "description": "Falta-lhe o token de acesso ou o token não é válido."
+                },
+                "403":{
+                  "description": "Não possuí nível de acesso suficiente."
+                }
+            },
+            "security": [
+              {
+                "api_key": []
+              }
+            ]
+            },
+            "delete": {
+              "tags":[
+                "anos"
+            ],
+            "summary": "Eliminar um determinado ano.",
+            "description": "Para apagar um ano, é necessário ser Admin.",
+            "parameters": [
+                {
+                  "name": "anoId",
+                  "in": "path",
+                  "description": "ID do ano a eliminar.",
+                  "required": true,
+                  "type": "string"
+                }
+              ],
+              "responses": {
+                "200": {
+                    "description": "O ano foi apagado com sucesso."
+                },
+                "401":{
+                  "description": "Falta-lhe o token de acesso ou o token não é válido."
+                },
+                "403":{
+                  "description": "Não possuí nível de acesso suficiente."
+                }
+            },
+            "security": [
+              {
+                "api_key": []
+              }
+            ]
+            }
+        },
+        "/anos/{anoId}/cadeiras": {
+            "get": {
+              "tags": [
+                "anos"
+              ],
+              "summary": "Dado um identificador de um ano, devolve todas as cadeiras pertencentes a esse ano.",
+              "description": "Devolve todas as cadeiras de um ano.",
+              "operationId": "getCadeirasAnoById",
+              "parameters": [
+                {
+                  "name": "anoId",
+                  "in": "path",
+                  "description": "ID do ano a retornar.",
+                  "required": true,
+                  "type": "string"
+                }
+              ],
+              "responses": {
+                "200": {
+                    "description": "Retorna todas as cadeiras relativas a um ano.",
+                    "schema": {
+                        "type": "array",
+                        "items": {
+                            "type":"object",
+                            "properties": {
+                                "id":{
+                                    "type":"string"
+                                },
+                                "designacao":{
+                                    "type":"string"
+                                }
+                            }
+                        }
+                    }
+                },
+                "401":{
+                  "description": "Falta-lhe o token de acesso ou o token não é válido."
+                }
+              },
+              "security": [
+                {
+                  "api_key": []
+                }
+              ]
+            }
+        },
+        "/anos/{anoId}/publicacoes": {
+            "get": {
+              "tags": [
+                "anos"
+              ],
+              "summary": "Dado um identificador de um ano, devolve todas as publicações pertencentes a esse ano.",
+              "description": "Devolve todos as publicações de um ano.",
+              "operationId": "getPublicacoesAnoById",
+              "parameters": [
+                {
+                  "name": "anoId",
+                  "in": "path",
+                  "description": "ID do curso a retornar.",
+                  "required": true,
+                  "type": "string"
+                }
+              ],
+              "responses": {
+                "200": {
+                    "description": "Retorna todas as publicações relativos a um curso.",
+                    "schema": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/definitions/Publicacao"
+                        }
+                    }
+                },
+                "401":{
+                  "description": "Falta-lhe o token de acesso ou o token não é válido."
+                }
+              },
+              "security": [
+                {
+                  "api_key": []
+                }
+              ]
+            }
+        },
+        "/anos/{anoId}/responsaveis": {
+            "get": {
+              "tags": [
+                "anos"
+              ],
+              "summary": "Dado um identificador de um ano, devolve todas os responsáveis pertencentes a esse ano.",
+              "description": "Devolve todos os responsáveis de um ano.",
+              "operationId": "getResponsaveisAnoById",
+              "parameters": [
+                {
+                  "name": "anoId",
+                  "in": "path",
+                  "description": "ID do ano a retornar.",
+                  "required": true,
+                  "type": "string"
+                }
+              ],
+              "responses": {
+                "200": {
+                    "description": "Retorna todos os responsáveis relativos a um ano.",
+                    "schema": {
+                        "type":"array",
+                        "items": {
+                           "$ref": "#/definitions/Utilizador"
+                        }
+                    }
+                },
+                "401":{
+                  "description": "Falta-lhe o token de acesso ou o token não é válido."
+                }
+              },
+              "security": [
+                {
+                  "api_key": []
+                }
+              ]
+            }
+        },
+        "/anos/{anoId}/estudantes": {
+            "get": {
+              "tags": [
+                "anos"
+              ],
+              "summary": "Dado um identificador de um ano, devolve todas os estudantes pertencentes a esse ano.",
+              "description": "Devolve todos os estudantes de um ano.",
+              "operationId": "getEstudantesAnoById",
+              "parameters": [
+                {
+                  "name": "anoId",
+                  "in": "path",
+                  "description": "ID do ano a retornar.",
+                  "required": true,
+                  "type": "string"
+                }
+              ],
+              "responses": {
+                "200": {
+                    "description": "Retorna todos os estudantes relativos a um ano.",
+                    "schema": {
+                        "type":"array",
+                        "items": {
+                           "$ref": "#/definitions/Utilizador"
+                        }
+                    }
+                },
+                "401":{
+                  "description": "Falta-lhe o token de acesso ou o token não é válido."
+                }
+              },
+              "security": [
+                {
+                  "api_key": []
+                }
+              ]
+            }
+        },
+        "/cadeiras": {
+            "post":{
+                "tags":[
+                    "cadeiras"
+                ],
+                "summary": "Inserir uma nova cadeira de um dado ano.",
+                "description": "Para adicionar uma nova cadeira à base de dados, é necessário ser Admin ou Responsável.",
+                "parameters": [
+                    {
+                      "name": "nome",
+                      "in": "formData",
+                      "description": "Nome da cadeira",
+                      "required": true,
+                      "type": "string"
+                    },
+                    {
+                      "name": "conteudosProgramaticos",
+                      "in": "formData",
+                      "description": "Conteúdos programáticos da cadeira",
+                      "required": true,
+                      "type": "string"
+                    },
+                    {
+                        "name": "idAno",
+                        "in": "formData",
+                        "description": "ID do ano que a cadeira pertence",
+                        "required": true,
+                        "type": "string"
+                      }
+                  ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna o id da cadeira criada",
+                        "schema": {
+                            "properties": {
+                                "id": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "401":{
+                      "description": "Falta-lhe o token de acesso ou o token não é válido."
+                    },
+                    "403":{
+                      "description": "Não tem nível de acesso suficiente!"
+                    }
+                },
+                "security": [
+                  {
+                    "api_key": []
+                  }
+                ]
+            }
+        },
+        "/cadeiras/pastas": {
+          "post":{
+              "tags":[
+                  "cadeiras"
+              ],
+              "summary": "Inserir uma nova pasta de um dada cadeira.",
+              "description": "Para adicionar uma nova pasta à base de dados, é necessário ser Admin ou Responsável.",
+              "parameters": [
+                  {
+                    "name": "nome",
+                    "in": "formData",
+                    "description": "Nome da pasta",
+                    "required": true,
+                    "type": "string"
+                  },
+                  {
+                      "name": "idCadeira",
+                      "in": "formData",
+                      "description": "ID da cadeira à qual pertence",
+                      "required": true,
+                      "type": "string"
+                    }
+                ],
+              "responses": {
+                  "200": {
+                      "description": "Retorna o id da pasta criada",
+                      "schema": {
+                          "properties": {
+                              "id": {
+                                  "type": "string"
+                              }
+                          }
+                      }
+                  },
+                  "401":{
+                    "description": "Falta-lhe o token de acesso ou o token não é válido."
+                  },
+                  "403":{
+                    "description": "Não tem nível de acesso suficiente!"
+                  }
+              },
+              "security": [
+                {
+                  "api_key": []
+                }
+              ]
+          }
+      },
+        "/cadeiras/{cadeiraId}": {
+            "get": {
+              "tags": [
+                "cadeiras"
+              ],
+              "summary": "Dado um identificador de uma cadeira, devolve toda a informação relativa a essa cadeira.",
+              "description": "Devolve toda a informação relativa a uma cadeira.",
+              "operationId": "getCadeiraById",
+              "parameters": [
+                {
+                  "name": "cadeiraId",
+                  "in": "path",
+                  "description": "ID da cadeira a retornar.",
+                  "required": true,
+                  "type": "string"
+                }
+              ],
+              "responses": {
+                "200": {
+                    "description": "Retorna toda a informação relativa a uma cadeira.",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "info": {
+                                "$ref": "#/definitions/Ano"
+                            },
+                            "estudantes":{
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/definitions/Utilizador"
+                                }
+                            },
+                            "responsaveis":{
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/definitions/Utilizador"
+                                }
+                            },
+                            "publicacoes":{
+                                "type":"array",
+                                "items": {
+                                    "$ref": "#/definitions/Publicacao"
+                                }
+                            }
+                        }
+                    }
+                },
+                "401":{
+                  "description": "Falta-lhe o token de acesso ou o token não é válido."
+                }
+              },
+              "security": [
+                {
+                  "api_key": []
+                }
+              ]
+            },
+            "put":{
+                "tags":[
+                    "cadeiras"
+                ],
+                "summary": "Altera uma determinada cadeira.",
+                "description": "Para editar uma cadeira, é necessário ser Admin ou Responsável.",
+                "parameters": [
+                    {
+                      "name": "cadeiraId",
+                      "in": "path",
+                      "description": "ID da cadeira",
+                      "required": true,
+                      "type": "string"
+                    },
+                    {
+                      "name": "designacao",
+                      "in": "formData",
+                      "description": "Designação da cadeira",
+                      "required": true,
+                      "type": "string"
+                    },
+                    {
+                      "name": "conteudosProgramaticos",
+                      "in": "formData",
+                      "description": "Conteúdos programáticos da cadeira",
+                      "required": true,
+                      "type": "string"
+                    }
+                  ],
+                "responses": {
+                    "200": {
+                        "description": "A cadeira foi editada com sucesso"
+                    },
+                    "401":{
+                      "description": "Falta-lhe o token de acesso ou o token não é válido."
+                    },
+                    "403":{
+                      "description": "Não tem nível de acesso suficiente!"
+                    }
+                },
+                "security": [
+                  {
+                    "api_key": []
+                  }
+                ]
+            },
+            "delete":{
+              "tags":[
+                  "cadeiras"
+              ],
+              "summary": "Apaga uma cadeira da base de dados.",
+              "description": "Para eliminar uma cadeira, é necessário ser Admin ou Responsável.",
+              "parameters": [
+                  {
+                    "name": "cadeiraId",
+                    "in": "path",
+                    "description": "ID da cadeira",
+                    "required": true,
+                    "type": "string"
+                  }
+                ],
+              "responses": {
+                  "200": {
+                      "description": "A cadeira foi apagada com sucesso"
+                  },
+                  "401":{
+                    "description": "Falta-lhe o token de acesso ou o token não é válido."
+                  },
+                  "403":{
+                    "description": "Não tem nível de acesso suficiente!"
+                  }
+              },
+              "security": [
+                {
+                  "api_key": []
+                }
+              ]
+          }
+        },
+        "/cadeiras/pastas/{pastaId}":{
+          "delete":{
+            "tags":[
+                "cadeiras"
+            ],
+            "summary": "Apaga uma pasta da base de dados.",
+            "description": "Para eliminar uma pasta, é necessário ser Admin ou Responsável.",
+            "parameters": [
+                {
+                  "name": "pastaId",
+                  "in": "path",
+                  "description": "ID da pasta",
+                  "required": true,
+                  "type": "string"
+                }
+              ],
+            "responses": {
+                "200": {
+                    "description": "A pasta foi apagada com sucesso"
+                },
+                "401":{
+                  "description": "Falta-lhe o token de acesso ou o token não é válido."
+                },
+                "403":{
+                  "description": "Não tem nível de acesso suficiente!"
+                }
+            },
+            "security": [
+              {
+                "api_key": []
+              }
+            ]
+        }
+        }
+        ,
+        "/cadeiras/{cadeiraId}/publicacoes": {
+            "get": {
+              "tags": [
+                "cadeiras"
+              ],
+              "summary": "Dado um identificador de uma cadeira, devolve todas as publicações pertencentes a essa cadeira.",
+              "description": "Devolve todos as publicações de uma cadeira.",
+              "operationId": "getPublicacoesCadeiraById",
+              "parameters": [
+                {
+                  "name": "cadeiraId",
+                  "in": "path",
+                  "description": "ID da cadeira a retornar.",
+                  "required": true,
+                  "type": "string"
+                }
+              ],
+              "responses": {
+                "200": {
+                    "description": "Retorna todas as publicações relativas a uma cadeira.",
+                    "schema": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/definitions/Publicacao"
+                        }
+                    }
+                },
+                "401":{
+                  "description": "Falta-lhe o token de acesso ou o token não é válido."
+                }
+              },
+              "security": [
+                {
+                  "api_key": []
+                }
+              ]
+            }
+        },
+        "/cadeiras/{cadeiraId}/pastas": {
+          "get": {
+            "tags": [
+              "cadeiras"
+            ],
+            "summary": "Dado um identificador de uma cadeira, devolve todas as pastas pertencentes a essa cadeira.",
+            "description": "Devolve todas as pastas de uma cadeira.",
+            "operationId": "getPastasCadeiraById",
+            "parameters": [
+              {
+                "name": "cadeiraId",
+                "in": "path",
+                "description": "ID da cadeira a retornar.",
+                "required": true,
+                "type": "string"
+              }
+            ],
+            "responses": {
+              "200": {
+                  "description": "Retorna todas as pastas relativas a uma cadeira.",
+                  "schema": {
+                      "type":"array",
+                      "items": {
+                         "$ref": "#/definitions/Pasta"
+                      }
+                  }
+              },
+              "401":{
+                "description": "Falta-lhe o token de acesso ou o token não é válido."
+              }
+            },
+            "security": [
+              {
+                "api_key": []
+              }
+            ]
+          }
+      },
+      "/cadeiras/pastas/{pastaId}/ficheiros": {
+        "get": {
+          "tags": [
+            "cadeiras"
+          ],
+          "summary": "Dado um identificador de uma pasta, devolve todas os ficheiros pertencentes a essa pasta.",
+          "description": "Devolve todas os ficheiros de uma pasta.",
+          "operationId": "getFicheirosPastaById",
+          "parameters": [
+            {
+              "name": "pastaId",
+              "in": "path",
+              "description": "ID da pasta a retornar.",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+                "description": "Retorna todas os ficheiros relativos a uma pasta.",
+                "schema": {
+                    "type":"array",
+                    "items": {
+                       "$ref": "#/definitions/Ficheiro"
+                    }
+                }
+            },
+            "401":{
+              "description": "Falta-lhe o token de acesso ou o token não é válido."
+            }
+          },
+          "security": [
+            {
+              "api_key": []
+            }
+          ]
+        }
+    },
+        "/cadeiras/{cadeiraId}/responsaveis": {
+            "get": {
+              "tags": [
+                "cadeiras"
+              ],
+              "summary": "Dado um identificador de uma cadeira, devolve todas os responsáveis pertencentes a essa cadeira.",
+              "description": "Devolve todos os responsáveis de uma cadeira.",
+              "operationId": "getResponsaveisCadeiraById",
+              "parameters": [
+                {
+                  "name": "cadeiraId",
+                  "in": "path",
+                  "description": "ID da cadeira a retornar.",
+                  "required": true,
+                  "type": "string"
+                }
+              ],
+              "responses": {
+                "200": {
+                    "description": "Retorna todos os responsáveis relativos a uma cadeira.",
+                    "schema": {
+                        "type":"array",
+                        "items": {
+                           "$ref": "#/definitions/Utilizador"
+                        }
+                    }
+                },
+                "401":{
+                  "description": "Falta-lhe o token de acesso ou o token não é válido."
+                }
+              },
+              "security": [
+                {
+                  "api_key": []
+                }
+              ]
+            }
+        },
+        "/cadeiras/{cadeiraId}/estudantes": {
+            "get": {
+              "tags": [
+                "cadeiras"
+              ],
+              "summary": "Dado um identificador de uma cadeira, devolve todos os estudantes pertencentes a essa cadeira.",
+              "description": "Devolve todos os estudantes de uma cadeira.",
+              "operationId": "getEstudantesCadeiraById",
+              "parameters": [
+                {
+                  "name": "cadeiraId",
+                  "in": "path",
+                  "description": "ID da cadeira a retornar.",
+                  "required": true,
+                  "type": "string"
+                }
+              ],
+              "responses": {
+                "200": {
+                    "description": "Retorna todos os estudantes relativos a uma cadeira.",
+                    "schema": {
+                        "type":"array",
+                        "items": {
+                           "$ref": "#/definitions/Utilizador"
+                        }
+                    }
+                },
+                "401":{
+                  "description": "Falta-lhe o token de acesso ou o token não é válido."
+                }
+              },
+              "security": [
+                {
+                  "api_key": []
+                }
+              ]
+            }
+        },
+        "/eventos": {
+            "get": {
+                "tags":[
+                    "eventos"
+                ],
+                "summary": "Retorna todos os eventos registados.",
+                "description": "Retorna uma lista com todos os eventos presentes.",
+                "responses": {
+                    "200": {
+                        "description": "Retorna toda a informação relativa aos eventos que possuem uma determinada parceria.",
+                        "schema": {
+                            "type": "array",
+                            "items":{
+                                "properties": {
+                                    "info": {
+                                        "$ref": "#/definitions/Evento"
+                                    },
+                                    "participantes":{
+                                        "type":"array",
+                                        "items": {
+                                            "type":"object",
+                                            "properties": {
+                                                "idUtilizador":{
+                                                    "type":"string"
+                                                },
+                                                "nome":{
+                                                    "type":"string"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "parcerias":{
+                                        "type": "array",
+                                        "items": {
+                                            "type":"object",
+                                            "properties": {
+                                                "idCurso":{
+                                                    "type":"string"
+                                                },
+                                                "nome":{
+                                                    "type":"string"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                      },
+                      "401":{
+                        "description": "Falta-lhe o token de acesso ou o token não é válido."
+                      }
+                  },
+                  "security": [
+                    {
+                      "api_key": []
+                    }
+                  ]
+            },
+            "post":{
+                "tags":[
+                    "eventos"
+                ],
+                "summary": "Inserir um novo evento.",
+                "description": "Para inserir um novo evento, é necessário ser Admin.",
+                "parameters": [
+                    {
+                      "name": "nome",
+                      "in": "formData",
+                      "description": "Nome do evento",
+                      "required": true,
+                      "type": "string"
+                    },
+                    {
+                        "name": "conteudo",
+                        "in": "formData",
+                        "description": "Informação adicional do evento",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "dataInicio",
+                        "in": "formData",
+                        "description": "Data e hora a que o evento começa",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "dataFim",
+                        "in": "formData",
+                        "description": "Data e hora a que o evento acaba",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                      "name": "parcerias",
+                      "in": "formData",
+                      "description": "As parcerias do Evento",
+                      "required": true,
+                      "type": "array",
+                      "items":{
+                        "type": "string"
+                      }
+                  }
+                  ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna o id do evento criado",
+                        "schema": {
+                            "properties": {
+                                "id": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "401":{
+                      "description": "Falta-lhe o token de acesso ou o token não é válido."
+                    },
+                    "403":{
+                      "description": "Não possuí nível de acesso suficiente."
+                    }
+                },
+                "security": [
+                  {
+                    "api_key": []
+                  }
+                ]
+            }
+        },
+        "/eventos/{eventoId}": {
+            "get": {
+              "tags": [
+                "eventos"
+              ],
+              "summary": "Dado um identificador de um evento, devolve toda a informação relativa a esse evento.",
+              "description": "Devolve toda a informação relativa a um evento.",
+              "operationId": "getEventoById",
+              "parameters": [
+                {
+                  "name": "eventoId",
+                  "in": "path",
+                  "description": "ID do evento a retornar.",
+                  "required": true,
+                  "type": "string"
+                }
+              ],
+              "responses": {
+                "200": {
+                    "description": "Retorna toda a informação relativa a um evento.",
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "info": {
+                                "$ref": "#/definitions/Evento"
+                            },
+                            "participantes":{
+                                "type":"array",
+                                "items": {
+                                    "type":"object",
+                                    "properties": {
+                                        "idUtilizador":{
+                                            "type":"string"
+                                        },
+                                        "nome":{
+                                            "type":"string"
+                                        }
+                                    }
+                                }
+                            },
+                            "parcerias":{
+                                "type": "array",
+                                "items": {
+                                    "type":"object",
+                                    "properties": {
+                                        "idCurso":{
+                                            "type":"string"
+                                        },
+                                        "nome":{
+                                            "type":"string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "401":{
+                  "description": "Falta-lhe o token de acesso ou o token não é válido."
+                }
+              },
+              "security": [
+                {
+                  "api_key": []
+                }
+              ]
+            },
+            "delete": {
+              "tags": [
+                "eventos"
+              ],
+              "summary": "Apaga um determinado evento.",
+              "description": "Apenas um utilizador do tipo Admin, pode apagar Eventos.",
+              "operationId": "deleteEvento",
+              "parameters": [
+                {
+                  "name": "eventoId",
+                  "in": "path",
+                  "description": "ID do evento.",
+                  "required": true,
+                  "type": "string"
+                }
+              ],
+              "responses": {
+                "200": {
+                    "description": "O evento foi apagado com sucesso."
+                },
+                "401":{
+                  "description": "Falta-lhe o token de acesso ou o token não é válido."
+                }
+              },
+              "security": [
+                {
+                  "api_key": []
+                }
+              ]
+            }
+        },
+        "/eventos/parceria/{parceriaId}": {
+            "get": {
+              "tags": [
+                "eventos"
+              ],
+              "summary": "Dado um identificador de uma parceria, devolve todos os eventos relativos a essa parceria.",
+              "description": "Devolve todos os eventos de uma parceria.",
+              "operationId": "getEventoByParceria",
+              "parameters": [
+                {
+                  "name": "parceriaId",
+                  "in": "path",
+                  "description": "ID da parceria a retornar.",
+                  "required": true,
+                  "type": "string"
+                }
+              ],
+              "responses": {
+                "200": {
+                    "description": "Retorna toda a informação relativa aos eventos que possuem uma determinada parceria.",
+                    "schema": {
+                        "type": "array",
+                        "items":{
+                            "properties": {
+                                "info": {
+                                    "$ref": "#/definitions/Evento"
+                                },
+                                "participantes":{
+                                    "type":"array",
+                                    "items": {
+                                        "type":"object",
+                                        "properties": {
+                                            "idUtilizador":{
+                                                "type":"string"
+                                            },
+                                            "nome":{
+                                                "type":"string"
+                                            }
+                                        }
+                                    }
+                                },
+                                "parcerias":{
+                                    "type": "array",
+                                    "items": {
+                                        "type":"object",
+                                        "properties": {
+                                            "idCurso":{
+                                                "type":"string"
+                                            },
+                                            "nome":{
+                                                "type":"string"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "401":{
+                  "description": "Falta-lhe o token de acesso ou o token não é válido."
+                }
+              },
+              "security": [
+                {
+                  "api_key": []
+                }
+              ]
+            }
+        },
+        "/eventos/participante/{participanteId}": {
+            "get": {
+              "tags": [
+                "eventos"
+              ],
+              "summary": "Dado um identificador de um utilizador, devolve todos os eventos em que ele vai participar.",
+              "description": "Devolve todos os eventos de um utilizador.",
+              "operationId": "getEventoByUtilizador",
+              "parameters": [
+                {
+                  "name": "participanteId",
+                  "in": "path",
+                  "description": "ID do utilizador a retornar.",
+                  "required": true,
+                  "type": "string"
+                }
+              ],
+              "responses": {
+                "200": {
+                    "description": "Retorna toda a informação relativa aos eventos em que um utilizador vai participar.",
+                    "schema": {
+                        "type": "array",
+                        "items":{
+                            "properties": {
+                                "info": {
+                                    "$ref": "#/definitions/Evento"
+                                },
+                                "participantes":{
+                                    "type":"array",
+                                    "items": {
+                                        "type":"object",
+                                        "properties": {
+                                            "idUtilizador":{
+                                                "type":"string"
+                                            },
+                                            "nome":{
+                                                "type":"string"
+                                            }
+                                        }
+                                    }
+                                },
+                                "parcerias":{
+                                    "type": "array",
+                                    "items": {
+                                        "type":"object",
+                                        "properties": {
+                                            "idCurso":{
+                                                "type":"string"
+                                            },
+                                            "nome":{
+                                                "type":"string"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "401":{
+                  "description": "Falta-lhe o token de acesso ou o token não é válido."
+                }
+              },
+              "security": [
+                {
+                  "api_key": []
+                }
+              ]
+            }
+        },
+        "/publicacoes/{publicacaoId}": {
+            "get": {
+              "tags": [
+                "publicacoes"
+              ],
+              "summary": "Dado um identificador de uma publicação, devolve toda a informação dessa publicação.",
+              "description": "Devolve todas as informações relativas a uma publicação.",
+              "operationId": "getPublicacaoById",
+              "parameters": [
+                {
+                  "name": "publicacaoId",
+                  "in": "path",
+                  "description": "ID da publicação a retornar.",
+                  "required": true,
+                  "type": "string"
+                }
+              ],
+              "responses": {
+                "200": {
+                    "description": "Retorna toda a informação relativa a uma publicação.",
+                    "schema": {
+                        "$ref": "#/definitions/Publicacao"
+                    } 
+                },
+                "401":{
+                  "description": "Falta-lhe o token de acesso ou o token não é válido."
+                }
+              },
+              "security": [
+                {
+                  "api_key": []
+                }
+              ]
+            },
+            "put":{
+                "tags":[
+                    "publicacoes"
+                ],
+                "summary": "Edita uma publicação com um determinado identificador.",
+                "description": "Editar publicação.",
+                "parameters": [
+                    {
+                      "name": "publicacaoId",
+                      "in": "path",
+                      "description": "Identificador da publicação",
+                      "required": true,
+                      "type": "string"
+                    },
+                    {
+                        "name": "conteudo",
+                        "in": "formData",
+                        "description": "Novo conteúdo da publicação",
+                        "required": true,
+                        "type": "string"
+                    }
+                  ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna o id da publicação editada",
+                        "schema": {
+                            "properties": {
+                                "id": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "401":{
+                      "description": "Falta-lhe o token de acesso ou o token não é válido."
+                    }
+                },
+                "security": [
+                  {
+                    "api_key": []
+                  }
+                ]
+            },
+            "delete":{
+                "tags":[
+                    "publicacoes"
+                ],
+                "summary": "Apaga uma publicação com um determinado identificador.",
+                "description": "Apagar publicação.",
+                "parameters": [
+                    {
+                      "name": "publicacaoId",
+                      "in": "path",
+                      "description": "Identificador da publicação",
+                      "required": true,
+                      "type": "string"
+                    }
+                  ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna 200 se a publicação foi apagada"
+                    },
+                    "401":{
+                      "description": "Falta-lhe o token de acesso ou o token não é válido."
+                    }
+                },
+                "security": [
+                  {
+                    "api_key": []
+                  }
+                ]
+            }
+        },
+        "/publicacoes/{publicacaoId}/gosto":{
+          "put":{
+            "tags":[
+                "publicacoes"
+            ],
+            "summary": "Adiciona um gosto a uma publicação.",
+            "description": "Adiciona um gosto a uma publicação.",
+            "parameters": [
+                {
+                  "name": "publicacaoId",
+                  "in": "path",
+                  "description": "Identificador da publicação",
+                  "required": true,
+                  "type": "string"
+                },
+                {
+                    "name": "idUtilizador",
+                    "in": "formData",
+                    "description": "ID do utilizador que gostou",
+                    "required": true,
+                    "type": "string"
+                }
+              ],
+            "responses": {
+                "200": {
+                    "description": "O gosto foi adicionado com sucesso"
+                },
+                "401":{
+                  "description": "Falta-lhe o token de acesso ou o token não é válido."
+                }
+            },
+            "security": [
+              {
+                "api_key": []
+              }
+            ]
+          }
+        },
+        "/publicacoes/{publicacaoId}/desgosto":{
+          "put":{
+            "tags":[
+                "publicacoes"
+            ],
+            "summary": "Remove um gosto a uma publicação.",
+            "description": "Remove um gosto a uma publicação.",
+            "parameters": [
+                {
+                  "name": "publicacaoId",
+                  "in": "path",
+                  "description": "Identificador da publicação",
+                  "required": true,
+                  "type": "string"
+                },
+                {
+                    "name": "idUtilizador",
+                    "in": "formData",
+                    "description": "ID do utilizador que já não gosta",
+                    "required": true,
+                    "type": "string"
+                }
+              ],
+            "responses": {
+                "200": {
+                    "description": "O gosto foi retirado com sucesso"
+                },
+                "401":{
+                  "description": "Falta-lhe o token de acesso ou o token não é válido."
+                }
+            },
+            "security": [
+              {
+                "api_key": []
+              }
+            ]
+          }
+        }
+        ,
+        "/publicacoes/search/{titulo}":{
+          "get": {
+            "tags": [
+              "publicacoes"
+            ],
+            "summary": "Dado um determinado título, devolve todas as publicações que contém esse título.",
+            "description": "Devolve todas publicações que contém um título.",
+            "operationId": "getPublicacaoById",
+            "parameters": [
+              {
+                "name": "titulo",
+                "in": "path",
+                "description": "Titulo a encontrar.",
+                "required": true,
+                "type": "string"
+              }
+            ],
+            "responses": {
+              "200": {
+                  "description": "Retorna toda as publicações encontradas.",
+                  "schema":{
+                    "type": "array",
+                    "items":{
+                        "properties":{
+                          "schema": {
+                            "$ref": "#/definitions/Publicacao"
+                          }
+                        }
+                    }
+                  }
+              },
+              "401":{
+                "description": "Falta-lhe o token de acesso ou o token não é válido."
+              }
+            },
+            "security": [
+              {
+                "api_key": []
+              }
+            ]
+          }
+        },
+        "/publicacoes/{publicacaoId}/comentarios": {
+            "get": {
+              "tags": [
+                "publicacoes"
+              ],
+              "summary": "Dado um identificador de uma publicação, devolve todos os comentários dessa publicação.",
+              "description": "Devolve todos os comentários relativos a uma publicação.",
+              "operationId": "getComentariosPublicacaoById",
+              "parameters": [
+                {
+                  "name": "publicacaoId",
+                  "in": "path",
+                  "description": "ID da publicação a retornar.",
+                  "required": true,
+                  "type": "string"
+                }
+              ],
+              "responses": {
+                "200": {
+                    "description": "Retorna todos os comentários de uma publicação.",
+                    "schema": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/definitions/Comentario"
+                        }
+                    }
+                },
+                "401":{
+                  "description": "Falta-lhe o token de acesso ou o token não é válido."
+                }
+              },
+              "security": [
+                {
+                  "api_key": []
+                }
+              ]
+            }
+        },
+        "/publicacoes":{
+            "post":{
+                "tags":[
+                    "publicacoes"
+                ],
+                "summary": "Inserir uma nova publicação.",
+                "description": "Adiciona uma nova publicação à base de dados.",
+                "parameters": [
+                    {
+                      "name": "idGrupo",
+                      "in": "formData",
+                      "description": "Id do grupo em que a publicação vai ser publicada",
+                      "required": true,
+                      "type": "string"
+                    },
+                    {
+                        "name": "conteudo",
+                        "in": "formData",
+                        "description": "Conteudo da publicação",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "idUtilizador",
+                        "in": "formData",
+                        "description": "Id do utilizador que a publicou",
+                        "required": true,
+                        "type": "string"
+                    }
+                  ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna o id da publicação criada",
+                        "schema": {
+                            "properties": {
+                                "id": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "401":{
+                      "description": "Falta-lhe o token de acesso ou o token não é válido."
+                    }
+                },
+                "security": [
+                  {
+                    "api_key": []
+                  }
+                ]
+            }
+        },
+        "/publicacoes/{publicacaoId}/comentario":{
+            "post":{
+                "tags":[
+                    "publicacoes"
+                ],
+                "summary": "Inserir um novo comentário associado a uma publicação.",
+                "description": "Adiciona um novo comentário à base de dados.",
+                "parameters": [
+                    {
+                      "name": "publicacaoId",
+                      "in": "path",
+                      "description": "Id da publicação ao qual pertence o comentário",
+                      "required": true,
+                      "type": "string"
+                    },
+                    {
+                        "name": "conteudo",
+                        "in": "formData",
+                        "description": "Conteudo do comentário",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "idUtilizador",
+                        "in": "formData",
+                        "description": "Id do utilizador que comentou",
+                        "required": true,
+                        "type": "string"
+                    }
+                  ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna o id do comentário criado",
+                        "schema": {
+                            "properties": {
+                                "id": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "401":{
+                      "description": "Falta-lhe o token de acesso ou o token não é válido."
+                    }
+                },
+                "security": [
+                  {
+                    "api_key": []
+                  }
+                ]
+            }
+        },
+        "/publicacoes/comentario/{comentarioId}":{
+            "delete":{
+                "tags":[
+                    "publicacoes"
+                ],
+                "summary": "Apaga um comentário com um determinado identificador.",
+                "description": "Apagar comentário.",
+                "parameters": [
+                    {
+                      "name": "comentarioId",
+                      "in": "path",
+                      "description": "Identificador do comentário",
+                      "required": true,
+                      "type": "string"
+                    }
+                  ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna 200 se o comentário foi apagada"
+                    },
+                    "401":{
+                      "description": "Falta-lhe o token de acesso ou o token não é válido."
+                    }
+                },
+                "security": [
+                  {
+                    "api_key": []
+                  }
+                ]
+            }
+        },
+        "/utilizadores":{
+          "get":{
+            "tags":[
+              "utilizadores"
+          ],
+          "summary": "Retorna todos os utilizadores da aplicação.",
+          "description": "Para tal, é necessário o utilizador que faz o pedido ser Admin.",
+          "responses": {
+            "200": {
+              "description": "Lista de Utilizadores.",
+              "schema":{
+                "type":"array",
+                "items": {
+                  "properties": {
+                    "schema": {
+                      "$ref": "#/definitions/Utilizador"
+                    }  
+                  }
+                }
+              }
+            },
+            "401":{
+              "description": "Falta-lhe o token de acesso ou o token não é válido."
+            },
+            "403":{
+              "description": "Não possuí nível de acesso suficiente."
+            }
+          },
+          "security": [
+            {
+              "api_key": []
+            }
+          ]
+          },
+          "post": {
+            "tags":[
+              "utilizadores"
+            ],
+            "summary": "Insere um novo utilizador.",
+            "description": "O utilizador é adicionado á base de dados.",
+            "parameters": [
+              {
+                "name": "id",
+                "in": "formData",
+                "description": "Email do utilizador",
+                "required": true,
+                "type": "string"
+              },
+              {
+                "name": "nome",
+                "in": "formData",
+                "description": "Nome do utilizador",
+                "required": true,
+                "type": "string"
+              },
+              {
+                "name": "numeroAluno",
+                "in": "formData",
+                "description": "Número de aluno",
+                "required": true,
+                "type": "string"
+              },
+              {
+                "name": "idCurso",
+                "in": "formData",
+                "description": "Identificador do curso a que pertence",
+                "required": true,
+                "type": "string"
+              },
+              {
+                "name": "idAno",
+                "in": "formData",
+                "description": "Identificador do ano que frequenta",
+                "required": true,
+                "type": "string"
+              },
+              {
+                "name": "dataNascimento",
+                "in": "formData",
+                "description": "Data de Nascimento",
+                "required": true,
+                "type": "string"
+              },
+              {
+                "name": "sexo",
+                "in": "formData",
+                "description": "Género do utilizador",
+                "enum": [ "Masculino", "Feminino", "Outro"],
+                "required": true,
+                "type": "string"
+              },
+              {
+                "name": "numeroTelemovel",
+                "in": "formData",
+                "description": "Número de telemóvel",
+                "required": true,
+                "type": "string"
+              },
+              {
+                "name": "password",
+                "in": "formData",
+                "description": "Password",
+                "required": true,
+                "type": "string"
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "O utilizador foi inserido com sucesso."
+              },
+              "401":{
+                "description": "Falta-lhe o token de acesso ou o token não é válido."
+              },
+              "403":{
+                "description": "Não possuí nível de acesso suficiente."
+              }
+            },
+            "security": [
+              {
+                "api_key": []
+              }
+            ]
+          }
+        },
+        "/utilizadores/admin":{
+          "post": {
+            "tags":[
+              "utilizadores"
+            ],
+            "summary": "Insere um novo utilizador de um determinado tipo.",
+            "description": "Dado que se pode escolher o tipo de utilizador, é necessário ser Admin.",
+            "parameters": [
+              {
+                "name": "tipo",
+                "in": "formData",
+                "description": "Tipo do utilizador",
+                "enum": [ "Admin", "Responsavel", "Aluno"],
+                "required": true,
+                "type": "string"
+              },
+              {
+                "name": "id",
+                "in": "formData",
+                "description": "Email do utilizador",
+                "required": true,
+                "type": "string"
+              },
+              {
+                "name": "nome",
+                "in": "formData",
+                "description": "Nome do utilizador",
+                "required": true,
+                "type": "string"
+              },
+              {
+                "name": "numeroAluno",
+                "in": "formData",
+                "description": "Número de aluno",
+                "required": true,
+                "type": "string"
+              },
+              {
+                "name": "idCurso",
+                "in": "formData",
+                "description": "Identificador do curso a que pertence",
+                "required": true,
+                "type": "string"
+              },
+              {
+                "name": "idAno",
+                "in": "formData",
+                "description": "Identificador do ano que frequenta",
+                "required": true,
+                "type": "string"
+              },
+              {
+                "name": "dataNascimento",
+                "in": "formData",
+                "description": "Data de Nascimento",
+                "required": true,
+                "type": "string"
+              },
+              {
+                "name": "sexo",
+                "in": "formData",
+                "description": "Género do utilizador",
+                "enum": [ "Masculino", "Feminino", "Outro"],
+                "required": true,
+                "type": "string"
+              },
+              {
+                "name": "numeroTelemovel",
+                "in": "formData",
+                "description": "Número de telemóvel",
+                "required": true,
+                "type": "string"
+              },
+              {
+                "name": "password",
+                "in": "formData",
+                "description": "Password",
+                "required": true,
+                "type": "string"
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "O utilizador foi inserido com sucesso."
+              },
+              "401":{
+                "description": "Falta-lhe o token de acesso ou o token não é válido."
+              },
+              "403":{
+                "description": "Não possuí nível de acesso suficiente."
+              }
+            },
+            "security": [
+              {
+                "api_key": []
+              }
+            ]
+          }
+        },
+        "/utilizadores/{utilizadorId}/pedidosamizade":{
+          "post":{
+            "tags":[
+              "utilizadores"
+            ],
+            "summary": "Adiciona um pedido de amizade.",
+            "description": "Dados dois identificadores de utilizadores, o pedido de amizade é realizado.",
+            "parameters": [
+              {
+                "name": "utilizadorId",
+                "in": "path",
+                "description": "Id do utilizador que faz o pedido",
+                "required": true,
+                "type": "string"
+              },
+              {
+                "name": "idUtilizador2",
+                "in": "formData",
+                "description": "Id do utilizador que recebe o pedido",
+                "required": true,
+                "type": "string"
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "O pedido foi efetuado com sucesso."
+              },
+              "401":{
+                "description": "Falta-lhe o token de acesso ou o token não é válido."
+              }
+            },
+            "security": [
+              {
+                "api_key": []
+              }
+            ]
+          }
+        },
+        "/utilizadores/login":{
+          "post":{
+            "tags":[
+                "utilizadores"
+            ],
+            "summary": "Realizar autenticação com um determinado utilizador.",
+            "description": "Recebe um token de acesso e o utilizador fica autenticado.",
+            "parameters": [
+                {
+                  "name": "idUtilizador",
+                  "in": "formData",
+                  "description": "Email do utilizador",
+                  "required": true,
+                  "type": "string"
+                },
+                {
+                  "name": "password",
+                  "in": "formData",
+                  "description": "Password",
+                  "required": true,
+                  "type": "string"
+                }
+              ],
+            "responses": {
+                "200": {
+                  "description": "Retorna informações à cerca do utilizador e um token de acesso.",
+                  "schema":{
+                      "type": "object",
+                      "properties": {
+                          "utilizador":{
+                            "type":"object",
+                            "properties": {
+                                "idUtilizador":{
+                                    "type":"string"
+                                },
+                                "idCurso":{
+                                    "type":"string"
+                                },
+                                "nome":{
+                                  "type":"string"
+                                },
+                                "ano":{
+                                  "type":"string"
+                                },
+                                "tipos":{
+                                  "type":"array",
+                                  "items":{
+                                    "type":"object",
+                                    "properties": {
+                                      "classe":{
+                                        "type":"string"
+                                      }
+                                    }
+                                  }
+                                }
+                            }
+                          },
+                          "token":{
+                            "type":"string"
+                          }
+                      }
+                  }
+              },
+                "401":{
+                  "description": "Falta-lhe o token de acesso ou o token não é válido."
+                }
+            }
+        }
+      },
+        "/utilizadores/{utilizadorId}":{
+            "get": {
+                "tags": [
+                  "utilizadores"
+                ],
+                "summary": "Dado um identificador de um utilizador, devolve toda a informação desse utilizador.",
+                "description": "Devolve todas as informações relativas a um utilizador.",
+                "operationId": "getUtilizadorById",
+                "parameters": [
+                  {
+                    "name": "utilizadorId",
+                    "in": "path",
+                    "description": "ID da utilizador a retornar.",
+                    "required": true,
+                    "type": "string"
+                  }
+                ],
+                "responses": {
+                  "200": {
+                      "description": "Retorna toda a informação relativa a um utilizador.",
+                      "schema": {
+                          "$ref": "#/definitions/Utilizador"
+                      } 
+                  },
+                  "401":{
+                    "description": "Falta-lhe o token de acesso ou o token não é válido."
+                  }
+                },
+                "security": [
+                  {
+                    "api_key": []
+                  }
+                ]
+              },
+              "put":{
+                  "tags":[
+                      "utilizadores"
+                  ],
+                  "summary": "Edita um utilizador com um determinado identificador.",
+                  "description": "Editar utilizador.",
+                  "parameters": [
+                      {
+                        "name": "utilizadorId",
+                        "in": "path",
+                        "description": "Identificador do utilizador",
+                        "required": true,
+                        "type": "string"
+                      },
+                      {
+                          "name": "numAluno",
+                          "in": "formData",
+                          "description": "Número de aluno",
+                          "required": true,
+                          "type": "string"
+                      },
+                      {
+                        "name": "numTelemovel",
+                        "in": "formData",
+                        "description": "Número de telemovel",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "nome",
+                        "in": "formData",
+                        "description": "Nome do aluno",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "sexo",
+                        "in": "formData",
+                        "enum": [ "Masculino", "Feminino", "Outro"],
+                        "description": "Género do aluno",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "dataNasc",
+                        "in": "formData",
+                        "description": "Data de Nascimento do Aluno",
+                        "required": true,
+                        "type": "string"
+                    }
+                    ],
+                  "responses": {
+                      "200": {
+                          "description": "Retorna 200 se a edição correr bem."
+                      },
+                      "401":{
+                        "description": "Falta-lhe o token de acesso ou o token não é válido."
+                      }
+                  },
+                  "security": [
+                    {
+                      "api_key": []
+                    }
+                  ]
+              },
+              "delete": {
+                "tags": [
+                  "utilizadores"
+                ],
+                "summary": "Elimina um determinado utilizador.",
+                "description": "Para eliminar um utilizador, é necessário ser Admin.",
+                "operationId": "deleteUtilizadorById",
+                "parameters": [
+                  {
+                    "name": "utilizadorId",
+                    "in": "path",
+                    "description": "ID da utilizador a eliminar.",
+                    "required": true,
+                    "type": "string"
+                  }
+                ],
+                "responses": {
+                  "200": {
+                    "description": "O utilizador foi eliminado com sucesso."
+                  },
+                  "401":{
+                    "description": "Falta-lhe o token de acesso ou o token não é válido."
+                  },
+                  "403":{
+                    "description": "Não possuí nível de acesso suficiente."
+                  }
+                },
+                "security": [
+                  {
+                    "api_key": []
+                  }
+                ]
+              }
+        },
+        "/utilizadores/pedidosamizade/{idUtilizador1}/{idUtilizador2}":{
+          "delete":{
+            "tags": [
+              "utilizadores"
+            ],
+            "summary": "Apaga/Rejeita um pedido de amizade.",
+            "description": "Dados os dois utilizadores do pedido de amizade, o pedido é removido",
+            "operationId": "deletePedidoAmizade",
+            "parameters": [
+              {
+                "name": "idUtilizador1",
+                "in": "path",
+                "description": "ID do utilizador que fez o pedido.",
+                "required": true,
+                "type": "string"
+              },
+              {
+                "name": "idUtilizador2",
+                "in": "path",
+                "description": "ID do utilizador que recebeu o pedido.",
+                "required": true,
+                "type": "string"
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "O pedido de amizade foi eliminado/rejeitado com sucesso."
+              },
+              "401":{
+                "description": "Falta-lhe o token de acesso ou o token não é válido."
+              }
+            },
+            "security": [
+              {
+                "api_key": []
+              }
+            ]  
+          }
+        },
+        "/utilizadores/evento":{
+            "put": {
+                "tags": [
+                  "utilizadores"
+                ],
+                "summary": "Adiciona um evento a um determinado utilizador.",
+                "description": "Adiciona um evento a um determinado utilizador.",
+                "operationId": "addEventoUtilizador",
+                "parameters": [
+                  {
+                    "name": "idUtilizador",
+                    "in": "formData",
+                    "description": "ID do utilizador que se quer adicionar um evento.",
+                    "required": true,
+                    "type": "string"
+                  },
+                  {
+                    "name": "idEvento",
+                    "in": "formData",
+                    "description": "ID do evento que se quer adicionar.",
+                    "required": true,
+                    "type": "string"
+                  }
+                ],
+                "responses": {
+                  "200": {
+                      "description": "Retorna 200 se o evento foi adicionado com sucesso."
+                  },
+                  "401":{
+                    "description": "Falta-lhe o token de acesso ou o token não é válido."
+                  }
+                },
+                "security": [
+                  {
+                    "api_key": []
+                  }
+                ]
+              }
+        },
+        "/utilizadores/{utilizadorId}/eventos":{
+            "get": {
+                "tags": [
+                  "utilizadores"
+                ],
+                "summary": "Dado um identificador de um utilizador, devolve os ids dos eventos desse utilizador.",
+                "description": "Devolve os ids dos eventos de um utilizador.",
+                "operationId": "getEventosUtilizadorById",
+                "parameters": [
+                  {
+                    "name": "utilizadorId",
+                    "in": "path",
+                    "description": "ID da utilizador a retornar.",
+                    "required": true,
+                    "type": "string"
+                  }
+                ],
+                "responses": {
+                  "200": {
+                      "description": "Lista de ids dos Eventos do Utilizador.",
+                      "schema":{
+                        "type": "array",
+                        "items":{
+                            "properties":{
+                                "idEvento":{
+                                    "type": "string"
+                                }
+                            }
+                        }
+                      }
+                  },
+                  "401":{
+                    "description": "Falta-lhe o token de acesso ou o token não é válido."
+                  }
+                },
+                "security": [
+                  {
+                    "api_key": []
+                  }
+                ]
+            }
+        },
+        "/utilizadores/{utilizadorId}/publicacoes":{
+          "get": {
+              "tags": [
+                "utilizadores"
+              ],
+              "summary": "Dado um identificador de um utilizador, devolve todas as publicações desse utilizador.",
+              "description": "Devolve todas as publicações de um utilizador.",
+              "operationId": "getPublicacoesUtilizadorById",
+              "parameters": [
+                {
+                  "name": "utilizadorId",
+                  "in": "path",
+                  "description": "ID do utilizador a retornar.",
+                  "required": true,
+                  "type": "string"
+                }
+              ],
+              "responses": {
+                "200": {
+                    "description": "Lista de Publicações do Utilizador.",
+                    "schema":{
+                      "type": "array",
+                      "items":{
+                          "properties":{
+                            "schema": {
+                              "$ref": "#/definitions/Publicacao"
+                            }
+                          }
+                      }
+                    }
+                },
+                "401":{
+                  "description": "Falta-lhe o token de acesso ou o token não é válido."
+                }
+              },
+              "security": [
+                {
+                  "api_key": []
+                }
+              ]
+          }
+      },
+      "/utilizadores/{utilizadorId}/pedidosAmizade":{
+        "get": {
+            "tags": [
+              "utilizadores"
+            ],
+            "summary": "Dado um identificador de um utilizador, devolve todos os pedidos de amizade desse utilizador.",
+            "description": "Devolve todos os pedidos de amizade de um utilizador.",
+            "operationId": "getPedidosUtilizadorById",
+            "parameters": [
+              {
+                "name": "utilizadorId",
+                "in": "path",
+                "description": "ID do utilizador a retornar.",
+                "required": true,
+                "type": "string"
+              }
+            ],
+            "responses": {
+              "200": {
+                  "description": "Lista de Pedidos de Amizade.",
+                  "schema":{
+                    "type": "array",
+                    "items":{
+                        "properties":{
+                          "idUtilizador":{
+                            "type":"string"
+                          },
+                          "nome":{
+                            "type":"string"
+                          }
+                        }
+                    }
+                  }
+              },
+              "401":{
+                "description": "Falta-lhe o token de acesso ou o token não é válido."
+              }
+            },
+            "security": [
+              {
+                "api_key": []
+              }
+            ]
+        }
+    },
+    "/search/{nome}":{
+      "get": {
+          "tags": [
+            "utilizadores"
+          ],
+          "summary": "Pesquisar utilizadores pelo nome.",
+          "description": "Dado um nome ou parte de um nome, devolve os utilizadores que contém esse nome.",
+          "operationId": "searchUserByName",
+          "parameters": [
+            {
+              "name": "nome",
+              "in": "path",
+              "description": "Nome a procurar.",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+                "description": "Lista de Utilizadores encontrados.",
+                "schema":{
+                  "type": "array",
+                  "items":{
+                      "properties":{
+                        "idUtilizador":{
+                          "type":"string"
+                        },
+                        "nome":{
+                          "type":"string"
+                        }
+                      }
+                  }
+                }
+            },
+            "401":{
+              "description": "Falta-lhe o token de acesso ou o token não é válido."
+            }
+          },
+          "security": [
+            {
+              "api_key": []
+            }
+          ]
+      }
+  },
+        "/utilizadores/{utilizadorId}/amigo":{
+            "put": {
+                "tags": [
+                  "utilizadores"
+                ],
+                "summary": "Dado um identificador de um utilizador, adiciona um amigo a esse utilizador.",
+                "description": "Adiciona dois utilizadores como amigos.",
+                "operationId": "addAmigo",
+                "parameters": [
+                  {
+                    "name": "utilizadorId",
+                    "in": "path",
+                    "description": "ID da utilizador.",
+                    "required": true,
+                    "type": "string"
+                  },
+                  {
+                    "name": "idAmigo",
+                    "in": "formData",
+                    "description": "ID do amigo a adicionar.",
+                    "required": true,
+                    "type": "string"
+                  }
+                ],
+                "responses": {
+                  "200": {
+                      "description": "Retorna 200 se o amigo for adicionado com sucesso."
+                  },
+                  "401":{
+                    "description": "Falta-lhe o token de acesso ou o token não é válido."
+                  }
+                },
+                "security": [
+                  {
+                    "api_key": []
+                  }
+                ]
+            }
+        },
+        "/utilizadores/amigos/{idAmigo1}/{idAmigo2}":{
+            "delete": {
+                "tags": [
+                  "utilizadores"
+                ],
+                "summary": "Remove a amizade entre dois utilizadores.",
+                "description": "Remove a amizade entre dois utilizadores.",
+                "operationId": "addAmigo",
+                "parameters": [
+                  {
+                    "name": "idAmigo1",
+                    "in": "path",
+                    "description": "ID do utilizador 1.",
+                    "required": true,
+                    "type": "string"
+                  },
+                  {
+                    "name": "idAmigo2",
+                    "in": "path",
+                    "description": "ID do utilizador 2.",
+                    "required": true,
+                    "type": "string"
+                  }
+                ],
+                "responses": {
+                  "200": {
+                      "description": "Retorna 200 se os amigos forem removidos com sucesso."
+                  },
+                  "401":{
+                    "description": "Falta-lhe o token de acesso ou o token não é válido."
+                  }
+                },
+                "security": [
+                  {
+                    "api_key": []
+                  }
+                ]
+            }
+        },
+        "/conversas/{idConversa}":{
+            "get": {
+                "tags": [
+                  "conversas"
+                ],
+                "summary": "Devolve toda a informação relativa a uma conversa.",
+                "description": "Dado um identificador de uma conversa, devolve toda a informação relativa a essa conversa.",
+                "operationId": "getConversaById",
+                "parameters": [
+                  {
+                    "name": "idConversa",
+                    "in": "path",
+                    "description": "ID da conversa.",
+                    "required": true,
+                    "type": "string"
+                  }
+                ],
+                "responses": {
+                  "200": {
+                      "description": "Informação da conversa.",
+                      "schema":{
+                          "type": "object",
+                          "properties": {
+                              "participantes":{
+                                "type":"array",
+                                "items": {
+                                    "type":"object",
+                                    "properties": {
+                                        "nome":{
+                                            "type":"string"
+                                        },
+                                        "id":{
+                                            "type":"string"
+                                        }
+                                    }
+                                }
+                              },
+                              "mensagens":{
+                                "type":"array",
+                                "items": {
+                                    "$ref": "#/definitions/Mensagem"
+                                }
+                              }
+                          }
+                      }
+                  },
+                  "401":{
+                    "description": "Falta-lhe o token de acesso ou o token não é válido."
+                  }
+                },
+                "security": [
+                  {
+                    "api_key": []
+                  }
+                ]
+            },
+            "put":{
+              "tags": [
+                "conversas"
+              ],
+              "summary": "Coloca uma dada conversa inativa.",
+              "description": "Dado um identificador de uma conversa, coloca essa conversa inativa.",
+              "operationId": "putConversaInatva",
+              "parameters": [
+                {
+                  "name": "idConversa",
+                  "in": "path",
+                  "description": "ID da conversa.",
+                  "required": true,
+                  "type": "string"
+                }
+              ],
+              "responses": {
+                "200":{
+                  "description": "A conversa ficou inativa com sucesso"
+                },
+                "401":{
+                  "description": "Falta-lhe o token de acesso ou o token não é válido."
+                }
+              },
+              "security": [
+                {
+                  "api_key": []
+                }
+              ]
+            }
+        },
+        "/conversas/participante/{idParticipante}":{
+            "get": {
+                "tags": [
+                  "conversas"
+                ],
+                "summary": "Devolve todas as conversas de um determinado participante.",
+                "description": "Dado um identificador de um participante, devolve toda a informação relativa às suas conversas.",
+                "operationId": "getConversaByParticipante",
+                "parameters": [
+                  {
+                    "name": "idParticipante",
+                    "in": "path",
+                    "description": "ID do utilizador.",
+                    "required": true,
+                    "type": "string"
+                  }
+                ],
+                "responses": {
+                  "200": {
+                      "description": "Lista de Conversas.",
+                      "schema":{
+                          "type": "array",
+                          "items": {
+                            "properties": {
+                                "idConversa":{
+                                    "type":"string"
+                                },
+                                "participantes":{
+                                  "type":"array",
+                                  "items": {
+                                      "type":"object",
+                                      "properties": {
+                                          "nome":{
+                                              "type":"string"
+                                          },
+                                          "id":{
+                                              "type":"string"
+                                          }
+                                      }
+                                  }
+                                },
+                                "mensagens":{
+                                  "type":"array",
+                                  "items": {
+                                      "$ref": "#/definitions/Mensagem"
+                                  }
+                                }
+                            }
+                          }
+                      }
+                  },
+                  "401":{
+                    "description": "Falta-lhe o token de acesso ou o token não é válido."
+                  }
+                },
+                "security": [
+                  {
+                    "api_key": []
+                  }
+                ]
+            }
+        },
+        "/conversas":{
+            "get":{
+              "tags": [
+                "conversas"
+              ],
+              "summary": "Devolva todas as conversas.",
+              "description": "Devolva todas as conversas.",
+              "operationId": "getConversas",
+              "responses": {
+                "200": {
+                    "description": "Lista de Conversas.",
+                    "schema":{
+                      "type": "array",
+                      "items": {
+                        "properties": {
+                            "idConversa":{
+                                "type":"string"
+                            },
+                            "participantes":{
+                              "type":"array",
+                              "items": {
+                                  "type":"object",
+                                  "properties": {
+                                      "nome":{
+                                          "type":"string"
+                                      },
+                                      "id":{
+                                          "type":"string"
+                                      }
+                                  }
+                              }
+                            },
+                            "mensagens":{
+                              "type":"array",
+                              "items": {
+                                  "$ref": "#/definitions/Mensagem"
+                              }
+                            }
+                        }
+                      }
+                  }
+                },
+                "401":{
+                  "description": "Falta-lhe o token de acesso ou o token não é válido."
+                }
+              },
+              "security": [
+                {
+                  "api_key": []
+                }
+              ]
+            },
+            "post": {
+                "tags": [
+                  "conversas"
+                ],
+                "summary": "Insere uma nova conversa.",
+                "description": "Insere uma nova conversa.",
+                "operationId": "createConversa",
+                "parameters": [
+                  {
+                    "name": "conversa",
+                    "in": "body",
+                    "description": "Utilizador.",
+                    "required": true,
+                    "schema":{
+                      "type":"object",
+                      "properties":{
+                        "participantes":{
+                          "type":"array",
+                          "items": {
+                            "properties": {
+                              "idUtilizador":{
+                                "type": "string"
+                              },
+                              "nome":{
+                                "type": "string"
+                              }
+                            }
+                          }
+                        },
+                        "ativo":{
+                          "type":"boolean"
+                        },
+                        "visto":{
+                          "type":"boolean"
+                        }
+                      }
+                    }
+                  }
+                ],
+                "responses": {
+                  "200": {
+                      "description": "Id da conversa criada.",
+                      "schema":{
+                          "type":"object",
+                          "properties": {
+                              "id":{
+                                  "type":"string"
+                              }
+                          }
+                      }
+                  },
+                  "401":{
+                    "description": "Falta-lhe o token de acesso ou o token não é válido."
+                  }
+                },
+                "security": [
+                  {
+                    "api_key": []
+                  }
+                ]
+            }
+        },
+        "/mensagens":{
+          "get":{
+            "tags": [
+              "conversas"
+            ],
+            "summary": "Retorna as mensagens todas do sistema.",
+            "description": "Retorna as mensagens todas do sistema.",
+            "operationId": "getMensagens",
+            "responses":{
+              "200":{
+                "description": "Lista de Mensagens",
+                "schema":{
+                  "type":"array",
+                  "items": {
+                      "$ref": "#/definitions/Mensagem"
+                  }
+                }
+              },
+              "401":{
+                "description": "Falta-lhe o token de acesso ou o token não é válido."
+              }
+            },
+            "security": [
+              {
+                "api_key": []
+              }
+            ]
+          },
+          "post": {
+            "tags": [
+              "conversas"
+            ],
+            "summary": "Retorna as mensagens todas do sistema.",
+            "description": "Retorna as mensagens todas do sistema.",
+            "operationId": "getMensagens",
+            "parameters": [
+              {
+                "name": "conteudo",
+                "in": "formData",
+                "description": "Conteúdo da mensagem.",
+                "required": true,
+                "type": "string"
+              },
+              {
+                "name": "from",
+                "in": "formData",
+                "description": "ID do utilizador que enviou a mensagem.",
+                "required": true,
+                "type": "string"
+              },
+              {
+                "name": "idConversa",
+                "in": "formData",
+                "description": "ID da conversa.",
+                "required": true,
+                "type": "string"
+              }
+            ],
+            "responses": {
+              "200":{
+                "description": "A mensagem foi inserida com sucesso.",
+                "schema":{
+                  "$ref": "#/definitions/Mensagem"
+                }
+              },
+              "401":{
+                "description": "Falta-lhe o token de acesso ou o token não é válido."
+              }
+            },
+            "security": [
+              {
+                "api_key": []
+              }
+            ]
+          }
+        },
+        "/mensagens/{conversaId}":{
+          "get": {
+            "tags": [
+              "conversas"
+            ],
+            "summary": "Retorna as mensagens todas de uma dada conversa.",
+            "description": "Retorna as mensagens todas de uma dada conversa.",
+            "operationId": "getMensagensConversa",
+            "parameters": [
+              {
+                "name": "conversaId",
+                "in": "path",
+                "description": "Id da conversa.",
+                "required": true,
+                "type": "string"
+              }
+            ],
+            "responses": {
+              "200":{
+                "description": "Lista de Mensagens da conversa.",
+                "schema":{
+                  "type":"array",
+                  "items":{
+                    "$ref": "#/definitions/Mensagem"
+                  } 
+                }
+              },
+              "401":{
+                "description": "Falta-lhe o token de acesso ou o token não é válido."
+              }
+            },
+            "security": [
+              {
+                "api_key": []
+              }
+            ]
+          }
+        }
+    },
+      "securityDefinitions":{
+        "api_key":{
+          "type": "apiKey",
+          "in": "query",
+          "name": "token"
+        }
+      },
+      "security": [{
+         "api_key": []
+      }
+    ],
+    "definitions": {
+        "Utilizador": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "nomeUtilizador": {
+                "type": "string"
+              },
+              "numeroAluno": {
+                "type": "string"
+              },
+              "dataNascimento": {
+                "type": "string"
+              },
+              "numeroTelemovel": {
+                "type": "string"
+              },
+              "sexo": {
+                "type": "string"
+              }
+            }
+        },
+        "Curso":{
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "designacao": {
+                "type": "string"
+              }
+            }
+        },
+        "Ano":{
+            "type": "object",
+            "properties":{
+                "id":{
+                    "type":"string"
+                },
+                "nome":{
+                    "type":"string"
+                },
+                "anoLetivo":{
+                    "type":"string"
+                },
+                "idCurso":{
+                    "type":"string"
+                }
+            }
+        },
+        "Cadeira":{
+            "type": "object",
+            "properties":{
+                "id":{
+                    "type":"string"
+                },
+                "nome":{
+                    "type":"string"
+                },
+                "idAno":{
+                    "type":"string"
+                }
+            }
+        },
+        "Publicacao":{
+            "type": "object",
+            "properties": {
+                "info":{
+                    "type":"object",
+                    "properties": {
+                        "id":{
+                            "type":"string"
+                        },
+                        "conteudo":{
+                            "type":"string"
+                        },
+                        "data":{
+                            "type":"string"
+                        },
+                        "likes":{
+                            "type":"integer"
+                        },
+                        "idUtilizador":{
+                            "type":"string"
+                        }
+                    }
+                },
+                "ficheiros":{
+                    "type":"array",
+                    "items": {
+                        "$ref": "#/definitions/Ficheiro"
+                    }
+                },
+                "comentarios":{
+                    "type":"array",
+                    "items": {
+                        "$ref": "#/definitions/Comentario"
+                    }
+                }
+            }
+        },
+        "Comentario":{
+            "type": "object",
+            "properties": {
+                "id":{
+                    "type":"string"
+                },
+                "conteudo":{
+                    "type":"string"
+                },
+                "data":{
+                    "type":"string"
+                },
+                "likes":{
+                    "type":"integer"
+                },
+                "idUtilizador":{
+                    "type":"string"
+                }
+            }
+        },
+        "Ficheiro":{
+            "type":"object",
+            "properties": {
+                "id":{
+                    "type":"string"
+                },
+                "nome":{
+                    "type":"string"
+                }
+            }
+
+        },
+        "Conversa":{
+            "type":"object",
+            "properties": {
+                "id":{
+                    "type":"string"
+                },
+                "participantes":{
+                    "type":"array",
+                    "items":{
+                        "$ref": "#/definitions/Utilizador"
+                    }
+                }
+            }
+
+        },
+        "Mensagem":{
+            "type":"object",
+            "properties": {
+                "idMensagem":{
+                    "type":"string"
+                },
+                "texto":{
+                    "type":"string"
+                },
+                "dataEnvio":{
+                    "type":"string"
+                },
+                "remetente":{
+                    "type":"string"
+                }
+            }
+        },
+        "Evento":{
+            "type":"object",
+            "properties": {
+                "id":{
+                    "type":"string"
+                },
+                "nome":{
+                    "type":"string"
+                },
+                "conteudo":{
+                    "type":"string"
+                },
+                "dataInicio":{
+                    "type":"string"
+                },
+                "dataFim":{
+                    "type":"string"
+                }
+            }
+        },
+        "Pasta":{
+          "type":"object",
+          "properties": {
+            "idPasta":{
+              "type":"string"
+            },
+            "nome":{
+              "type":"string"
+            }
+          }
+        }
+    }   
+}

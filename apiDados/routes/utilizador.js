@@ -33,7 +33,7 @@ function verifyAcess(acess){
 
 // -------------------------------------------------------------- GET ---------------------------------------------------------------------
 
-router.get('/', passport.authenticate('jwt', {session: false}), function(req, res, next){
+router.get('/', passport.authenticate('jwt', {session: false}), verifyAcess("Admin"), function(req, res, next){
   Utilizador.getUtilizadores()
     .then(dados => res.jsonp(dados))
     .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
@@ -142,7 +142,6 @@ router.delete('/amigos/:id1/:id2', passport.authenticate('jwt', {session: false}
 })
 
 router.delete('/pedidosamizade/:idUtilizador1/:idUtilizador2', passport.authenticate('jwt', {session: false}), function(req, res){
-  console.log(req.body)
   Utilizador.rejeitaPedido(req.params.idUtilizador1, req.params.idUtilizador2)
             .then(dados => res.jsonp(dados))
             .catch(erro => {console.log(erro); res.status(500).jsonp(erro) })
