@@ -48,7 +48,7 @@ services:
         ports: 
             - "5000:5000"
         networks: 
-            - mongo
+            - mongoauth
             - frontend
             - backend
 
@@ -102,7 +102,7 @@ services:
         ports:
             - "27018:27018"
         networks:
-            - mongo
+            - mongoauth
         volumes: 
             - mongodbauthvol:/data/db
 
@@ -110,6 +110,7 @@ services:
 networks:
     frontend:
     mongo:
+    mongoauth:
     backend:
     graphdb:
     gateaway:
