@@ -1,0 +1,1 @@
+export: curl -X GET -H "Accept:application/x-turtle" "http://localhost:7200/repositories/UMbook/statements?infer=false" > statements.ttl
