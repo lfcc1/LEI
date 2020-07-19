@@ -95,7 +95,7 @@ services:
             - ./UMbookMongo/umbook.sh:/docker-entrypoint-initdb.d/umbook.sh
 
     umbook-mongoauth:
-        build: ./UMbookMongo
+        build: ./UMbookAuthMongo
         image: bragamann/umbook-mongoauth:2020-07-03
         container_name: umbook-mongoauth
         command: mongod --port 27018
