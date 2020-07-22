@@ -84,11 +84,13 @@ import NavBar from '@/components/Navbar.vue'
 import Toolbar from '@/components/Toolbar.vue'
 import Views from '@/components/View.vue'
 const host = require("@/config/hosts").host
+const domain = require("@/config/hosts").domain
 const authpath = require("@/config/hosts").auth
 import { Chat } from 'vue-quick-chat'
 import 'vue-quick-chat/dist/vue-quick-chat.css';
 import axios from "axios"
 import io from "socket.io-client";
+
 import VueJwtDecode from "vue-jwt-decode";
 var FormData = require('form-data');
 
@@ -243,7 +245,7 @@ export default {
     this.utilizador = JSON.parse(localStorage.getItem("utilizador"))
     this.myself.name = this.utilizador.nome
     this.userID = this.utilizador.idUtilizador
-    this.socket = io.connect(host,{query:"idUtilizador=" + this.userID});
+    this.socket = io.connect(domain,{query:"idUtilizador=" + this.userID});
     this.myself.id = this.userID
     this.myself.profilePicture = host+'images/'+this.userID
     this.refreshConversas()
@@ -304,7 +306,11 @@ export default {
             data.idConversa = chat.idConversa;
             data.conteudo = message.content
             data.from = this.userID;
+            data.token = this.token;
+            console.log("Vou enviar a mensagem")
+            console.log(data)
             this.socket.emit('mensagem', data)
+            console.log("já enviei")
             
  
             /*

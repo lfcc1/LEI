@@ -13,6 +13,36 @@ mongoose.connect(hostMongo +'UMbook', {useNewUrlParser: true, useUnifiedTopology
   .then(()=> console.log('Mongo ready: ' + mongoose.connection.readyState))
   .catch((erro)=> console.log('Mongo: erro na conexão: ' + erro))
 
+  var passport = require('passport')
+  var JWTStrategy= require('passport-jwt').Strategy
+  var ExtractJWT = require('passport-jwt').ExtractJwt
+  
+  var extractFromQS = function(req){
+    var token = null
+    if(req.query && req.query.token) token = req.query.token
+    return token
+  }
+  
+  var extractFromBody = function(req){
+    var token = null
+    if(req.body && req.body.token) token = req.body.token
+    return token
+  }
+  
+  passport.use(new JWTStrategy({
+    secretOrKey: 'LEI-UMbook',
+    jwtFromRequest:ExtractJWT.fromExtractors([extractFromQS,extractFromBody]),
+    passReqToCallback: true
+  }, async (req,payload,done) =>{
+    try{
+      return done(null,payload)
+    }
+    catch(error){
+      return done(error)
+    }
+  }))
+  
+
 
   var cors = require('cors')
   const corsOpts = {
@@ -24,6 +54,8 @@ mongoose.connect(hostMongo +'UMbook', {useNewUrlParser: true, useUnifiedTopology
 
 
 var app = express();
+
+app.use(passport.initialize());
 
 app.use(cors(corsOpts))
 

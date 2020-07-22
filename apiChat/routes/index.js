@@ -5,6 +5,7 @@ var router = express.Router();
 var Conversas = require('../controllers/conversas')
 var Mensagens = require('../controllers/mensagens');
 const mensagens = require('../models/mensagens');
+const passport = require('passport')
 
 
 /*
@@ -26,13 +27,13 @@ function checkPermissao(acess){
 
 //GET
 
-router.get('/conversas', function(req,res){
+router.get('/conversas', passport.authenticate('jwt', {session: false}), function(req,res){
   Conversas.listar()
           .then(dados => res.jsonp(dados))
           .catch(erro => res.status(500).jsonp(erro))
 })
 
-router.get('/conversas/participante/:id', function(req, res){
+router.get('/conversas/participante/:id', passport.authenticate('jwt', {session: false}), function(req, res){
   Conversas.findByParticipante(req.params.id)
           .then(async dados =>{
             
@@ -49,7 +50,7 @@ router.get('/conversas/participante/:id', function(req, res){
           .catch(erro => res.status(500).jsonp(erro))
 })
 
-router.get('/conversas/participante/:id/simples', function(req, res){
+router.get('/conversas/participante/:id/simples', passport.authenticate('jwt', {session: false}), function(req, res){
   Conversas.findByParticipanteSimple(req.params.id)
           .then(dados => res.jsonp(dados))
           .catch(erro => res.status(500).jsonp(erro))
@@ -57,7 +58,7 @@ router.get('/conversas/participante/:id/simples', function(req, res){
 
 //                                                  PUT
 
-router.put('/conversas/:id', function(req, res){
+router.put('/conversas/:id', passport.authenticate('jwt', {session: false}), function(req, res){
   Conversas.putConversaInativa(req.params.id)
           .then(dados => res.jsonp(dados))
           .catch(erro => res.status(500).jsonp(erro))
@@ -67,13 +68,13 @@ router.put('/conversas/:id', function(req, res){
 
 //                                                  POST
 
-router.post('/conversas', function(req, res){
+router.post('/conversas', passport.authenticate('jwt', {session: false}), function(req, res){
   Conversas.iniciarConversa(req.body)
           .then(dados => res.jsonp(dados))
           .catch(erro => res.status(500).jsonp(erro))
 })
 
-router.post('/conversas/:conversa/:participante', function(req, res){
+router.post('/conversas/:conversa/:participante', passport.authenticate('jwt', {session: false}), function(req, res){
   Conversas.addParticipante(req.params.conversa, req.params.participante)
           .then(dados => res.jsonp(dados))
           .catch(erro => res.status(500).jsonp(erro))
@@ -82,7 +83,7 @@ router.post('/conversas/:conversa/:participante', function(req, res){
 
 //                                                    DELETE
 
-router.delete('/conversas/:conversa/:participante', function(req, res){
+router.delete('/conversas/:conversa/:participante', passport.authenticate('jwt', {session: false}), function(req, res){
   Conversas.removeParticipante(req.params.conversa, req.params.participante)
           .then(dados => res.jsonp(dados))
           .catch(erro => res.status(500).jsonp(erro))
@@ -92,20 +93,21 @@ router.delete('/conversas/:conversa/:participante', function(req, res){
 /////////////////////// Mensagens /////////////////////////////
 
 
-router.get('/mensagens', function(req, res){
+router.get('/mensagens', passport.authenticate('jwt', {session: false}), function(req, res){
   Mensagens.listar()
       .then(dados => res.jsonp(dados))
       .catch(erro => res.status(500).jsonp(erro))
 })
 
-router.get('/mensagens/:conversa', function(req, res){
+router.get('/mensagens/:conversa',passport.authenticate('jwt', {session: false}), function(req, res){
   Mensagens.findByConversa(req.params.conversa)
           .then(dados => res.jsonp(dados))
           .catch(erro => res.status(500).jsonp(erro))
 })
 
-router.post('/mensagens', function(req, res){
+router.post('/mensagens',passport.authenticate('jwt', {session: false}), function(req, res){
   var msg = req.body
+  console.log(msg)
   msg.dataEnvio = new Date()
   Mensagens.addMensagem(msg)
             .then( () => res.jsonp({Result:"Message inserted"}))

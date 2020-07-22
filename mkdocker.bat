@@ -77,6 +77,15 @@ echo 'Terminado'
 echo 'Id da imagem no DHub: bragamann/umbook-mongoauth:2020-07-03'
 
 
+docker build ./UMbookNGINX -t umbook-nginx
+echo 'Tagging'
+docker tag umbook-nginx:latest bragamann/umbook-nginx:2020-07-03
+echo 'Pushing'
+docker push bragamann/umbook-nginx:2020-07-03
+echo 'Terminado'
+echo 'Id da imagem no DHub: bragamann/umbook-nginx:2020-07-03'
+
+
 
 docker image prune
 

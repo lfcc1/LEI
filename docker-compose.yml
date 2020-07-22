@@ -13,18 +13,17 @@ services:
         volumes: 
             - graphdbvol:/opt/graphdb/home
 
-   ## umbook-interfaceapp:
-    #    build: ./interfaceapp
-    #    depends_on: 
-     #       - "umbook-apilayer"
-    #        - "umbook-auth"
-   #2     container_name: umbook-interfaceapp
-   #     image: bragamann/umbook-interfaceapp:2020-07-03
-   #     ports: 
-   #         - "8080:8080"
-   #     networks: 
-    #        - frontend
-    #        - gateaway
+    umbook-interfaceapp:
+        build: ./interfaceapp
+        depends_on: 
+            - "umbook-apilayer"
+            - "umbook-auth"
+        container_name: umbook-interfaceapp
+        image: bragamann/umbook-interfaceapp:2020-07-03
+        ports: 
+            - "8080:8080"
+        networks: 
+            - frontend
 
     umbook-apichat:
         build: ./apiChat
@@ -77,7 +76,6 @@ services:
         networks: 
           - frontend
           - backend
-          - gateaway
         volumes:
             - ./apiLayer/public/images:/app/public/images
         
@@ -100,11 +98,28 @@ services:
         container_name: umbook-mongoauth
         command: mongod --port 27018
         ports:
-            - "27018:27018"
+            - "27018:27017"
         networks:
             - mongoauth
+            - backend
         volumes: 
             - mongodbauthvol:/data/db
+
+    umbook-nginx:
+        build: ./UMbookNGINX
+        depends_on: 
+            - "umbook-interfaceapp"
+            - "umbook-apidados"
+            - "umbook-apilayer"
+            - "umbook-auth"
+        image: bragamann/umbook-nginx:2020-07-03
+        container_name: umbook-nginx
+        ports:
+            - "40005:40005"
+        networks:
+            - backend
+            - frontend
+       
 
 
 networks:
@@ -113,7 +128,6 @@ networks:
     mongoauth:
     backend:
     graphdb:
-    gateaway:
 
 volumes:
     graphdbvol:

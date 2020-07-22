@@ -56,7 +56,8 @@ var io = require('socket.io').listen(server);
       */
 
      console.log(data)
-      axios.post(hostChat + 'mensagens',data)
+      
+      axios.post(hostChat + 'mensagens?token=' + data.token, data)
         .then( () => { 
           connectedSockets[data.to].emit("mensagem", data)
         })
