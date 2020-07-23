@@ -42,7 +42,6 @@ import VueJwtDecode from "vue-jwt-decode";
         try {
         let response = await axios.post(authpath + "login", {idUtilizador: this.email, password: this.password},{withCredentials: true});
         
-        console.log(response.data)
         if(!response.data.authentication){
           this.password = ""
           alert("Crendenciais erradas, tente novamente.")
@@ -52,7 +51,6 @@ import VueJwtDecode from "vue-jwt-decode";
         if (token) {
           localStorage.setItem("utilizador", JSON.stringify(response.data.utilizador))
           let utilizador = JSON.parse(localStorage.getItem("utilizador"))
-          console.log(utilizador.idUtilizador)
           localStorage.setItem("jwt", token);
           alert("Login efetuado com sucesso");
           this.$emit("refreshLogout")

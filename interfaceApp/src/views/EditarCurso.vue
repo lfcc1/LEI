@@ -85,7 +85,6 @@ export default {
       this.designacaoCurso = this.$route.params.designacao
       let response = await axios.get(h + "cursos/" + this.idCurso + "/anos" )//
       this.anos = response.data
-      console.log(response.data)
     } catch (e) {
       return e
     }

@@ -30,7 +30,6 @@ export default {
       this.idUniversidade = "UM"
       this.tipoGrupo = "cursos"
       let response = await axios.get(h + "cursos/" + this.idUniversidade + "?token=" + this.token )//
-      console.log(response.data)
       this.item = response.data
       this.ready = true
     } catch (e) {

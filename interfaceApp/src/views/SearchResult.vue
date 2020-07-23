@@ -177,10 +177,8 @@ const ficheiroUrl = require("@/config/hosts").ficheiros
       var titulo = this.$route.params.titulo
       this.idUtilizador = utilizador.idUtilizador
       let res = await axios.get(h + "utilizadores/search/"+titulo + "?token=" + this.token)
-      console.log(res)
       this.publicacoesAtuais = res.data
 
-      console.log(this.publicacoesAtuais.length)
       this.updatePubs()
       }
      catch (e) {
@@ -260,14 +258,11 @@ const ficheiroUrl = require("@/config/hosts").ficheiros
         this.$router.push({ name: 'UserProfile', params: {id: idUser }})
       },
       updatePubs: function(){
-        console.log(this.publicacoesAtuais)
         this.publicacoesAtuais.forEach(element=>{
-          console.log(element)
           element.showComments = false;
           element.srcImage = host+'images/'+element.info.idUtilizador
           element.editar = false;
         })
-        console.log(this.publicacoesAtuais)
       },
       download: function(id, nome){
          axios({

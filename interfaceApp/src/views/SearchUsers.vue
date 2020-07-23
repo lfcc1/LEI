@@ -87,10 +87,8 @@ export default {
       this.idUtilizador = utilizador.idUtilizador
       var nome = this.$route.params.nome
       let response = await axios.get(h + "utilizadores/search/" + nome + "?token=" + this.token )
-      console.log(response.data)
       this.pessoas = response.data
       this.updatePessoas()
-      console.log(response.data)
     } catch (e) {
       return e
     }

@@ -83,7 +83,9 @@ export default {
     item: {},
     eventos: [],
     dialog: false,
-    eventoAtual : {}
+    eventoAtual :{idEvento: "", dados :{ 
+      participantes:[]
+    }},
   }),
 
   created: async function() {
@@ -95,8 +97,7 @@ export default {
       var idUser = utilizador.idUtilizador
       var response = await axios.get(h + "eventos/participante/" + idUser + "?token=" + this.token)
       this.eventos = response.data
-      console.log(this.eventos)
-      this.eventoAtual = this.eventos[0]
+      //this.eventoAtual = this.eventos[0]
       this.ready = true
       await this.updateEventos()
     } catch (e) {

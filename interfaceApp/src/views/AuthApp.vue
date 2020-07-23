@@ -198,7 +198,6 @@ export default {
       axios.interceptors.response.use((response) => {
         return response
       }, function (error) {
-        console.log("INTERCEPTEI")
         const originalRequest = error.config;
 
            if (originalRequest.url === authpath + 'refreshToken')
@@ -212,23 +211,19 @@ export default {
               var user = JSON.parse(localStorage.getItem("utilizador"))
             return axios.post(authpath + 'refreshToken',user,{withCredentials: true})
                 .then(res => {
-                  console.log(res.data.token)
                   localStorage.setItem("jwt", res.data.token);
                   self.viewKey ++;
         
                   
-                  console.log(originalRequest)
                   var newUrl = originalRequest.url.split("?")[0]
 
                   newUrl = newUrl + "?token="+ res.data.token
                   originalRequest.url = newUrl
                   
-                  console.log(originalRequest)
                   return (axios(originalRequest))
 
                 })
                 .catch(error =>{
-                  console.log("CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCc")
                         localStorage.removeItem("jwt");
                         alert("A sua Sessão expirou.") 
                         //self.refreshLogout()
@@ -249,7 +244,6 @@ export default {
     this.myself.id = this.userID
     this.myself.profilePicture = host+'images/'+this.userID
     this.refreshConversas()
-      console.log(this.conversas)
     } catch (e) {
       return e
     }
@@ -257,7 +251,6 @@ export default {
 
   this.socket.on("mensagem", msg => {
     console.log("MENSAGEM RECEBIDA")
-    console.log(msg)
       var newM = {}
       newM.content = msg.conteudo
       newM.type = 'text'
@@ -275,7 +268,6 @@ export default {
         },
         refreshConversas: async function () {
             let response = await axios.get(host+"api/conversas/participante/"+ this.userID + "?token=" + this.token )
-            console.log(response.data)
             this.conversas = response.data
             for(let i = 0; i<this.conversas.length; i++){
               var id
@@ -293,8 +285,6 @@ export default {
             }, 1000);
         },
         onMessageSubmit: function (message,chat,index) {
-          console.log(chat)
-          console.log(message)
             /*
             * example simulating an upload callback. 
             * It's important to notice that even when your message wasn't send 
@@ -308,9 +298,7 @@ export default {
             data.from = this.userID;
             data.token = this.token;
             console.log("Vou enviar a mensagem")
-            console.log(data)
             this.socket.emit('mensagem', data)
-            console.log("já enviei")
             
  
             /*
@@ -354,7 +342,6 @@ export default {
              * This is the callback function that is going to be executed when some image is clicked.
              * You can add your code here to do whatever you need with the image clicked. A common situation is to display the image clicked in full screen.
              */
-            console.log('Image clicked', message.src)
         },
         parseParticipantes(participantes){
             var newParticipantes = []

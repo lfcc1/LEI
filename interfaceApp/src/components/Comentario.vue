@@ -11,7 +11,6 @@
         >
          <v-container style="padding: 0px">
         <v-row
-          
           justify="start"
         >
         <v-list-item-avatar>
@@ -118,7 +117,6 @@ export default {
         return result
       },
       getPermissao: function(idUtilizador){
-        console.log(this.utilizador.tipos)
         if(this.idUtilizador == idUtilizador) return true
         if(this.utilizadorTypeEquals(this.utilizador.tipos, "Admin")) return true
         if(this.isCurso && this.utilizadorTypeEquals(this.utilizador.tipos, "Responsavel")){

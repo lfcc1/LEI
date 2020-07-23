@@ -131,11 +131,13 @@ Cadeira.getFicheirosFromCadeira = async function(idCadeira){
 Cadeira.getFicheirosFromPasta = async function(idPasta){
 
     var query = `
-        select (STRAFTER(STR(?ficheiro), 'UMbook#') as ?idFicheiro) ?data ?nome where{
+        select (STRAFTER(STR(?ficheiro), 'UMbook#') as ?idFicheiro) ?data ?nome ?size ?type where{
             ?ficheiro a c:Ficheiro .
             ?ficheiro c:guardadoEm c:${idPasta} .
             ?ficheiro c:nome ?nome .
             ?ficheiro c:data ?data .
+            ?ficheiro c:size ?size .
+            ?ficheiro c:type ?type .
         } Order by DESC(?data)
     `
     

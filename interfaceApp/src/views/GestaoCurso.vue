@@ -67,7 +67,6 @@ export default {
       this.token = localStorage.getItem("jwt")
       let response = await axios.get(h + "cursos?token=" + this.token )//
       this.cursos = response.data
-      console.log(response.data)
     } catch (e) {
       return e
     }

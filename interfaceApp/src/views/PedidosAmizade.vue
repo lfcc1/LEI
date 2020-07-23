@@ -96,7 +96,6 @@ export default {
       let response = await axios.get(h + "utilizadores/" + this.idUtilizador + "/pedidosamizade?token=" + this.token )
       this.pedidosAmizade = response.data
       this.updatePedidos()
-      console.log(response.data)
     } catch (e) {
       return e
     }

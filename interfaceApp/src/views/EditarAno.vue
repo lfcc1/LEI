@@ -86,7 +86,6 @@ export default {
       this.anoLetivoAno = this.$route.params.anoLetivo
       let response = await axios.get(h + "anos/" + this.idAno + "/cadeiras" + "?token=" + this.token )//
       this.cadeiras = response.data
-      console.log(response.data)
     } catch (e) {
       return e
     }

@@ -82,7 +82,9 @@ export default {
   data: () => ({
     item: {},
     eventosParcerias: [],
-    eventoAtual :{},
+    eventoAtual :{idEvento: "", dados :{ 
+      participantes:[]
+    }},
     dialog: false,
     idUtilizador: "",
     idCurso: "",
@@ -98,7 +100,7 @@ export default {
       this.idCurso = utilizador.idCurso
       await this.getEventos()
       this.ready = true
-      this.eventoAtual = this.eventosParcerias[0]
+      //this.eventoAtual = this.eventosParcerias[0]
       //await this.updateEventos()
     } catch (e) {
       return e

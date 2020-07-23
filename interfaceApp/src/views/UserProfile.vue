@@ -176,7 +176,6 @@
                       <v-dialog
                     v-model="dialog"
                     width="500"
-                    v-bind:style="{color:white}"
                 >
                         <v-card>
                         <v-list>
@@ -197,7 +196,6 @@
                   <v-dialog
                     v-model="showLikes"
                     width="500"
-                    v-bind:style="{color:white}"
                   >
                     <v-card>
                     <v-card-title class="justify-center" style="background: #d6d6c2; color: #900000;" dark>
@@ -248,7 +246,6 @@
           <v-dialog
           v-model="dialogImage"
           width="500"
-          v-bind:style="{color:white}"
           >
               <v-card>
                 <v-img
@@ -283,7 +280,6 @@
                        <v-dialog
                     v-model="dialogAmigos"
                     width="500"
-                    v-bind:style="{color:white}"
                 >
                         <v-card>
                         <v-card-title class="justify-center" style="background: #d6d6c2; color: #900000;" dark>
@@ -402,7 +398,6 @@
                  <v-dialog
                     v-model="dialogAmigos"
                     width="500"
-                    v-bind:style="{color:white}"
                 >
                         <v-card>
                         <v-card-title class="justify-center" style="background: #d6d6c2; color: #900000;" dark>
@@ -461,7 +456,6 @@
           <v-dialog
                     v-model="dialogImage"
                     width="500"
-                    v-bind:style="{color:white}"
                 >
                         <v-card>
                           <v-img
@@ -504,7 +498,7 @@ export default {
    data: () => ({
     colorRed: "#900000",
     idUtilizador: "",
-    user: {},
+    user: {info: {curso:""}},
     numAluno: "",
     numTelemovel:"",
     dataNasc:"",
@@ -535,12 +529,10 @@ export default {
       this._id = utilizador.idUtilizador
 	    //if (current_time > token.exp) { alert("EXPIRED") }
       let response = await axios.get(h + "utilizadores/" + this.idUtilizador + "?token=" + this.token )//
-      console.log(response.data)
       this.user = response.data
       response = await axios.get(h+ "utilizadores/" + this.idUtilizador + "/publicacoes?token=" + this.token)
       this.publicacoesAtuais = response.data
       this.updatePubs()
-      console.log(response.data)
       this.initVModels()
       this.updateAmigos()
       this.userReady = true
@@ -561,7 +553,6 @@ export default {
       },
       updatePubs: function(){
         this.publicacoesAtuais.forEach(element=>{
-          console.log(element)
           element.showComments = false;
           element.srcImage = host+'images/'+element.dados.info.idUtilizador
           element.editar = false;
@@ -686,7 +677,6 @@ export default {
       for(let i = 0; i < this.user.amigos.length; i++){
         if(this._id == this.user.amigos[i].idAmigo) result = true
       }
-      console.log(result)
       return result
     },
     updateAmigos: async function(){
@@ -721,7 +711,6 @@ export default {
     },
     uploadImage: async function(){
       let formData = new FormData();
-      console.log(this.files)
       formData.append("ficheiro", this.files);
       formData.append("idUtilizador", this._id)
       await axios.post(h + "ficheiros/fotoPerfil",

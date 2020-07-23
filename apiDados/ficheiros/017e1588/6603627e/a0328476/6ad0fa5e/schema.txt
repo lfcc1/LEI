@@ -1,0 +1,31 @@
+Classes
+	-Obra:
+		-Atributos:
+			-titulo
+			-tipo
+			-video
+
+	-Instrumento:
+		-Atributos:
+			-designacao
+
+	-Partitura
+		-Atributos:
+			-voz
+			-clave
+			-afinacao
+			-path
+
+	-Compositor
+		-Atributos:
+			-nome
+
+Relações
+ 	 Obra					Partitura
+      .----------tem-------------.
+     /\ 						 |
+    |  |						 temPartituras
+compos arranjou					 |
+    \  /						 |
+      .							 .
+    Compositor				Instrumento

@@ -84,7 +84,9 @@ export default {
     eventos: [],
     title: "Eventos Gerais",
     idUtilizador: "",
-    eventoAtual: {},
+    eventoAtual :{idEvento: "", dados :{ 
+      participantes:[]
+    }},
     dialog: false
   }),
 
@@ -96,7 +98,7 @@ export default {
       let utilizador = JSON.parse(localStorage.getItem("utilizador"))
       this.idUtilizador = utilizador.idUtilizador
       await this.getEventos()
-      this.eventoAtual = this.eventos[0]
+      //this.eventoAtual = this.eventos[0]
       this.ready = true
     } catch (e) {
       return e

@@ -27,7 +27,6 @@ export default {
     try {
       // ir á sessão
       this.token = localStorage.getItem("jwt")//.decode('UTF-8');
-      console.log(this.token)
       let utilizador = JSON.parse(localStorage.getItem("utilizador"))
       var idCurso = utilizador.idCurso
       let response = await axios.get(h + "cursos/" + idCurso + "?token=" + this.token )

@@ -119,7 +119,6 @@ export default {
       }
       response = await axios.get(h + "eventos?token=" + this.token )
       this.eventos = response.data
-      console.log(this.eventos)
     } catch (e) {
       return e
     }
@@ -138,7 +137,6 @@ export default {
           }
       },
       insertEvento: function(){
-          console.log(this.parcerias)
           if(this.parcerias != [] && this.dataInicial != "" && this.dataFinal != "" && this.horaInicial != "" && this.horaFinal != ""
                 && this.nome != "" && this.conteudo != ""){
                     var evento = {

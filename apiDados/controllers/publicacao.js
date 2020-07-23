@@ -61,9 +61,12 @@ Publicacao.getPublicacaoAtomica = async function (idPublicacao){
 
 Publicacao.getFicheirosFromPublicacao = async function (idPublicacao){
     var query = `
-    select (STRAFTER(STR(?ficheiro), 'UMbook#') as ?idFicheiro) ?nome where {
+    select (STRAFTER(STR(?ficheiro), 'UMbook#') as ?idFicheiro) ?nome ?size ?data ?type where {
         c:${idPublicacao} c:PussuiFicheiro ?ficheiro .
         ?ficheiro c:nome ?nome .
+        ?ficheiro c:size ?size .
+        ?ficheiro c:data ?data .
+        ?ficheiro c:type ?type .
     }
     `
 

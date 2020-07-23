@@ -1,5 +1,5 @@
 <template>
-  <v-app  :key="viewKey">
+  <v-app id="app" :key="viewKey">
     
     <div v-if="loggedIn">
     <Auth  @refreshLogout="refreshLogout" />
@@ -47,14 +47,12 @@ export default {
     },
     methods: {
           isLogged: function(){
-            console.log(localStorage.getItem("jwt"))
             if (localStorage.getItem("jwt") == null)
                return false
             return true
           },
           refreshLogout: function(){
             this.loggedIn = this.isLogged()
-            alert("Forçar Reatividade")
             this.viewKey ++;
           },
           registar: function(){

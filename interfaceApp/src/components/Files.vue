@@ -65,14 +65,22 @@
             >
                 <template v-slot:item="row">
                     <tr >
-                        <td @click="download(row.item)" style="cursor:pointer" ><v-icon color=#900000
-          >mdi-file-document</v-icon></td>
-                        <td @click="download(row.item)" style="cursor:pointer" ><v-list-item-title v-text="row.item.nome"></v-list-item-title>
-          <v-list-item-subtitle v-text="row.item.data"></v-list-item-subtitle></td>
                         <td>
+                          <v-icon color=#900000>mdi-file-document</v-icon>
+                        </td>
+                        <td> <v-list-item-title v-text="row.item.nome"></v-list-item-title>
+                            <v-list-item-subtitle v-text="row.item.data"></v-list-item-subtitle>
+                        </td>
+                        <td>
+                          <v-btn v-if="isTypeReadable(row.item.type)" icon @click="seeFile(row.item)">
+                            <v-icon v-if="isTypeReadable(row.item.type)" color="grey lighten-1"> mdi-eye </v-icon>
+                          </v-btn>
+                          <v-btn icon @click="download(row.item)">
+                            <v-icon color="grey lighten-1"> mdi-download </v-icon>
+                          </v-btn>
                           <v-btn icon @click="deleteFile(row.item)">
-            <v-icon color="grey lighten-1">mdi-delete</v-icon>
-          </v-btn>
+                            <v-icon color="grey lighten-1">mdi-delete</v-icon>
+                          </v-btn>
                         </td>
                     </tr>
                 </template>
@@ -100,7 +108,6 @@ export default {
         return{
             pastas: [],
             ficheiros: [],
-            idCadeira: "",
             token: "",
             pasta: "",
             files: [],
@@ -130,10 +137,41 @@ export default {
         this.idCadeira = this.idCadeira
         this.token = localStorage.getItem("jwt")
         let response = await axios.get(h + "cadeiras/" + this.idCadeira + "/pastas?token=" + this.token)
-        console.log(response.data)
         this.pastas = response.data
     },
     methods:{
+      isTypeReadable: function(type){
+        console.log(type)
+        var result = true
+        if(type == "application/octet-stream" || type == "application/zip" || type == "application/x-7z-compressed" 
+            || type == "application/x-tar" || type == "application/vnd.rar" || type == "application/java-archive" 
+            || type == "application/gzip" || type == "application/x-bzip" || type == "application/x-bzip2"
+            || type == "application/vnd.ms-publisher" || type == "application/x-zip-compressed") 
+          result = false
+          
+        console.log(result)
+        return result
+
+      },
+      seeFile: async function(file){
+        var id = file.idFicheiro
+        var type = file.type;
+        var nome = file.nome
+         axios({
+            method: "get",
+            url: ficheiroUrl + "ficheiros/" + id + "/download?token=" + this.token,
+            responseType: 'arraybuffer'
+          })
+          .then(response => {
+            const fileB = new Blob(
+              [response.data], 
+              {type: type, name: nome});
+
+            const fileURL = URL.createObjectURL(fileB);
+            window.open(fileURL);
+          })
+          .catch(error => console.log(error))
+      },
         deleteFile : async function (item){
             if(confirm("Tem a certeza que pretende apagar este Ficheiro?")){
             await axios.delete(ficheiroUrl + 'ficheiros/'+item.idFicheiro+'?token=' + this.token)
@@ -187,7 +225,6 @@ export default {
       showPastaFicheiros: async function(item) {
           let response = await axios.get(h + "cadeiras/pastas/"+item.idPasta+"/ficheiros?token=" + this.token)
           this.ficheiros = response.data
-          console.log(this.ficheiros)
           this.pasta = item
       }
     }

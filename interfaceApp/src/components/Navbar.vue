@@ -96,7 +96,6 @@ export default {
   created: async function(){
     // ir buscar à sessão
     let utilizador = JSON.parse(localStorage.getItem("utilizador"))
-    console.log(utilizador.ano)
     this.idUtilizador = utilizador.idUtilizador
     this.nomeUtilizador = utilizador.nome
     if(this.getPermissao(utilizador, "Admin"))

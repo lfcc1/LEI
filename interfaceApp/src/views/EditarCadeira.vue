@@ -81,7 +81,6 @@ export default {
       this.designacaoCadeira = this.$route.params.designacao
       let response = await axios.get(h + "cadeiras/" + this.idCadeira + "/pastas" + "?token=" + this.token )//
       this.pastas = response.data
-      console.log(response.data)
     } catch (e) {
       return e
     }

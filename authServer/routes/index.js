@@ -48,17 +48,12 @@ router.post('/login', function(req, res){
 
 router.post('/refreshToken',  function(req, res){
     var cookie = req.cookies['refresh-token']
-    console.log(req.cookies)
     Tokens.findUserTokenAtivo(cookie.idUtilizador)
     .then(async token =>{
-      console.log(cookie)
-      console.log(token)
       if(token == null)
       res.sendStatus(401);
       else{
-        console.log(req.body)
         var newToken = await generateToken(req.body)
-        console.log(newToken)
         res.jsonp({token: newToken})
       }
     })

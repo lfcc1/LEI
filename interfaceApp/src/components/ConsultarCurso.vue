@@ -95,9 +95,7 @@
                         </v-dialog>
                 <v-dialog
                     v-model="dialogConteudos"
-                    width="900"
-                    
-                    v-bind:style="{color:white}"
+                    width="900"                    
                 >
                 <v-card class="pa-3">
                     <v-card-title class="justify-center" style="background: #d6d6c2; color: #900000;" dark>
@@ -109,7 +107,6 @@
                 <v-dialog
                     v-model="dialogResponsaveis"
                     width="500"
-                    v-bind:style="{color:white}"
                 >
                         <v-card>
                         <v-card-title class="justify-center" style="background: #d6d6c2; color: #900000;" dark>
@@ -220,7 +217,6 @@ export default {
         this.estudantes = this.item.estudantes
         this.updateResponsaveis(this.item.responsaveis)
         this.updateEstudantes();
-        console.log(this.responsaveis)
         this.rota = 'anos/'
         this.atual = 'cursos/'
         this.back = false
@@ -247,9 +243,6 @@ export default {
         })
         },
         apresentaAno: function(id){
-            console.log(this.pai)
-            //this.$router.push({name : 'Ano', params:{id : item.id} })
-            //alert(JSON.stringify(item))
             this.id = id
             var token = localStorage.getItem("jwt")
             if(this.rota == "cursos/"){
@@ -286,7 +279,6 @@ export default {
                          this.anos = dados.data.cadeiras
                          this.estudantes = dados.data.estudantes
                          this.responsaveis = dados.data.responsaveis
-                         console.log(dados.data)
                          this.header_responsaveis = [
                             {text: "Identificador de Aluno", sortable: true, value: 'numeroAluno', class: 'subtitle-1'},
                             {text: "Nome", value: 'nome', class: 'subtitle-1'}
@@ -324,12 +316,10 @@ export default {
         backTo: function(){
             if(this.atual == "cadeiras") {
                 this.rota = "anos/"
-                alert(this.rota + this.pai)
                 this.apresentaAno(this.pai)
             }
             else{
                 this.rota = "cursos/"
-                alert(this.rota + this.pai)
                 this.apresentaAno(this.pai)
             }
             this.pubs = true

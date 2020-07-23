@@ -112,29 +112,53 @@
     </div>
                       <v-dialog
                     v-model="dialog"
-                    width="500"
-                    v-bind:style="{color:white}"
+                    width="700"
                 >
                         <v-card>
                         <v-list>
                     <v-list-item
                     v-for="file in publicacaoAtual.dados.ficheiros"
-                    :key="file.idFicheiro"
-                    @click="download(file.idFicheiro, file.nome)" 
+                    :key="file.idFicheiro" 
                     >
-                    <v-list-item-content style="width: 50%;"> 
-                        <v-list-item-title v-text="file.nome"></v-list-item-title>
-                    </v-list-item-content>
-
+                    <v-row
+                      justify="start"
+                    >
+                      <v-list-item-content> 
+                          <v-list-item-title v-text="file.nome"></v-list-item-title>
+                      </v-list-item-content>
+                      <v-btn
+                      v-if="isTypeReadable(file.type) == true"
+                      color="#900000"
+                      class="font-weight-light"
+                      @click="showFile(file)"
+                      > <v-icon v-if="isTypeReadable(file.type)">mdi-eye</v-icon> Ver</v-btn>
+                      <v-btn
+                      color="#900000"
+                      class="font-weight-light"
+                      @click="download(file.idFicheiro, file.nome)"
+                      > <v-icon>mdi-download</v-icon> Download</v-btn>
+                    </v-row>
                     </v-list-item>
                     
                     </v-list>
                     </v-card>
                     </v-dialog>
+                      <v-dialog
+                    v-model="showFileAtual"
+                    width="500"
+                >
+                        <v-card>
+                         <v-card-title class="justify-center" style="background: #d6d6c2; color: #900000;" dark>
+                            Ficheiro {{fileAtual.nome}}
+                         </v-card-title>
+                         <h4> Tamanho do ficheiro: {{fileAtual.size}} </h4>
+                         <h4> Publicado no dia {{fileAtual.data}} </h4>
+                    </v-card>
+                    </v-dialog>
+
                   <v-dialog
                     v-model="showLikes"
                     width="500"
-                    v-bind:style="{color:white}"
                   >
                     <v-card>
                     <v-card-title class="justify-center" style="background: #d6d6c2; color: #900000;" dark>
@@ -192,6 +216,8 @@ const ficheiroUrl = require("@/config/hosts").ficheiros
         showLikes: false,
         likesAtuais: [],
         corComentariosIcon: "#900001",
+        fileAtual: {},
+        showFileAtual: false,
         token: ""
     }},
     created: async function(){
@@ -211,6 +237,39 @@ const ficheiroUrl = require("@/config/hosts").ficheiros
     }
   },
     methods: {
+      isTypeReadable: function(type){
+        console.log(type)
+        var result = true
+        if(type == "application/octet-stream" || type == "application/zip" || type == "application/x-7z-compressed" 
+            || type == "application/x-tar" || type == "application/vnd.rar" || type == "application/java-archive" 
+            || type == "application/gzip" || type == "application/x-bzip" || type == "application/x-bzip2"
+            || type == "application/vnd.ms-publisher" || type == "application/x-zip-compressed") 
+          result = false
+
+        console.log(result)
+        return result
+
+      },
+      showFile: async function(file){
+        console.log(file)
+        var id = file.idFicheiro
+        var type = file.type;
+        var nome = file.nome
+         axios({
+            method: "get",
+            url: ficheiroUrl + "ficheiros/" + id + "/download?token=" + this.token,
+            responseType: 'arraybuffer'
+          })
+          .then(response => {
+            const fileB = new Blob(
+              [response.data], 
+              {type: type, name: nome});
+
+            const fileURL = URL.createObjectURL(fileB);
+            window.open(fileURL);
+          })
+          .catch(error => console.log(error))
+      },
       inserePublicacao: async function(){
         var publicacao = {}
         if(this.conteudo != ""){
@@ -263,7 +322,7 @@ const ficheiroUrl = require("@/config/hosts").ficheiros
         }
         formData.append("guardadoEm", id)
  
-        axios.post(ficheiroUrl + 'ficheiros?token=' + this.token,
+        axios.post(ficheiroUrl + 'ficheiros/?token=' + this.token,
           formData,
           {
             headers: {
@@ -293,7 +352,6 @@ const ficheiroUrl = require("@/config/hosts").ficheiros
       },
       updatePubs: function(){
         this.publicacoesAtuais.forEach(element=>{
-          console.log(element)
           element.showComments = false;
           element.srcImage = host+'images/'+element.dados.info.idUtilizador
           element.editar = false;

@@ -26,7 +26,6 @@ export default {
       let response = await axios.get(h + "/users")
       this.users = response.data
       this.usersReady = true
-      console.log(users)
     } catch (e) {
       return e
     }
