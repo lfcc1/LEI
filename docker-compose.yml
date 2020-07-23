@@ -74,7 +74,6 @@ services:
         ports:
           - "3049:3049"
         networks: 
-          - frontend
           - backend
         volumes:
             - ./apiLayer/public/images:/app/public/images
