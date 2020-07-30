@@ -10,3 +10,5 @@ In order to build the images you need to do first:
 # Notes to docker:
 
 ## Access docker container shell: docker exec -it <mycontainer> bash
+  
+### Nota: 19 valores
