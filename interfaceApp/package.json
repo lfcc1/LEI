@@ -30,7 +30,7 @@
     "vue-socket.io": "^3.0.9",
     "vue2-simplert": "^1.0.0",
     "vue2-simplert-plugin": "^0.5.3",
-    "vuetify": "^2.1.0",
+    "vuetify": "^2.6.10",
     "vuex": "^3.1.2"
   },
   "devDependencies": {
