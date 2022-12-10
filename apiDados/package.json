@@ -14,7 +14,7 @@
     "date-now": "^1.0.1",
     "dateformat": "^3.0.3",
     "debug": "~2.6.9",
-    "express": "~4.16.1",
+    "express": "~4.17.3",
     "http-errors": "~1.6.3",
     "md5": "^2.2.1",
     "mkdirp-promise": "^5.0.1",
